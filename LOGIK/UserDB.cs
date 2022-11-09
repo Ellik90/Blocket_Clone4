@@ -3,9 +3,22 @@ using MySqlConnector;
 namespace LOGIK;
 public class UserDB : IUserHandeler
 {
-    public void NicknameExists(string nickname)
+    public bool NicknameExists(string nickname)
     {
-        
+        int rows = 0;
+        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
+        {
+            string? query = "SELECT * FROM users WHERE nick_name = @name";
+            rows = connection.ExecuteScalar<int>(query, param: nickname);
+        }
+         if (rows > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     public void BecomeNewUser(User user)
     {
@@ -15,6 +28,7 @@ public class UserDB : IUserHandeler
             string query = "INSERT INTO users(nick_name,social_security_number,email,pass_word)VALUES(@name,@SocialSecurityNumber,@email,@passWord);";
             rows = connection.ExecuteScalar<int>(query, param: user);
         }
+        
     }
     public bool UserExists(User user)
     {
@@ -24,7 +38,7 @@ public class UserDB : IUserHandeler
             string? query = "SELECT * FROM users WHERE email = @email AND pass_word = @password ";
             rows = connection.ExecuteScalar<int>(query, param: user);
         }
-        if(rows > 0)
+        if (rows > 0)
         {
             return true;
         }
@@ -42,7 +56,7 @@ public class UserDB : IUserHandeler
             string? query = "DELETE FROM users WHERE id = @id";
             rows = connection.ExecuteScalar<int>(query, param: deleteUser);
         }
-        if(rows > 0)
+        if (rows > 0)
         {
             return true;
         }
