@@ -11,7 +11,7 @@ public class LogInService
         _userHandeler = userHandeler;
     }
     User user = new();
-    public User MakeNewLogIn()
+    public User MakeNewLogIn(int socialSecurityNumber)
     {
         bool isValid = false;
         do
