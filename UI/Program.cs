@@ -3,15 +3,15 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-
         //TESTAR ETT STEG I TAGET HÄR
         Identifier identifier = new();
         UserDB userHandeler = new();
         LogInService logInService = new(identifier,userHandeler);
         User user = new();
+        UserDB userdb = new();       
         //1. SKAPAKONTO
-        user = logInService.MakeNewLogIn();//<-här har user med sig email, lösenord|elina tar över user och gör resten
-         UserDB userdb = new();       
+        user.Email = ConsoleInput.GetString("Enter your mail-adress");
+        user = logInService.MakeNewLogIn(user);//<-här har user med sig email, lösenord|elina tar över user och gör resten
         string input = ConsoleInput.GetString("name: ");
         string num = ConsoleInput.GetString("social security number: ");
         string adress = ConsoleInput.GetString("adress: ");
@@ -19,8 +19,8 @@ internal class Program
         int password = user.Password; // och password
         user = new(input,num,adress,email,password);
         userdb.BecomeNewUser(user);
+        Console.WriteLine("yeey");
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
-
         user = logInService.UserLogIn(); //user skriver bara i sin mail och kod
         bool isLoggedIn = logInService.UserIsValid(user); //andvänder userhandler och ser om user finns
         if (isLoggedIn == true) //<- tex om user är inloggad då så kommer man till user page?
