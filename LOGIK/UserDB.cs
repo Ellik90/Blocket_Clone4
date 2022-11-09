@@ -3,6 +3,10 @@ using MySqlConnector;
 namespace LOGIK;
 public class UserDB : IUserHandeler
 {
+    public void NicknameExists(string nickname)
+    {
+        
+    }
     public void BecomeNewUser(User user)
     {
         int rows = 0;
