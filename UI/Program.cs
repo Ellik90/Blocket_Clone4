@@ -3,15 +3,7 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        UserDB userdb = new();       
-        string input = ConsoleInput.GetString("name: ");
-        string num = ConsoleInput.GetString("social security number: ");
-        string adress = ConsoleInput.GetString("adress: ");
-        string email = string.Empty; 
-        string password = string.Empty;
-        User user1 = new(input,num,adress,email,1234);
-        userdb.BecomeNewUser(user1);
-
+  
         //TESTAR ETT STEG I TAGET HÄR
         Identifier identifier = new();
         UserDB userHandeler = new();
