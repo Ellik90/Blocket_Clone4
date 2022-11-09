@@ -1,5 +1,4 @@
 ﻿using LOGIK;
-namespace UI;
 internal class Program
 {
     private static void Main(string[] args)
@@ -59,7 +58,7 @@ internal class Program
                     if (choice == 1)
                     {
                         //I SHOWLOGINPAGE SKRIVER ANVÄNDAREN MAIL OCH LÖSEN, DET HÄMTAS UT TILL EN USER
-                        user = ShowLogInPage(identifier);
+                       // user = ShowLogInPage(identifier);
                         //DENNA KOLLAR OM ANVÄNDAREN FINNS I DATABASEN, OM DEN FINNS RETURNERAR TRUE
                         if (identifier.CheckIfUserExists(userHandeler, user) == true)
                         {   //OM RETURNERAR TRUE SÅ SKICKAS TILL PAGE 2, USERS PAGE
@@ -73,7 +72,7 @@ internal class Program
                     }
                     else if (choice == 2)
                     {   //SKAPAR NYTT LOGIN OCH GER UT EN USER MED DEN MAILEN OCH LÖSEN
-                        user = ShowNewLogInPage(user, identifier);
+                       // user = ShowNewLogInPage(user, identifier);
                         //SÄTTER NAME TILL USERN
                         user.Name = ConsoleInput.GetString("Nickname: ");
                         //USERN SKICKAS IN I BECOMENEWUSER SOM SÄTTER IN USER I DATABASEN
@@ -87,7 +86,7 @@ internal class Program
                     break;
                 case 3:
                     //PAGE 3 VISAR ALLA MEDDELANDEN SOM ÄR TILL USERN FRÅN DATABASEN
-                    ShowAllMessages(user, messageHandeler);
+                  //  ShowAllMessages(user, messageHandeler);
                     //messagePage.ShowAllMessages(user);
                     int messageId = ConsoleInput.GetInt("Choose message to read");
                     //messagePage.ShowOneMessage(messageId);

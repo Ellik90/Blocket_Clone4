@@ -1,5 +1,3 @@
-using LOGIK;
-namespace UI;
 public class ConsoleInput
 {
     public static string GetString(string output) // i input kan man skriva tex ange ett namn
