@@ -209,7 +209,7 @@ internal class Program
         float price = 0f;
         string location = string.Empty;
         string municipality = string.Empty;
-        string postalNumber = string.Empty;
+        int postalNumber = 0;
          advertise nyannons = new advertise(rubric, description, price, location, municipality, postalNumber);
          return nyannons;
     }

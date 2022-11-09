@@ -16,7 +16,7 @@ public class LogInService
         bool isValid = false;
         do
         {
-            user.SocialSecurityNumber = ConsoleInput.GetString("Enter your social security number (12 digits, no symbols or letters): ");
+           // user.SocialSecurityNumber = ConsoleInput.GetString("Enter your social security number (12 digits, no symbols or letters): ");
             if (_identifier.ValidateSocialSecurityNumber(user.SocialSecurityNumber) == true)
             {
                 Console.WriteLine("Valid Social Security Number");
@@ -28,7 +28,7 @@ public class LogInService
             }
         } while (isValid == false);
 
-        user.Email = ConsoleInput.GetString("Enter your mail-adress");
+      //  user.Email = ConsoleInput.GetString("Enter your mail-adress");
         //här anropar jag metoden och skickar in mailadressen som kommer in, denna metoden returnerar antingen true eller false 
         if (_identifier.ValidateEmail(user.Email) == true)
         {
@@ -47,7 +47,7 @@ public class LogInService
     {
         User user = new();
         bool isValid = false;
-         user.Email = ConsoleInput.GetString("Enter your mail-adress");
+     //    user.Email = ConsoleInput.GetString("Enter your mail-adress");
         //här anropar jag metoden och skickar in mailadressen som kommer in, denna metoden returnerar antingen true eller false 
         if (_identifier.ValidateEmail(user.Email) == true)
         {
@@ -57,12 +57,13 @@ public class LogInService
         {
             Console.WriteLine("Unvalid email");
         }
-        user.Password = ConsoleInput.GetString("Enter your password");
+//        user.Password = ConsoleInput.GetString("Enter your password");
        return user;
     }
     public bool UserIsValid(User user)
     {
-        return _userHandeler.CheckIfUserExists(user);
+ //       return _userHandeler.CheckIfUserExists(user);
+ return true;
     }
 
 }
