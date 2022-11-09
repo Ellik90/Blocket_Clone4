@@ -1,9 +1,9 @@
 namespace LOGIK;
 public class Message
 {
-    public int ID{get;private set;}
-    public int IDFromUser{get;private set;}
-    public int IDToUser{get;private set;}
+    public int ID{get;set;}
+    public int IDFromUser{get;set;}
+    public int IDToUser{get; set;}
     public string Rubric{get;private set;}
     public string Content{get;private set;}
     public readonly DateTime DateSent;

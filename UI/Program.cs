@@ -3,15 +3,21 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-  
         //TESTAR ETT STEG I TAGET HÄR
         Identifier identifier = new();
         UserDB userHandeler = new();
         LogInService logInService = new(identifier,userHandeler);
         User user = new();
         //1. SKAPAKONTO
-       // user = logInService.MakeNewLogIn();//<-här har user med sig email, lösenord|elina tar över user och gör resten
-
+        user = logInService.MakeNewLogIn();//<-här har user med sig email, lösenord|elina tar över user och gör resten
+         UserDB userdb = new();       
+        string input = ConsoleInput.GetString("name: ");
+        string num = ConsoleInput.GetString("social security number: ");
+        string adress = ConsoleInput.GetString("adress: ");
+        string email = user.Email; //FÖR USER HAR EMAIL HÄR
+        int password = user.Password; // och password
+        user = new(input,num,adress,email,password);
+        userdb.BecomeNewUser(user);
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
 
         user = logInService.UserLogIn(); //user skriver bara i sin mail och kod

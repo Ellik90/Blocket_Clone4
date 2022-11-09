@@ -9,9 +9,17 @@ public class MessageService
     {
         _messageHandeler = messageHandeler;
     }
+
+    public void MakeMessage(Message message, User fromUser, int toUserId)
+    {
+        message.IDFromUser = fromUser.Id;
+        message.IDToUser = toUserId;
+        int newMessageId = _messageHandeler.CreateMessage(message);
+        _messageHandeler.SendMessage(newMessageId, message);
+    }
     public List<Message> ShowAllMessages(User user)
     {
-        return allMessages = _messageHandeler.SeeMyMessages(user);
+        return allMessages = _messageHandeler.GetAllMessages(user);
     }
     public void ShowOneMessage(int messageId)
     {
