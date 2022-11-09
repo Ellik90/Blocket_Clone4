@@ -177,7 +177,7 @@ internal class Program
     public static void ShowOneMessage(int messageId, IMessageHandeler messageHandeler) //A
     {
         // den hittar meddelande med specifikt id
-        Message message = messageHandeler.ShowOneMessage(messageId);
+        Message message = messageHandeler.GetMessage(messageId);
         Console.WriteLine(message.ToString());
     }
 

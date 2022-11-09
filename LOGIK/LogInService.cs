@@ -63,7 +63,7 @@ public class LogInService
     public bool UserIsValid(User user)
     {
  //       return _userHandeler.CheckIfUserExists(user);
- return true;
+      return true;
     }
 
 }
