@@ -201,11 +201,18 @@ internal class Program
             }
 
         }
-        break;
+        
         //Välja kategori, underkategori, beskrivning, köpa eller sälja, bilder för annons.
         //Felhantering = Kanske maxantal ord för varje. Ha det öppet så att man ser helheten
         //Felhantering = Om man skriver fel på förra så kan man gå till baka och ändra innan man skapar annons
+        string rubric = string.Empty;
+        string description = string.Empty;
+        float price = 0f;
+        string location = string.Empty;
+        string municipality = string.Empty;
+        string postalNumber = string.Empty;
          advertise nyannons = new advertise(rubric, description, price, location, municipality, postalNumber);
+         return nyannons;
     }
 
 }
