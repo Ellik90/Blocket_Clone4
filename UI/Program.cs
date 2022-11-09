@@ -12,16 +12,17 @@ internal class Program
         string password = string.Empty;
         User user1 = new(input,num,adress,email,1234);
         userdb.BecomeNewUser(user1);
-        
 
         //TESTAR ETT STEG I TAGET HÄR
-
-       // LogInService logInService = new();
-       //user user = new();
+        Identifier identifier = new();
+        UserDB userHandeler = new();
+        LogInService logInService = new(identifier,userHandeler);
+        User user = new();
         //1. SKAPAKONTO
        // user = logInService.MakeNewLogIn();//<-här har user med sig email, lösenord|elina tar över user och gör resten
 
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
+
         user = logInService.UserLogIn(); //user skriver bara i sin mail och kod
         bool isLoggedIn = logInService.UserIsValid(user); //andvänder userhandler och ser om user finns
         if (isLoggedIn == true) //<- tex om user är inloggad då så kommer man till user page?
@@ -173,72 +174,15 @@ internal class Program
         }
         return goToPage;
     }
-    public static void ShowAllMessages(User user, IMessageHandeler messageHandeler) //A
-    {
-        Console.WriteLine($"---MESSAGES---");
-
-        foreach (Message item in allMessages)
-        {
-            Console.WriteLine(item.ToString());
-        }
-    }
+ 
     public static void ShowOneMessage(int messageId, IMessageHandeler messageHandeler) //A
     {
         // den hittar meddelande med specifikt id
         Message message = messageHandeler.ShowOneMessage(messageId);
         Console.WriteLine(message.ToString());
     }
-    public static User ShowLogInPage(Identifier identifier) //A
-    {
-        User user = new();
-        user.Email = ConsoleInput.GetString("Enter your mail-adress");
-        //här anropar jag metoden och skickar in mailadressen som kommer in, denna metoden returnerar antingen true eller false 
-        if (identifier.ValidateEmail(user.Email) == true)
-        {
-            Console.WriteLine("Valid email");
-        }
-        else
-        {
-            Console.WriteLine("Unvalid email");
-        }
-        user.Password = ConsoleInput.GetInt("Enter your password: ");
-        return user;
-    }
 
-    public static User ShowNewLogInPage(User user, Identifier identifier) //A
-    {
-        bool isValid = false;
-        do
-        {
-            user.SocialSecurityNumber = ConsoleInput.GetString("Enter your social security number (12 digits, no symbols or letters): ");
-            if (identifier.ValidateSocialSecurityNumber(user.SocialSecurityNumber) == true)
-            {
-                Console.WriteLine("Valid Social Security Number");
-                isValid = true;
-            }
-            else
-            {
-                Console.WriteLine("Unvalid Social Security Number");
-            }
-        } while (isValid == false);
-
-        user.Email = ConsoleInput.GetString("Enter your mail-adress");
-        //här anropar jag metoden och skickar in mailadressen som kommer in, denna metoden returnerar antingen true eller false 
-        if (identifier.ValidateEmail(user.Email) == true)
-        {
-            Console.WriteLine("Valid email");
-            int code = identifier.SendEmailWithCode(user.Email);
-            user.Password = code;
-            Console.WriteLine("Code sent to your mail. Please check junkmail if mail not found.");
-        }
-        else
-        {
-            Console.WriteLine("Unvalid email");
-        }
-        return user;
-    }
-
-    public static Advertise AddAdvertise() // Metod för att skapa annons//D
+    public static advertise AddAdvertise() // Metod för att skapa annons//D
     {
         string answer = string.Empty;
         int option = 0;
@@ -261,7 +205,7 @@ internal class Program
         //Välja kategori, underkategori, beskrivning, köpa eller sälja, bilder för annons.
         //Felhantering = Kanske maxantal ord för varje. Ha det öppet så att man ser helheten
         //Felhantering = Om man skriver fel på förra så kan man gå till baka och ändra innan man skapar annons
-        advertise nyannons = new advertise(rubric, description, price, location, municipality, postalNumber);
+         advertise nyannons = new advertise(rubric, description, price, location, municipality, postalNumber);
     }
 
 }
