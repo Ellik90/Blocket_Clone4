@@ -12,12 +12,9 @@ internal class Program
         UserService userservise = new(identifier, userdb);
         //1. SKAPAKONTO
 
-        CreateUser(user, logInService, userdb);
-        user = CreateUser(user, logInService, userdb);
-        userservise.MakeUser(userdb, user);
-       
-        user.Name = 
-
+        // CreateUser(user, logInService, userdb);
+        // user = CreateUser(user, logInService, userdb);
+        // userservise.MakeUser(userdb, user);
 
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
         user = new();
@@ -37,17 +34,11 @@ internal class Program
         //3. VISA ALLA MEDDELANDEN (SAMT ETT)
         MessageDB messageDB = new();
         MessageService messageService = new(messageDB);
-        try
+
+        user.messages = messageService.ShowAllMessages(user);
+        foreach (Message item in user.messages)
         {
-            user.messages = messageService.ShowAllMessages(user);
-            foreach (Message item in user.messages)
-            {
-                Console.WriteLine(item.MessagesToString());
-            }
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e.Message);
+            Console.WriteLine(item.MessagesToString());
         }
 
 
