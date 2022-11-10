@@ -201,7 +201,7 @@ internal class Program
         }
         return goToPage;
     }
-    public static User CreateUser(User user, LogInService logInService, UserDB userdb)
+    public static User CreateUser(User user, LogInService logInService, UserDB userdb, Identifier identifier)
     {
         user.Email = ConsoleInput.GetString("Enter your mail-adress");
         if (userdb.UserEmailExists(user.Email) == true)
@@ -217,9 +217,13 @@ internal class Program
             Environment.Exit(0);
         }
         user.SocialSecurityNumber = ConsoleInput.GetString("social security number: ");
-        user.Adress = ConsoleInput.GetString("adress: ");
-
-        user = logInService.MakeNewLogIn(user);
+        if(identifier.ValidateSocialSecurityNumber(user.SocialSecurityNumber)== true)
+        {
+            Console.WriteLine("Social security exists");
+            Environment.Exit(0);
+        }
+        user.Adress = ConsoleInput.GetString("adress: "); //FÖR USER HAR EMAIL HÄR // och password
+        user = logInService.MakeNewLogIn(user);                       //user = new(input, num, adress, email, password);
         return user;
     }
 
