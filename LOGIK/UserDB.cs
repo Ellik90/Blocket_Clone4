@@ -32,7 +32,7 @@ public class UserDB : IUserHandeler
     }
     //hämta ut id från user
     //testa alla querys i databasen
-    public bool UserExists(User user) // denna heta UserLogInExists?  och göra ny metod emailexists?
+    public bool UserLogInExists(User user)
     {
         int rows = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
@@ -49,6 +49,24 @@ public class UserDB : IUserHandeler
             return false;
         }
 
+    }
+
+    public bool UserEmailExists(string Email)
+    {
+        int rows = 0;
+        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
+        {
+            string? query = "SELECT * FROM users WHERE email = @email ";
+            rows = connection.ExecuteScalar<int>(query, param: Email);
+        }
+        if (rows > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     public bool DeleteUser(User deleteUser)
     {
@@ -95,10 +113,10 @@ public class UserDB : IUserHandeler
             string? query = "UPDATE users SET nick_name = @nickName WHERE id = @id";
             rows = connection.ExecuteScalar<int>(query, param: new { @nick_name = nickname, @id = user });
         }
-    }// MKT FEL I DENNA QUERY
+    }
     public void UpDateDescription(User user, string updateDescription)
     {
-       int rows = 0;
+        int rows = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
             string? query = "UPDATE users SET description = @description WHERE id = @id";

@@ -15,24 +15,7 @@ public class UserService
 
     public void MakeUser(string email, string passWord)
     {
-        // Console.WriteLine("name: ");
-        // string? name = Console.ReadLine();
-        // Console.WriteLine("social security number: ");
-        // string? socialSecurityNumber = Console.ReadLine();
-        // Console.WriteLine("adress: ");
-        // string? adress = Console.ReadLine();
-        // bool check = true;
-        // User user1 = new(name, socialSecurityNumber, adress, email, 1234);
-        // _userHandele.BecomeNewUser(user1);  // hämta id till user så det även finns i programmet här
-        Console.WriteLine("name: ");
-        string? name = Console.ReadLine();
-        Console.WriteLine("social security number: ");
-        string? socialSecurityNumber = Console.ReadLine();
-        Console.WriteLine("adress: ");
-        string? adress = Console.ReadLine();
-        bool check = true;
-        User user1 = new(name, socialSecurityNumber, adress, email, 1234);
-        _userHandele.BecomeNewUser(user1);
+      
 
     }
 
