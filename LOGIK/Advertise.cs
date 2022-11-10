@@ -11,7 +11,7 @@ public class advertise
 
     public advertise(string rubric, string description, float price, string location, string municipality, int postalNumber)
     {
-        this.rubric = rubric;
+      this.rubric = rubric;
         this.description = description;
         this.price = price;
         this.location = location;

@@ -19,6 +19,7 @@ public class UserDB : IUserHandeler
         {
             return false;
         }
+  
     }
     public bool BecomeNewUser(User user)
     {
