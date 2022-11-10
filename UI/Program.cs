@@ -60,11 +60,20 @@ internal class Program
         }
         // VÄLJ MEDDELANDE ATT LÄSA
         int messageId = ConsoleInput.GetInt("Enter message to read: ");
-        message = messageService.ShowOneMessage(messageId);
-        Console.WriteLine(message.WholeMessageToString());
+        Message readMessage = messageService.ShowOneMessage(messageId);
+        Console.WriteLine(readMessage.WholeMessageToString());
 
-        //4. SKICKA MEDDELANDE
-
+        //4. SVARA PÅ MEDDELANDE
+        int chocie = ConsoleInput.GetInt("1 för att svara, 2 för att tillbaka");
+        if(chocie == 1)
+        {
+            string rubric = ConsoleInput.GetString("Rubric: ");
+            string content = ConsoleInput.GetString("Content: ");
+            int idToUser = readMessage.IDFromUser;
+            Message answerMessage = new(rubric, content, user.Id, idToUser);
+            messageService.MakeMessage(answerMessage);
+            Console.WriteLine("Skickat");
+        }
         //5. REDIGERA PROFIL
 
         //6. VISA MINA ANNONSER
