@@ -34,7 +34,7 @@ internal class Program
         //2. TESTA SÖKA ANNONS
 
         //3. VISA ALLA MEDDELANDEN (SAMT ETT)
-            MessageDB messageDB = new();
+         MessageDB messageDB = new();
         MessageService messageService = new(messageDB);
         try
         {
