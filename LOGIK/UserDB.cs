@@ -66,7 +66,7 @@ public class UserDB : IUserHandeler
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
             string? query = "SELECT * FROM users WHERE email = @email ";
-            rows = connection.ExecuteScalar<int>(query, param: Email);
+            rows = connection.ExecuteScalar<int>(query, new{ @email = Email});
         }
         if (rows > 0)
         {
