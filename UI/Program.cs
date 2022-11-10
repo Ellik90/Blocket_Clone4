@@ -17,11 +17,6 @@ internal class Program
 
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
         user.Email = ConsoleInput.GetString("Enter your Email");
-        if (userdb.UserEmailExists(user.Email) == true)
-        {
-            Console.WriteLine("Email allready exists");
-            Environment.Exit(0);
-        }
         user.Password = ConsoleInput.GetInt("Enter your Password");
         user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
         bool isLoggedIn = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
@@ -202,6 +197,11 @@ internal class Program
     public static User CreateUser(User user, LogInService logInService, UserDB userdb)
     {
         user.Email = ConsoleInput.GetString("Enter your mail-adress");
+         if (userdb.UserEmailExists(user.Email) == true)
+        {
+            Console.WriteLine("Email allready exists");
+            Environment.Exit(0);
+        }
         user = logInService.MakeNewLogIn(user);//<-här har user med sig email, lösenord|elina tar över user och gör resten
         user.Name = ConsoleInput.GetString("name: ");
         user.SocialSecurityNumber = ConsoleInput.GetString("social security number: ");
