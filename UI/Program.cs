@@ -8,9 +8,10 @@ internal class Program
         Identifier identifier = new();
         UserDB userHandeler = new();
         LogInService logInService = new(identifier, userHandeler);
-        User user = new();
+      User user = new();
         UserDB userdb = new();
         //1. SKAPAKONTO
+          
         user.Email = ConsoleInput.GetString("Enter your mail-adress");
          user = logInService.MakeNewLogIn(user);//<-här har user med sig email, lösenord|elina tar över user och gör resten
         user.Name = ConsoleInput.GetString("name: ");
