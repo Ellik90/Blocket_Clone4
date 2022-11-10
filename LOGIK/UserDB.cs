@@ -90,13 +90,13 @@ public class UserDB : IUserHandeler
         }
     }
 
-    public bool UpdateEmail(User user, string userEmail)
+    public bool UpdateEmail( int id, string userEmail)
     {
         int rows = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
             string? query = "UPDATE users SET email = @userEmail WHERE id = @id";
-            rows = connection.ExecuteScalar<int>(query, param: new { @email = userEmail, @id = user });
+            rows = connection.ExecuteScalar<int>(query, param: new { @userEmail = userEmail, @id = id  });
         }
         if (rows > 0)
         {
