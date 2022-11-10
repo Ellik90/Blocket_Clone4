@@ -12,13 +12,13 @@ internal class Program
         UserService userservise = new(identifier, userdb);
         //1. SKAPAKONTO
 
-        CreateUser(user, logInService, userdb);
-        user = CreateUser(user, logInService, userdb);
-        userservise.MakeUser(userdb, user);
+        // CreateUser(user, logInService, userdb);
+        // user = CreateUser(user, logInService, userdb);
+        // userservise.MakeUser(userdb, user);
 
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
         user = new();
-        user.Email = "angelinaholmqvist@live.se";//ConsoleInput.GetString("Enter your Email");
+        user.Email = "elinak90@icloud.com";//ConsoleInput.GetString("Enter your Email");
         user.Password = 1010;//ConsoleInput.GetInt("Enter your Password");
         user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
         user.Id = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
@@ -31,9 +31,15 @@ internal class Program
 
         //2. TESTA SÖKA ANNONS
 
-        //3. VISA ALLA MEDDELANDEN (SAMT ETT)
-        MessageDB messageDB = new();
+        //3.
+        // SKRIV MEDDELANDE
+           MessageDB messageDB = new();
         MessageService messageService = new(messageDB);
+        // Message message = new("KATTEN", "Jag vill gärna köpa din katt!");
+        // messageService.MakeMessage(message, user, 11);
+        
+        // VISA ALLA MEDDELANDEN (SAMT ETT)
+     
 
         user.messages = messageService.ShowAllMessages(user);
         foreach (Message item in user.messages)
