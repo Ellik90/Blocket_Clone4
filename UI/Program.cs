@@ -12,9 +12,9 @@ internal class Program
         UserService userservise = new(identifier, userdb);
         //1. SKAPAKONTO
 
-        // CreateUser(user, logInService, userdb);
-        // user = CreateUser(user, logInService, userdb);
-        // userservise.MakeUser(userdb, user);
+
+        user = CreateUser(user, logInService, userdb, identifier);
+        userservise.MakeUser(userdb, user);
 
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
         user = new();
@@ -40,7 +40,7 @@ internal class Program
 
         // VISA ALLA MEDDELANDEN (SAMT ETT)
         user.messages = messageService.ShowAllMessages(user);
-        if(user.messages.Count() == 0)
+        if (user.messages.Count() == 0)
         {
             Console.WriteLine("No Messages");
         }
@@ -191,7 +191,7 @@ internal class Program
         }
         return goToPage;
     }
-    public static User CreateUser(User user, LogInService logInService, UserDB userdb)
+    public static User CreateUser(User user, LogInService logInService, UserDB userdb, Identifier identifier)
     {
         user.Email = ConsoleInput.GetString("Enter your mail-adress");
         if (userdb.UserEmailExists(user.Email) == true)
@@ -199,7 +199,7 @@ internal class Program
             Console.WriteLine("Email allready exists");
             Environment.Exit(0);
         }
-        user = logInService.MakeNewLogIn(user);//<-här har user med sig email, lösenord|elina tar över user och gör resten
+        //<-här har user med sig email, lösenord|elina tar över user och gör resten
         user.Name = ConsoleInput.GetString("name: ");
         if (userdb.NicknameExists(user.Name) == true)
         {
@@ -207,9 +207,13 @@ internal class Program
             Environment.Exit(0);
         }
         user.SocialSecurityNumber = ConsoleInput.GetString("social security number: ");
-        user.Adress = ConsoleInput.GetString("adress: ");
-        user.Email = user.Email; //FÖR USER HAR EMAIL HÄR // och password
-                                 //user = new(input, num, adress, email, password);
+        if(identifier.ValidateSocialSecurityNumber(user.SocialSecurityNumber)== true)
+        {
+            Console.WriteLine("Social security exists");
+            Environment.Exit(0);
+        }
+        user.Adress = ConsoleInput.GetString("adress: "); //FÖR USER HAR EMAIL HÄR // och password
+        user = logInService.MakeNewLogIn(user);                       //user = new(input, num, adress, email, password);
         return user;
     }
 
