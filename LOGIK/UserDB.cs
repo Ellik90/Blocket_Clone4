@@ -3,17 +3,46 @@ using MySqlConnector;
 namespace LOGIK;
 public class UserDB : IUserHandeler
 {
-    public void BecomeNewUser(User user)
+    public bool NicknameExists(string nickname)
     {
         int rows = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
-            string query = "INSERT INTO users(nick_name,social_security_number,email,pass_word)VALUES(@name,@SocialSecurityNumber,@email,@passWord);";
-            rows = connection.ExecuteScalar<int>(query, param: user);
+            string? query = "SELECT * FROM users WHERE nick_name = @name";
+            rows = connection.ExecuteScalar<int>(query, param: nickname);
+        }
+        if (rows > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
   
     }
-    public bool UserExists(User user)
+    public bool BecomeNewUser(User user)
+    {
+        int rows = 0;
+        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
+        {
+            string query = "INSERT INTO users(nick_name,social_security_number,email, adress,pass_word)VALUES(@name,@SocialSecurityNumber,@email,@adress,@passWord);";
+            rows = connection.ExecuteScalar<int>(query, param: user);
+        }
+         if (rows > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+        
+
+    }
+    //hämta ut id från user
+    //testa alla querys i databasen
+    public bool UserLogInExists(User user)
     {
         int rows = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
@@ -21,7 +50,7 @@ public class UserDB : IUserHandeler
             string? query = "SELECT * FROM users WHERE email = @email AND pass_word = @password ";
             rows = connection.ExecuteScalar<int>(query, param: user);
         }
-        if(rows > 0)
+        if (rows > 0)
         {
             return true;
         }
@@ -30,6 +59,24 @@ public class UserDB : IUserHandeler
             return false;
         }
 
+    }
+
+    public bool UserEmailExists(string Email)
+    {
+        int rows = 0;
+        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
+        {
+            string? query = "SELECT * FROM users WHERE email = @email ";
+            rows = connection.ExecuteScalar<int>(query, param: Email);
+        }
+        if (rows > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     public bool DeleteUser(User deleteUser)
     {
@@ -39,7 +86,7 @@ public class UserDB : IUserHandeler
             string? query = "DELETE FROM users WHERE id = @id";
             rows = connection.ExecuteScalar<int>(query, param: deleteUser);
         }
-        if(rows > 0)
+        if (rows > 0)
         {
             return true;
         }
@@ -49,21 +96,42 @@ public class UserDB : IUserHandeler
         }
     }
 
-    public void UpdateEmail(User user, string userEmail)
+    public bool UpdateEmail(User user, string userEmail)
     {
-        Console.WriteLine("email updated");
-        throw new NotImplementedException();
+        int rows = 0;
+        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
+        {
+            string? query = "UPDATE users SET email = @userEmail WHERE id = @id";
+            rows = connection.ExecuteScalar<int>(query, param: new { @email = userEmail, @id = user });
+        }
+        if (rows > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
     }
 
     public void UpdateNickName(User user, string nickname)
     {
-        Console.WriteLine("Nickname updatet");
-        throw new NotImplementedException();
+        int rows = 0;
+        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
+        {
+            string? query = "UPDATE users SET nick_name = @nickName WHERE id = @id";
+            rows = connection.ExecuteScalar<int>(query, param: new { @nick_name = nickname, @id = user });
+        }
     }
     public void UpDateDescription(User user, string updateDescription)
     {
-        Console.WriteLine("Descript update");
-        throw new NotImplementedException();
+        int rows = 0;
+        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
+        {
+            string? query = "UPDATE users SET description = @description WHERE id = @id";
+            rows = connection.ExecuteScalar<int>(query, param: new { @description = updateDescription, @id = user });
+        }
     }
 
 }

@@ -4,7 +4,7 @@ public class UserService
     //här i är funktioner mellan anv och db, tex makenewuser(string name, string email) eller makenewuser(User user)samt kontrollerare osv;
 
     IUserHandeler _userHandele;
-    
+
     IIdentifier _identifier;
 
     UserService(IIdentifier identifier, IUserHandeler userHandeler)
@@ -13,16 +13,11 @@ public class UserService
         _userHandele = userHandeler;
     }
 
-    public void MakeUser( )
+    public void MakeUser(IUserHandeler iuserhandeler, User user)
     {
-        string input = ConsoleInput.GetString("name: ");
-        string num = ConsoleInput.GetString("social security number: ");
-        string adress = ConsoleInput.GetString("adress: ");
-        string email = string.Empty; 
-        string password = string.Empty;
-        User user1 = new(input,num,adress,email,1234);
-        _userHandele.BecomeNewUser(user1);
-        
+        iuserhandeler.BecomeNewUser(user);
+        Console.WriteLine("yeey");
+
     }
 
     // // i metoden bli user så har det redan kommit in personnr, mail, lösen

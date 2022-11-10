@@ -3,34 +3,58 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        UserDB userdb = new();       
-        string input = ConsoleInput.GetString("name: ");
-        string num = ConsoleInput.GetString("social security number: ");
-        string adress = ConsoleInput.GetString("adress: ");
-        string email = string.Empty; 
-        string password = string.Empty;
-        User user1 = new(input,num,adress,email,1234);
-        userdb.BecomeNewUser(user1);
 
         //TESTAR ETT STEG I TAGET HÄR
         Identifier identifier = new();
         UserDB userHandeler = new();
-        LogInService logInService = new(identifier,userHandeler);
+        LogInService logInService = new(identifier, userHandeler);
         User user = new();
+        UserDB userdb = new();
         //1. SKAPAKONTO
-       // user = logInService.MakeNewLogIn();//<-här har user med sig email, lösenord|elina tar över user och gör resten
 
+        CreateUser(user, logInService, userdb);
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
-
-        user = logInService.UserLogIn(); //user skriver bara i sin mail och kod
-        bool isLoggedIn = logInService.UserIsValid(user); //andvänder userhandler och ser om user finns
+        user.Email = ConsoleInput.GetString("Enter your Email");
+        user.Password = ConsoleInput.GetInt("Enter your Password");
+        user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
+        bool isLoggedIn = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
         if (isLoggedIn == true) //<- tex om user är inloggad då så kommer man till user page?
+<<<<<<< HEAD
+
         {
+=======
+        {
+            Console.WriteLine("Du är inloggad!");
+<<<<<<< HEAD
+>>>>>>> b39c978a83f1254a19a8b5b46d058ae1e6520bc8
+=======
+        }
+        else
+        {
+            Console.WriteLine("Fel lösen eller mail");
+            Environment.Exit(0);
+        }
+>>>>>>> d2cdfdd3a1f8712824ad115b9b0fde7faa9da863
             //1. TESTA GÖRA ANNONS
 
             //2. TESTA SÖKA ANNONS
 
             //3. VISA ALLA MEDDELANDEN (SAMT ETT)
+            MessageDB messageDB = new();
+            MessageService messageService = new(messageDB);
+            try
+            {
+                List<Message> usersMessages = messageService.ShowAllMessages(user);
+                foreach (Message item in usersMessages)
+                {
+                    Console.WriteLine(item.MessagesToString());
+                }
+            }
+            catch(NullReferenceException)
+            {
+                Console.WriteLine("No messages.");
+            }
+
 
             //4. SKICKA MEDDELANDE
 
@@ -42,9 +66,10 @@ internal class Program
 
             //7.
 
-        }
+        
 
     }
+
     // HÄR ÄR SJÄLVA BLOCKET HEMSIDAN, DEN TAR IN INTERFACES (OCH KLASSER SOM IMPLEMENTERAR DESSA)
     public static void ShowBlocketPages(int currentPage, IMessageHandeler messageHandeler, IUserHandeler userHandeler, Identifier identifier)
     {
@@ -58,7 +83,7 @@ internal class Program
                     if (choice == 1)
                     {
                         //I SHOWLOGINPAGE SKRIVER ANVÄNDAREN MAIL OCH LÖSEN, DET HÄMTAS UT TILL EN USER
-                       // user = ShowLogInPage(identifier);
+                        // user = ShowLogInPage(identifier);
                         //DENNA KOLLAR OM ANVÄNDAREN FINNS I DATABASEN, OM DEN FINNS RETURNERAR TRUE
                         if (identifier.CheckIfUserExists(userHandeler, user) == true)
                         {   //OM RETURNERAR TRUE SÅ SKICKAS TILL PAGE 2, USERS PAGE
@@ -72,7 +97,7 @@ internal class Program
                     }
                     else if (choice == 2)
                     {   //SKAPAR NYTT LOGIN OCH GER UT EN USER MED DEN MAILEN OCH LÖSEN
-                       // user = ShowNewLogInPage(user, identifier);
+                        // user = ShowNewLogInPage(user, identifier);
                         //SÄTTER NAME TILL USERN
                         user.Name = ConsoleInput.GetString("Nickname: ");
                         //USERN SKICKAS IN I BECOMENEWUSER SOM SÄTTER IN USER I DATABASEN
@@ -86,7 +111,7 @@ internal class Program
                     break;
                 case 3:
                     //PAGE 3 VISAR ALLA MEDDELANDEN SOM ÄR TILL USERN FRÅN DATABASEN
-                  //  ShowAllMessages(user, messageHandeler);
+                    //  ShowAllMessages(user, messageHandeler);
                     //messagePage.ShowAllMessages(user);
                     int messageId = ConsoleInput.GetInt("Choose message to read");
                     //messagePage.ShowOneMessage(messageId);
@@ -173,11 +198,22 @@ internal class Program
         }
         return goToPage;
     }
- 
+    public static User CreateUser(User user, LogInService logInService, UserDB userdb)
+    {
+        user.Email = ConsoleInput.GetString("Enter your mail-adress");
+        user = logInService.MakeNewLogIn(user);//<-här har user med sig email, lösenord|elina tar över user och gör resten
+        user.Name = ConsoleInput.GetString("name: ");
+        user.SocialSecurityNumber = ConsoleInput.GetString("social security number: ");
+        user.Adress = ConsoleInput.GetString("adress: ");
+        user.Email = user.Email; //FÖR USER HAR EMAIL HÄR // och password
+                                 //user = new(input, num, adress, email, password);
+        return user;
+    }
+
     public static void ShowOneMessage(int messageId, IMessageHandeler messageHandeler) //A
     {
         // den hittar meddelande med specifikt id
-        Message message = messageHandeler.ShowOneMessage(messageId);
+        Message message = messageHandeler.GetMessage(messageId);
         Console.WriteLine(message.ToString());
     }
 
@@ -200,7 +236,7 @@ internal class Program
             }
 
         }
-        
+
         //Välja kategori, underkategori, beskrivning, köpa eller sälja, bilder för annons.
         //Felhantering = Kanske maxantal ord för varje. Ha det öppet så att man ser helheten
         //Felhantering = Om man skriver fel på förra så kan man gå till baka och ändra innan man skapar annons
@@ -209,9 +245,9 @@ internal class Program
         float price = 0f;
         string location = string.Empty;
         string municipality = string.Empty;
-        string postalNumber = string.Empty;
-         advertise nyannons = new advertise(rubric, description, price, location, municipality, postalNumber);
-         return nyannons;
+        int postalNumber = 0;
+        advertise nyannons = new advertise(rubric, description, price, location, municipality, postalNumber);
+        return nyannons;
     }
 
 }

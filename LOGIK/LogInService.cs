@@ -11,29 +11,13 @@ public class LogInService
         _userHandeler = userHandeler;
     }
     User user = new();
-    public User MakeNewLogIn()
+    public User MakeNewLogIn(User user)
     {
-        bool isValid = false;
-        do
-        {
-            user.SocialSecurityNumber = ConsoleInput.GetString("Enter your social security number (12 digits, no symbols or letters): ");
-            if (_identifier.ValidateSocialSecurityNumber(user.SocialSecurityNumber) == true)
-            {
-                Console.WriteLine("Valid Social Security Number");
-                isValid = true;
-            }
-            else
-            {
-                Console.WriteLine("Unvalid Social Security Number");
-            }
-        } while (isValid == false);
-
-        user.Email = ConsoleInput.GetString("Enter your mail-adress");
         //här anropar jag metoden och skickar in mailadressen som kommer in, denna metoden returnerar antingen true eller false 
-        if (_identifier.ValidateEmail(user.Email) == true)
+        if (_identifier.ValidateEmail(user.Email) == true )// && _userhandeler.UserEmailExists(user.Email) == true)
         {
             Console.WriteLine("Valid email");
-            _identifier.SendEmailWithCode(user.Email);
+            user.Password = _identifier.SendEmailWithCode(user.Email);
             Console.WriteLine("Code sent to your mail. Please check junkmail if mail not found.");
         }
         else
@@ -43,11 +27,10 @@ public class LogInService
         return user;
     }
 
-    public User UserLogIn()
+    public User UserLogIn(User user)
     {
-        User user = new();
         bool isValid = false;
-         user.Email = ConsoleInput.GetString("Enter your mail-adress");
+
         //här anropar jag metoden och skickar in mailadressen som kommer in, denna metoden returnerar antingen true eller false 
         if (_identifier.ValidateEmail(user.Email) == true)
         {
@@ -57,12 +40,12 @@ public class LogInService
         {
             Console.WriteLine("Unvalid email");
         }
-        user.Password = ConsoleInput.GetString("Enter your password");
+        
        return user;
     }
-    public bool UserIsValid(User user)
+    public bool UserLogInIsValid(User user)
     {
-        return _userHandeler.CheckIfUserExists(user);
+        return _userHandeler.UserLogInExists(user);
     }
 
 }
