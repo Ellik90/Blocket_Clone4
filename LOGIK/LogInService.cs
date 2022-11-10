@@ -14,7 +14,7 @@ public class LogInService
     public User MakeNewLogIn(User user)
     {
         //här anropar jag metoden och skickar in mailadressen som kommer in, denna metoden returnerar antingen true eller false 
-        if (_identifier.ValidateEmail(user.Email) == true )// && _userhandeler.UserEmailExists(user.Email) == true)
+        if (_identifier.ValidateEmail(user.Email) == true && _userHandeler.UserEmailExists(user.Email) == false)
         {
             Console.WriteLine("Valid email");
             user.Password = _identifier.SendEmailWithCode(user.Email);
