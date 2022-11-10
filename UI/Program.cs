@@ -37,17 +37,11 @@ internal class Program
         //3. VISA ALLA MEDDELANDEN (SAMT ETT)
         MessageDB messageDB = new();
         MessageService messageService = new(messageDB);
-        try
+
+        user.messages = messageService.ShowAllMessages(user);
+        foreach (Message item in user.messages)
         {
-            user.messages = messageService.ShowAllMessages(user);
-            foreach (Message item in user.messages)
-            {
-                Console.WriteLine(item.MessagesToString());
-            }
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e.Message);
+            Console.WriteLine(item.MessagesToString());
         }
 
 
