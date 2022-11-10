@@ -35,7 +35,7 @@ public class Message
 
     public string MessagesToString()
     {
-        return $"Message id [{ID}]: {Rubric} From {}";
+        return $"Message id [{ID}]: {Rubric} From {idfromuser}";
     }
     public string WholeMessageToString()
     {
