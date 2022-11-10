@@ -3,29 +3,31 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        
+
         //TESTAR ETT STEG I TAGET HÄR
         Identifier identifier = new();
         UserDB userHandeler = new();
         LogInService logInService = new(identifier, userHandeler);
-      User user = new();
+        User user = new();
         UserDB userdb = new();
         //1. SKAPAKONTO
-          
-        user.Email = ConsoleInput.GetString("Enter your mail-adress");
-         user = logInService.MakeNewLogIn(user);//<-här har user med sig email, lösenord|elina tar över user och gör resten
-        user.Name = ConsoleInput.GetString("name: ");
-        user.SocialSecurityNumber = ConsoleInput.GetString("social security number: ");
-        user.Adress = ConsoleInput.GetString("adress: ");
-        user.Email = user.Email; //FÖR USER HAR EMAIL HÄR // och password
-        //user = new(input, num, adress, email, password);
-        userdb.BecomeNewUser(user);
-        Console.WriteLine("yeey");
+
+        // user.Email = ConsoleInput.GetString("Enter your mail-adress");
+        // user = logInService.MakeNewLogIn(user);//<-här har user med sig email, lösenord|elina tar över user och gör resten
+        // user.Name = ConsoleInput.GetString("name: ");
+        // user.SocialSecurityNumber = ConsoleInput.GetString("social security number: ");
+        // user.Adress = ConsoleInput.GetString("adress: ");
+        // user.Email = user.Email; //FÖR USER HAR EMAIL HÄR // och password
+        // //user = new(input, num, adress, email, password);
+        // userdb.BecomeNewUser(user);
+        // Console.WriteLine("yeey");
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
-        user = logInService.UserLogIn(); //user skriver bara i sin mail och kod
-        bool isLoggedIn = logInService.UserIsValid(user); //andvänder userhandler och ser om user finns
+        user.Email = ConsoleInput.GetString("Enter your Email");
+        user.Password = ConsoleInput.GetInt("Enter your Password");
+        user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
+        bool isLoggedIn = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
         if (isLoggedIn == true) //<- tex om user är inloggad då så kommer man till user page?
-         {
+        {
             Console.WriteLine("Du är inloggad!");
             //1. TESTA GÖRA ANNONS
 
@@ -34,6 +36,18 @@ internal class Program
             //3. VISA ALLA MEDDELANDEN (SAMT ETT)
             MessageDB messageDB = new();
             MessageService messageService = new(messageDB);
+            try
+            {
+                List<Message> usersMessages = messageService.ShowAllMessages(user);
+                foreach (Message item in usersMessages)
+                {
+                    Console.WriteLine(item.MessagesToString());
+                }
+            }
+            catch(NullReferenceException)
+            {
+                Console.WriteLine("No messages.");
+            }
 
 
             //4. SKICKA MEDDELANDE
