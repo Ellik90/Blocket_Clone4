@@ -15,8 +15,8 @@ internal class Program
         CreateUser(user, logInService, userdb);
         user = CreateUser(user, logInService, userdb);
         userservise.MakeUser(userdb, user);
-       
-        user.Name =
+
+
 
 
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
@@ -196,6 +196,11 @@ internal class Program
         }
         user = logInService.MakeNewLogIn(user);//<-här har user med sig email, lösenord|elina tar över user och gör resten
         user.Name = ConsoleInput.GetString("name: ");
+        if (userdb.NicknameExists(user.Name) == true)
+        {
+            Console.WriteLine("Nickname allready exists");
+            Environment.Exit(0);
+        }
         user.SocialSecurityNumber = ConsoleInput.GetString("social security number: ");
         user.Adress = ConsoleInput.GetString("adress: ");
         user.Email = user.Email; //FÖR USER HAR EMAIL HÄR // och password
