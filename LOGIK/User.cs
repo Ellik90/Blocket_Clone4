@@ -1,7 +1,7 @@
 namespace LOGIK;
 public class User
 {
-    List<Message> messages = new();
+    public List<Message> messages = new();
 
     public int Id { get; set; }
     public int Password { get; set; }

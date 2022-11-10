@@ -11,7 +11,7 @@ public class MessageDB : IMessageHandeler
             string query = "SELECT message_id, message.rubric, users.nick_name FROM message INNER JOIN user_message ON user_message.message_id = message.id INNER JOIN users ON user_message.from_user_id = users.id WHERE user_message.to_user_id = @Id;";
             messagesOverlooks = connection.Query<Message>(query, new{@Id = user.Id}).ToList();
         }
-        return new List<Message>();
+        return messagesOverlooks;
     }
     public IEnumerable<Message> SeeMyMessagesAsIenumerable(User user)
     {

@@ -8,51 +8,42 @@ internal class Program
         Identifier identifier = new();
         User user = new();
         UserDB userdb = new();
-        LogInService logInService = new(identifier, userdb);       
+        LogInService logInService = new(identifier, userdb);
         UserService userservise = new(identifier, userdb);
         //1. SKAPAKONTO
 
-<<<<<<< HEAD
-        CreateUser(user, logInService, userdb);
-=======
-        user = CreateUser(user, logInService, userdb);
-        userservise.MakeUser(userdb, user);
+        // user = CreateUser(user, logInService, userdb);
+        // userservise.MakeUser(userdb, user);
 
->>>>>>> c66d9cf9eeac6b27fba4dac6d38ab3a6a10530b7
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
+        user = new();
         user.Email = ConsoleInput.GetString("Enter your Email");
         user.Password = ConsoleInput.GetInt("Enter your Password");
         user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
-        bool isLoggedIn = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
-        if (isLoggedIn == true) //<- tex om user är inloggad då så kommer man till user page?
-        {
-            Console.WriteLine("Du är inloggad!");
-
-        }
-        else
+        user.Id = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
+        if (user.Id == 0) //<- tex om user är inloggad då så kommer man till user page?
         {
             Console.WriteLine("Fel lösen eller mail");
             Environment.Exit(0);
         }
-
-            //1. TESTA GÖRA ANNONS
+        //1. TESTA GÖRA ANNONS
 
         //2. TESTA SÖKA ANNONS
 
         //3. VISA ALLA MEDDELANDEN (SAMT ETT)
-         MessageDB messageDB = new();
+        MessageDB messageDB = new();
         MessageService messageService = new(messageDB);
         try
         {
-            List<Message> usersMessages = messageService.ShowAllMessages(user);
-            foreach (Message item in usersMessages)
+            user.messages = messageService.ShowAllMessages(user);
+            foreach (Message item in user.messages)
             {
                 Console.WriteLine(item.MessagesToString());
             }
         }
-        catch (NullReferenceException)
+        catch (Exception e)
         {
-            Console.WriteLine("No messages.");
+            Console.WriteLine(e.Message);
         }
 
 
@@ -201,7 +192,7 @@ internal class Program
     public static User CreateUser(User user, LogInService logInService, UserDB userdb)
     {
         user.Email = ConsoleInput.GetString("Enter your mail-adress");
-         if (userdb.UserEmailExists(user.Email) == true)
+        if (userdb.UserEmailExists(user.Email) == true)
         {
             Console.WriteLine("Email allready exists");
             Environment.Exit(0);

@@ -1,26 +1,28 @@
 namespace LOGIK;
 public class Message
 {
-    public int ID{get;set;}
-    public int IDFromUser{get;set;}
-    public int IDToUser{get; set;}
-    public string Rubric{get;private set;}
-    public string Content{get;private set;}
+    public int ID { get; set; }
+    public int IDFromUser { get; set; }
+    public string idfromuser{get;set;}
+    public int IDToUser { get; set; }
+    public string Rubric { get; private set; }
+    public string Content { get; private set; }
     public readonly DateTime DateSent;
     // public annons annons;
-    public bool IsOld{get; private set;}   // om det gått 10 dagar så hamnar den i i gamla listan
+    public User user = new();
+    public bool IsOld { get; private set; }   // om det gått 10 dagar så hamnar den i i gamla listan
 
     public Message(string rubric, string content)
     {
-        Rubric =  rubric; // annonsrubriken?
+        Rubric = rubric; // annonsrubriken?
         Content = content;
         DateSent = DateTime.Now;
     }
-    public Message(){}
+    public Message() { }
 
     public bool IsMessageOld()
     {
-        if(DateTime.Now > DateSent.AddDays(14))
+        if (DateTime.Now > DateSent.AddDays(14))
         {
             IsOld = true;
         }
@@ -33,7 +35,7 @@ public class Message
 
     public string MessagesToString()
     {
-        return $"{ID}: {Rubric}";
+        return $"Message id [{ID}]: {Rubric} From {}";
     }
     public string WholeMessageToString()
     {
