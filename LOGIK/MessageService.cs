@@ -19,11 +19,11 @@ public class MessageService
         List<Message> messages = _messageHandeler.GetAllMessagesOverlook(user);
         return messages;
     }
-    public void ShowOneMessage(int messageId)
+    public Message ShowOneMessage(int messageId)
     {
         // den hittar meddelande med specifikt id
         message = _messageHandeler.GetMessage(messageId);
-        Console.WriteLine(message.ToString());
+        return message;
     }
 
 }

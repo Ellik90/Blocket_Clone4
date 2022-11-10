@@ -32,23 +32,22 @@ internal class Program
 
         //2. TESTA SÖKA ANNONS
 
+        //---Annonsen---
         //Katt
         //köp mig!
         //500 kr
         // - visningsnamn
         // annonsid 
         
+         //3. SKRIV MEDDELANDE TILL ANNONSEN
        // int advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
-        int advertiseUserId = 11 ;//= userdb.getuserid
+        int advertiseUserId = 11 ;//= userdb.getuserid(advertiseId);
         Message message = new("KATTEN", "Jag vill gärna köpa din katt!", user.Id, advertiseUserId);
         messageService.MakeMessage(message);
         Console.WriteLine("Message sent!");
 
-        //3.
-        // SKRIV MEDDELANDE
 
-
-        // VISA ALLA MEDDELANDEN (SAMT ETT)
+        // VISA ALLA MEDDELANDEN 
         user.messages = messageService.ShowAllMessages(user);
         if (user.messages.Count() == 0)
         {
@@ -58,6 +57,10 @@ internal class Program
         {
             Console.WriteLine(item.MessagesToString());
         }
+        // VÄLJ MEDDELANDE ATT LÄSA
+        int messageId = ConsoleInput.GetInt("Enter message to read: ");
+        message = messageService.ShowOneMessage(messageId);
+        Console.WriteLine(message.ToString());
 
         //4. SKICKA MEDDELANDE
 
