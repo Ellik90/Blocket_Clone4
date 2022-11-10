@@ -3,28 +3,30 @@ internal class Program
 {
     private static void Main(string[] args)
     {
+        
         //TESTAR ETT STEG I TAGET HÄR
         Identifier identifier = new();
         UserDB userHandeler = new();
-        LogInService logInService = new(identifier,userHandeler);
+        LogInService logInService = new(identifier, userHandeler);
         User user = new();
-        UserDB userdb = new();       
+        UserDB userdb = new();
         //1. SKAPAKONTO
         user.Email = ConsoleInput.GetString("Enter your mail-adress");
-        user = logInService.MakeNewLogIn(user);//<-här har user med sig email, lösenord|elina tar över user och gör resten
+         user = logInService.MakeNewLogIn(user);//<-här har user med sig email, lösenord|elina tar över user och gör resten
         string input = ConsoleInput.GetString("name: ");
         string num = ConsoleInput.GetString("social security number: ");
         string adress = ConsoleInput.GetString("adress: ");
         string email = user.Email; //FÖR USER HAR EMAIL HÄR
         int password = user.Password; // och password
-        user = new(input,num,adress,email,password);
+        user = new(input, num, adress, email, password);
         userdb.BecomeNewUser(user);
         Console.WriteLine("yeey");
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
         user = logInService.UserLogIn(); //user skriver bara i sin mail och kod
         bool isLoggedIn = logInService.UserIsValid(user); //andvänder userhandler och ser om user finns
         if (isLoggedIn == true) //<- tex om user är inloggad då så kommer man till user page?
-        {
+        
+         {
             //1. TESTA GÖRA ANNONS
 
             //2. TESTA SÖKA ANNONS
@@ -57,7 +59,7 @@ internal class Program
                     if (choice == 1)
                     {
                         //I SHOWLOGINPAGE SKRIVER ANVÄNDAREN MAIL OCH LÖSEN, DET HÄMTAS UT TILL EN USER
-                       // user = ShowLogInPage(identifier);
+                        // user = ShowLogInPage(identifier);
                         //DENNA KOLLAR OM ANVÄNDAREN FINNS I DATABASEN, OM DEN FINNS RETURNERAR TRUE
                         if (identifier.CheckIfUserExists(userHandeler, user) == true)
                         {   //OM RETURNERAR TRUE SÅ SKICKAS TILL PAGE 2, USERS PAGE
@@ -71,7 +73,7 @@ internal class Program
                     }
                     else if (choice == 2)
                     {   //SKAPAR NYTT LOGIN OCH GER UT EN USER MED DEN MAILEN OCH LÖSEN
-                       // user = ShowNewLogInPage(user, identifier);
+                        // user = ShowNewLogInPage(user, identifier);
                         //SÄTTER NAME TILL USERN
                         user.Name = ConsoleInput.GetString("Nickname: ");
                         //USERN SKICKAS IN I BECOMENEWUSER SOM SÄTTER IN USER I DATABASEN
@@ -85,7 +87,7 @@ internal class Program
                     break;
                 case 3:
                     //PAGE 3 VISAR ALLA MEDDELANDEN SOM ÄR TILL USERN FRÅN DATABASEN
-                  //  ShowAllMessages(user, messageHandeler);
+                    //  ShowAllMessages(user, messageHandeler);
                     //messagePage.ShowAllMessages(user);
                     int messageId = ConsoleInput.GetInt("Choose message to read");
                     //messagePage.ShowOneMessage(messageId);
@@ -172,7 +174,7 @@ internal class Program
         }
         return goToPage;
     }
- 
+
     public static void ShowOneMessage(int messageId, IMessageHandeler messageHandeler) //A
     {
         // den hittar meddelande med specifikt id
@@ -199,7 +201,7 @@ internal class Program
             }
 
         }
-        
+
         //Välja kategori, underkategori, beskrivning, köpa eller sälja, bilder för annons.
         //Felhantering = Kanske maxantal ord för varje. Ha det öppet så att man ser helheten
         //Felhantering = Om man skriver fel på förra så kan man gå till baka och ändra innan man skapar annons
@@ -209,8 +211,8 @@ internal class Program
         string location = string.Empty;
         string municipality = string.Empty;
         int postalNumber = 0;
-         advertise nyannons = new advertise(rubric, description, price, location, municipality, postalNumber);
-         return nyannons;
+        advertise nyannons = new advertise(rubric, description, price, location, municipality, postalNumber);
+        return nyannons;
     }
 
 }
