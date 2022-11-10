@@ -12,10 +12,12 @@ public class Message
     public User user = new();
     public bool IsOld { get; private set; }   // om det gått 10 dagar så hamnar den i i gamla listan
 
-    public Message(string rubric, string content)
+    public Message(string rubric, string content, int idFromUser, int idToUser)
     {
         Rubric = rubric; // annonsrubriken?
         Content = content;
+        IDFromUser = idFromUser;
+        IDToUser = idToUser;
         DateSent = DateTime.Now;
     }
     public Message() { }

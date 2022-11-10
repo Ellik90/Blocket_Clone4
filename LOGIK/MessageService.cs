@@ -9,10 +9,8 @@ public class MessageService
     {
         _messageHandeler = messageHandeler;
     }
-    public void MakeMessage(Message message, User fromUser, int toUserId)
+    public void MakeMessage(Message message)
     {
-        message.IDFromUser = fromUser.Id;
-        message.IDToUser = toUserId;
         int newMessageId = _messageHandeler.CreateMessage(message);
         _messageHandeler.SendMessage(newMessageId, message);
     }
