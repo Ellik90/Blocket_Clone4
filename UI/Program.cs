@@ -19,7 +19,7 @@ internal class Program
 
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
         user = new();
-        user.Email = "angelinaholmqvist@live.se";//ConsoleInput.GetString("Enter your Email");
+        user.Email = "elinak90@icloud.com";//ConsoleInput.GetString("Enter your Email");
         user.Password = 1010;//ConsoleInput.GetInt("Enter your Password");
         user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
         user.Id = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
@@ -41,15 +41,14 @@ internal class Program
         
          //3. SKRIV MEDDELANDE TILL ANNONSEN
        // int advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
-        int advertiseUserId = 9;//= userdb.getuserid
-        Message message = new("KATTEN SVAR", "Det är helt ok!", user.Id, advertiseUserId);
-        int advertiseUserId = 11 ;//= userdb.getuserid(advertiseId);
-        Message message = new("KATTEN", "Jag vill gärna köpa din katt!", user.Id, advertiseUserId);
-        messageService.MakeMessage(message);
-        Console.WriteLine("Message sent!");
+        // int advertiseUserId = 11 ;//= userdb.getuserid(advertiseId);
+        // Message message = new("KATTEN", "Jag vill gärna köpa din katt!", user.Id, advertiseUserId);
+        // messageService.MakeMessage(message);
+        // Console.WriteLine("Message sent!");
 
 
         // VISA ALLA MEDDELANDEN 
+        Message message = new();
         user.messages = messageService.ShowAllMessages(user);
         if (user.messages.Count() == 0)
         {
@@ -62,7 +61,7 @@ internal class Program
         // VÄLJ MEDDELANDE ATT LÄSA
         int messageId = ConsoleInput.GetInt("Enter message to read: ");
         message = messageService.ShowOneMessage(messageId);
-        Console.WriteLine(message.ToString());
+        Console.WriteLine(message.WholeMessageToString());
 
         //4. SKICKA MEDDELANDE
 
