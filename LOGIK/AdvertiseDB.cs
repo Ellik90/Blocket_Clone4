@@ -13,7 +13,7 @@ public class AddvertiseDb : IAdManagement
     //Klass för att hålla funktioner för annonserna
     List<advertise> ads = new(); //Ska hålla annonserna
 
-    public List<advertise> CreateAd(advertise advertise)
+    public void CreateAd(advertise advertise)
     {
         List<advertise> CreateAd = new();
 
@@ -33,23 +33,23 @@ public class AddvertiseDb : IAdManagement
         {
             Console.WriteLine("Något gick fel.");
         }
-        return CreateAd;
+        
     }
 
-    /*void IAdManagement.AdOverview(advertise advertise)
+    public void AdOverview(advertise advertise)
     {
         
     }
 
-    void IAdManagement.RemoveAd(advertise advertise)
+    public void RemoveAd(advertise advertise)
     {
         
     }
 
-    List<advertise> IAdManagement.ShowAd(advertise advertise)
+    public List<advertise> ShowAd(advertise advertise)
     {
-        
-    }*/
+        return new List<advertise>();
+    }
 
 
 
