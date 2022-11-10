@@ -10,11 +10,12 @@ internal class Program
         UserDB userdb = new();
         LogInService logInService = new(identifier, userdb);
         UserService userservise = new(identifier, userdb);
+        MessageDB messageDB = new();
+        MessageService messageService = new(messageDB);
         //1. SKAPAKONTO
 
-        // CreateUser(user, logInService, userdb);
-        // user = CreateUser(user, logInService, userdb);
-        // userservise.MakeUser(userdb, user);
+        //   user = CreateUser(user, logInService, userdb);
+        //   userservise.MakeUser(userdb, user);
 
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
         user = new();
@@ -31,16 +32,25 @@ internal class Program
 
         //2. TESTA SÖKA ANNONS
 
+        //Katt
+        //köp mig!
+        //500 kr
+        // - visningsnamn
+        // annonsid 
+        
+       // int advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
+        int advertiseUserId = 11 ;//= userdb.getuserid
+        Message message = new("KATTEN", "Jag vill gärna köpa din katt!", user.Id, advertiseUserId);
+        messageService.MakeMessage(message);
+        Console.WriteLine("Message sent!");
+
         //3.
         // SKRIV MEDDELANDE
-        MessageDB messageDB = new();
-        MessageService messageService = new(messageDB);
-        // Message message = new("KATTEN", "Jag vill gärna köpa din katt!");
-        // messageService.MakeMessage(message, user, 11);
+
 
         // VISA ALLA MEDDELANDEN (SAMT ETT)
         user.messages = messageService.ShowAllMessages(user);
-        if(user.messages.Count() == 0)
+        if (user.messages.Count() == 0)
         {
             Console.WriteLine("No Messages");
         }
@@ -199,7 +209,7 @@ internal class Program
             Console.WriteLine("Email allready exists");
             Environment.Exit(0);
         }
-        user = logInService.MakeNewLogIn(user);//<-här har user med sig email, lösenord|elina tar över user och gör resten
+        //<-här har user med sig email, lösenord|elina tar över user och gör resten
         user.Name = ConsoleInput.GetString("name: ");
         if (userdb.NicknameExists(user.Name) == true)
         {
@@ -208,8 +218,8 @@ internal class Program
         }
         user.SocialSecurityNumber = ConsoleInput.GetString("social security number: ");
         user.Adress = ConsoleInput.GetString("adress: ");
-        user.Email = user.Email; //FÖR USER HAR EMAIL HÄR // och password
-                                 //user = new(input, num, adress, email, password);
+
+        user = logInService.MakeNewLogIn(user);
         return user;
     }
 
