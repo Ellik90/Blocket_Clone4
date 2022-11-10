@@ -12,13 +12,7 @@ internal class Program
         UserService userservise = new(identifier, userdb);
         //1. SKAPAKONTO
 
-<<<<<<< HEAD
         CreateUser(user, logInService, userdb);
-=======
-        user = CreateUser(user, logInService, userdb);
-        userservise.MakeUser(userdb, user);
-
->>>>>>> c66d9cf9eeac6b27fba4dac6d38ab3a6a10530b7
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
         user.Email = ConsoleInput.GetString("Enter your Email");
         user.Password = ConsoleInput.GetInt("Enter your Password");
