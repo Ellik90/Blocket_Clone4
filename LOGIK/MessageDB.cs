@@ -3,12 +3,13 @@ using MySqlConnector;
 namespace LOGIK;
 public class MessageDB : IMessageHandeler
 {
-    public List<Message> GetAllMessages(User user)
+    public List<Message> GetAllMessagesOverlook(User user)
     {
+        List<Message>messagesOverlooks = new();
         using (MySqlConnection connection = new MySqlConnection("Server=localhost;Database=blocket_clone;Uid=root;Pwd=Mabedamo140065;"))
         {
-            string query = "SELECT message.rubric, message.";
-            //  messageId = connection.ExecuteScalar<int>(query, param: message);
+            string query = "SELECT message_id, message.rubric, users.nick_name FROM message INNER JOIN user_message ON user_message.message_id = message.id INNER JOIN users ON user_message.from_user_id = users.id WHERE user_message.to_user_id = @Id;";
+            messagesOverlooks = connection.Query<Message>(query, new{@Id = user.Id}).ToList();
         }
         return new List<Message>();
     }

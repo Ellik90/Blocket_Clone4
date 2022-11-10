@@ -11,24 +11,8 @@ public class LogInService
         _userHandeler = userHandeler;
     }
     User user = new();
-    public User MakeNewLogIn(int socialSecurityNumber)
+    public User MakeNewLogIn(User user)
     {
-        bool isValid = false;
-        do
-        {
-            user.SocialSecurityNumber = ConsoleInput.GetString("Enter your social security number (12 digits, no symbols or letters): ");
-            if (_identifier.ValidateSocialSecurityNumber(user.SocialSecurityNumber) == true)
-            {
-                Console.WriteLine("Valid Social Security Number");
-                isValid = true;
-            }
-            else
-            {
-                Console.WriteLine("Unvalid Social Security Number");
-            }
-        } while (isValid == false);
-
-      //  user.Email = ConsoleInput.GetString("Enter your mail-adress");
         //här anropar jag metoden och skickar in mailadressen som kommer in, denna metoden returnerar antingen true eller false 
         if (_identifier.ValidateEmail(user.Email) == true)
         {
