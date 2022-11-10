@@ -1,11 +1,11 @@
 public interface IAdManagement
 {
     //Interface för funktioner av annonser
-    public List <advertise> CreateAd();
+    public void CreateAd(advertise advertise);
 
-    public void RemoveAd();
+    public void RemoveAd(advertise advertise);
 
-    public List <advertise> ShowAd();
+    public List <advertise> ShowAd(advertise advertise);
 
-    public void AdOverview();
+    public void AdOverview(advertise advertise);
 }
