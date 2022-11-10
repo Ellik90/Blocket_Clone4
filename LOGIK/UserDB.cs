@@ -73,7 +73,7 @@ public class UserDB : IUserHandeler
         int rows = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
-            string? query = "UPDATE TABLE SET email = @userEmail where id = @id";
+            string? query = "UPDATE users SET email = @userEmail WHERE id = @id";
             rows = connection.ExecuteScalar<int>(query, param: new { @email = userEmail, @id = user });
         }
         if (rows > 0)
@@ -92,16 +92,16 @@ public class UserDB : IUserHandeler
         int rows = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
-            string? query = "UPDATE TABLE SET nick_name = @nickName where id = @id";
+            string? query = "UPDATE users SET nick_name = @nickName WHERE id = @id";
             rows = connection.ExecuteScalar<int>(query, param: new { @nick_name = nickname, @id = user });
         }
-    }
+    }// MKT FEL I DENNA QUERY
     public void UpDateDescription(User user, string updateDescription)
     {
        int rows = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
-            string? query = "UPDATE TABLE SET description = @description where id = @id";
+            string? query = "UPDATE users SET description = @description WHERE id = @id";
             rows = connection.ExecuteScalar<int>(query, param: new { @description = updateDescription, @id = user });
         }
     }
