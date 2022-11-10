@@ -19,20 +19,11 @@ public class UserService
         Console.WriteLine("yeey");
     }
 
-    // public void CheckNickNameExists(IUserHandeler iuserHandeler, string nickName)
-    // {
-    //     bool exists = true;
-    //     if(iuserHandeler.NicknameExists(nickname) = exists)
-    //     {
-            
-    //         Console.WriteLine("Unvalid nickname");//här skriver vi lite rann
-    //     }
-    //     else
-    //     {
-    //         Console.WriteLine("WORKING ");//helooooooooooo
-    //     }
-        
-    // }
+    public void CheckNickNameExists(IUserHandeler iuserHandeler, string nickName)
+    {
+        iuserHandeler.NicknameExists(nickName);
+        Console.WriteLine("Working");
+    }
 
     // // i metoden bli user så har det redan kommit in personnr, mail, lösen
     // User newUser = new();

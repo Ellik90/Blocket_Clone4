@@ -9,7 +9,7 @@ public class UserDB : IUserHandeler
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
             string? query = "SELECT * FROM users WHERE nick_name = @name";
-            rows = connection.ExecuteScalar<int>(query, param: nickname);
+            rows = connection.ExecuteScalar<int>(query, new {@nick_name = nickname});
         }
         if (rows > 0)
         {
