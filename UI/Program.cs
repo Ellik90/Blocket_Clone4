@@ -6,22 +6,15 @@ internal class Program
 
         //TESTAR ETT STEG I TAGET HÄR
         Identifier identifier = new();
-        UserDB userHandeler = new();
-        LogInService logInService = new(identifier, userHandeler);
         User user = new();
         UserDB userdb = new();
+        LogInService logInService = new(identifier, userdb);       
+        UserService userservise = new(identifier, userdb);
         //1. SKAPAKONTO
 
-        CreateUser(user, logInService, userdb);
-        // user.Email = ConsoleInput.GetString("Enter your mail-adress");
-        // user = logInService.MakeNewLogIn(user);//<-här har user med sig email, lösenord|elina tar över user och gör resten
-        // user.Name = ConsoleInput.GetString("name: ");
-        // user.SocialSecurityNumber = ConsoleInput.GetString("social security number: ");
-        // user.Adress = ConsoleInput.GetString("adress: ");
-        // user.Email = user.Email; //FÖR USER HAR EMAIL HÄR // och password
-        // //user = new(input, num, adress, email, password);
-        // userdb.BecomeNewUser(user);
-        // Console.WriteLine("yeey");
+        user = CreateUser(user, logInService, userdb);
+        userservise.MakeUser(userdb, user);
+
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
         user.Email = ConsoleInput.GetString("Enter your Email");
         if (userdb.UserEmailExists(user.Email) == true)
@@ -35,44 +28,46 @@ internal class Program
         if (isLoggedIn == true) //<- tex om user är inloggad då så kommer man till user page?
         {
             Console.WriteLine("Du är inloggad!");
+
         }
         else
         {
             Console.WriteLine("Fel lösen eller mail");
             Environment.Exit(0);
         }
+
             //1. TESTA GÖRA ANNONS
 
-            //2. TESTA SÖKA ANNONS
+        //2. TESTA SÖKA ANNONS
 
-            //3. VISA ALLA MEDDELANDEN (SAMT ETT)
+        //3. VISA ALLA MEDDELANDEN (SAMT ETT)
             MessageDB messageDB = new();
-            MessageService messageService = new(messageDB);
-            try
+        MessageService messageService = new(messageDB);
+        try
+        {
+            List<Message> usersMessages = messageService.ShowAllMessages(user);
+            foreach (Message item in usersMessages)
             {
-                List<Message> usersMessages = messageService.ShowAllMessages(user);
-                foreach (Message item in usersMessages)
-                {
-                    Console.WriteLine(item.MessagesToString());
-                }
+                Console.WriteLine(item.MessagesToString());
             }
-            catch(NullReferenceException)
-            {
-                Console.WriteLine("No messages.");
-            }
+        }
+        catch (NullReferenceException)
+        {
+            Console.WriteLine("No messages.");
+        }
 
 
-            //4. SKICKA MEDDELANDE
+        //4. SKICKA MEDDELANDE
 
-            //5. REDIGERA PROFIL
+        //5. REDIGERA PROFIL
 
-            //6. VISA MINA ANNONSER
+        //6. VISA MINA ANNONSER
 
-            //7. MINA SÅLDA OBJEKT?)
+        //7. MINA SÅLDA OBJEKT?)
 
-            //7.
+        //7.
 
-        
+
 
     }
 
