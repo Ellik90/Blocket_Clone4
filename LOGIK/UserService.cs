@@ -13,6 +13,11 @@ public class UserService
         _userHandele = userHandeler;
     }
 
+    public void GetUserIdToAD(IUserHandeler userHandeler, int advertiseId)
+    {
+        userHandeler.GetUserIdFromAdvertise(advertiseId);
+        Console.WriteLine("You got an ID ");
+    }
     public void MakeUser(IUserHandeler iuserhandeler, User user)
     {
         iuserhandeler.BecomeNewUser(user);
