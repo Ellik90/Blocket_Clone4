@@ -46,15 +46,14 @@ internal class Program
         
          //3. SKRIV MEDDELANDE TILL ANNONSEN
        // int advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
-        int advertiseUserId = 9;//= userdb.getuserid
-        Message message = new("KATTEN SVAR", "Det är helt ok!", user.Id, advertiseUserId);
-       // int advertiseUserId = 11 ;//= userdb.getuserid(advertiseId);
-       // Message message = new("KATTEN", "Jag vill gärna köpa din katt!", user.Id, advertiseUserId);
-        messageService.MakeMessage(message);
-        Console.WriteLine("Message sent!");
+        // int advertiseUserId = 11 ;//= userdb.getuserid(advertiseId);
+        // Message message = new("KATTEN", "Jag vill gärna köpa din katt!", user.Id, advertiseUserId);
+        // messageService.MakeMessage(message);
+        // Console.WriteLine("Message sent!");
 
 
         // VISA ALLA MEDDELANDEN 
+        Message message = new();
         user.messages = messageService.ShowAllMessages(user);
         if (user.messages.Count() == 0)
         {
@@ -66,11 +65,20 @@ internal class Program
         }
         // VÄLJ MEDDELANDE ATT LÄSA
         int messageId = ConsoleInput.GetInt("Enter message to read: ");
-        message = messageService.ShowOneMessage(messageId);
-        Console.WriteLine(message.ToString());
+        Message readMessage = messageService.ShowOneMessage(messageId);
+        Console.WriteLine(readMessage.WholeMessageToString());
 
-        //4. SKICKA MEDDELANDE
-
+        //4. SVARA PÅ MEDDELANDE
+        int chocie = ConsoleInput.GetInt("1 för att svara, 2 för att tillbaka");
+        if(chocie == 1)
+        {
+            string rubric = ConsoleInput.GetString("Rubric: ");
+            string content = ConsoleInput.GetString("Content: ");
+            int idToUser = readMessage.IDFromUser;
+            Message answerMessage = new(rubric, content, user.Id, idToUser);
+            messageService.MakeMessage(answerMessage);
+            Console.WriteLine("Skickat");
+        }
         //5. REDIGERA PROFIL
 
         //6. VISA MINA ANNONSER

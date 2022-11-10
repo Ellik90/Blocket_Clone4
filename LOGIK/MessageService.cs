@@ -22,6 +22,7 @@ public class MessageService
     public Message ShowOneMessage(int messageId)
     {
         // den hittar meddelande med specifikt id
+        message = new();
         message = _messageHandeler.GetMessage(messageId);
         return message;
     }
