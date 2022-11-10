@@ -11,6 +11,7 @@ public class UserDB : IUserHandeler
             string query = "INSERT INTO users(nick_name,social_security_number,email,pass_word)VALUES(@name,@SocialSecurityNumber,@email,@passWord);";
             rows = connection.ExecuteScalar<int>(query, param: user);
         }
+  
     }
     public bool UserExists(User user)
     {
