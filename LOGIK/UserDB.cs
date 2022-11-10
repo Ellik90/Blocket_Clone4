@@ -9,7 +9,7 @@ public class UserDB : IUserHandeler
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
             string? query = "SELECT * FROM users WHERE nick_name = @name";
-            rows = connection.ExecuteScalar<int>(query, new {@nick_name = nickname});
+            rows = connection.ExecuteScalar<int>(query, new { @nick_name = nickname });
         }
         if (rows > 0)
         {
@@ -19,7 +19,7 @@ public class UserDB : IUserHandeler
         {
             return false;
         }
-  
+
     }
     public bool BecomeNewUser(User user)
     {
@@ -29,7 +29,7 @@ public class UserDB : IUserHandeler
             string query = "INSERT INTO users(nick_name,social_security_number,email, adress,pass_word)VALUES(@name,@SocialSecurityNumber,@email,@adress,@passWord);";
             rows = connection.ExecuteScalar<int>(query, param: user);
         }
-         if (rows > 0)
+        if (rows > 0)
         {
             return true;
         }
@@ -37,7 +37,7 @@ public class UserDB : IUserHandeler
         {
             return false;
         }
-        
+
 
     }
     //hämta ut id från user
@@ -49,8 +49,9 @@ public class UserDB : IUserHandeler
         {
             string? query = "SELECT * FROM users WHERE email = @email AND pass_word = @password; SELECT LAST_INSERT_ID() ";
             id = connection.ExecuteScalar<int>(query, param: user);
+            return id;
         }
-        return id;   
+
 
     }
 
@@ -60,7 +61,7 @@ public class UserDB : IUserHandeler
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
             string? query = "SELECT * FROM users WHERE email = @email ";
-            rows = connection.ExecuteScalar<int>(query, new{ @email = Email});
+            rows = connection.ExecuteScalar<int>(query, new { @email = Email });
         }
         if (rows > 0)
         {
