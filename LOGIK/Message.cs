@@ -41,7 +41,7 @@ public class Message
     }
     public string WholeMessageToString()
     {
-        return $"{Rubric}\n\rANNONSNAMNET\n\r{Content}";
+        return $"{Rubric}\n\r{Content}\n\r//{idfromuser}";
     }
 
 }

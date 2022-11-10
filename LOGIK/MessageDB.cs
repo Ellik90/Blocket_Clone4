@@ -23,7 +23,7 @@ public class MessageDB : IMessageHandeler
         Message message = new();
         using (MySqlConnection connection = new MySqlConnection("Server=localhost;Database=blocket_clone;Uid=root;Pwd=;"))
         {
-            string query = "SELECT message.rubric, message.content, users.nick_name FROM message INNER JOIN user_message ON user_message.message_id = message_id INNER JOIN users ON users.id = user_message.from_user_id WHERE message.id = 1;";
+            string query = "SELECT message.rubric, message.content, users.nick_name as 'idfromuser' FROM message INNER JOIN user_message ON user_message.message_id = message_id INNER JOIN users ON users.id = user_message.from_user_id WHERE message.id = @messageid;";
             message = connection.QuerySingle<Message>(query, new{@messageid = messageId});
         }
         return message;
