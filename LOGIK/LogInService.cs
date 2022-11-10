@@ -43,7 +43,7 @@ public class LogInService
         
        return user;
     }
-    public bool UserLogInIsValid(User user)
+    public int UserLogInIsValid(User user)
     {
         return _userHandeler.UserLogInExists(user);
     }

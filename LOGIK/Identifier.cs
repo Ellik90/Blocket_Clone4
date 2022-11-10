@@ -74,8 +74,15 @@ public class Identifier : IIdentifier
 
     public bool CheckIfUserExists(IUserHandeler userHandeler, User user)
     {
-        bool isTrue = userHandeler.UserExists(user);
-        return isTrue;
+        int id = userHandeler.UserLogInExists(user);
+        if(id == 0)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 }
 
