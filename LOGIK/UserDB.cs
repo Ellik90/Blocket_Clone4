@@ -32,7 +32,7 @@ public class UserDB : IUserHandeler
     }
     //hämta ut id från user
     //testa alla querys i databasen
-    public bool UserExists(User user)
+    public bool UserExists(User user) // denna heta UserLogInExists?  och göra ny metod emailexists?
     {
         int rows = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))

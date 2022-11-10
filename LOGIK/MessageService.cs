@@ -9,7 +9,6 @@ public class MessageService
     {
         _messageHandeler = messageHandeler;
     }
-
     public void MakeMessage(Message message, User fromUser, int toUserId)
     {
         message.IDFromUser = fromUser.Id;
