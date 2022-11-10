@@ -14,10 +14,10 @@ public class LogInService
     public User MakeNewLogIn(User user)
     {
         //här anropar jag metoden och skickar in mailadressen som kommer in, denna metoden returnerar antingen true eller false 
-        if (_identifier.ValidateEmail(user.Email) == true)
+        if (_identifier.ValidateEmail(user.Email) == true )// && _userhandeler.UserEmailExists(user.Email) == true)
         {
             Console.WriteLine("Valid email");
-            _identifier.SendEmailWithCode(user.Email);
+            user.Password = _identifier.SendEmailWithCode(user.Email);
             Console.WriteLine("Code sent to your mail. Please check junkmail if mail not found.");
         }
         else
@@ -46,8 +46,7 @@ public class LogInService
     }
     public bool UserIsValid(User user)
     {
- //       return _userHandeler.CheckIfUserExists(user);
-      return true;
+        return _userHandeler.UserExists(user);
     }
 
 }

@@ -13,9 +13,10 @@ public class UserService
         _userHandele = userHandeler;
     }
 
-    public void MakeUser(string email, string passWord)
+    public void MakeUser(IUserHandeler iuserhandeler, User user)
     {
-      
+        iuserhandeler.BecomeNewUser(user);
+        Console.WriteLine("yeey");
 
     }
 

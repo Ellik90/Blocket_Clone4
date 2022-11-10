@@ -12,18 +12,52 @@ internal class Program
         UserDB userdb = new();
         //1. SKAPAKONTO
 
+<<<<<<< HEAD
         CreateUser(user, logInService, userdb);
+=======
+        // user.Email = ConsoleInput.GetString("Enter your mail-adress");
+        // user = logInService.MakeNewLogIn(user);//<-här har user med sig email, lösenord|elina tar över user och gör resten
+        // user.Name = ConsoleInput.GetString("name: ");
+        // user.SocialSecurityNumber = ConsoleInput.GetString("social security number: ");
+        // user.Adress = ConsoleInput.GetString("adress: ");
+        // user.Email = user.Email; //FÖR USER HAR EMAIL HÄR // och password
+        // //user = new(input, num, adress, email, password);
+        // userdb.BecomeNewUser(user);
+        // Console.WriteLine("yeey");
+>>>>>>> b39c978a83f1254a19a8b5b46d058ae1e6520bc8
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
-        user = logInService.UserLogIn(); //user skriver bara i sin mail och kod
-        bool isLoggedIn = logInService.UserIsValid(user); //andvänder userhandler och ser om user finns
+        user.Email = ConsoleInput.GetString("Enter your Email");
+        user.Password = ConsoleInput.GetInt("Enter your Password");
+        user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
+        bool isLoggedIn = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
         if (isLoggedIn == true) //<- tex om user är inloggad då så kommer man till user page?
+<<<<<<< HEAD
 
         {
+=======
+        {
+            Console.WriteLine("Du är inloggad!");
+>>>>>>> b39c978a83f1254a19a8b5b46d058ae1e6520bc8
             //1. TESTA GÖRA ANNONS
 
             //2. TESTA SÖKA ANNONS
 
             //3. VISA ALLA MEDDELANDEN (SAMT ETT)
+            MessageDB messageDB = new();
+            MessageService messageService = new(messageDB);
+            try
+            {
+                List<Message> usersMessages = messageService.ShowAllMessages(user);
+                foreach (Message item in usersMessages)
+                {
+                    Console.WriteLine(item.MessagesToString());
+                }
+            }
+            catch(NullReferenceException)
+            {
+                Console.WriteLine("No messages.");
+            }
+
 
             //4. SKICKA MEDDELANDE
 

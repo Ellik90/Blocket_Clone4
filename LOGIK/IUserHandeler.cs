@@ -2,7 +2,7 @@ namespace LOGIK;
 public interface IUserHandeler
 {
     public bool NicknameExists(string nickname);
-    public void BecomeNewUser(User user);
+    public bool BecomeNewUser(User user);
     public bool UserLogInExists(User user);  // tex IVerifyUserManager ? för dessa
     public bool UserEmailExists(string email);
     public bool DeleteUser(User deleteUser);
