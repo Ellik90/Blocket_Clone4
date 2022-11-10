@@ -207,9 +207,9 @@ internal class Program
             Environment.Exit(0);
         }
         user.SocialSecurityNumber = ConsoleInput.GetString("social security number: ");
-        if(identifier.ValidateSocialSecurityNumber(user.SocialSecurityNumber)== true)
+        if(identifier.ValidateSocialSecurityNumber(user.SocialSecurityNumber)== false)
         {
-            Console.WriteLine("Social security exists");
+            Console.WriteLine("Social security number incorrect");
             Environment.Exit(0);
         }
         user.Adress = ConsoleInput.GetString("adress: "); //FÖR USER HAR EMAIL HÄR // och password
