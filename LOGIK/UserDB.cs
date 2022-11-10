@@ -3,6 +3,18 @@ using MySqlConnector;
 namespace LOGIK;
 public class UserDB : IUserHandeler
 {
+
+    public int GetUserIdFromAdvertise(int advertiseId)
+    {
+        int id = 0;
+        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;")) 
+        {
+            string query = "SELECT user_id FROM advertise WHERE id = @id";
+            id = connection.ExecuteScalar<int>(query, new { @id = advertiseId });
+            return id;
+        }       
+    }
+    
     public bool NicknameExists(string nickname)
     {
         int rows = 0;
@@ -90,7 +102,7 @@ public class UserDB : IUserHandeler
         }
     }
 
-    public bool UpdateEmail( User user, string userEmail)
+    public bool UpdateEmail(User user, string userEmail)
     {
         int rows = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
