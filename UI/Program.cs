@@ -13,12 +13,11 @@ internal class Program
         //1. SKAPAKONTO
         user.Email = ConsoleInput.GetString("Enter your mail-adress");
          user = logInService.MakeNewLogIn(user);//<-här har user med sig email, lösenord|elina tar över user och gör resten
-        string input = ConsoleInput.GetString("name: ");
-        string num = ConsoleInput.GetString("social security number: ");
-        string adress = ConsoleInput.GetString("adress: ");
-        string email = user.Email; //FÖR USER HAR EMAIL HÄR
-        int password = user.Password; // och password
-        user = new(input, num, adress, email, password);
+        user.Name = ConsoleInput.GetString("name: ");
+        user.SocialSecurityNumber = ConsoleInput.GetString("social security number: ");
+        user.Adress = ConsoleInput.GetString("adress: ");
+        user.Email = user.Email; //FÖR USER HAR EMAIL HÄR // och password
+        //user = new(input, num, adress, email, password);
         userdb.BecomeNewUser(user);
         Console.WriteLine("yeey");
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
