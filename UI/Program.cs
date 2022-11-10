@@ -12,14 +12,19 @@ internal class Program
         UserService userservise = new(identifier, userdb);
         MessageDB messageDB = new();
         MessageService messageService = new(messageDB);
+        
         //1. SKAPAKONTO
 
-        //   user = CreateUser(user, logInService, userdb);
+        //   user = CreateUser(user, logInService, userdb, identifier);
         //   userservise.MakeUser(userdb, user);
+          
+         
+        //  user = DeleteAUser(user, userdb)
+        //  userservise.DeleteUser(user);        // DELETE FUNKAR EJ, VAAAAD ÄR KNAAAAAS??????
 
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
         user = new();
-        user.Email = "angelinaholmqvist@live.se";//ConsoleInput.GetString("Enter your Email");
+        user.Email = "";//ConsoleInput.GetString("Enter your Email");
         user.Password = 1010;//ConsoleInput.GetInt("Enter your Password");
         user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
         user.Id = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
@@ -43,8 +48,8 @@ internal class Program
        // int advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
         int advertiseUserId = 9;//= userdb.getuserid
         Message message = new("KATTEN SVAR", "Det är helt ok!", user.Id, advertiseUserId);
-        int advertiseUserId = 11 ;//= userdb.getuserid(advertiseId);
-        Message message = new("KATTEN", "Jag vill gärna köpa din katt!", user.Id, advertiseUserId);
+       // int advertiseUserId = 11 ;//= userdb.getuserid(advertiseId);
+       // Message message = new("KATTEN", "Jag vill gärna köpa din katt!", user.Id, advertiseUserId);
         messageService.MakeMessage(message);
         Console.WriteLine("Message sent!");
 
@@ -222,7 +227,7 @@ internal class Program
             Environment.Exit(0);
         }
         user.SocialSecurityNumber = ConsoleInput.GetString("social security number: ");
-        if(identifier.ValidateSocialSecurityNumber(user.SocialSecurityNumber)== false)
+        if(identifier.ValidateSocialSecurityNumber(user.SocialSecurityNumber) == false)
         {
             Console.WriteLine("Social security number incorrect");
             Environment.Exit(0);
@@ -230,6 +235,11 @@ internal class Program
         user.Adress = ConsoleInput.GetString("adress: "); //FÖR USER HAR EMAIL HÄR // och password
         user = logInService.MakeNewLogIn(user);                       //user = new(input, num, adress, email, password);
         return user;
+    }
+    public static void DeleteAUser(User user, UserDB userdb)
+    {
+        user.Email = ConsoleInput.GetString("User mail: ");
+        userdb.DeleteUser(user);
     }
 
     public static void ShowOneMessage(int messageId, IMessageHandeler messageHandeler) //A
