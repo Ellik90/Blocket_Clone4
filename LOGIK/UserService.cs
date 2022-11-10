@@ -23,7 +23,7 @@ public class UserService
         // string? adress = Console.ReadLine();
         // bool check = true;
         // User user1 = new(name, socialSecurityNumber, adress, email, 1234);
-        // _userHandele.BecomeNewUser(user1);
+        // _userHandele.BecomeNewUser(user1);  // hämta id till user så det även finns i programmet här
 
     }
 
