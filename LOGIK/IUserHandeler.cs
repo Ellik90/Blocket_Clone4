@@ -9,5 +9,6 @@ public interface IUserHandeler
     public bool UpdateEmail(User user, string userEmail);
     public void UpdateNickName(User user, string nickname);
     public void UpDateDescription(User user, string updateDescription);
+    public int GetUserIdFromAdvertise(int advertiseId);
     
 }
