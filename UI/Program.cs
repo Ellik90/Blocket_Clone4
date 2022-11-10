@@ -25,13 +25,16 @@ internal class Program
         user = logInService.UserLogIn(); //user skriver bara i sin mail och kod
         bool isLoggedIn = logInService.UserIsValid(user); //andvänder userhandler och ser om user finns
         if (isLoggedIn == true) //<- tex om user är inloggad då så kommer man till user page?
-        
          {
+            Console.WriteLine("Du är inloggad!");
             //1. TESTA GÖRA ANNONS
 
             //2. TESTA SÖKA ANNONS
 
             //3. VISA ALLA MEDDELANDEN (SAMT ETT)
+            MessageDB messageDB = new();
+            MessageService messageService = new(messageDB);
+
 
             //4. SKICKA MEDDELANDE
 
