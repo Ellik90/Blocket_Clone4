@@ -3,30 +3,22 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        
+
         //TESTAR ETT STEG I TAGET HÄR
         Identifier identifier = new();
         UserDB userHandeler = new();
         LogInService logInService = new(identifier, userHandeler);
-      User user = new();
+        User user = new();
         UserDB userdb = new();
         //1. SKAPAKONTO
-          
-        user.Email = ConsoleInput.GetString("Enter your mail-adress");
-         user = logInService.MakeNewLogIn(user);//<-här har user med sig email, lösenord|elina tar över user och gör resten
-        user.Name = ConsoleInput.GetString("name: ");
-        user.SocialSecurityNumber = ConsoleInput.GetString("social security number: ");
-        user.Adress = ConsoleInput.GetString("adress: ");
-        user.Email = user.Email; //FÖR USER HAR EMAIL HÄR // och password
-        //user = new(input, num, adress, email, password);
-        userdb.BecomeNewUser(user);
-        Console.WriteLine("yeey");
+
+        CreateUser(user, logInService, userdb);
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
         user = logInService.UserLogIn(); //user skriver bara i sin mail och kod
         bool isLoggedIn = logInService.UserIsValid(user); //andvänder userhandler och ser om user finns
         if (isLoggedIn == true) //<- tex om user är inloggad då så kommer man till user page?
-        
-         {
+
+        {
             //1. TESTA GÖRA ANNONS
 
             //2. TESTA SÖKA ANNONS
@@ -46,6 +38,7 @@ internal class Program
         }
 
     }
+
     // HÄR ÄR SJÄLVA BLOCKET HEMSIDAN, DEN TAR IN INTERFACES (OCH KLASSER SOM IMPLEMENTERAR DESSA)
     public static void ShowBlocketPages(int currentPage, IMessageHandeler messageHandeler, IUserHandeler userHandeler, Identifier identifier)
     {
@@ -173,6 +166,17 @@ internal class Program
                 break;
         }
         return goToPage;
+    }
+    public static User CreateUser(User user, LogInService logInService, UserDB userdb)
+    {
+        user.Email = ConsoleInput.GetString("Enter your mail-adress");
+        user = logInService.MakeNewLogIn(user);//<-här har user med sig email, lösenord|elina tar över user och gör resten
+        user.Name = ConsoleInput.GetString("name: ");
+        user.SocialSecurityNumber = ConsoleInput.GetString("social security number: ");
+        user.Adress = ConsoleInput.GetString("adress: ");
+        user.Email = user.Email; //FÖR USER HAR EMAIL HÄR // och password
+                                 //user = new(input, num, adress, email, password);
+        return user;
     }
 
     public static void ShowOneMessage(int messageId, IMessageHandeler messageHandeler) //A
