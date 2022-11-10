@@ -9,7 +9,9 @@ public class advertise
     public string municipality { get; set; }
     public int postalNumber { get; set; }
 
-    public advertise(string rubric, string description, float price, string location, string municipality, int postalNumber)
+    public int userId {get; set;}
+
+    public advertise(string rubric, string description, float price, string location, string municipality, int postalNumber, int userId)
     {
       this.rubric = rubric;
         this.description = description;
@@ -17,6 +19,11 @@ public class advertise
         this.location = location;
         this.municipality = municipality;
         this.postalNumber = postalNumber;
+        this.userId = userId;
+    }
+    public advertise()
+    {
+
     }
 
 }
