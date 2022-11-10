@@ -16,7 +16,7 @@ public class LogInService
         bool isValid = false;
         do
         {
-           // user.SocialSecurityNumber = ConsoleInput.GetString("Enter your social security number (12 digits, no symbols or letters): ");
+            user.SocialSecurityNumber = ConsoleInput.GetString("Enter your social security number (12 digits, no symbols or letters): ");
             if (_identifier.ValidateSocialSecurityNumber(user.SocialSecurityNumber) == true)
             {
                 Console.WriteLine("Valid Social Security Number");
