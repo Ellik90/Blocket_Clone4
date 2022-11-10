@@ -37,7 +37,16 @@ internal class Program
 =======
         {
             Console.WriteLine("Du är inloggad!");
+<<<<<<< HEAD
 >>>>>>> b39c978a83f1254a19a8b5b46d058ae1e6520bc8
+=======
+        }
+        else
+        {
+            Console.WriteLine("Fel lösen eller mail");
+            Environment.Exit(0);
+        }
+>>>>>>> d2cdfdd3a1f8712824ad115b9b0fde7faa9da863
             //1. TESTA GÖRA ANNONS
 
             //2. TESTA SÖKA ANNONS
@@ -69,7 +78,7 @@ internal class Program
 
             //7.
 
-        }
+        
 
     }
 
