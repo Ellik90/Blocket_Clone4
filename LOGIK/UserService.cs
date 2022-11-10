@@ -7,7 +7,7 @@ public class UserService
 
     IIdentifier _identifier;
 
-    UserService(IIdentifier identifier, IUserHandeler userHandeler)
+    public UserService(IIdentifier identifier, IUserHandeler userHandeler)
     {
         _identifier = identifier;
         _userHandele = userHandeler;

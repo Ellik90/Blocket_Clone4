@@ -6,67 +6,67 @@ internal class Program
 
         //TESTAR ETT STEG I TAGET HÄR
         Identifier identifier = new();
-        UserDB userHandeler = new();
-        LogInService logInService = new(identifier, userHandeler);
         User user = new();
         UserDB userdb = new();
+        LogInService logInService = new(identifier, userdb);       
+        UserService userservise = new(identifier, userdb);
         //1. SKAPAKONTO
 
+<<<<<<< HEAD
         CreateUser(user, logInService, userdb);
+=======
+        user = CreateUser(user, logInService, userdb);
+        userservise.MakeUser(userdb, user);
+
+>>>>>>> c66d9cf9eeac6b27fba4dac6d38ab3a6a10530b7
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
         user.Email = ConsoleInput.GetString("Enter your Email");
         user.Password = ConsoleInput.GetInt("Enter your Password");
         user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
         bool isLoggedIn = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
         if (isLoggedIn == true) //<- tex om user är inloggad då så kommer man till user page?
-<<<<<<< HEAD
-
-        {
-=======
         {
             Console.WriteLine("Du är inloggad!");
-<<<<<<< HEAD
->>>>>>> b39c978a83f1254a19a8b5b46d058ae1e6520bc8
-=======
+
         }
         else
         {
             Console.WriteLine("Fel lösen eller mail");
             Environment.Exit(0);
         }
->>>>>>> d2cdfdd3a1f8712824ad115b9b0fde7faa9da863
+
             //1. TESTA GÖRA ANNONS
 
-            //2. TESTA SÖKA ANNONS
+        //2. TESTA SÖKA ANNONS
 
-            //3. VISA ALLA MEDDELANDEN (SAMT ETT)
+        //3. VISA ALLA MEDDELANDEN (SAMT ETT)
             MessageDB messageDB = new();
-            MessageService messageService = new(messageDB);
-            try
+        MessageService messageService = new(messageDB);
+        try
+        {
+            List<Message> usersMessages = messageService.ShowAllMessages(user);
+            foreach (Message item in usersMessages)
             {
-                List<Message> usersMessages = messageService.ShowAllMessages(user);
-                foreach (Message item in usersMessages)
-                {
-                    Console.WriteLine(item.MessagesToString());
-                }
+                Console.WriteLine(item.MessagesToString());
             }
-            catch(NullReferenceException)
-            {
-                Console.WriteLine("No messages.");
-            }
+        }
+        catch (NullReferenceException)
+        {
+            Console.WriteLine("No messages.");
+        }
 
 
-            //4. SKICKA MEDDELANDE
+        //4. SKICKA MEDDELANDE
 
-            //5. REDIGERA PROFIL
+        //5. REDIGERA PROFIL
 
-            //6. VISA MINA ANNONSER
+        //6. VISA MINA ANNONSER
 
-            //7. MINA SÅLDA OBJEKT?)
+        //7. MINA SÅLDA OBJEKT?)
 
-            //7.
+        //7.
 
-        
+
 
     }
 
@@ -201,6 +201,11 @@ internal class Program
     public static User CreateUser(User user, LogInService logInService, UserDB userdb)
     {
         user.Email = ConsoleInput.GetString("Enter your mail-adress");
+         if (userdb.UserEmailExists(user.Email) == true)
+        {
+            Console.WriteLine("Email allready exists");
+            Environment.Exit(0);
+        }
         user = logInService.MakeNewLogIn(user);//<-här har user med sig email, lösenord|elina tar över user och gör resten
         user.Name = ConsoleInput.GetString("name: ");
         user.SocialSecurityNumber = ConsoleInput.GetString("social security number: ");
