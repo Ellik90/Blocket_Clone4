@@ -25,11 +25,11 @@ public class UserService
         if(iuserHandeler.NicknameExists(nickname) = exists)
         {
             
-            Console.WriteLine("Unvalid nickname");
+            Console.WriteLine("Unvalid nickname");//här skriver vi lite rann
         }
         else
         {
-            Console.WriteLine("WORKING ");
+            Console.WriteLine("WORKING ");//helooooooooooo
         }
         
     }
