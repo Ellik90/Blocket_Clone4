@@ -42,22 +42,15 @@ public class UserDB : IUserHandeler
     }
     //hämta ut id från user
     //testa alla querys i databasen
-    public bool UserLogInExists(User user)
+    public int UserLogInExists(User user)
     {
-        int rows = 0;
+        int id = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
-            string? query = "SELECT * FROM users WHERE email = @email AND pass_word = @password ";
-            rows = connection.ExecuteScalar<int>(query, param: user);
+            string? query = "SELECT * FROM users WHERE email = @email AND pass_word = @password; SELECT LAST_INSERT_ID() ";
+            id = connection.ExecuteScalar<int>(query, param: user);
         }
-        if (rows > 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return id;   
 
     }
 

@@ -14,6 +14,9 @@ internal class Program
 
         user = CreateUser(user, logInService, userdb);
         userservise.MakeUser(userdb, user);
+       
+        user.Name = 
+
 
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
         user.Email = ConsoleInput.GetString("Enter your Email");

@@ -17,7 +17,21 @@ public class UserService
     {
         iuserhandeler.BecomeNewUser(user);
         Console.WriteLine("yeey");
+    }
 
+    public void CheckNickNameExists(IUserHandeler iuserHandeler, string nickName)
+    {
+        bool exists = true;
+        if(iuserHandeler.NicknameExists(nickname) = exists)
+        {
+            
+            Console.WriteLine("Unvalid nickname");
+        }
+        else
+        {
+            Console.WriteLine("WORKING ");
+        }
+        
     }
 
     // // i metoden bli user så har det redan kommit in personnr, mail, lösen
