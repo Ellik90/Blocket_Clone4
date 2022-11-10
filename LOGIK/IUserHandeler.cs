@@ -6,7 +6,7 @@ public interface IUserHandeler
     public int UserLogInExists(User user);  // tex IVerifyUserManager ? för dessa
     public bool UserEmailExists(string email);
     public bool DeleteUser(User deleteUser);
-    public bool UpdateEmail(int id, string userEmail);
+    public bool UpdateEmail(User user, string userEmail);
     public void UpdateNickName(User user, string nickname);
     public void UpDateDescription(User user, string updateDescription);
     
