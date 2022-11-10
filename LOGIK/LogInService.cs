@@ -27,11 +27,10 @@ public class LogInService
         return user;
     }
 
-    public User UserLogIn()
+    public User UserLogIn(User user)
     {
-        User user = new();
         bool isValid = false;
-     //    user.Email = ConsoleInput.GetString("Enter your mail-adress");
+
         //här anropar jag metoden och skickar in mailadressen som kommer in, denna metoden returnerar antingen true eller false 
         if (_identifier.ValidateEmail(user.Email) == true)
         {
@@ -41,12 +40,12 @@ public class LogInService
         {
             Console.WriteLine("Unvalid email");
         }
-//        user.Password = ConsoleInput.GetString("Enter your password");
+        
        return user;
     }
-    public bool UserIsValid(User user)
+    public bool UserLogInIsValid(User user)
     {
-        return _userHandeler.UserExists(user);
+        return _userHandeler.UserLogInExists(user);
     }
 
 }

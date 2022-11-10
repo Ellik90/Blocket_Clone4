@@ -29,6 +29,12 @@ internal class Program
         if (isLoggedIn == true) //<- tex om user är inloggad då så kommer man till user page?
         {
             Console.WriteLine("Du är inloggad!");
+        }
+        else
+        {
+            Console.WriteLine("Fel lösen eller mail");
+            Environment.Exit(0);
+        }
             //1. TESTA GÖRA ANNONS
 
             //2. TESTA SÖKA ANNONS
@@ -60,7 +66,7 @@ internal class Program
 
             //7.
 
-        }
+        
 
     }
     // HÄR ÄR SJÄLVA BLOCKET HEMSIDAN, DEN TAR IN INTERFACES (OCH KLASSER SOM IMPLEMENTERAR DESSA)
