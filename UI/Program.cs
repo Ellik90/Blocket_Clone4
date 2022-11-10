@@ -39,8 +39,8 @@ internal class Program
         // annonsid 
         
        // int advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
-        int advertiseUserId = 11 ;//= userdb.getuserid
-        Message message = new("KATTEN", "Jag vill gärna köpa din katt!", user.Id, advertiseUserId);
+        int advertiseUserId = 9;//= userdb.getuserid
+        Message message = new("KATTEN SVAR", "Det är helt ok!", user.Id, advertiseUserId);
         messageService.MakeMessage(message);
         Console.WriteLine("Message sent!");
 
