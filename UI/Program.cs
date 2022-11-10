@@ -18,7 +18,7 @@ internal class Program
 
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
         user = new();
-        user.Email = "elinak90@icloud.com";//ConsoleInput.GetString("Enter your Email");
+        user.Email = "angelinaholmqvist@live.se";//ConsoleInput.GetString("Enter your Email");
         user.Password = 1010;//ConsoleInput.GetInt("Enter your Password");
         user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
         user.Id = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
@@ -33,15 +33,17 @@ internal class Program
 
         //3.
         // SKRIV MEDDELANDE
-           MessageDB messageDB = new();
+        MessageDB messageDB = new();
         MessageService messageService = new(messageDB);
         // Message message = new("KATTEN", "Jag vill gärna köpa din katt!");
         // messageService.MakeMessage(message, user, 11);
-        
-        // VISA ALLA MEDDELANDEN (SAMT ETT)
-     
 
+        // VISA ALLA MEDDELANDEN (SAMT ETT)
         user.messages = messageService.ShowAllMessages(user);
+        if(user.messages.Count() == 0)
+        {
+            Console.WriteLine("No Messages");
+        }
         foreach (Message item in user.messages)
         {
             Console.WriteLine(item.MessagesToString());
@@ -169,7 +171,7 @@ internal class Program
                     case "2":
                         //Uppdaterar emailen 
                         string updateEmail = ConsoleInput.GetString("Update email: ");
-                        userHandeler.UpdateEmail(user, updateEmail);
+                        // userHandeler.UpdateEmail(user, updateEmail);
                         break;
                     case "3":
                         // Uppdaterar nickname
