@@ -12,6 +12,7 @@ internal class Program
         UserService userservise = new(identifier, userdb);
         //1. SKAPAKONTO
 
+        CreateUser(user, logInService, userdb);
         user = CreateUser(user, logInService, userdb);
         userservise.MakeUser(userdb, user);
        
