@@ -12,7 +12,7 @@ internal class Program
         UserDB userdb = new();
         //1. SKAPAKONTO
         user.Email = ConsoleInput.GetString("Enter your mail-adress");
-         user = logInService.MakeNewLogIn();//<-här har user med sig email, lösenord|elina tar över user och gör resten
+         user = logInService.MakeNewLogIn(user);//<-här har user med sig email, lösenord|elina tar över user och gör resten
         string input = ConsoleInput.GetString("name: ");
         string num = ConsoleInput.GetString("social security number: ");
         string adress = ConsoleInput.GetString("adress: ");
