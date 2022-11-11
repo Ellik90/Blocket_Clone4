@@ -1,3 +1,4 @@
+namespace LOGIK;
 public interface IAdManagement
 {
     //Interface för funktioner av annonser

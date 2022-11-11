@@ -17,9 +17,14 @@ internal class Program
 
         //1. SKAPAKONTO
 
+<<<<<<< HEAD
 
         //user = CreateUser(user, logInService, userdb, identifier);
         //userservise.MakeUser(userdb, user);
+=======
+        //   user = CreateUser(user, logInService, userdb, identifier);
+        //   userservise.MakeUser(userdb, user);
+>>>>>>> ba8cc4eda56d0b1ee879a7a04c4d313709083ea7
 
       
 
@@ -27,7 +32,11 @@ internal class Program
 
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
         user = new();
+<<<<<<< HEAD
         user.Email = "elinak90@icloud.com";//ConsoleInput.GetString("Enter your Email");
+=======
+        user.Email = "angelinaholmqvist@live.se";//ConsoleInput.GetString("Enter your Email");
+>>>>>>> ba8cc4eda56d0b1ee879a7a04c4d313709083ea7
         user.Password = 1010;//ConsoleInput.GetInt("Enter your Password");
         user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
         user.Id = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
@@ -36,6 +45,7 @@ internal class Program
             Console.WriteLine("Fel lösen eller mail");
             Environment.Exit(0);
         }
+<<<<<<< HEAD
           string updateDescription = ConsoleInput.GetString("Text: ");
 
         if(userservise.DescriptionInput(user, updateDescription) == true)
@@ -44,9 +54,19 @@ internal class Program
         }
 
 
+=======
+        //  DeleteAUser(user,userdb);
+        //  userservise.DeleteTheUser(userdb, user); 
+>>>>>>> ba8cc4eda56d0b1ee879a7a04c4d313709083ea7
         //1. TESTA GÖRA ANNONS
+        AddvertiseDb dbManager = new();
+        AdvertiseService advertiseService = new(dbManager);
+        advertise bil = new("BlåBil", "jätteBlåBill", 20000, "borås", "borås kommun", 50764, user.Id);
+        advertiseService.MakeNewAd(bil);
+
 
         //2. TESTA SÖKA ANNONS
+
 
         //---Annonsen---
         //Katt
@@ -265,6 +285,7 @@ internal class Program
     public static bool DeleteAUser(User user, IUserHandeler userHandeler)
     {
         string answer = ConsoleInput.GetString("Are you sure you want to delete your account? [yes] [no]");
+<<<<<<< HEAD
         int rows = 0;
         if (answer == "yes")
         {
@@ -278,6 +299,16 @@ internal class Program
         {
             return false;
             // Environment.Exit(0);
+=======
+        if (answer == "yes")
+        {
+            userHandeler.DeleteUser(user);
+            Console.WriteLine("Account deleted!");
+        }
+        else
+        {
+            Environment.Exit(0);
+>>>>>>> ba8cc4eda56d0b1ee879a7a04c4d313709083ea7
         }
     }
 
