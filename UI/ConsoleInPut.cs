@@ -29,6 +29,7 @@ public class ConsoleInput
             }
         }
         return inputInt;
-
     }
+
+    
 }

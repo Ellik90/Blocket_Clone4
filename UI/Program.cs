@@ -16,16 +16,19 @@ internal class Program
         
         //1. SKAPAKONTO
 
-        //   user = CreateUser(user, logInService, userdb, identifier);
-        //   userservise.MakeUser(userdb, user);
+          //user = CreateUser(user, logInService, userdb, identifier);
+          //userservise.MakeUser(userdb, user);
           
          
-        //  user = DeleteAUser(user, userdb)
-        //  userservise.DeleteUser(user);        // DELETE FUNKAR EJ, VAAAAD ÄR KNAAAAAS??????
+               // DELETE FUNKAR EJ, VAAAAD ÄR KNAAAAAS??????
 
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
         user = new();
-        user.Email = "";//ConsoleInput.GetString("Enter your Email");
+<<<<<<< HEAD
+        user.Email = "angelinaholmqvist@live.se";//ConsoleInput.GetString("Enter your Email");
+=======
+        user.Email = "elinak90@icloud.com";//ConsoleInput.GetString("Enter your Email");
+>>>>>>> bc80eb66b7dda604d6682b46f16461b1fcf0fdb0
         user.Password = 1010;//ConsoleInput.GetInt("Enter your Password");
         user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
         user.Id = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
@@ -34,6 +37,8 @@ internal class Program
             Console.WriteLine("Fel lösen eller mail");
             Environment.Exit(0);
         }
+         DeleteAUser(user,userdb);
+         userservise.DeleteTheUser(userdb, user); 
         //1. TESTA GÖRA ANNONS
 
         //2. TESTA SÖKA ANNONS
@@ -186,7 +191,8 @@ internal class Program
                 {
                     case "1":
                         //Raderar användare om användare finns
-                        // string delete = ConsoleInput.GetString(" ");
+                        
+                        string delete = ConsoleInput.GetString(" ");
                         if (userHandeler.DeleteUser(user) == true)
                         {
                             Console.WriteLine("Account deleted.");
@@ -245,10 +251,10 @@ internal class Program
         user = logInService.MakeNewLogIn(user);                       //user = new(input, num, adress, email, password);
         return user;
     }
-    public static void DeleteAUser(User user, UserDB userdb)
+    public static void DeleteAUser(User user, IUserHandeler userHandeler)
     {
         user.Email = ConsoleInput.GetString("User mail: ");
-        userdb.DeleteUser(user);
+        userHandeler.DeleteUser(user);
     }
 
     public static void ShowOneMessage(int messageId, IMessageHandeler messageHandeler) //A
