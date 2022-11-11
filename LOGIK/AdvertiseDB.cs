@@ -16,7 +16,7 @@ public class AddvertiseDb : IAdManagement
 
         using (MySqlConnection con = new MySqlConnection("Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
-            string query = "INSERT INTO advertise(category,sub_category,picture,rubric,description,price,municipality,county)VALUES(@rubric,@description,@price,@location,@municipality,@postalNumber);";
+            string query = "INSERT INTO advertise(rubric,description,price,municipality,county,postal_number,user_id)VALUES(@rubric,@description,@price,@county,@municipality,@postalNumber, @userid);";
 
             rowsEffected = con.ExecuteScalar<int>(query, param: advertise);
         }
