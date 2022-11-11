@@ -13,14 +13,14 @@ internal class Program
         UserService userservise = new(identifier, userdb);
         MessageDB messageDB = new();
         MessageService messageService = new(messageDB);
-        
+
         //1. SKAPAKONTO
 
-          user = CreateUser(user, logInService, userdb, identifier);
-          userservise.MakeUser(userdb, user);
-          
-         
-               // DELETE FUNKAR EJ, VAAAAD ÄR KNAAAAAS??????
+        //   user = CreateUser(user, logInService, userdb, identifier);
+        //   userservise.MakeUser(userdb, user);
+
+
+        // DELETE FUNKAR EJ, VAAAAD ÄR KNAAAAAS??????
 
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
         user = new();
@@ -32,16 +32,18 @@ internal class Program
         {
             Console.WriteLine("Fel lösen eller mail");
             Environment.Exit(0);
-         }
+        }
         //  DeleteAUser(user,userdb);
         //  userservise.DeleteTheUser(userdb, user); 
         //1. TESTA GÖRA ANNONS
+        AddvertiseDb dbManager = new();
+        AdvertiseService advertiseService = new(dbManager);
         advertise bil = new("BlåBil", "jätteBlåBill", 20000, "borås", "borås kommun", 50764, user.Id);
+        advertiseService.MakeNewAd(bil);
 
 
         //2. TESTA SÖKA ANNONS
-        AddvertiseDb dbManager = new();
-        AdvertiseService advertiseService = new(dbManager);
+
 
         //---Annonsen---
         //Katt
@@ -49,9 +51,9 @@ internal class Program
         //500 kr
         // - visningsnamn
         // annonsid 
-        
-         //3. SKRIV MEDDELANDE TILL ANNONSEN
-       // int advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
+
+        //3. SKRIV MEDDELANDE TILL ANNONSEN
+        // int advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
         // int advertiseUserId = 11 ;//= userdb.getuserid(advertiseId);
         // Message message = new("KATTEN", "Jag vill gärna köpa din katt!", user.Id, advertiseUserId);
         // messageService.MakeMessage(message);
@@ -59,33 +61,36 @@ internal class Program
 
 
         // VISA ALLA MEDDELANDEN 
-        Message message = new();
-        user.messages = messageService.ShowAllMessages(user);
-        if (user.messages.Count() == 0)
-        {
-            Console.WriteLine("No Messages");
-        }
-        foreach (Message item in user.messages)
-        {
-            Console.WriteLine(item.MessagesToString());
-        }
-        // VÄLJ MEDDELANDE ATT LÄSA
-        int messageId = ConsoleInput.GetInt("Enter message to read: ");
-        Message readMessage = messageService.ShowOneMessage(messageId);
-        Console.WriteLine(readMessage.WholeMessageToString());
+        // Message message = new();
+        // user.messages = messageService.ShowAllMessages(user);
+        // if (user.messages.Count() == 0)
+        // {
+        //     Console.WriteLine("No Messages");
+        // }
+        // foreach (Message item in user.messages)
+        // {
+        //     Console.WriteLine(item.MessagesToString());
+        // }
+        // // VÄLJ MEDDELANDE ATT LÄSA
+        // int messageId = ConsoleInput.GetInt("Enter message to read: ");
+        // Message readMessage = messageService.ShowOneMessage(messageId);
+        // Console.WriteLine(readMessage.WholeMessageToString());
 
-        //4. SVARA PÅ MEDDELANDE
-        int chocie = ConsoleInput.GetInt("1 för att svara, 2 för att tillbaka");
-        if(chocie == 1)
-        {
-            string rubric = ConsoleInput.GetString("Rubric: ");
-            string content = ConsoleInput.GetString("Content: ");
-            int idToUser = readMessage.IDFromUser;
-            Message answerMessage = new(rubric, content, user.Id, idToUser);
-            messageService.MakeMessage(answerMessage);
-            Console.WriteLine("Skickat");
-        }
+        // //4. SVARA PÅ MEDDELANDE
+        // int chocie = ConsoleInput.GetInt("1 för att svara, 2 för att tillbaka");
+        // if(chocie == 1)
+        // {
+        //     string rubric = ConsoleInput.GetString("Rubric: ");
+        //     string content = ConsoleInput.GetString("Content: ");
+        //     int idToUser = readMessage.IDFromUser;
+        //     Message answerMessage = new(rubric, content, user.Id, idToUser);
+        //     messageService.MakeMessage(answerMessage);
+        //     Console.WriteLine("Skickat");
+        // }
         //5. REDIGERA PROFIL
+        // DELETE USER
+        DeleteAUser(user, userdb);
+        userservise.DeleteTheUser(userdb, user);
 
         //6. VISA MINA ANNONSER
 
@@ -191,7 +196,7 @@ internal class Program
                 {
                     case "1":
                         //Raderar användare om användare finns
-                        
+
                         string delete = ConsoleInput.GetString(" ");
                         if (userHandeler.DeleteUser(user) == true)
                         {
@@ -242,7 +247,7 @@ internal class Program
             Environment.Exit(0);
         }
         user.SocialSecurityNumber = ConsoleInput.GetString("social security number: ");
-        if(identifier.ValidateSocialSecurityNumber(user.SocialSecurityNumber) == false)
+        if (identifier.ValidateSocialSecurityNumber(user.SocialSecurityNumber) == false)
         {
             Console.WriteLine("Social security number incorrect");
             Environment.Exit(0);
@@ -253,8 +258,16 @@ internal class Program
     }
     public static void DeleteAUser(User user, IUserHandeler userHandeler)
     {
-        user.Email = ConsoleInput.GetString("User mail: ");
-        userHandeler.DeleteUser(user);
+        string answer = ConsoleInput.GetString("Are you sure you want to delete your account? [yes] [no]");
+        if (answer == "yes")
+        {
+            userHandeler.DeleteUser(user);
+            Console.WriteLine("Account deleted!");
+        }
+        else
+        {
+            Environment.Exit(0);
+        }
     }
 
     public static void ShowOneMessage(int messageId, IMessageHandeler messageHandeler) //A
@@ -294,7 +307,7 @@ internal class Program
         string municipality = string.Empty;
         int postalNumber = 0;
         User user = new();
-    
+
         advertise nyannons = new advertise(rubric, description, price, location, municipality, postalNumber, user.Id);
         return nyannons;
     }

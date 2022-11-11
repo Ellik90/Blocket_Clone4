@@ -89,7 +89,7 @@ public class UserDB : IUserHandeler
         int rows = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
-            string? query = "DELETE FOREIGN KEY DELETE DELETE FROM users WHERE id = @id";
+            string? query = "DELETE FROM user_message WHERE from_user_id = @id OR to_user_id = @id; DELETE FROM users WHERE id = @id";
             rows = connection.ExecuteScalar<int>(query, new { @id = user.Id});//DET GÅR INTE ATT RADERA FÖR FOREIGN KEY, MESSAGE
         }
         if (rows > 0)
