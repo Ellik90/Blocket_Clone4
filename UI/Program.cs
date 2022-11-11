@@ -27,7 +27,7 @@ internal class Program
 
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
         user = new();
-        user.Email = "meleklina@outlook.com";//ConsoleInput.GetString("Enter your Email");
+        user.Email = "angelinaholmqvist@live.se";//ConsoleInput.GetString("Enter your Email");
         user.Password = 1010;//ConsoleInput.GetInt("Enter your Password");
         user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
         user.Id = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
@@ -36,13 +36,6 @@ internal class Program
             Console.WriteLine("Fel lösen eller mail");
             Environment.Exit(0);
         }
-          string updateDescription = ConsoleInput.GetString("Text: ");
-
-        if(userservise.DescriptionInput(user, updateDescription) == true)
-        {
-            Console.WriteLine("updated");
-        }
-
 
         //1. TESTA GÖRA ANNONS
         // AddvertiseDb dbManager = new();
@@ -86,11 +79,9 @@ internal class Program
         int fromUserId = messageDB.GetOtherUserInMessage(messageId);
        // List<Message> messages = messageService.ShowOneMessageConversation(messageId);
        List<Message> messages = messageDB.GetMessageConversationTEST(messageId, fromUserId, user.Id);
-        int idFromUser = 0;
         foreach(Message item in messages)
         {
-            Console.WriteLine($"{item.Rubric}\n\r{item.nameFromUser}\n\r{item.Content}"); 
-            idFromUser = item.IDFromUser;
+            Console.WriteLine($"{item.nameFromUser}\n\r{item.Rubric}\n\r{item.Content}"); 
         }
 
         //4. SVARA PÅ MEDDELANDE
@@ -99,7 +90,7 @@ internal class Program
         {
             string rubric = ConsoleInput.GetString("Rubric: ");
             string content = ConsoleInput.GetString("Content: ");
-            int idToUser = idFromUser;
+            int idToUser = fromUserId;
             Message answerMessage = new(rubric, content, user.Id, idToUser);
             messageService.MakeMessage(answerMessage);
             Console.WriteLine("Skickat");
@@ -108,6 +99,12 @@ internal class Program
         // DELETE USER
         // DeleteAUser(user, userdb);
         // userservise.DeleteTheUser(userdb, user);
+        // UPDATE DESCRIPTION
+        //  string updateDescription = ConsoleInput.GetString("Text: ");
+        //  if(userservise.DescriptionInput(user, updateDescription) == true)
+        // {
+        //     Console.WriteLine("updated");
+        // }
 
         //6. VISA MINA ANNONSER
 
