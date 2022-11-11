@@ -21,8 +21,8 @@ public class MessageDB : IMessageHandeler
         {
             string query = "SELECT p.id, p.rubric, u1.nick_name as 'namefromuser', "+
             "COUNT(um.from_user_id) as 'countmessagesfromuser' FROM user_message um INNER JOIN message p ON um.message_id = p.id "+
-            "INNER JOIN users u1 ON um.from_user_id = u1.id INNER JOIN users u2 ON um.to_user_id = u2.id ORDER BY COUNT(um.from_user_id) DESC;";
-            messagesOverlooks = connection.Query<Message>(query, param:user).ToList();
+            "INNER JOIN users u1 ON um.from_user_id = u1.id INNER JOIN users u2 ON um.to_user_id = u2.id WHERE (u2.id = @Id) ORDER BY COUNT(um.from_user_id) DESC;";
+            messagesOverlooks = connection.Query<Message>(query, param:user).ToList();   //      OR (u1.id = @Id) 
         }
         return messagesOverlooks;
     }
@@ -33,6 +33,7 @@ public class MessageDB : IMessageHandeler
 
     public int GetOtherUserInMessage(int messageId)
     {
+        // här
          int fromUserId= 0;
         using (MySqlConnection connection = new MySqlConnection("Server=localhost;Database=blocket_clone;Uid=root;Pwd=;"))
         {

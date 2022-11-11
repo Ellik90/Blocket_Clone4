@@ -7,5 +7,6 @@ public interface IMessageHandeler
     public List<Message> GetAllMessagesOverlookTest(User user);
     public List<Message> GetMessageConversation(int messageId);
     public void DeleteMessage(int messageId);
+    public List<Message> GetMessageConversationTEST(int messageId, int otherUserId, int myId);
     
 }
