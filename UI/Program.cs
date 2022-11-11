@@ -14,11 +14,14 @@ internal class Program
         MessageDB messageDB = new();
         MessageService messageService = new(messageDB);
 
+
         //1. SKAPAKONTO
 
-        //   user = CreateUser(user, logInService, userdb, identifier);
-        //   userservise.MakeUser(userdb, user);
 
+        //user = CreateUser(user, logInService, userdb, identifier);
+        //userservise.MakeUser(userdb, user);
+
+      
 
         // DELETE FUNKAR EJ, VAAAAD ÄR KNAAAAAS??????
 
@@ -33,7 +36,14 @@ internal class Program
             Console.WriteLine("Fel lösen eller mail");
             Environment.Exit(0);
         }
-  
+          string updateDescription = ConsoleInput.GetString("Text: ");
+
+        if(userservise.DescriptionInput(user, updateDescription) == true)
+        {
+            Console.WriteLine("updated");
+        }
+
+
         //1. TESTA GÖRA ANNONS
         // AddvertiseDb dbManager = new();
         // AdvertiseService advertiseService = new(dbManager);
@@ -155,7 +165,7 @@ internal class Program
                     int messageId = ConsoleInput.GetInt("Choose message to read");
                     //messagePage.ShowOneMessage(messageId);
                     //OM PERSONEN VÄLJER ETT SPECIFIKT MEDDELANDE, SÅ VISAS HELA DET MEDD.
-                    ShowOneMessageConvo(messageId, messageHandeler);
+                    //ShowOneMessageConvo(messageId, messageHandeler);
                     currentPage = ConsoleInput.GetInt("[2] Return");
                     break;
                     //VI FÅR PRATA OM HUR VI SKA GÖRA MED SWITCHARNA
@@ -205,7 +215,7 @@ internal class Program
                         //Raderar användare om användare finns
 
                         string delete = ConsoleInput.GetString(" ");
-                        if (userHandeler.DeleteUser(user) == true)
+                        if (userHandeler.DeleteUser(user) > 0)
                         {
                             Console.WriteLine("Account deleted.");
                             Environment.Exit(0);
@@ -241,14 +251,14 @@ internal class Program
     public static User CreateUser(User user, LogInService logInService, UserDB userdb, Identifier identifier)
     {
         user.Email = ConsoleInput.GetString("Enter your mail-adress");
-        if (userdb.UserEmailExists(user.Email) == true)
+        if (userdb.UserEmailExists(user.Email) > 0)
         {
             Console.WriteLine("Email allready exists");
             Environment.Exit(0);
         }
         //<-här har user med sig email, lösenord|elina tar över user och gör resten
         user.Name = ConsoleInput.GetString("name: ");
-        if (userdb.NicknameExists(user.Name) == true)
+        if (userdb.NicknameExists(user.Name) > 0)
         {
             Console.WriteLine("Nickname allready exists");
             Environment.Exit(0);
@@ -263,21 +273,33 @@ internal class Program
         user = logInService.MakeNewLogIn(user);                       //user = new(input, num, adress, email, password);
         return user;
     }
-    public static void DeleteAUser(User user, IUserHandeler userHandeler)
+    public static bool DeleteAUser(User user, IUserHandeler userHandeler)
     {
         string answer = ConsoleInput.GetString("Are you sure you want to delete your account? [yes] [no]");
+        int rows = 0;
         if (answer == "yes")
         {
-            userHandeler.DeleteUser(user);
             Console.WriteLine("Account deleted!");
+        }
+        if (rows > 0)
+        {
+            return true;
         }
         else
         {
-            Environment.Exit(0);
+            return false;
+            // Environment.Exit(0);
         }
     }
 
-    public static void ShowOneMessageConvo(int messageId, IMessageHandeler messageHandeler) //A
+    public static void UpDateDescription(IUserHandeler userHandeler, User user)
+    {
+        string updateDescription = ConsoleInput.GetString("Text: ");
+
+        userHandeler.UpDateDescription(user, updateDescription);
+    }
+
+    public static void ShowOneMessage(int messageId, IMessageHandeler messageHandeler) //A
     {
         // den hittar meddelande med specifikt id
         List<Message>messages = messageHandeler.GetMessageConversation(messageId);
