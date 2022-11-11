@@ -1,6 +1,7 @@
 public class advertise
 {
     //Publik klass för att skapa annonser
+    //Properties some annons ska innehålla
     public int id { get; set; }
     public string rubric { get; set; }
     public string description { get; set; }
@@ -10,6 +11,8 @@ public class advertise
     public int postalNumber { get; set; }
 
     public int userId {get; set;}
+
+    //Konstruktor då annons är tvunget att hålla alla dessa egenskaper för att användas
 
     public advertise(string rubric, string description, float price, string location, string municipality, int postalNumber, int userId)
     {
