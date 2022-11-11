@@ -21,13 +21,13 @@ internal class Program
         //user = CreateUser(user, logInService, userdb, identifier);
         //userservise.MakeUser(userdb, user);
 
-      
+
 
         // DELETE FUNKAR EJ, VAAAAD ÄR KNAAAAAS??????
 
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
-        user = new();
-        user.Email = "angelinaholmqvist@live.se";//ConsoleInput.GetString("Enter your Email");
+        user = new();  //elinak90@icloud.com meleklina@outlook.com
+        user.Email = "meleklina@outlook.com";//ConsoleInput.GetString("Enter your Email");
         user.Password = 1010;//ConsoleInput.GetInt("Enter your Password");
         user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
         user.Id = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
@@ -36,16 +36,13 @@ internal class Program
             Console.WriteLine("Fel lösen eller mail");
             Environment.Exit(0);
         }
-
         //1. TESTA GÖRA ANNONS
         // AddvertiseDb dbManager = new();
         // AdvertiseService advertiseService = new(dbManager);
         // advertise bil = new("BlåBil", "jätteBlåBill", 20000, "borås", "borås kommun", 50764, user.Id);
         // advertiseService.MakeNewAd(bil);
 
-
         //2. TESTA SÖKA ANNONS
-
 
         //---Annonsen---
         //Katt
@@ -54,16 +51,15 @@ internal class Program
         // - visningsnamn
         // annonsid 
 
-       // 3. SKRIV MEDDELANDE TILL ANNONSENS ANVÄNDARE 
-       // int advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
-        //FÖR ATT SKICKA NYTT EDDELANDE, KOLLA SENASTE ID PÅ MEDDELANDEN OCH PLUSSA PÅ ETT
-        // int advertiseUserId = 13;//= userdb.getuserid(advertiseId);
-        // Message message = new("FÖRSTA MEDD", "Jag vill gärna köpa din katt!", user.Id, advertiseUserId);
-        // messageService.MakeMessage(message);
-        // Console.WriteLine("Message sent!");
+        // 3. SKRIV MEDDELANDE TILL ANNONSENS ANVÄNDARE 
+        Message message = new();
+        // int advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
+       
+        // int toUserId = 13;//= userdb.getuserid(advertiseId);
+        // UserMakesMessage(toUserId, user, messageService);
 
         //VISA ALLA MEDDELANDEN 
-        Message message = new();
+        message = new();
         user.messages = messageService.ShowAllMessages(user);
         if (user.messages.Count() == 0)
         {
@@ -77,23 +73,18 @@ internal class Program
         int messageId = ConsoleInput.GetInt("Enter message to read: ");
         // hämta det meddealndet via detta id!   så stoppar vi in touser och from user här under
         int fromUserId = messageDB.GetOtherUserInMessage(messageId);
-       // List<Message> messages = messageService.ShowOneMessageConversation(messageId);
-       List<Message> messages = messageDB.GetMessageConversationTEST(messageId, fromUserId, user.Id);
-        foreach(Message item in messages)
+        // List<Message> messages = messageService.ShowOneMessageConversation(messageId);
+        List<Message> messages = messageService.ShowOneMessageConversation(messageId, fromUserId, user.Id);//messageDB.GetMessageConversationTEST(messageId, fromUserId, user.Id);
+        foreach (Message item in messages)
         {
-            Console.WriteLine($"{item.nameFromUser}\n\r{item.Rubric}\n\r{item.Content}"); 
+            Console.WriteLine($"{item.nameFromUser}\n\r{item.Rubric}\n\r{item.Content}");
         }
 
         //4. SVARA PÅ MEDDELANDE
         int chocie = ConsoleInput.GetInt("1 för att svara, 2 för att tillbaka");
-        if(chocie == 1)
+        if (chocie == 1)
         {
-            string rubric = ConsoleInput.GetString("Rubric: ");
-            string content = ConsoleInput.GetString("Content: ");
-            int idToUser = fromUserId;
-            Message answerMessage = new(rubric, content, user.Id, idToUser);
-            messageService.MakeMessage(answerMessage);
-            Console.WriteLine("Skickat");
+            message = UserMakesMessage(fromUserId, user, messageService);
         }
         // 5. REDIGERA PROFIL
         // DELETE USER
@@ -114,6 +105,17 @@ internal class Program
 
 
 
+    }
+
+    static Message UserMakesMessage(int idToUser, User user, MessageService messageService)
+    {
+        string rubric = ConsoleInput.GetString("Rubric: ");
+        string content = ConsoleInput.GetString("Content: ");
+        // int idToUser = fromUserId;
+        Message answerMessage = new(rubric, content, user.Id, idToUser);
+        messageService.MakeMessage(answerMessage);
+        Console.WriteLine("Skickat");
+        return answerMessage;
     }
 
     // HÄR ÄR SJÄLVA BLOCKET HEMSIDAN, DEN TAR IN INTERFACES (OCH KLASSER SOM IMPLEMENTERAR DESSA)
@@ -299,8 +301,8 @@ internal class Program
     public static void ShowOneMessage(int messageId, IMessageHandeler messageHandeler) //A
     {
         // den hittar meddelande med specifikt id
-        List<Message>messages = messageHandeler.GetMessageConversation(messageId);
-       // Console.WriteLine(message.ToString());
+        List<Message> messages = messageHandeler.GetMessageConversation(messageId);
+        // Console.WriteLine(message.ToString());
     }
 
     public static advertise AddAdvertise() // Metod för att skapa annons//D
