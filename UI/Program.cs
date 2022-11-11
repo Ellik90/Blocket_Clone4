@@ -13,14 +13,19 @@ internal class Program
         UserService userservise = new(identifier, userdb);
         MessageDB messageDB = new();
         MessageService messageService = new(messageDB);
+        
         //1. SKAPAKONTO
 
-        //   user = CreateUser(user, logInService, userdb);
+        //   user = CreateUser(user, logInService, userdb, identifier);
         //   userservise.MakeUser(userdb, user);
+          
+         
+        //  user = DeleteAUser(user, userdb)
+        //  userservise.DeleteUser(user);        // DELETE FUNKAR EJ, VAAAAD ÄR KNAAAAAS??????
 
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
         user = new();
-        user.Email = "elinak90@icloud.com";//ConsoleInput.GetString("Enter your Email");
+        user.Email = "";//ConsoleInput.GetString("Enter your Email");
         user.Password = 1010;//ConsoleInput.GetInt("Enter your Password");
         user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
         user.Id = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
@@ -231,7 +236,7 @@ internal class Program
             Environment.Exit(0);
         }
         user.SocialSecurityNumber = ConsoleInput.GetString("social security number: ");
-        if(identifier.ValidateSocialSecurityNumber(user.SocialSecurityNumber)== false)
+        if(identifier.ValidateSocialSecurityNumber(user.SocialSecurityNumber) == false)
         {
             Console.WriteLine("Social security number incorrect");
             Environment.Exit(0);
@@ -239,6 +244,11 @@ internal class Program
         user.Adress = ConsoleInput.GetString("adress: "); //FÖR USER HAR EMAIL HÄR // och password
         user = logInService.MakeNewLogIn(user);                       //user = new(input, num, adress, email, password);
         return user;
+    }
+    public static void DeleteAUser(User user, UserDB userdb)
+    {
+        user.Email = ConsoleInput.GetString("User mail: ");
+        userdb.DeleteUser(user);
     }
 
     public static void ShowOneMessage(int messageId, IMessageHandeler messageHandeler) //A

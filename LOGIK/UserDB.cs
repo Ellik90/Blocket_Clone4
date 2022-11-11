@@ -14,7 +14,7 @@ public class UserDB : IUserHandeler
             return id;
         }       
     }
-    
+
     public bool NicknameExists(string nickname)
     {
         int rows = 0;
@@ -84,13 +84,13 @@ public class UserDB : IUserHandeler
             return false;
         }
     }
-    public bool DeleteUser(User deleteUser)
+    public bool DeleteUser(User user)
     {
         int rows = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
             string? query = "DELETE FROM users WHERE id = @id";
-            rows = connection.ExecuteScalar<int>(query, param: deleteUser);
+            rows = connection.ExecuteScalar<int>(query, param: user);
         }
         if (rows > 0)
         {
@@ -121,7 +121,7 @@ public class UserDB : IUserHandeler
 
     }
 
-    public void UpdateNickName(User user, string nickname)
+    public bool UpdateNickName(User user, string nickname)
     {
         int rows = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
@@ -129,14 +129,30 @@ public class UserDB : IUserHandeler
             string? query = "UPDATE users SET nick_name = @nickName WHERE id = @id";
             rows = connection.ExecuteScalar<int>(query, param: new { @nick_name = nickname, @id = user });
         }
+           if (rows > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
-    public void UpDateDescription(User user, string updateDescription)
+    public bool UpDateDescription(User user, string updateDescription)
     {
         int rows = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
             string? query = "UPDATE users SET description = @description WHERE id = @id";
             rows = connection.ExecuteScalar<int>(query, param: new { @description = updateDescription, @id = user });
+        }
+           if (rows > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 

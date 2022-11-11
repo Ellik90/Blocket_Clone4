@@ -5,7 +5,10 @@ public interface IAdManagement
 
     public void RemoveAd(advertise advertise);
 
-    public List <advertise> ShowAd(advertise advertise);
+    public List <advertise> ShowAllAds(string search);
 
     public void AdOverview(advertise advertise);
+
+    public advertise ShowAd(int id);
+  
 }

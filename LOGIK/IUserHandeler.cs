@@ -7,8 +7,8 @@ public interface IUserHandeler
     public bool UserEmailExists(string email);
     public bool DeleteUser(User deleteUser);
     public bool UpdateEmail(User user, string userEmail);
-    public void UpdateNickName(User user, string nickname);
-    public void UpDateDescription(User user, string updateDescription);
+    public bool UpdateNickName(User user, string nickname);
+    public bool UpDateDescription(User user, string updateDescription);
     public int GetUserIdFromAdvertise(int advertiseId);
     
 }

@@ -30,6 +30,12 @@ public class UserService
         Console.WriteLine("Working");
     }
 
+    public void DeleteUser(IUserHandeler userHandeler, User user)
+    {
+        userHandeler.DeleteUser(user);
+        Console.WriteLine("User deleted");
+    }
+
     // // i metoden bli user så har det redan kommit in personnr, mail, lösen
     // User newUser = new();
     // MessagePage messagePage = new();
