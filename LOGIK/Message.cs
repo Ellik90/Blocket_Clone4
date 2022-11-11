@@ -10,6 +10,7 @@ public class Message
     public string Content { get; private set; }
     public readonly DateTime DateSent;
     // public annons annons;
+    public int countMessagesFromUser{get;set;}
     public User user = new();
     public bool IsOld { get; private set; }   // om det gått 10 dagar så hamnar den i i gamla listan
 
@@ -38,7 +39,7 @@ public class Message
 
     public string MessagesToString()
     {
-        return $"Message id [{ID}]: {Rubric} From {nameFromUser}";
+        return $"Message id [{ID}]: {Rubric} From {nameFromUser}\n\rMessages{countMessagesFromUser}";
     }
     public string ConversationToString()
     {

@@ -16,7 +16,7 @@ public class MessageService
     }
     public List<Message> ShowAllMessages(User user)
     {
-        List<Message> messages = _messageHandeler.GetAllMessagesOverlook(user);
+        List<Message> messages = _messageHandeler.GetAllMessagesOverlookTest(user);
         return messages;
     }
     public List<Message> ShowOneMessageConversation(int messageId)

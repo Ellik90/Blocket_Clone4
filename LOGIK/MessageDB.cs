@@ -13,6 +13,19 @@ public class MessageDB : IMessageHandeler
         }
         return messagesOverlooks;
     }
+
+     public List<Message> GetAllMessagesOverlookTest(User user)
+    {
+        List<Message>messagesOverlooks = new();
+        using (MySqlConnection connection = new MySqlConnection("Server=localhost;Database=blocket_clone;Uid=root;Pwd=;"))
+        {
+            string query = "SELECT p.id, p.rubric, u1.nick_name as 'namefromuser', "+
+            "COUNT(um.from_user_id) as 'countmessagesfromuser' FROM user_message um INNER JOIN message p ON um.message_id = p.id "+
+            "INNER JOIN users u1 ON um.from_user_id = u1.id INNER JOIN users u2 ON um.to_user_id = u2.id ORDER BY COUNT(um.from_user_id) DESC;";
+            messagesOverlooks = connection.Query<Message>(query, param:user).ToList();
+        }
+        return messagesOverlooks;
+    }
     public IEnumerable<Message> SeeMyMessagesAsIenumerable(User user)
     {
         throw new NotImplementedException();
@@ -44,7 +57,7 @@ public class MessageDB : IMessageHandeler
         List<Message>messages = new();
         using (MySqlConnection connection = new MySqlConnection("Server=localhost;Database=blocket_clone;Uid=root;Pwd=;"))
         {
-            string query = "SELECT p.rubric, p.content, u1.nick_name as 'namefromuser', u2.nick_name as 'namefromuser' " +
+            string query = "SELECT p.rubric, p.content, u1.nick_name as 'namefromuser' " +
             " FROM user_message um LEFT JOIN message p ON (um.message_id = p.id) LEFT JOIN users u1 " +
             " ON (u1.id = um.from_user_id) LEFT JOIN users u2 ON (u2.id = um.to_user_id) " +
             "  WHERE (u2.id = @otheruserid AND u1.id = @myid) OR (u2.id = @myid AND u1.id = @otheruserid) ORDER BY um.date_sent ASC;";
