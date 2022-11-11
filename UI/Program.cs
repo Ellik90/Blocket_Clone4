@@ -82,7 +82,6 @@ internal class Program
         // messageService.MakeMessage(message);
         // Console.WriteLine("Message sent!");
 
-
         // VISA ALLA MEDDELANDEN 
         // Message message = new();
         // user.messages = messageService.ShowAllMessages(user);
@@ -112,11 +111,8 @@ internal class Program
         // }
         //5. REDIGERA PROFIL
         // DELETE USER
-
-
-
         DeleteAUser(user, userdb);
-        userservise.DeleteTheUser(user);
+        userservise.DeleteTheUser(userdb, user);
 
         //6. VISA MINA ANNONSER
 
