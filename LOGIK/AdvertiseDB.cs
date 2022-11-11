@@ -3,12 +3,7 @@ using MySqlConnector;
 namespace LOGIK;
 public class AddvertiseDb : IAdManagement
 {
-        /*this.rubric = rubric;
-        this.description = description;
-        this.price = price;
-        this.location = location;
-        this.municipality = municipality;
-        this.postalNumber = postalNumber;*/
+
 
     //Klass för att hålla funktioner för annonserna
     List<advertise> ads = new(); //Ska hålla annonserna
@@ -25,7 +20,7 @@ public class AddvertiseDb : IAdManagement
 
             rowsEffected = con.ExecuteScalar<int>(query, param: advertise);
         }
-        if(rowsEffected >= 1)
+        if (rowsEffected >= 1)
         {
             Console.WriteLine("Kund las in.");
         }
@@ -33,22 +28,63 @@ public class AddvertiseDb : IAdManagement
         {
             Console.WriteLine("Något gick fel.");
         }
-        
-    }
 
-    public void AdOverview(advertise advertise)
-    {
-        
     }
 
     public void RemoveAd(advertise advertise)
     {
-        
+
+        int rowsEffected = 0;
+
+        using (MySqlConnection con = new MySqlConnection("Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
+        {
+            string query = "DELETE FROM advertise WHERE id = @id;";
+
+            rowsEffected = con.ExecuteScalar<int>(query, param: advertise);
+        }
+        if (rowsEffected >= 1)
+        {
+            Console.WriteLine("Annons togs bort");
+        }
+        else
+        {
+            Console.WriteLine("Något gick fel.");
+        }
+
     }
 
-    public List<advertise> ShowAd(advertise advertise)
+    public List<advertise> ShowAllAds(string search)
+
     {
-        return new List<advertise>();
+        List<advertise> allAds = new();
+
+
+        using (MySqlConnection con = new MySqlConnection("Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
+        {
+            string query = "SELECT rubric,description,price,municipality,county FROM advertise WHERE rubric = @rubric";
+
+            allAds = con.Query<advertise>(query, new { @search = search }).ToList();
+        }
+
+        return allAds;
+    }
+    public advertise ShowAd(int id)
+    {
+        advertise advertise = new();
+
+         using (MySqlConnection con = new MySqlConnection("Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
+        {
+            string query = "SELECT rubric,description,price,municipality,county,user_id AS 'userID' FROM advertise WHERE id = @id;";
+
+            advertise = con.QuerySingle<advertise>(query, new { @id = id });
+        }
+        return advertise;
+        //all info, även userid 
+
+    }
+    public void AdOverview(advertise advertise)
+    {
+
     }
 
 

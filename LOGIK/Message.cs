@@ -3,7 +3,7 @@ public class Message
 {
     public int ID { get; set; }
     public int IDFromUser { get; set; }
-    public string idfromuser{get;set;}
+    public string nameFromUser{get;set;}
     public int IDToUser { get; set; }
     public string Rubric { get; private set; }
     public string Content { get; private set; }
@@ -37,11 +37,11 @@ public class Message
 
     public string MessagesToString()
     {
-        return $"Message id [{ID}]: {Rubric} From {idfromuser}";
+        return $"Message id [{ID}]: {Rubric} From {nameFromUser}";
     }
     public string WholeMessageToString()
     {
-        return $"{Rubric}\n\r{Content}\n\r//{idfromuser}";
+        return $"{Rubric}\n\r{Content}\n\r//{nameFromUser}";
     }
 
 }
