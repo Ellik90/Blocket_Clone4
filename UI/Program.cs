@@ -287,7 +287,9 @@ internal class Program
         string location = string.Empty;
         string municipality = string.Empty;
         int postalNumber = 0;
-        advertise nyannons = new advertise(rubric, description, price, location, municipality, postalNumber);
+        User user = new();
+    
+        advertise nyannons = new advertise(rubric, description, price, location, municipality, postalNumber, user.Id);
         return nyannons;
     }
 
