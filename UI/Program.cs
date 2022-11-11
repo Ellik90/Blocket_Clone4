@@ -16,19 +16,15 @@ internal class Program
         
         //1. SKAPAKONTO
 
-          //user = CreateUser(user, logInService, userdb, identifier);
-          //userservise.MakeUser(userdb, user);
+          user = CreateUser(user, logInService, userdb, identifier);
+          userservise.MakeUser(userdb, user);
           
          
                // DELETE FUNKAR EJ, VAAAAD ÄR KNAAAAAS??????
 
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
         user = new();
-<<<<<<< HEAD
         user.Email = "angelinaholmqvist@live.se";//ConsoleInput.GetString("Enter your Email");
-=======
-        user.Email = "elinak90@icloud.com";//ConsoleInput.GetString("Enter your Email");
->>>>>>> bc80eb66b7dda604d6682b46f16461b1fcf0fdb0
         user.Password = 1010;//ConsoleInput.GetInt("Enter your Password");
         user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
         user.Id = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
@@ -36,12 +32,16 @@ internal class Program
         {
             Console.WriteLine("Fel lösen eller mail");
             Environment.Exit(0);
-        }
-         DeleteAUser(user,userdb);
-         userservise.DeleteTheUser(userdb, user); 
+         }
+        //  DeleteAUser(user,userdb);
+        //  userservise.DeleteTheUser(userdb, user); 
         //1. TESTA GÖRA ANNONS
+        advertise bil = new("BlåBil", "jätteBlåBill", 20000, "borås", "borås kommun", 50764, user.Id);
+
 
         //2. TESTA SÖKA ANNONS
+        AddvertiseDb dbManager = new();
+        AdvertiseService advertiseService = new(dbManager);
 
         //---Annonsen---
         //Katt
