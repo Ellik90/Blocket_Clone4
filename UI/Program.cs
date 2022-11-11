@@ -3,6 +3,7 @@ internal class Program
 {
     private static void Main(string[] args)
     {
+        // DU SKA SVARA PÅ MEDDELANDET, DET GÅR EJ CHILD ROW NÅOGT!!
 
         //TESTAR ETT STEG I TAGET HÄR
         Identifier identifier = new();
