@@ -3,19 +3,18 @@ using MySqlConnector;
 namespace LOGIK;
 public class UserDB : IUserHandeler
 {
-
     public int GetUserIdFromAdvertise(int advertiseId)
     {
         int id = 0;
-        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;")) 
+        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
             string query = "SELECT user_id FROM advertise WHERE id = @id";
             id = connection.ExecuteScalar<int>(query, new { @id = advertiseId });
             return id;
-        }       
+        }
     }
 
-    public bool NicknameExists(string nickname)
+    public int NicknameExists(string nickname)
     {
         int rows = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
@@ -23,17 +22,10 @@ public class UserDB : IUserHandeler
             string? query = "SELECT * FROM users WHERE nick_name = @name";
             rows = connection.ExecuteScalar<int>(query, new { @name = nickname });
         }
-        if (rows > 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-
+     return rows;
     }
-    public bool BecomeNewUser(User user)
+
+    public int BecomeNewUser(User user)
     {
         int rows = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
@@ -41,16 +33,7 @@ public class UserDB : IUserHandeler
             string query = "INSERT INTO users(nick_name,social_security_number,email, adress,pass_word)VALUES(@name,@SocialSecurityNumber,@email,@adress,@passWord);";
             rows = connection.ExecuteScalar<int>(query, param: user);
         }
-        if (rows > 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-
-
+      return rows;
     }
     //hämta ut id från user
     //testa alla querys i databasen
@@ -63,11 +46,9 @@ public class UserDB : IUserHandeler
             id = connection.ExecuteScalar<int>(query, param: user);
             return id;
         }
-
-
     }
 
-    public bool UserEmailExists(string Email)
+    public int UserEmailExists(string Email)
     {
         int rows = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
@@ -75,34 +56,21 @@ public class UserDB : IUserHandeler
             string? query = "SELECT * FROM users WHERE email = @email ";
             rows = connection.ExecuteScalar<int>(query, new { @email = Email });
         }
-        if (rows > 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return rows;
     }
-    public bool DeleteUser(User user)
+
+    public int DeleteUser(User user)
     {
         int rows = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
             string? query = "DELETE FROM user_message WHERE from_user_id = @id OR to_user_id = @id; DELETE FROM users WHERE id = @id";
-            rows = connection.ExecuteScalar<int>(query, new { @id = user.Id});//DET GÅR INTE ATT RADERA FÖR FOREIGN KEY, MESSAGE
+            rows = connection.ExecuteScalar<int>(query, new { @id = user.Id });//DET GÅR INTE ATT RADERA FÖR FOREIGN KEY, MESSAGE
         }
-        if (rows > 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return rows;
     }
 
-    public bool UpdateEmail(User user, string userEmail)
+    public int UpdateEmail(User user, string userEmail)
     {
         int rows = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
@@ -110,18 +78,10 @@ public class UserDB : IUserHandeler
             string? query = "UPDATE users SET email = @userEmail WHERE id = @id";
             rows = connection.ExecuteScalar<int>(query, param: new { @userEmail = userEmail, @id = user.Id });
         }
-        if (rows > 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-
+        return rows;
     }
 
-    public bool UpdateNickName(User user, string nickname)
+    public int UpdateNickName(User user, string nickname)
     {
         int rows = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
@@ -129,31 +89,16 @@ public class UserDB : IUserHandeler
             string? query = "UPDATE users SET nick_name = @nickName WHERE id = @id";
             rows = connection.ExecuteScalar<int>(query, param: new { @nick_name = nickname, @id = user });
         }
-           if (rows > 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return rows;
     }
-    public bool UpDateDescription(User user, string updateDescription)
+    public int UpDateDescription(User user, string updateDescription)
     {
         int rows = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
             string? query = "UPDATE users SET description = @description WHERE id = @id";
-            rows = connection.ExecuteScalar<int>(query, param: new { @description = updateDescription, @id = user });
+            rows = connection.ExecuteScalar<int>(query, param: new { @description = updateDescription, @id = user.Id });
         }
-           if (rows > 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return rows;
     }
-
 }

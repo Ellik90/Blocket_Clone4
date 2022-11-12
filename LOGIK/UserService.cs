@@ -4,7 +4,6 @@ public class UserService
     //här i är funktioner mellan anv och db, tex makenewuser(string name, string email) eller makenewuser(User user)samt kontrollerare osv;
 
     IUserHandeler _userHandele;
-
     IIdentifier _identifier;
 
     public UserService(IIdentifier identifier, IUserHandeler userHandeler)
@@ -13,26 +12,73 @@ public class UserService
         _userHandele = userHandeler;
     }
 
-    public void GetUserIdToAD(IUserHandeler userHandeler, int advertiseId)
+    public bool GetUserIdToAD(int advertiseId)
     {
-        userHandeler.GetUserIdFromAdvertise(advertiseId);
-        Console.WriteLine("You got an ID ");
-    }
-    public void MakeUser(IUserHandeler iuserhandeler, User user)
-    {
-        iuserhandeler.BecomeNewUser(user);
-        Console.WriteLine("yeey");
-    }
-
-    public void CheckNickNameExists(IUserHandeler iuserHandeler, string nickName)
-    {
-        iuserHandeler.NicknameExists(nickName);
-        Console.WriteLine("Working");
+        int rows = 0;
+        _userHandele.GetUserIdFromAdvertise(advertiseId);
+        if (rows > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
-    public void DeleteTheUser(IUserHandeler userHandeler, User user)
-    {       
-        userHandeler.DeleteUser(user);
-        Console.WriteLine("User deleted");
+    public bool MakeUser(User user)
+    {
+        int rows = 0;
+        _userHandele.BecomeNewUser(user);
+        if (rows > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public bool CheckNickNameExists(string nickName)
+    {
+        int rows = 0;
+        _userHandele.NicknameExists(nickName);
+        if (rows > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public bool DeleteTheUser(User user)
+    {
+        int rows = 0;
+        _userHandele.DeleteUser(user);
+        if (rows > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public bool DescriptionInput(User user, string updateDescription)
+    {
+        int rows = 0;
+        _userHandele.UpDateDescription(user, updateDescription);
+        if (rows > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

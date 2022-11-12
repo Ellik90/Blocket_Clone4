@@ -2,9 +2,11 @@ namespace LOGIK;
 public interface IMessageHandeler
 {
     public int CreateMessage(Message message);
-    public void SendMessage(int messageId, Message message);
+    public void SendMessage(Message message, int messageId);
     public List<Message> GetAllMessagesOverlook(User user);
-    public Message GetMessage(int messageId);
+    public List<Message> GetAllMessagesOverlookTest(User user);
+    public List<Message> GetMessageConversation(int messageId);
     public void DeleteMessage(int messageId);
+    public List<Message> GetMessageConversationTEST(int messageId, int otherUserId, int myId);
     
 }

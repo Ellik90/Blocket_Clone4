@@ -12,19 +12,19 @@ public class MessageService
     public void MakeMessage(Message message)
     {
         int newMessageId = _messageHandeler.CreateMessage(message);
-        _messageHandeler.SendMessage(newMessageId, message);
+        _messageHandeler.SendMessage( message, newMessageId);
     }
     public List<Message> ShowAllMessages(User user)
     {
-        List<Message> messages = _messageHandeler.GetAllMessagesOverlook(user);
+        List<Message> messages = _messageHandeler.GetAllMessagesOverlookTest(user);
         return messages;
     }
-    public Message ShowOneMessage(int messageId)
+    public List<Message> ShowOneMessageConversation(int messageId, int fromUserId, int thisUserId)
     {
         // den hittar meddelande med specifikt id
-        message = new();
-        message = _messageHandeler.GetMessage(messageId);
-        return message;
+        List<Message>messages= new();
+        messages = _messageHandeler.GetMessageConversationTEST(messageId, fromUserId, thisUserId );
+        return messages;
     }
 
 }
