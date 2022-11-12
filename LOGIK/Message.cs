@@ -14,7 +14,7 @@ public class Message
     public User user = new();
     public bool IsOld { get; private set; }   // om det gått 10 dagar så hamnar den i i gamla listan
 
-    public Message(string rubric, string content, int idFromUser, int idToUser)
+    public Message(string rubric = "Empty title", string content = "Empty message", int idFromUser = 0, int idToUser = 0)
     {
         Rubric = rubric; // annonsrubriken?
         Content = content;
