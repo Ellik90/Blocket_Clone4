@@ -38,11 +38,11 @@ internal class Program
         }
     
         //1. TESTA GÖRA ANNONS
-        // user.Id = 13;
-        // AddvertiseDb dbManager = new();
-        // AdvertiseService advertiseService = new(dbManager);
-        // advertise bil = new("BlåBil", "jätteBlåBill", 20000, "borås", "borås kommun", 50764, user.Id);
-        // advertiseService.MakeNewAd(bil);
+      
+        AddvertiseDb dbManager = new();
+        AdvertiseService advertiseService = new(dbManager);
+        advertise bil = new("BlåBil", "jätteBlåBill", 20000, "borås", "borås kommun", 50764, user.Id);
+        advertiseService.MakeNewAd(bil);
         
 
         //2. TESTA SÖKA ANNONS
@@ -64,7 +64,7 @@ internal class Program
 
         // 3. SKRIV MEDDELANDE TILL ANNONSENS ANVÄNDARE 
         Message message = new();
-        // int advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
+        int advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
        
         // int toUserId = 10;//= userdb.getuserid(advertiseId);
         // UserMakesMessage(toUserId, user, messageService);
