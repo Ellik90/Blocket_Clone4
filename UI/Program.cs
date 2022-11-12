@@ -39,14 +39,17 @@ internal class Program
         //  DeleteAUser(user,userdb);
         //  userservise.DeleteTheUser(userdb, user); 
         //1. TESTA GÖRA ANNONS
+        user.Id = 13;
         AddvertiseDb dbManager = new();
         AdvertiseService advertiseService = new(dbManager);
-        // advertise bil = new("BlåBil", "jätteBlåBill", 20000, "borås", "borås kommun", 50764, user.Id);
-        // advertiseService.MakeNewAd(bil);
+        advertise bil = new("BlåBil", "jätteBlåBill", 20000, "borås", "borås kommun", 50764, user.Id);
+        advertiseService.MakeNewAd(bil);
+        
 
         //2. TESTA SÖKA ANNONS
         string search = ConsoleInput.GetString("SearchAd");
     
+        // NÄR DU HÄMTAR ALLA ANNONSER I DATABASEN, LÄGG ÄVEN TILL ANNONSEN OCH USERNS ID!!
         List <advertise> foundad = advertiseService.SearchAd(search);
         foreach(advertise item in foundad)
         {
@@ -108,8 +111,10 @@ internal class Program
         // }
 
         //6. VISA MINA ANNONSER
+        // metod anropas från advertiseservice, som returnar en lista med alla annonsen där user_id = dennas id
 
         //7. MINA SÅLDA OBJEKT?)
+        // bool isSold? eller det tas sen
 
         //7.
 
