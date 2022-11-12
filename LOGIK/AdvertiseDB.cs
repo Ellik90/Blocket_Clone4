@@ -8,19 +8,19 @@ public class AddvertiseDb : IAdManagement
     //Klass för att hålla funktioner för annonserna
     List<advertise> ads = new(); //Ska hålla annonserna
 
-    public void CreateAd(advertise advertise)
+    public int CreateAd(advertise advertise)
     {
         List<advertise> CreateAd = new();
 
-        int rowsEffected = 0;
+        int id = 0;
 
         using (MySqlConnection con = new MySqlConnection("Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
-            string query = "INSERT INTO advertise(rubric,description,price,municipality,county,postal_number,user_id)VALUES(@rubric,@description,@price,@county,@municipality,@postalNumber, @userid);";
+            string query = "INSERT INTO advertise(rubric,description,price,municipality,county,postal_number,user_id)VALUES(@rubric,@description,@price,@county,@municipality,@postalNumber, @userid); SELECT LAST_INSERT_ID();" ;
 
-            rowsEffected = con.ExecuteScalar<int>(query, param: advertise);
+            id = con.ExecuteScalar<int>(query, param: advertise);
         }
-        if (rowsEffected >= 1)
+        if (id >= 1 )
         {
             Console.WriteLine("Registrerad.");
         }
@@ -28,6 +28,7 @@ public class AddvertiseDb : IAdManagement
         {
             Console.WriteLine("Något gick fel.");
         }
+        return id;
 
     }
 
