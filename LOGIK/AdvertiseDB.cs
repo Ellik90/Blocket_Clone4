@@ -22,7 +22,7 @@ public class AddvertiseDb : IAdManagement
         }
         if (rowsEffected >= 1)
         {
-            Console.WriteLine("Kund las in.");
+            Console.WriteLine("Registrerad.");
         }
         else
         {
@@ -44,7 +44,7 @@ public class AddvertiseDb : IAdManagement
         }
         if (rowsEffected >= 1)
         {
-            Console.WriteLine("Annons togs bort");
+            Console.WriteLine("Annons registrerad");
         }
         else
         {
@@ -53,7 +53,7 @@ public class AddvertiseDb : IAdManagement
 
     }
 
-    public List<advertise> ShowAllAds(string search)
+    public List<advertise> ShowAllAds()
 
     {
         List<advertise> allAds = new();
@@ -61,9 +61,9 @@ public class AddvertiseDb : IAdManagement
 
         using (MySqlConnection con = new MySqlConnection("Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
-            string query = "SELECT rubric,description,price,municipality,county FROM advertise WHERE rubric = @rubric";
+            string query = "SELECT rubric,description,price,municipality,county FROM advertise";
 
-            allAds = con.Query<advertise>(query, new { @search = search }).ToList();
+            allAds = con.Query<advertise>(query).ToList();
         }
 
         return allAds;

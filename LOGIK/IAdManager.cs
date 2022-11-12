@@ -6,7 +6,7 @@ public interface IAdManagement
 
     public void RemoveAd(advertise advertise);
 
-    public List <advertise> ShowAllAds(string search);
+    public List <advertise> ShowAllAds();
 
     public void AdOverview(advertise advertise);
 
