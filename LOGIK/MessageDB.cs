@@ -19,7 +19,7 @@ public class MessageDB : IMessageHandeler
         List<Message>messagesOverlooks = new();
         using (MySqlConnection connection = new MySqlConnection("Server=localhost;Database=blocket_clone;Uid=root;Pwd=;"))
         {
-            string query = "SELECT p.id, p.rubric, u1.nick_name as 'namefromuser',u2.nick_name as 'touser',  COUNT(um.from_user_id) "+
+            string query = "SELECT p.id, p.rubric, u1.nick_name as 'namefromuser',u2.nick_name as 'touser',  COUNT(um.from_user_id) as 'countMessagesFromUser'"+
             "FROM user_message um INNER JOIN message p ON um.message_id = p.id LEFT JOIN users u1 ON um.from_user_id = u1.id "+
             "LEFT JOIN users u2 ON um.to_user_id = u2.id WHERE u2.id = @id GROUP BY um.from_user_id HAVING COUNT(from_user_id) > 1 ORDER BY um.date_sent ASC;";
             messagesOverlooks = connection.Query<Message>(query, param:user).ToList();   //      OR (u1.id = @Id) 

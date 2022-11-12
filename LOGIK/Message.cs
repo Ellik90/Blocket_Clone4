@@ -39,7 +39,7 @@ public class Message
 
     public string MessagesToString()
     {
-        return $"Message id [{ID}]: {Rubric} From {nameFromUser}\n\rMessages{countMessagesFromUser}";
+        return $"Message id [{ID}]: {Rubric} From {nameFromUser}\n\rMessages {countMessagesFromUser}";
     }
     public string ConversationToString()
     {
