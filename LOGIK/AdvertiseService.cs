@@ -9,9 +9,9 @@ public class AdvertiseService
   {
     this._IadManager = _IadManager;
   }
-  public void MakeNewAd(advertise advertise)
+  public int MakeNewAd(advertise advertise)
   {
-    _IadManager.CreateAd(advertise);
+    return _IadManager.CreateAd(advertise);
   }
   public List<advertise> SearchAd (string search) //Sökmetod för rubriker/beskrvning
   {
