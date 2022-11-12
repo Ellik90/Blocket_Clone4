@@ -1,12 +1,12 @@
 namespace LOGIK;
 public interface IMessageHandeler
 {
-    public int CreateMessage(Message message);
-    public void SendMessage(Message message, int messageId);
-    public List<Message> GetAllMessagesOverlook(User user);
-    public List<Message> GetAllMessagesOverlookTest(User user);
-    public List<Message> GetMessageConversation(int messageId);
-    public void DeleteMessage(int messageId);
-    public List<Message> GetMessageConversationTEST(int messageId, int otherUserId, int myId);
+    // public int CreateMessage(Message message);
+    // public void SendMessage(Message message, int messageId);  dessa nu i imessagesender`?
     
+    // public List<Message> GetAllMessagesOverlookTest(User user);  denna i iconversationhandler?
+   
+    //public List<Message> GetMessageConversationTEST(int messageId, int otherUserId, int myId); iconversation..
+    
+
 }

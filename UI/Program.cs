@@ -12,7 +12,7 @@ internal class Program
         LogInService logInService = new(identifier, userdb);
         UserService userservise = new(identifier, userdb);
         MessageDB messageDB = new();
-        MessageService messageService = new(messageDB);
+        MessageService messageService = new(messageDB, messageDB);
 
 
         //1. SKAPAKONTO
@@ -26,33 +26,34 @@ internal class Program
         // DELETE FUNKAR EJ, VAAAAD ÄR KNAAAAAS??????
 
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
-        // user = new();
-        // user.Email = "angelinaholmqvist@live.se";//ConsoleInput.GetString("Enter your Email");
-        // user.Password = 1010;//ConsoleInput.GetInt("Enter your Password");
-        // user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
-        // user.Id = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
-        // if (user.Id == 0) //<- tex om user är inloggad då så kommer man till user page?
-        // {
-        //     Console.WriteLine("Fel lösen eller mail");
-        //     Environment.Exit(0);
-        // }
-        //  DeleteAUser(user,userdb);
-        //  userservise.DeleteTheUser(userdb, user); 
+        user = new();
+        user.Email = "meleklina@outlook.com";//ConsoleInput.GetString("Enter your Email");
+        user.Password = 1010;//ConsoleInput.GetInt("Enter your Password");
+        user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
+        user.Id = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
+        if (user.Id == 0) //<- tex om user är inloggad då så kommer man till user page?
+        {
+            Console.WriteLine("Fel lösen eller mail");
+            Environment.Exit(0);
+        }
+    
         //1. TESTA GÖRA ANNONS
-        AddvertiseDb dbManager = new();
-        AdvertiseService advertiseService = new(dbManager);
+        // user.Id = 13;
+        // AddvertiseDb dbManager = new();
+        // AdvertiseService advertiseService = new(dbManager);
         // advertise bil = new("BlåBil", "jätteBlåBill", 20000, "borås", "borås kommun", 50764, user.Id);
         // advertiseService.MakeNewAd(bil);
+        
 
         //2. TESTA SÖKA ANNONS
-        string search = ConsoleInput.GetString("SearchAd");
+        // string search = ConsoleInput.GetString("SearchAd");
     
-        List <advertise> foundad = advertiseService.SearchAd(search);
-        foreach(advertise item in foundad)
-        {
-            System.Console.WriteLine(item.ToString());
-        }
-
+        // // NÄR DU HÄMTAR ALLA ANNONSER I DATABASEN, LÄGG ÄVEN TILL ANNONSEN OCH USERNS ID!!
+        // List <advertise> foundad = advertiseService.SearchAd(search);
+        // foreach(advertise item in foundad)
+        // {
+        //     System.Console.WriteLine(item.ToString());
+        // }
 
         //---Annonsen---
         //Katt
@@ -65,7 +66,7 @@ internal class Program
         Message message = new();
         // int advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
        
-        // int toUserId = 13;//= userdb.getuserid(advertiseId);
+        // int toUserId = 10;//= userdb.getuserid(advertiseId);
         // UserMakesMessage(toUserId, user, messageService);
 
         //VISA ALLA MEDDELANDEN 
@@ -77,17 +78,17 @@ internal class Program
         }
         foreach (Message item in user.messages)
         {
-            Console.WriteLine(item.MessagesToString());
+            Console.WriteLine($"{item.MessagesToString()}");
         }
         // VÄLJ MEDDELANDE ATT LÄSA
         int messageId = ConsoleInput.GetInt("Enter message to read: ");
         // hämta det meddealndet via detta id!   så stoppar vi in touser och from user här under
-        int fromUserId = messageDB.GetOtherUserInMessage(messageId);
+        int fromUserId = messageDB.GetSenderId(messageId);
         // List<Message> messages = messageService.ShowOneMessageConversation(messageId);
         List<Message> messages = messageService.ShowOneMessageConversation(messageId, fromUserId, user.Id);//messageDB.GetMessageConversationTEST(messageId, fromUserId, user.Id);
         foreach (Message item in messages)
         {
-            Console.WriteLine($"{item.nameFromUser}\n\r{item.Rubric}\n\r{item.Content}");
+            Console.WriteLine($"{item.nameFromUser}\n\r{item.Rubric}\n\r{item.Content}\n\r");
         }
 
         //4. SVARA PÅ MEDDELANDE
@@ -108,8 +109,10 @@ internal class Program
         // }
 
         //6. VISA MINA ANNONSER
+        // metod anropas från advertiseservice, som returnar en lista med alla annonsen där user_id = dennas id
 
         //7. MINA SÅLDA OBJEKT?)
+        // bool isSold? eller det tas sen
 
         //7.
 
@@ -307,14 +310,6 @@ internal class Program
 
         userHandeler.UpDateDescription(user, updateDescription);
     }
-
-    public static void ShowOneMessage(int messageId, IMessageHandeler messageHandeler) //A
-    {
-        // den hittar meddelande med specifikt id
-        List<Message> messages = messageHandeler.GetMessageConversation(messageId);
-        // Console.WriteLine(message.ToString());
-    }
-
     public static advertise AddAdvertise() // Metod för att skapa annons//D
     {
         string answer = string.Empty;
