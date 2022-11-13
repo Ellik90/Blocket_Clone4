@@ -4,13 +4,18 @@ using System.Net.Mail; //för att använda mailadress klassen och validera maila
 namespace LOGIK;
 public class Identifier : IIdentifier
 {
-    SmtpClient _smtpClient = new SmtpClient("smtp-mail.outlook.com");
+    SmtpClient _smtpClient;
+    readonly DateTime Date;
+    public Identifier()
+    {
+        Date = DateTime.Now;
+    }
     public SmtpClient SmtpClient
     {
-        get{return _smtpClient;}
-        set{_smtpClient = value;}
+        get { return _smtpClient; }
+        set { _smtpClient = value; }
     }
-      public bool ValidateEmail(string emailAdress)
+    public bool ValidateEmail(string emailAdress)
     {
         bool isValid = true;
         try
@@ -25,57 +30,44 @@ public class Identifier : IIdentifier
         }
         return isValid;
     }
-
-   //FUNKAR EJ ATT SKICKA MAIL GENOM ATT SÄTTA DENNA SMTPCLIENT TILL PROPERTYN och sedan skicka mail via smtpclient??
-    // public SmtpClient SetUpSmtpClient()
-    // {
-    //     //mailadressen är servern för utgående epost
-    //     SmtpClient smtpClient = new SmtpClient("smtp-mail.outlook.com");
-    //     smtpClient.Port = 587;// port 587 för utgående epost 
-    //     smtpClient.Host = "smtp-mail.outlook.com";
-    //     smtpClient.EnableSsl = true;
-    //     smtpClient.Credentials = new System.Net.NetworkCredential("testing_sendpwd_123@outlook.com", "Testing123321");
-    //     //System.Net.NetworkCredential credential = new System.Net.NetworkCredential("testing_sendpwd_123@outlook.com", "Test123321");
-       
-    //     return SmtpClient = smtpClient;
-    // }
-    public int SendEmailWithCode(string mail)
+    public SmtpClient SetUpSmtpClient()
     {
-        int code = 1010;
-         SmtpClient smtpClient = new SmtpClient("smtp-mail.outlook.com");
+        SmtpClient smtpClient = new SmtpClient("smtp-mail.outlook.com");
         smtpClient.Port = 587;// port 587 för utgående epost 
         smtpClient.Host = "smtp-mail.outlook.com";
         smtpClient.EnableSsl = true;
         smtpClient.Credentials = new System.Net.NetworkCredential("testing_sendpwd_123@outlook.com", "Testing123321");
-        
+        return SmtpClient = smtpClient;
+    }
+    public int SendCodeViaEmail(string mail)
+    {
+        SmtpClient = SetUpSmtpClient();
+        int code = GenerateUniqueCode();
         var message = new MailMessage()
         {
             From = new MailAddress("testing_sendpwd_123@outlook.com"),
             Subject = $"Validation Email. Blocket-Klon.Com",
-            Body =  $"Here is your unique code to login at Blocket-Klon.com: {1010}"
+            Body = $"Here is your unique code to login at Blocket-Klon.com: {code}"
         };
         message.To.Add(mail);
-        smtpClient.Send(message);
+        SmtpClient.Send(message);
         return code;
     }
     public bool ValidateSocialSecurityNumber(string socialSecurityNumber)
-    {   
+    {
         bool isValid = false;
         //måste ha 12 siffror
         int socialSecurityNumberCount = 12;
-        if(socialSecurityNumber.Count() == socialSecurityNumberCount && socialSecurityNumber.All(char.IsDigit) == true)
+        if (socialSecurityNumber.Count() == socialSecurityNumberCount && socialSecurityNumber.All(char.IsDigit) == true)
         {
             isValid = true;
         }
-        //måste endast innehålla siffror 
-
         return isValid;
     }
-
     public bool CheckIfUserExists(IUserHandeler userHandeler, User user)
     {
         int id = userHandeler.UserLogInExists(user);
-        if(id == 0)
+        if (id == 0)
         {
             return false;
         }
@@ -83,6 +75,22 @@ public class Identifier : IIdentifier
         {
             return true;
         }
+    }
+    public int GenerateUniqueCode()
+    {
+        bool isCodeInt = false;
+
+        int codePartOne = Date.Hour;
+        int codePartTwo = Date.Minute;
+        int codePartThree = Date.Millisecond;
+        string codeString = codePartOne.ToString() + codePartTwo.ToString() + codePartThree.ToString();
+        int code = 0;
+        isCodeInt = int.TryParse(codeString, out code);
+        if(!isCodeInt)
+        {
+            codeString.Replace(((char)codePartOne), '0');
+        }
+        return code;
     }
 }
 

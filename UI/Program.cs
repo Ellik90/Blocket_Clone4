@@ -15,7 +15,7 @@ internal class Program
         UserService userservise = new(identifier, userdb, userdb);
         MessageDB messageDB = new();
         MessageService messageService = new(messageDB, messageDB);
-        AdminService adminService = new()
+        //AdminService adminService = new()
 
 
         //1. SKAPAKONTO
@@ -26,8 +26,9 @@ internal class Program
 
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
         user = new();
-        user.Email = "elinak90@icloud.com";//ConsoleInput.GetString("Enter your Email");
-        user.Password = 1010;//ConsoleInput.GetInt("Enter your Password");
+        
+        user.Email = ConsoleInput.GetString("Enter your Email");
+        user.Password = ConsoleInput.GetInt("Enter your Password");
         user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
         user.Id = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
         if (user.Id == 0) //<- tex om user är inloggad då så kommer man till user page?
@@ -94,15 +95,24 @@ internal class Program
             messageService.DeleteConversation(user.Id, participantId);
         }
         // 5. REDIGERA PROFIL
-        // DELETE USER
-        // DeleteAUser(user, userdb);
-        // userservise.DeleteTheUser(userdb, user);
-        // UPDATE DESCRIPTION
-        //  string updateDescription = ConsoleInput.GetString("Text: ");
-        //  if(userservise.DescriptionInput(user, updateDescription) == true)
-        // {
-        //     Console.WriteLine("updated");
-        // }
+        int choice = ConsoleInput.GetInt("[1] Delete account [2] Update account");
+        if (choice == 1)
+        {
+            // DELETE USER
+            userservise.DeleteTheUser(user);
+        }
+        else if (choice == 2)
+        {
+            // UPDATE DESCRIPTION
+             string updateDescription = ConsoleInput.GetString("Text: ");
+             if(userservise.DescriptionInput(user, updateDescription) == true)
+            {
+                Console.WriteLine("updated");
+            }
+        }
+
+
+
 
 
 
@@ -122,19 +132,10 @@ internal class Program
         string content = ConsoleInput.GetString("Content: ");
         // int idToUser = fromUserId;
         Message answerMessage = new(rubric, content, user.Id, idToUser);
-        int rows = messageService.MakeMessage(answerMessage, user);
-        if (rows > 0)
-        {
-            Console.WriteLine("Message Sent");
-        }
-        else
-        {
-            Console.WriteLine("Something went wrong.");
-        }
+        messageService.MakeMessage(answerMessage, user);
+       
         return answerMessage;
     }
-
-    // HÄR ÄR SJÄLVA BLOCKET HEMSIDAN, DEN TAR IN INTERFACES (OCH KLASSER SOM IMPLEMENTERAR DESSA)
     public static void ShowBlocketPages(int currentPage, IMessageHandeler messageHandeler, IUserHandeler userHandeler, Identifier identifier, IUserEditor userEditor)
     {
         User user = new();

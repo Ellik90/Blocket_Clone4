@@ -16,7 +16,7 @@ public class AdminService
        public bool MakeAdmin(Admin admin)
     {
         int rows = 0;
-        _admin.CreateAdmin();
+        _admin.CreateAdmin(admin);
         if (rows > 0)
         {
             return true;

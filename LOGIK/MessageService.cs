@@ -13,7 +13,7 @@ public class MessageService
         _messageSender = messageSender;
         _conversationHandler = conversationHandler;
     }
-    public int MakeMessage(Message message, User user)
+    public void MakeMessage(Message message, User user)
     {
         int newMessageId = _messageSender.CreateMessage(message);
         message.ID = newMessageId;
@@ -21,8 +21,7 @@ public class MessageService
         int usermessageId = _messageSender.SendMessage(message, newMessageId);
         int rows = _messageSender.AddConversationThread(user.Id, usermessageId);
         int toUserId = message.IDToUser;
-        rows = _messageSender.AddConversationThread(toUserId, usermessageId);
-        return rows;
+        _messageSender.AddConversationThread(toUserId, usermessageId);
     }
     public List<Message> ShowAllMessages(User user)
     {
