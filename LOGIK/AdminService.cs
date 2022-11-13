@@ -13,10 +13,10 @@ public class AdminService
         _userEditor = userEditor;
         _admin = admin;
     }
-       public bool MakeAdmin(Admin admin)
+    public bool MakeAdmin(Admin admin)
     {
         int rows = 0;
-        _admin.CreateAdmin();
+        _admin.CreateAdmin(admin);
         if (rows > 0)
         {
             return true;
@@ -26,7 +26,7 @@ public class AdminService
             return false;
         }
     }
-  // LÄGG IN METODER
-       
+    // LÄGG IN METODER
+
 
 }
