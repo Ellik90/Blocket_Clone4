@@ -2,31 +2,35 @@ public class advertise
 {
     //Publik klass för att skapa annonser
     //Properties some annons ska innehålla
-    public int id { get; set; }
-    public string rubric { get; set; }
-    public string description { get; set; }
-    public float price { get; set; }
-    public string county { get; set; }
-    public string municipality { get; set; }
-    public int postalNumber { get; set; }
-
-    public int userId {get; set;}
+    public int Id { get; set; }
+    public string Rubric { get; set; }
+    public string Description { get; set; }
+    public float Price { get; set; }
+    public string County { get; set; }
+    public string Municipality { get; set; }
+    public int PostalNumber { get; set; }
+    public int UserId {get; set;}
 
     //Konstruktor då annons är tvunget att hålla alla dessa egenskaper för att användas
 
-    public advertise(string rubric, string description, float price, string county, string municipality, int postalNumber, int userId)
+    public advertise(string rubric, string description, float price, string county, string municipality, int postalNumber, int userId, int id)
     {
-      this.rubric = rubric;
-        this.description = description;
-        this.price = price;
-        this.county = county;
-        this.municipality = municipality;
-        this.postalNumber = postalNumber;
-        this.userId = userId;
+        this.Rubric = rubric;
+        this.Description = description;
+        this.Price = price;
+        this.County = county;
+        this.Municipality = municipality;
+        this.PostalNumber = postalNumber;
+        this.UserId = userId;
+        this.Id = id;
     }
-    public advertise()
+    public advertise() //Tom konstruktor
     {
 
+    }
+    public override string ToString()
+    {
+      return  $"{Id}{Rubric}{Description}{Price}{County}";
     }
 
 }
