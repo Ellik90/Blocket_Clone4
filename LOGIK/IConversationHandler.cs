@@ -8,4 +8,6 @@ public interface IConversationHandler
     public void DeleteMessageConversation(int messageId);
     public List<Message> GetMessagesNew(User user);
 
+    public List<Message> GetMessageConversationNew(int messageId, int participantId, int myId);
+
 }

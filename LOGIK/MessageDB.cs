@@ -118,12 +118,26 @@ public class MessageDB : IMessageSender, IConversationHandler
         List<Message> allMessages = new();
         using (MySqlConnection connection = new MySqlConnection("Server=localhost;Database=blocket_clone;Uid=root;Pwd=;"))
         {
-            string query = "SELECT p.id, p.rubric, u1.nick_name as 'namefromuser',u2.nick_name as 'touser',  COUNT(um.from_user_id) as 'countMessagesFromUser' FROM user_message um "+
-            " INNER JOIN message p ON um.message_id = p.id LEFT JOIN users u1 ON um.from_user_id = u1.id LEFT JOIN users u2"+
+            string query = "SELECT p.id, p.rubric, u1.nick_name as 'namefromuser',u2.nick_name as 'touser',  COUNT(um.from_user_id) as 'countMessagesFromUser' FROM user_message um " +
+            " INNER JOIN message p ON um.message_id = p.id LEFT JOIN users u1 ON um.from_user_id = u1.id LEFT JOIN users u2" +
             " ON um.to_user_id = u2.id LEFT JOIN conversation_thread ct ON ct.user_id = u2.id WHERE u2.id = @id GROUP BY um.from_user_id HAVING COUNT(from_user_id) >= 1 ORDER BY um.date_sent ASC;";
             allMessages = connection.Query<Message>(query, param: user).ToList();
         }
         return allMessages;
+    }
+
+    public List<Message> GetMessageConversationNew(int messageId, int participantId, int myId)
+    {
+        List<Message> messages = new();
+        using (MySqlConnection connection = new MySqlConnection("Server=localhost;Database=blocket_clone;Uid=root;Pwd=;"))
+        {
+            string query = "SELECT p.rubric, p.content, u1.nick_name as 'namefromuser' " +
+            " FROM user_message um LEFT JOIN message p ON (um.message_id = p.id) LEFT JOIN users u1 ON (u1.id = um.from_user_id) " +
+            " LEFT JOIN users u2 ON (u2.id = um.to_user_id) LEFT JOIN conversation_thread ct ON (ct.user_id = u1.id)" +
+            "  WHERE (u1.id = @participantid AND u2.id = @myid) OR (u2.id = @participantid AND u1.id = @myid) AND ct.user_id = @myid GROUP BY ct.user_id ORDER BY um.date_sent ASC;";
+            messages = connection.Query<Message>(query, new { @messageid = messageId, @otheruserid = participantId, @myid = myId }).ToList();
+        }
+        return messages;
     }
 
 
