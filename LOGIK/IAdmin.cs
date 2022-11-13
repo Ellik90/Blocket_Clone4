@@ -1,6 +1,6 @@
 namespace LOGIK;
 public interface IAdmin
 {
-    public int CreateAdmin();
-    public int DeleteUser(User user);  
+    public int CreateAdmin(Admin admin);
+    public int DeleteUser(Admin admin);  
 }

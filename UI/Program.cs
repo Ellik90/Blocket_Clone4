@@ -6,7 +6,8 @@ internal class Program
         // DU SKA SVARA PÅ MEDDELANDET, DET GÅR EJ CHILD ROW NÅOGT!!
 
         //TESTAR ETT STEG I TAGET HÄR
-        
+        Admin admin = new();
+        AdminDB adminDB = new();
         Identifier identifier = new();
         User user = new();
         UserDB userdb = new();
@@ -14,6 +15,7 @@ internal class Program
         UserService userservise = new(identifier, userdb,userdb );
         MessageDB messageDB = new();
         MessageService messageService = new(messageDB, messageDB);
+        AdminService adminService = new( )
 
 
         //1. SKAPAKONTO
