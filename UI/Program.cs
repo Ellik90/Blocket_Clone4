@@ -3,7 +3,6 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        // DU SKA SVARA PÅ MEDDELANDET, DET GÅR EJ CHILD ROW NÅOGT!!
 
         //TESTAR ETT STEG I TAGET HÄR
         Admin admin = new();
@@ -18,10 +17,8 @@ internal class Program
         MessageService messageService = new(messageDB, messageDB);
         AdminService adminService = new(identifier, userdb, userdb, adminDB );
 
-
         //1. SKAPAKONTO
         
-
         // user = CreateUser(user, logInService, userdb, identifier);
         // userservise.MakeUser( user);
 
@@ -29,8 +26,6 @@ internal class Program
        adminService.MakeAdmin(admin);
 
         
-
-
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
         user = new();
         
@@ -50,7 +45,6 @@ internal class Program
         AdvertiseService advertiseService = new(dbManager);
         //advertise bil = new("Barnvagn", "brun", 2021, "borås", "borås kommun", 50764, user.Id);
         //int advertiseId = advertiseService.MakeNewAd(bil);
-
 
         //2. SÖK ANNONS
         // string search = ConsoleInput.GetString("SearchAd");
@@ -117,12 +111,6 @@ internal class Program
                 Console.WriteLine("updated");
             }
         }
-
-
-
-
-
-
 
         //6. VISA MINA ANNONSER
         // metod anropas från advertiseservice, som returnar en lista med alla annonsen där user_id = dennas id
