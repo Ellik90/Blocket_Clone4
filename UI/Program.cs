@@ -17,8 +17,8 @@ internal class Program
 
         //1. SKAPAKONTO
 
-        //user = CreateUser(user, logInService, userdb, identifier);
-        //userservise.MakeUser(userdb, user);
+        // user = CreateUser(user, logInService, userdb, identifier);
+        // userservise.MakeUser( user);
 
 
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
@@ -32,7 +32,7 @@ internal class Program
             Console.WriteLine("Fel lösen eller mail");
             Environment.Exit(0);
         }
-    
+        user = userservise.GetTheUser(user);
         //1. GÖR ANNONS
       
         AddvertiseDb dbManager = new();
@@ -97,6 +97,9 @@ internal class Program
         //     Console.WriteLine("updated");
         // }
 
+
+
+
         //6. VISA MINA ANNONSER
         // metod anropas från advertiseservice, som returnar en lista med alla annonsen där user_id = dennas id
 
@@ -148,7 +151,7 @@ internal class Program
                         //SÄTTER NAME TILL USERN
                         user.Name = ConsoleInput.GetString("Nickname: ");
                         //USERN SKICKAS IN I BECOMENEWUSER SOM SÄTTER IN USER I DATABASEN
-                        userHandeler.BecomeNewUser(user);
+                        userHandeler.CreateUser(user);
                         // här hämta id och lägg till i usern
                     }
                     break;
@@ -195,7 +198,7 @@ internal class Program
         {
             case "1":
 
-                // AddAdvertise();
+               // AddAdvertise();
                 //admanagement.addadvertise(advertise);
                 break;
 
@@ -271,24 +274,7 @@ internal class Program
         user = logInService.MakeNewLogIn(user);                       //user = new(input, num, adress, email, password);
         return user;
     }
-    public static bool DeleteAUser(User user, IUserHandeler userHandeler)
-    {
-        string answer = ConsoleInput.GetString("Are you sure you want to delete your account? [yes] [no]");
-        int rows = 0;
-        if (answer == "yes")
-        {
-            Console.WriteLine("Account deleted!");
-        }
-        if (rows > 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-            // Environment.Exit(0);
-        }
-    }
+  
 
     public static void UpDateDescription(IUserHandeler userHandeler, User user)
     {
@@ -316,19 +302,19 @@ internal class Program
 
     //     }
 
-    //     //Välja kategori, underkategori, beskrivning, köpa eller sälja, bilder för annons.
-    //     //Felhantering = Kanske maxantal ord för varje. Ha det öppet så att man ser helheten
-    //     //Felhantering = Om man skriver fel på förra så kan man gå till baka och ändra innan man skapar annons
-    //     string rubric = string.Empty;
-    //     string description = string.Empty;
-    //     float price = 0f;
-    //     string location = string.Empty;
-    //     string municipality = string.Empty;
-    //     int postalNumber = 0;
-    //     User user = new();
+        //Välja kategori, underkategori, beskrivning, köpa eller sälja, bilder för annons.
+        //Felhantering = Kanske maxantal ord för varje. Ha det öppet så att man ser helheten
+        //Felhantering = Om man skriver fel på förra så kan man gå till baka och ändra innan man skapar annons
+        // string rubric = string.Empty;
+        // string description = string.Empty;
+        // float price = 0f;
+        // string location = string.Empty;
+        // string municipality = string.Empty;
+        // int postalNumber = 0;
+        // User user = new();
 
-    //     // advertise nyannons = new advertise(rubric, description, price, location, municipality, postalNumber, user.Id);
-    //     // return nyannons;
-    // }
+        // advertise nyannons = new advertise(rubric, description, price, location, municipality, postalNumber, user.Id);
+        // return nyannons;
+   // }
 
 }

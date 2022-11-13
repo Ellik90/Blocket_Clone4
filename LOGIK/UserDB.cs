@@ -3,6 +3,17 @@ using MySqlConnector;
 namespace LOGIK;
 public class UserDB : IUserHandeler
 {
+    public List<User> GetUser()
+    {
+        List<User> users = new();
+         
+        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
+        {
+            string query = "SELECT id AS 'id', nick_name AS 'name', social_security_number AS 'socialsecuritynumber', description AS 'description', phone_number AS 'phonenumber', email AS 'email', password AS 'password', adress AS 'adress' FROM users;";
+            users = connection.Query<User>(query).ToList();
+            return users;
+        }
+    }
     public int GetUserIdFromAdvertise(int advertiseId)
     {
         // daniel ska ha getadvertise, sedan i service -> 
@@ -28,7 +39,7 @@ public class UserDB : IUserHandeler
      return rows;
     }
 
-    public int BecomeNewUser(User user)
+    public int CreateUser(User user)
     {
         int rows = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
@@ -72,7 +83,7 @@ public class UserDB : IUserHandeler
             string? query = "DELETE FROM user_message WHERE from_user_id = @id OR to_user_id = @id; DELETE FROM users WHERE id = @id";
             rows = connection.ExecuteScalar<int>(query, new { @id = user.Id });//DET GÅR INTE ATT RADERA FÖR FOREIGN KEY, MESSAGE
         }
-        return rows;
+        return rows;      
     }
 
     public int UpdateEmail(User user, string userEmail)

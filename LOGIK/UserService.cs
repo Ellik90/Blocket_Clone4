@@ -12,6 +12,25 @@ public class UserService
         _userHandele = userHandeler;
     }
 
+    public User GetTheUser(User user)
+    {
+       List<User> users = _userHandele.GetUser();
+
+       foreach(User auser in users)
+       {
+        if(auser == user)
+        {
+            return user;
+        }
+        else
+        {
+            Console.WriteLine("something went wrong");
+        }        
+       }
+       return user;
+               
+    }
+
     public bool GetUserIdToAD(int advertiseId)
     {
         // ADVERTISE SERVICE METOD SOM HÄMTAR ALLA ANNONS EGENSKAPER, SEN SKICKAR VIDARE USERID
@@ -30,7 +49,7 @@ public class UserService
     public bool MakeUser(User user)
     {
         int rows = 0;
-        _userHandele.BecomeNewUser(user);
+        _userHandele.CreateUser(user);
         if (rows > 0)
         {
             return true;
