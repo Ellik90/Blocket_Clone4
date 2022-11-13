@@ -6,11 +6,12 @@ internal class Program
         // DU SKA SVARA PÅ MEDDELANDET, DET GÅR EJ CHILD ROW NÅOGT!!
 
         //TESTAR ETT STEG I TAGET HÄR
+        
         Identifier identifier = new();
         User user = new();
         UserDB userdb = new();
         LogInService logInService = new(identifier, userdb);
-        UserService userservise = new(identifier, userdb);
+        UserService userservise = new(identifier, userdb,userdb );
         MessageDB messageDB = new();
         MessageService messageService = new(messageDB, messageDB);
 
@@ -124,7 +125,7 @@ internal class Program
     }
 
     // HÄR ÄR SJÄLVA BLOCKET HEMSIDAN, DEN TAR IN INTERFACES (OCH KLASSER SOM IMPLEMENTERAR DESSA)
-    public static void ShowBlocketPages(int currentPage, IMessageHandeler messageHandeler, IUserHandeler userHandeler, Identifier identifier)
+    public static void ShowBlocketPages(int currentPage, IMessageHandeler messageHandeler, IUserHandeler userHandeler, Identifier identifier, IUserEditor userEditor)
     {
         User user = new();
         while (true)
@@ -160,7 +161,7 @@ internal class Program
                     break;
                 case 2:
                     //PAGE 2, USERS FÖRSTASIDA 
-                    currentPage = ShowUserPage(user, userHandeler);
+                    currentPage = ShowUserPage(user, userHandeler, userEditor);
                     break;
                 case 3:
                     //PAGE 3 VISAR ALLA MEDDELANDEN SOM ÄR TILL USERN FRÅN DATABASEN
@@ -187,7 +188,7 @@ internal class Program
             }
         }
     }
-    public static int ShowUserPage(User user, IUserHandeler userHandeler)
+    public static int ShowUserPage(User user, IUserHandeler userHandeler, IUserEditor userEditor)
     {
         Console.WriteLine($"Lägg in annons [1]  Sök annons [2]  Dina meddelanden [3]");
         Console.WriteLine($"{user.Name}");
@@ -237,12 +238,12 @@ internal class Program
                     case "3":
                         // Uppdaterar nickname
                         string updateNickname = ConsoleInput.GetString("nickname: ");
-                        userHandeler.UpdateNickName(user, updateNickname);
+                        userEditor.UpdateNickName(user, updateNickname);
                         break;
                     case "4":
                         //användaren skriver in sin beskrivning
                         string updateDescription = ConsoleInput.GetString("Text: ");
-                        userHandeler.UpDateDescription(user, updateDescription);
+                        userEditor.UpDateDescription(user, updateDescription);
                         break;
                 }
                 break;
@@ -279,11 +280,11 @@ internal class Program
     }
   
 
-    public static void UpDateDescription(IUserHandeler userHandeler, User user)
+    public static void UpDateDescription(IUserHandeler userHandeler, User user, IUserEditor userEditor )
     {
         string updateDescription = ConsoleInput.GetString("Text: ");
 
-        userHandeler.UpDateDescription(user, updateDescription);
+        userEditor.UpDateDescription(user, updateDescription);
     }
     // public static advertise AddAdvertise() // Metod för att skapa annons//D
     // {
