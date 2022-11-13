@@ -13,7 +13,7 @@ public class advertise
 
     //Konstruktor då annons är tvunget att hålla alla dessa egenskaper för att användas
 
-    public advertise(string rubric, string description, float price, string county, string municipality, int postalNumber, int userId)
+    public advertise(string rubric, string description, float price, string county, string municipality, int postalNumber, int userId, int id)
     {
         this.Rubric = rubric;
         this.Description = description;
@@ -22,6 +22,7 @@ public class advertise
         this.Municipality = municipality;
         this.PostalNumber = postalNumber;
         this.UserId = userId;
+        this.Id = id;
     }
     public advertise() //Tom konstruktor
     {
