@@ -48,10 +48,7 @@ public class MessageService
             }
         }
 
-
-
         return listMessagePerSender;
-
 
     }
     // denna i interface med mindre funktion, med mer bestämd db?
@@ -67,6 +64,11 @@ public class MessageService
         // DENNA SKA INNEHÅLLA FUNKTION, TAR IN ALLA MEDDELANDEN OCH STRUKTURERAR KONVERSATION HÄR I?
         List<Message> messages = _conversationHandler.GetMessageConversationTEST(messageId, fromUserId, thisUserId);
         return messages;
+    }
+
+    public void DeleteConversation(int myid, int participantId)
+    {
+        _conversationHandler.DeleteMessageConversation(myid, participantId);
     }
 
 }
