@@ -31,7 +31,6 @@ public class MessageService
     public List<Message> ShowAllMessages(User user)
     {
         List<Message> messages = _conversationHandler.GetMessagesNew(user); //_conversationHandler.GetAllMessagesOverlookTest(user);
-        //_conversationHandler.GetMessagesNew(user); 
         return messages;
     }
 
@@ -56,10 +55,10 @@ public class MessageService
 
     }
     // denna i interface med mindre funktion, med mer bestämd db?
-    public List<Message> ShowOneMessageConversation(int messageId, int fromUserId, int thisUserId)
+    public List<Message> ShowOneMessageConversation(int messageId, int participantId, int myId)
     {
         // den hittar meddelande med specifikt id
-        List<Message> messages = _conversationHandler.GetMessageConversationTEST(messageId, fromUserId, thisUserId);
+        List<Message> messages = _conversationHandler.GetMessageConversationTEST(messageId, participantId, myId);//_conversationHandler.GetMessageConversationTEST(messageId, fromUserId, thisUserId);
         return messages;
     }
 

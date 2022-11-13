@@ -52,4 +52,9 @@ public class MessageSpecificDB : IMessageSender, IConversationHandler
     {
         throw new NotImplementedException();
     }
+
+    List<Message> IConversationHandler.GetMessageConversationNew(int messageId, int participantId, int myId)
+    {
+        throw new NotImplementedException();
+    }
 }

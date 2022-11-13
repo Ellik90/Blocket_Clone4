@@ -24,7 +24,7 @@ internal class Program
 
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
         user = new();
-        user.Email = "elinak90@icloud.com";//ConsoleInput.GetString("Enter your Email");
+        user.Email = "angelinaholmqvist@live.se";//ConsoleInput.GetString("Enter your Email");
         user.Password = 1010;//ConsoleInput.GetInt("Enter your Password");
         user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
         user.Id = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
