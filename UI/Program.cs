@@ -60,8 +60,7 @@ internal class Program
 
         //VISA ALLA MEDDELANDEN 
         message = new();
-        user.messages = messageService.ShowMessagesOverlook(user);  // testar hämta alla i db och anv funktion i c# 
-      // user.messages = messageService.ShowAllMessages(user);  //  DENNA FUNKAR MED LÅNG QUERY
+        user.messages = messageService.ShowAllMessages(user);  //  DENNA FUNKAR MED LÅNG QUERY
         if (user.messages.Count() == 0)
         {
             Console.WriteLine("No Messages");

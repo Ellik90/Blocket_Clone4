@@ -8,7 +8,7 @@ namespace LOGIK;
 // som det är nu, om en användare raderar konve. så raderas det för alla!! OBS ANGELINA FIXA DET 
 public class MessageDB : IMessageSender, IConversationHandler
 {
-    public MessageDB(){}
+    public MessageDB() { }
     // public List<Message> GetAllMessagesOverlook(User user)
     // {
     //     List<Message> messagesOverlooks = new();
@@ -34,6 +34,19 @@ public class MessageDB : IMessageSender, IConversationHandler
             // "INNER JOIN users u1 ON um.from_user_id = u1.id INNER JOIN users u2 ON um.to_user_id = u2.id WHERE (u2.id = @Id) ORDER BY COUNT(um.from_user_id) DESC;";
         }
         return messagesOverlooks;
+    }
+
+    public List<Message> GetMessages(User user)
+    {
+        List<Message> allMessages = new();
+        using (MySqlConnection connection = new MySqlConnection("Server=localhost;Database=blocket_clone;Uid=root;Pwd=;"))
+        {
+            string query = "SELECT p.id, p.rubric, u1.nick_name as 'namefromuser',COUNT(um.from_user_id) as 'countMessagesFromUser' " +
+            "FROM user_message um INNER JOIN message p ON um.message_id = p.id INNER JOIN users u1 ON um.from_user_id = u1.id " +
+            "INNER JOIN users u2 ON um.to_user_id = u2.id WHERE u2.id = @id;";
+            allMessages = connection.Query<Message>(query, param: user).ToList(); 
+        }
+        return allMessages;
     }
     public int GetSenderId(int messageId)
     {
