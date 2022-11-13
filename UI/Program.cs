@@ -17,13 +17,9 @@ internal class Program
 
         //1. SKAPAKONTO
 
-
         //user = CreateUser(user, logInService, userdb, identifier);
         //userservise.MakeUser(userdb, user);
 
-
-
-        // DELETE FUNKAR EJ, VAAAAD ÄR KNAAAAAS??????
 
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
         user = new();
@@ -37,41 +33,35 @@ internal class Program
             Environment.Exit(0);
         }
     
-        //1. TESTA GÖRA ANNONS
+        //1. GÖR ANNONS
       
-        AddvertiseDb dbManager = new();
-        AdvertiseService advertiseService = new(dbManager);
-        advertise bil = new("BlåBil", "jätteBlåBill", 20000, "borås", "borås kommun", 50764, user.Id);
-        advertiseService.MakeNewAd(bil);
+        // AddvertiseDb dbManager = new();
+        // AdvertiseService advertiseService = new(dbManager);
+        // advertise bil = new("Gul bil", "jätteBlåBill", 20000, "borås", "borås kommun", 50764, user.Id);
+        // int advertiseId = advertiseService.MakeNewAd(bil);
         
 
-        //2. TESTA SÖKA ANNONS
+        // //2. SÖK ANNONS
         // string search = ConsoleInput.GetString("SearchAd");
     
-        // // NÄR DU HÄMTAR ALLA ANNONSER I DATABASEN, LÄGG ÄVEN TILL ANNONSEN OCH USERNS ID!!
+        // // // NÄR DU HÄMTAR ALLA ANNONSER I DATABASEN, LÄGG ÄVEN TILL ANNONSEN OCH USERNS ID!!
         // List <advertise> foundad = advertiseService.SearchAd(search);
         // foreach(advertise item in foundad)
         // {
         //     System.Console.WriteLine(item.ToString());
         // }
 
-        //---Annonsen---
-        //Katt
-        //köp mig!
-        //500 kr
-        // - visningsnamn
-        // annonsid 
-
         // 3. SKRIV MEDDELANDE TILL ANNONSENS ANVÄNDARE 
-        Message message = new();
-        int advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
+            Message message = new();
+        // advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
        
-        // int toUserId = 10;//= userdb.getuserid(advertiseId);
+        // int toUserId = userdb.GetUserIdFromAdvertise(advertiseId);
         // UserMakesMessage(toUserId, user, messageService);
 
         //VISA ALLA MEDDELANDEN 
         message = new();
-        user.messages = messageService.ShowAllMessages(user);
+        user.messages = messageService.ShowMessagesOverlook(user);  // testar hämta alla i db och anv funktion i c# 
+      // user.messages = messageService.ShowAllMessages(user);  //  DENNA FUNKAR MED LÅNG QUERY
         if (user.messages.Count() == 0)
         {
             Console.WriteLine("No Messages");
