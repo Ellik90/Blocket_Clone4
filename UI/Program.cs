@@ -17,13 +17,13 @@ internal class Program
 
         //1. SKAPAKONTO
 
-        //user = CreateUser(user, logInService, userdb, identifier);
-        //userservise.MakeUser(userdb, user);
+        // user = CreateUser(user, logInService, userdb, identifier);
+        // userservise.MakeUser( user);
 
 
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
         user = new();
-        user.Email = "meleklina@outlook.com";//ConsoleInput.GetString("Enter your Email");
+        user.Email = "elinak90@icloud.com";//ConsoleInput.GetString("Enter your Email");
         user.Password = 1010;//ConsoleInput.GetInt("Enter your Password");
         user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
         user.Id = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
@@ -32,7 +32,7 @@ internal class Program
             Console.WriteLine("Fel lösen eller mail");
             Environment.Exit(0);
         }
-    
+        user = userservise.GetTheUser(user);
         //1. GÖR ANNONS
       
         // AddvertiseDb dbManager = new();
