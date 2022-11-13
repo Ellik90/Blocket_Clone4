@@ -24,7 +24,7 @@ internal class Program
 
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
         user = new();
-        user.Email = "angelinaholmqvist@live.se";//ConsoleInput.GetString("Enter your Email");
+        user.Email = "elinak90@icloud.com";//ConsoleInput.GetString("Enter your Email");
         user.Password = 1010;//ConsoleInput.GetInt("Enter your Password");
         user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
         user.Id = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
@@ -70,22 +70,26 @@ internal class Program
         {
             Console.WriteLine($"{item.MessagesToString()}");
         }
-        // VÄLJ MEDDELANDE ATT LÄSA
+        // VÄLJ MEDDELANDE ATT LÄSA  
         int messageId = ConsoleInput.GetInt("Enter message to read: ");
         // hämta det meddealndet via detta id!   så stoppar vi in touser och from user här under
-        int fromUserId = messageDB.GetSenderId(messageId);
+        int participantId = messageDB.GetSenderId(messageId);
         // List<Message> messages = messageService.ShowOneMessageConversation(messageId);
-        List<Message> messages = messageService.ShowOneMessageConversation(messageId, fromUserId, user.Id);//messageDB.GetMessageConversationTEST(messageId, fromUserId, user.Id);
+        List<Message> messages = messageService.ShowOneMessageConversation(messageId, participantId, user.Id);//messageDB.GetMessageConversationTEST(messageId, fromUserId, user.Id);
         foreach (Message item in messages)
         {
             Console.WriteLine($"{item.nameFromUser}\n\r{item.Rubric}\n\r{item.Content}\n\r");
         }
 
-        //4. SVARA PÅ MEDDELANDE
-        int chocie = ConsoleInput.GetInt("1 för att svara, 2 för att tillbaka");
+        //4. SVARA PÅ MEDDELANDE    // RADERA KONVERSATION   // ELLER TILLBAKA
+        int chocie = ConsoleInput.GetInt("1 för att svara, 2 för att radera, 3 för tillbaka");
         if (chocie == 1)
         {
-            message = UserMakesMessage(fromUserId, user, messageService);
+            message = UserMakesMessage(participantId, user, messageService);
+        }
+        else if (chocie == 2)
+        {
+            messageService.DeleteConversation(user.Id, participantId);
         }
         // 5. REDIGERA PROFIL
         // DELETE USER
