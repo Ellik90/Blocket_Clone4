@@ -13,12 +13,13 @@ public class MessageService
         _messageSender = messageSender;
         _conversationHandler = conversationHandler;
     }
-    public void MakeMessage(Message message)
+    public void MakeMessage(Message message, User user)
     {
         int newMessageId = _messageSender.CreateMessage(message);
         message.ID = newMessageId;
         allMessages.Add(message);
         _messageSender.SendMessage(message, newMessageId);
+        _messageSender.AddConversationThread(user, message.ID);
     }
     // denna mindre funktion interface
     public List<Message> ShowAllMessages(User user)

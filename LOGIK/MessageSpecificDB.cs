@@ -38,4 +38,8 @@ public class MessageSpecificDB : IMessageSender, IConversationHandler
         return allMessages;
     }
 
+    int IMessageSender.AddConversationThread(User user, int messageId)
+    {
+        throw new NotImplementedException();
+    }
 }

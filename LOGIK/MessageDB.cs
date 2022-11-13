@@ -44,7 +44,7 @@ public class MessageDB : IMessageSender, IConversationHandler
             string query = "SELECT p.id, p.rubric, u1.nick_name as 'namefromuser',COUNT(um.from_user_id) as 'countMessagesFromUser' " +
             "FROM user_message um INNER JOIN message p ON um.message_id = p.id INNER JOIN users u1 ON um.from_user_id = u1.id " +
             "INNER JOIN users u2 ON um.to_user_id = u2.id WHERE u2.id = @id;";
-            allMessages = connection.Query<Message>(query, param: user).ToList(); 
+            allMessages = connection.Query<Message>(query, param: user).ToList();
         }
         return allMessages;
     }
@@ -106,6 +106,17 @@ public class MessageDB : IMessageSender, IConversationHandler
             int rows = connection.ExecuteScalar<int>(query, new { @IDFromUser = message.IDFromUser, @IDToUser = message.IDToUser, @ID = messageId });
             //@fromuser = message.IDFromUser, @touser = message.IDToUser, @messageid = messageId 
         }
+    }
+
+    public int AddConversationThread(User user, int messageId)
+    {
+        int rows = 0;
+        using (MySqlConnection connection = new MySqlConnection("Server=localhost;Database=blocket_clone;Uid=root;Pwd=;"))
+        {
+            string query = "INSERT INTO conversation_thread (user_id, message_id) VALUES(@Id, @messageId);";
+            rows = connection.ExecuteScalar<int>(query, new { @Id = user.Id, @messageId = messageId});
+        }
+        return rows;
     }
 
     public void DeleteMessageConversation(int messageId)

@@ -23,7 +23,7 @@ internal class Program
 
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
         user = new();
-        user.Email = "meleklina@outlook.com";//ConsoleInput.GetString("Enter your Email");
+        user.Email = "elinak90@icloud.com";//ConsoleInput.GetString("Enter your Email");
         user.Password = 1010;//ConsoleInput.GetInt("Enter your Password");
         user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
         user.Id = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
@@ -35,28 +35,28 @@ internal class Program
     
         //1. GÖR ANNONS
       
-        // AddvertiseDb dbManager = new();
-        // AdvertiseService advertiseService = new(dbManager);
-        // advertise bil = new("Gul bil", "jätteBlåBill", 20000, "borås", "borås kommun", 50764, user.Id);
-        // int advertiseId = advertiseService.MakeNewAd(bil);
+        AddvertiseDb dbManager = new();
+        AdvertiseService advertiseService = new(dbManager);
+        advertise bil = new("Barnvagn", "brun", 2021, "borås", "borås kommun", 50764, user.Id);
+        int advertiseId = advertiseService.MakeNewAd(bil);
         
 
-        // //2. SÖK ANNONS
-        // string search = ConsoleInput.GetString("SearchAd");
+        //2. SÖK ANNONS
+        string search = ConsoleInput.GetString("SearchAd");
     
-        // // // NÄR DU HÄMTAR ALLA ANNONSER I DATABASEN, LÄGG ÄVEN TILL ANNONSEN OCH USERNS ID!!
-        // List <advertise> foundad = advertiseService.SearchAd(search);
-        // foreach(advertise item in foundad)
-        // {
-        //     System.Console.WriteLine(item.ToString());
-        // }
+        // // NÄR DU HÄMTAR ALLA ANNONSER I DATABASEN, LÄGG ÄVEN TILL ANNONSEN OCH USERNS ID!!
+        List <advertise> foundad = advertiseService.SearchAd(search);
+        foreach(advertise item in foundad)
+        {
+            System.Console.WriteLine(item.ToString());
+        }
 
         // 3. SKRIV MEDDELANDE TILL ANNONSENS ANVÄNDARE 
             Message message = new();
-        // advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
+        advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
        
-        // int toUserId = userdb.GetUserIdFromAdvertise(advertiseId);
-        // UserMakesMessage(toUserId, user, messageService);
+        int toUserId = userdb.GetUserIdFromAdvertise(advertiseId);
+        UserMakesMessage(toUserId, user, messageService);
 
         //VISA ALLA MEDDELANDEN 
         message = new();
@@ -115,7 +115,7 @@ internal class Program
         string content = ConsoleInput.GetString("Content: ");
         // int idToUser = fromUserId;
         Message answerMessage = new(rubric, content, user.Id, idToUser);
-        messageService.MakeMessage(answerMessage);
+        messageService.MakeMessage(answerMessage, user);
         Console.WriteLine("Skickat");
         return answerMessage;
     }
