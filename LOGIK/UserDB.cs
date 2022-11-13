@@ -1,7 +1,7 @@
 using Dapper;
 using MySqlConnector;
 namespace LOGIK;
-public class UserDB : IUserHandeler
+public class UserDB : IUserHandeler, IUserEditor
 {
     public List<User> GetUser()
     {
@@ -9,7 +9,7 @@ public class UserDB : IUserHandeler
          
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
-            string query = "SELECT id AS 'id', nick_name AS 'name', social_security_number AS 'socialsecuritynumber', description AS 'description', phone_number AS 'phonenumber', email AS 'email', password AS 'password', adress AS 'adress' FROM users;";
+            string query = "SELECT id AS 'id', nick_name AS 'name', social_security_number AS 'socialsecuritynumber', description AS 'description', phone_number AS 'phonenumber', email AS 'email', pass_word AS 'password', adress AS 'adress' FROM users;";
             users = connection.Query<User>(query).ToList();
             return users;
         }

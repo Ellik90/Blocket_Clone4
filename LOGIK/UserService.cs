@@ -5,11 +5,13 @@ public class UserService
 
     IUserHandeler _userHandele;
     IIdentifier _identifier;
+    IUserEditor _userEditor;
 
-    public UserService(IIdentifier identifier, IUserHandeler userHandeler)
+    public UserService(IIdentifier identifier, IUserHandeler userHandeler, IUserEditor userEditor)
     {
         _identifier = identifier;
         _userHandele = userHandeler;
+        _userEditor = userEditor;
     }
 
     public User GetTheUser(User user)
@@ -18,7 +20,7 @@ public class UserService
 
        foreach(User auser in users)
        {
-        if(auser == user)
+        if(auser.Id == user.Id)
         {
             return user;
         }
@@ -90,7 +92,7 @@ public class UserService
     public bool DescriptionInput(User user, string updateDescription)
     {
         int rows = 0;
-        _userHandele.UpDateDescription(user, updateDescription);
+        _userEditor.UpDateDescription(user, updateDescription);
         if (rows > 0)
         {
             return true;
