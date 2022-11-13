@@ -36,13 +36,13 @@ internal class Program
         user = userservise.GetTheUser(user);
         //1. GÖR ANNONS
       
-        // AddvertiseDb dbManager = new();
-        // AdvertiseService advertiseService = new(dbManager);
-        // advertise bil = new("Gul bil", "jätteBlåBill", 20000, "borås", "borås kommun", 50764, user.Id);
-        // int advertiseId = advertiseService.MakeNewAd(bil);
+        AddvertiseDb dbManager = new();
+        AdvertiseService advertiseService = new(dbManager);
+        //advertise bil = new("Barnvagn", "brun", 2021, "borås", "borås kommun", 50764, user.Id);
+        //int advertiseId = advertiseService.MakeNewAd(bil);
         
 
-        // //2. SÖK ANNONS
+        //2. SÖK ANNONS
         // string search = ConsoleInput.GetString("SearchAd");
     
         // // // NÄR DU HÄMTAR ALLA ANNONSER I DATABASEN, LÄGG ÄVEN TILL ANNONSEN OCH USERNS ID!!
@@ -52,11 +52,11 @@ internal class Program
         //     System.Console.WriteLine(item.ToString());
         // }
 
-        // 3. SKRIV MEDDELANDE TILL ANNONSENS ANVÄNDARE 
+        // // 3. SKRIV MEDDELANDE TILL ANNONSENS ANVÄNDARE 
             Message message = new();
-        // advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
+        // int advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
        
-        // int toUserId = userdb.GetUserIdFromAdvertise(advertiseId);
+        // int toUserId = 10;//= userdb.GetUserIdFromAdvertise(advertiseId);
         // UserMakesMessage(toUserId, user, messageService);
 
         //VISA ALLA MEDDELANDEN 
@@ -108,9 +108,6 @@ internal class Program
         // bool isSold? eller det tas sen
 
         //7.
-
-
-
     }
 
     static Message UserMakesMessage(int idToUser, User user, MessageService messageService)
@@ -119,7 +116,7 @@ internal class Program
         string content = ConsoleInput.GetString("Content: ");
         // int idToUser = fromUserId;
         Message answerMessage = new(rubric, content, user.Id, idToUser);
-        messageService.MakeMessage(answerMessage);
+        messageService.MakeMessage(answerMessage, user);
         Console.WriteLine("Skickat");
         return answerMessage;
     }

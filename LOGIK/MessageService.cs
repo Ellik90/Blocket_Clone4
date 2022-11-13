@@ -13,17 +13,25 @@ public class MessageService
         _messageSender = messageSender;
         _conversationHandler = conversationHandler;
     }
-    public void MakeMessage(Message message)
+    public void MakeMessage(Message message, User user)
     {
         int newMessageId = _messageSender.CreateMessage(message);
         message.ID = newMessageId;
         allMessages.Add(message);
-        _messageSender.SendMessage(message, newMessageId);
+        int usermessageId = _messageSender.SendMessage(message, newMessageId);
+        int rows = _messageSender.AddConversationThread(user.Id, usermessageId);
+        int toUserId = message.IDToUser;
+        rows = _messageSender.AddConversationThread(toUserId, usermessageId);
+        if(rows > 0)
+        {
+            Console.WriteLine("Skickat");
+        }
     }
     // denna mindre funktion interface
     public List<Message> ShowAllMessages(User user)
     {
-        List<Message> messages = _conversationHandler.GetAllMessagesOverlookTest(user);
+        List<Message> messages = _conversationHandler.GetMessagesNew(user); //_conversationHandler.GetAllMessagesOverlookTest(user);
+        //_conversationHandler.GetMessagesNew(user); 
         return messages;
     }
 

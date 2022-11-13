@@ -35,6 +35,7 @@ public class UserService
 
     public bool GetUserIdToAD(int advertiseId)
     {
+        // ADVERTISE SERVICE METOD SOM HÄMTAR ALLA ANNONS EGENSKAPER, SEN SKICKAR VIDARE USERID
         int rows = 0;
         _userHandele.GetUserIdFromAdvertise(advertiseId);
         if (rows > 0)

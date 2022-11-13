@@ -16,6 +16,8 @@ public class UserDB : IUserHandeler, IUserEditor
     }
     public int GetUserIdFromAdvertise(int advertiseId)
     {
+        // daniel ska ha getadvertise, sedan i service -> 
+        //en metod som ger ut endast userns id på annonsen
         int id = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
@@ -27,6 +29,7 @@ public class UserDB : IUserHandeler, IUserEditor
 
     public int NicknameExists(string nickname)
     {
+        //EGEN DB KLASS
         int rows = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
@@ -50,6 +53,7 @@ public class UserDB : IUserHandeler, IUserEditor
     //testa alla querys i databasen
     public int UserLogInExists(User user)
     {
+        // EGEN DB KLASS
         int id = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
@@ -61,6 +65,7 @@ public class UserDB : IUserHandeler, IUserEditor
 
     public int UserEmailExists(string Email)
     {
+        //EGEN DB KLASS?
         int rows = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
