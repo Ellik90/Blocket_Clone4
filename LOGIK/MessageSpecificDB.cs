@@ -38,7 +38,17 @@ public class MessageSpecificDB : IMessageSender, IConversationHandler
         return allMessages;
     }
 
-    int IMessageSender.AddConversationThread(User user, int messageId)
+    int IMessageSender.AddConversationThread(int fromUserId, int messageId)
+    {
+        throw new NotImplementedException();
+    }
+
+    int IMessageSender.SendMessage(Message message, int messageId)
+    {
+        throw new NotImplementedException();
+    }
+
+    List<Message> IConversationHandler.GetMessagesNew(User user)
     {
         throw new NotImplementedException();
     }

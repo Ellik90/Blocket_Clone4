@@ -37,26 +37,26 @@ internal class Program
       
         AddvertiseDb dbManager = new();
         AdvertiseService advertiseService = new(dbManager);
-        advertise bil = new("Barnvagn", "brun", 2021, "borås", "borås kommun", 50764, user.Id);
-        int advertiseId = advertiseService.MakeNewAd(bil);
+        //advertise bil = new("Barnvagn", "brun", 2021, "borås", "borås kommun", 50764, user.Id);
+        //int advertiseId = advertiseService.MakeNewAd(bil);
         
 
         //2. SÖK ANNONS
-        string search = ConsoleInput.GetString("SearchAd");
+        // string search = ConsoleInput.GetString("SearchAd");
     
-        // // NÄR DU HÄMTAR ALLA ANNONSER I DATABASEN, LÄGG ÄVEN TILL ANNONSEN OCH USERNS ID!!
-        List <advertise> foundad = advertiseService.SearchAd(search);
-        foreach(advertise item in foundad)
-        {
-            System.Console.WriteLine(item.ToString());
-        }
+        // // // NÄR DU HÄMTAR ALLA ANNONSER I DATABASEN, LÄGG ÄVEN TILL ANNONSEN OCH USERNS ID!!
+        // List <advertise> foundad = advertiseService.SearchAd(search);
+        // foreach(advertise item in foundad)
+        // {
+        //     System.Console.WriteLine(item.ToString());
+        // }
 
-        // 3. SKRIV MEDDELANDE TILL ANNONSENS ANVÄNDARE 
+        // // 3. SKRIV MEDDELANDE TILL ANNONSENS ANVÄNDARE 
             Message message = new();
-        advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
+        // int advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
        
-        int toUserId = userdb.GetUserIdFromAdvertise(advertiseId);
-        UserMakesMessage(toUserId, user, messageService);
+        // int toUserId = 10;//= userdb.GetUserIdFromAdvertise(advertiseId);
+        // UserMakesMessage(toUserId, user, messageService);
 
         //VISA ALLA MEDDELANDEN 
         message = new();
@@ -104,9 +104,6 @@ internal class Program
         // bool isSold? eller det tas sen
 
         //7.
-
-
-
     }
 
     static Message UserMakesMessage(int idToUser, User user, MessageService messageService)
@@ -198,7 +195,7 @@ internal class Program
         {
             case "1":
 
-                AddAdvertise();
+                // AddAdvertise();
                 //admanagement.addadvertise(advertise);
                 break;
 
@@ -299,39 +296,39 @@ internal class Program
 
         userHandeler.UpDateDescription(user, updateDescription);
     }
-    public static advertise AddAdvertise() // Metod för att skapa annons//D
-    {
-        string answer = string.Empty;
-        int option = 0;
-        bool isTrue = true;
-        System.Console.WriteLine("[1]Välj kategori");
-        System.Console.WriteLine("[2]Välj underkategori");
-        System.Console.WriteLine("");
+    // public static advertise AddAdvertise() // Metod för att skapa annons//D
+    // {
+    //     string answer = string.Empty;
+    //     int option = 0;
+    //     bool isTrue = true;
+    //     System.Console.WriteLine("[1]Välj kategori");
+    //     System.Console.WriteLine("[2]Välj underkategori");
+    //     System.Console.WriteLine("");
 
-        while (isTrue)
-        {
-            switch (option)
-            {
+    //     while (isTrue)
+    //     {
+    //         switch (option)
+    //         {
 
 
 
-            }
+    //         }
 
-        }
+    //     }
 
-        //Välja kategori, underkategori, beskrivning, köpa eller sälja, bilder för annons.
-        //Felhantering = Kanske maxantal ord för varje. Ha det öppet så att man ser helheten
-        //Felhantering = Om man skriver fel på förra så kan man gå till baka och ändra innan man skapar annons
-        string rubric = string.Empty;
-        string description = string.Empty;
-        float price = 0f;
-        string location = string.Empty;
-        string municipality = string.Empty;
-        int postalNumber = 0;
-        User user = new();
+    //     //Välja kategori, underkategori, beskrivning, köpa eller sälja, bilder för annons.
+    //     //Felhantering = Kanske maxantal ord för varje. Ha det öppet så att man ser helheten
+    //     //Felhantering = Om man skriver fel på förra så kan man gå till baka och ändra innan man skapar annons
+    //     string rubric = string.Empty;
+    //     string description = string.Empty;
+    //     float price = 0f;
+    //     string location = string.Empty;
+    //     string municipality = string.Empty;
+    //     int postalNumber = 0;
+    //     User user = new();
 
-        advertise nyannons = new advertise(rubric, description, price, location, municipality, postalNumber, user.Id);
-        return nyannons;
-    }
+    //     // advertise nyannons = new advertise(rubric, description, price, location, municipality, postalNumber, user.Id);
+    //     // return nyannons;
+    // }
 
 }

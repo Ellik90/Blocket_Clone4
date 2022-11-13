@@ -35,19 +35,6 @@ public class MessageDB : IMessageSender, IConversationHandler
         }
         return messagesOverlooks;
     }
-
-    public List<Message> GetMessages(User user)
-    {
-        List<Message> allMessages = new();
-        using (MySqlConnection connection = new MySqlConnection("Server=localhost;Database=blocket_clone;Uid=root;Pwd=;"))
-        {
-            string query = "SELECT p.id, p.rubric, u1.nick_name as 'namefromuser',COUNT(um.from_user_id) as 'countMessagesFromUser' " +
-            "FROM user_message um INNER JOIN message p ON um.message_id = p.id INNER JOIN users u1 ON um.from_user_id = u1.id " +
-            "INNER JOIN users u2 ON um.to_user_id = u2.id WHERE u2.id = @id;";
-            allMessages = connection.Query<Message>(query, param: user).ToList();
-        }
-        return allMessages;
-    }
     public int GetSenderId(int messageId)
     {
         // här
@@ -98,23 +85,25 @@ public class MessageDB : IMessageSender, IConversationHandler
         }
         return messageId;
     }
-    public void SendMessage(Message message, int messageId) // int MessageId om create message hämtar medd ID
+    public int SendMessage(Message message, int messageId) // int MessageId om create message hämtar medd ID
     {
+        int usermessageId = 0;
         using (MySqlConnection connection = new MySqlConnection("Server=localhost;Database=blocket_clone;Uid=root;Pwd=;"))
         {
-            string query = "INSERT INTO user_message (from_user_id, to_user_id, message_id) VALUES(@IDFromUser, @IDToUser, @ID);";
-            int rows = connection.ExecuteScalar<int>(query, new { @IDFromUser = message.IDFromUser, @IDToUser = message.IDToUser, @ID = messageId });
+            string query = "INSERT INTO user_message (from_user_id, to_user_id, message_id) VALUES(@IDFromUser, @IDToUser, @ID); SELECT LAST_INSERT_ID();";
+            usermessageId = connection.ExecuteScalar<int>(query, new { @IDFromUser = message.IDFromUser, @IDToUser = message.IDToUser, @ID = messageId });
             //@fromuser = message.IDFromUser, @touser = message.IDToUser, @messageid = messageId 
         }
+        return usermessageId;
     }
 
-    public int AddConversationThread(User user, int messageId)
+    public int AddConversationThread(int userId, int userMessageId)
     {
         int rows = 0;
         using (MySqlConnection connection = new MySqlConnection("Server=localhost;Database=blocket_clone;Uid=root;Pwd=;"))
         {
-            string query = "INSERT INTO conversation_thread (user_id, message_id) VALUES(@Id, @messageId);";
-            rows = connection.ExecuteScalar<int>(query, new { @Id = user.Id, @messageId = messageId});
+            string query = "INSERT INTO conversation_thread (user_id, user_message_id) VALUES(@Id, @usermessageId);";
+            rows = connection.ExecuteScalar<int>(query, new { @Id = userId, @usermessageId = userMessageId });
         }
         return rows;
     }
@@ -123,4 +112,19 @@ public class MessageDB : IMessageSender, IConversationHandler
     {
 
     }
+
+    public List<Message> GetMessagesNew(User user)
+    {
+        List<Message> allMessages = new();
+        using (MySqlConnection connection = new MySqlConnection("Server=localhost;Database=blocket_clone;Uid=root;Pwd=;"))
+        {
+            string query = "SELECT p.id, p.rubric, u1.nick_name as 'namefromuser',u2.nick_name as 'touser',  COUNT(um.from_user_id) as 'countMessagesFromUser' FROM user_message um "+
+            " INNER JOIN message p ON um.message_id = p.id LEFT JOIN users u1 ON um.from_user_id = u1.id LEFT JOIN users u2"+
+            " ON um.to_user_id = u2.id LEFT JOIN conversation_thread ct ON ct.user_id = u2.id WHERE u2.id = @id GROUP BY um.from_user_id HAVING COUNT(from_user_id) >= 1 ORDER BY um.date_sent ASC;";
+            allMessages = connection.Query<Message>(query, param: user).ToList();
+        }
+        return allMessages;
+    }
+
+
 }

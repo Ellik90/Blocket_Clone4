@@ -33,12 +33,12 @@ public class AdvertiseService
         return findAd;
 
   }
-  public List <advertise> RemoveOneAd(int id)
-  {
-    List <advertise> removeAds = _IadManager.RemoveAd();
+  // public List <advertise> RemoveOneAd(int id)
+  // {
+  //   List <advertise> removeAds = _IadManager.RemoveAd();
 
-    removeAds.RemoveAds();
-  }
+  //   removeAds.RemoveAds();
+  // }
     // här finns funktioner som hanterar advertise, mellan användare och databasen
     //här in behövs ju då komma ett interface IAdManager adManager; behöver finnas tex via konstruktorn
     // tex  makenewad(string rubric, float price....);
