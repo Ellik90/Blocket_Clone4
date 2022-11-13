@@ -9,19 +9,26 @@ internal class Program
         Admin admin = new();
         AdminDB adminDB = new();
         Identifier identifier = new();
+        
         User user = new();
         UserDB userdb = new();
         LogInService logInService = new(identifier, userdb);
         UserService userservise = new(identifier, userdb, userdb);
         MessageDB messageDB = new();
         MessageService messageService = new(messageDB, messageDB);
-        //AdminService adminService = new()
+        AdminService adminService = new(identifier, userdb, userdb, adminDB );
 
 
         //1. SKAPAKONTO
+        
 
         // user = CreateUser(user, logInService, userdb, identifier);
         // userservise.MakeUser( user);
+
+       admin = CreateAdmin(admin, adminDB, identifier);
+       adminService.MakeAdmin(admin);
+
+        
 
 
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
@@ -264,6 +271,30 @@ internal class Program
         }
         return goToPage;
     }
+    public static Admin CreateAdmin(Admin admin, AdminDB adminDB, Identifier identifier)
+    {
+         admin.Email = ConsoleInput.GetString("Enter your mail-adress");
+        if (adminDB.AdminEmailExists(admin.Email) > 0)
+        {
+            Console.WriteLine("Email allready exists");
+            Environment.Exit(0);
+        }
+        //<-här har user med sig email, lösenord|elina tar över user och gör resten
+        admin.Name = ConsoleInput.GetString("name: ");
+        if (adminDB.AdminNameExists(admin.Name) > 0)
+        {
+            Console.WriteLine("Nickname allready exists");
+            Environment.Exit(0);
+        }
+        admin.SocialSecurityNumber = ConsoleInput.GetString("social security number: ");
+        if (identifier.ValidateSocialSecurityNumber(admin.SocialSecurityNumber) == false)
+        {
+            Console.WriteLine("Social security number incorrect");
+            Environment.Exit(0);
+        }
+        return admin;
+    }
+
     public static User CreateUser(User user, LogInService logInService, UserDB userdb, Identifier identifier)
     {
         user.Email = ConsoleInput.GetString("Enter your mail-adress");
