@@ -110,7 +110,7 @@ public class MessageDB : IMessageSender, IConversationHandler
 
     public void DeleteMessageConversation(int messageId)
     {
-
+        
     }
 
     public List<Message> GetMessagesNew(User user)

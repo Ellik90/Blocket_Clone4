@@ -7,7 +7,6 @@ public interface IConversationHandler
     //public bool DeleteMessageConversation(int messageId, int otherUserId, int myId); // från bara en user
     public void DeleteMessageConversation(int messageId);
     public List<Message> GetMessagesNew(User user);
-
     public List<Message> GetMessageConversationNew(int messageId, int participantId, int myId);
 
 }
