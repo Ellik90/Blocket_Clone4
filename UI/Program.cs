@@ -12,10 +12,10 @@ internal class Program
         User user = new();
         UserDB userdb = new();
         LogInService logInService = new(identifier, userdb);
-        UserService userservise = new(identifier, userdb,userdb );
+        UserService userservise = new(identifier, userdb, userdb);
         MessageDB messageDB = new();
         MessageService messageService = new(messageDB, messageDB);
-        AdminService adminService = new( )
+        AdminService adminService = new()
 
 
         //1. SKAPAKONTO
@@ -37,16 +37,16 @@ internal class Program
         }
         user = userservise.GetTheUser(user);
         //1. GÖR ANNONS
-      
+
         AddvertiseDb dbManager = new();
         AdvertiseService advertiseService = new(dbManager);
         //advertise bil = new("Barnvagn", "brun", 2021, "borås", "borås kommun", 50764, user.Id);
         //int advertiseId = advertiseService.MakeNewAd(bil);
-        
+
 
         //2. SÖK ANNONS
         // string search = ConsoleInput.GetString("SearchAd");
-    
+
         // // // NÄR DU HÄMTAR ALLA ANNONSER I DATABASEN, LÄGG ÄVEN TILL ANNONSEN OCH USERNS ID!!
         // List <advertise> foundad = advertiseService.SearchAd(search);
         // foreach(advertise item in foundad)
@@ -55,9 +55,9 @@ internal class Program
         // }
 
         // // 3. SKRIV MEDDELANDE TILL ANNONSENS ANVÄNDARE 
-            Message message = new();
+        Message message = new();
         // int advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
-       
+
         // int toUserId = 10;//= userdb.GetUserIdFromAdvertise(advertiseId);
         // UserMakesMessage(toUserId, user, messageService);
 
@@ -122,8 +122,15 @@ internal class Program
         string content = ConsoleInput.GetString("Content: ");
         // int idToUser = fromUserId;
         Message answerMessage = new(rubric, content, user.Id, idToUser);
-        messageService.MakeMessage(answerMessage, user);
-        Console.WriteLine("Skickat");
+        int rows = messageService.MakeMessage(answerMessage, user);
+        if (rows > 0)
+        {
+            Console.WriteLine("Message Sent");
+        }
+        else
+        {
+            Console.WriteLine("Something went wrong.");
+        }
         return answerMessage;
     }
 
@@ -205,7 +212,7 @@ internal class Program
         {
             case "1":
 
-               // AddAdvertise();
+                // AddAdvertise();
                 //admanagement.addadvertise(advertise);
                 break;
 
@@ -281,9 +288,9 @@ internal class Program
         user = logInService.MakeNewLogIn(user);                       //user = new(input, num, adress, email, password);
         return user;
     }
-  
 
-    public static void UpDateDescription(IUserHandeler userHandeler, User user, IUserEditor userEditor )
+
+    public static void UpDateDescription(IUserHandeler userHandeler, User user, IUserEditor userEditor)
     {
         string updateDescription = ConsoleInput.GetString("Text: ");
 
@@ -309,19 +316,19 @@ internal class Program
 
     //     }
 
-        //Välja kategori, underkategori, beskrivning, köpa eller sälja, bilder för annons.
-        //Felhantering = Kanske maxantal ord för varje. Ha det öppet så att man ser helheten
-        //Felhantering = Om man skriver fel på förra så kan man gå till baka och ändra innan man skapar annons
-        // string rubric = string.Empty;
-        // string description = string.Empty;
-        // float price = 0f;
-        // string location = string.Empty;
-        // string municipality = string.Empty;
-        // int postalNumber = 0;
-        // User user = new();
+    //Välja kategori, underkategori, beskrivning, köpa eller sälja, bilder för annons.
+    //Felhantering = Kanske maxantal ord för varje. Ha det öppet så att man ser helheten
+    //Felhantering = Om man skriver fel på förra så kan man gå till baka och ändra innan man skapar annons
+    // string rubric = string.Empty;
+    // string description = string.Empty;
+    // float price = 0f;
+    // string location = string.Empty;
+    // string municipality = string.Empty;
+    // int postalNumber = 0;
+    // User user = new();
 
-        // advertise nyannons = new advertise(rubric, description, price, location, municipality, postalNumber, user.Id);
-        // return nyannons;
-   // }
+    // advertise nyannons = new advertise(rubric, description, price, location, municipality, postalNumber, user.Id);
+    // return nyannons;
+    // }
 
 }
