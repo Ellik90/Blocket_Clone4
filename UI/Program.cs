@@ -17,91 +17,6 @@ internal class Program
 
         //1. SKAPAKONTO
 
-<<<<<<< HEAD
-
-        // user = CreateUser(user, logInService, userdb, identifier);
-        // userservise.MakeUser(user);
-
-
-
-        //     // DELETE FUNKAR EJ, VAAAAD ÄR KNAAAAAS??????
-
-        //     //2. LOGGA IN PÅ BEFINTLIGT KONTO
-            user = new();
-               user.Email = "elinak90@icloud.com";//ConsoleInput.GetString("Enter your Email");
-           user.Password = 1010;//ConsoleInput.GetInt("Enter your Password");
-            user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
-            user.Id = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
-            if (user.Id == 0) //<- tex om user är inloggad då så kommer man till user page?
-            {
-                Console.WriteLine("Fel lösen eller mail");
-                Environment.Exit(0);
-            }
-        //       string updateDescription = ConsoleInput.GetString("Text: ");
-
-        //     if(userservise.DescriptionInput(user, updateDescription) == true)
-        //     {
-        //         Console.WriteLine("updated");
-        //     }
-
-
-        //     //1. TESTA GÖRA ANNONS
-        //     AddvertiseDb dbManager = new();
-        //     AdvertiseService advertiseService = new(dbManager);
-        //     advertise bil = new("BlåBil", "jätteBlåBill", 20000, "borås", "borås kommun", 50764, user.Id);
-        //     advertiseService.MakeNewAd(bil);
-
-
-        //2. TESTA SÖKA ANNONS
-
-
-        //---Annonsen---
-        //Katt
-        //köp mig!
-        //500 kr
-        // - visningsnamn
-        // annonsid 
-
-        //3. SKRIV MEDDELANDE TILL ANNONSEN
-        // int advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
-        // int advertiseUserId = 11 ;//= userdb.getuserid(advertiseId);
-        // Message message = new("KATTEN", "Jag vill gärna köpa din katt!", user.Id, advertiseUserId);
-        // messageService.MakeMessage(message);
-        // Console.WriteLine("Message sent!");
-
-        // VISA ALLA MEDDELANDEN 
-        // Message message = new();
-        // user.messages = messageService.ShowAllMessages(user);
-        // if (user.messages.Count() == 0)
-        // {
-        //     Console.WriteLine("No Messages");
-        // }
-        // foreach (Message item in user.messages)
-        // {
-        //     Console.WriteLine(item.MessagesToString());
-        // }
-        // // VÄLJ MEDDELANDE ATT LÄSA
-        // int messageId = ConsoleInput.GetInt("Enter message to read: ");
-        // Message readMessage = messageService.ShowOneMessage(messageId);
-        // Console.WriteLine(readMessage.WholeMessageToString());
-
-        // //4. SVARA PÅ MEDDELANDE
-        // int chocie = ConsoleInput.GetInt("1 för att svara, 2 för att tillbaka");
-        // if(chocie == 1)
-        // {
-        //     string rubric = ConsoleInput.GetString("Rubric: ");
-        //     string content = ConsoleInput.GetString("Content: ");
-        //     int idToUser = readMessage.IDFromUser;
-        //     Message answerMessage = new(rubric, content, user.Id, idToUser);
-        //     messageService.MakeMessage(answerMessage);
-        //     Console.WriteLine("Skickat");
-        // }
-        //5. REDIGERA PROFIL
-        // DELETE USER
-        string answer = ConsoleInput.GetString("Are you sure you want to delete your account? [yes] [no]");
-        
-        userservise.DeleteTheUser(user);
-=======
         //user = CreateUser(user, logInService, userdb, identifier);
         //userservise.MakeUser(userdb, user);
 
@@ -181,7 +96,6 @@ internal class Program
         // {
         //     Console.WriteLine("updated");
         // }
->>>>>>> 8d3e71f2577b5722d8ccc6612f8d834607a4e18e
 
 
 
@@ -287,7 +201,7 @@ internal class Program
         {
             case "1":
 
-                AddAdvertise();
+               // AddAdvertise();
                 //admanagement.addadvertise(advertise);
                 break;
 
@@ -371,39 +285,39 @@ internal class Program
 
         userHandeler.UpDateDescription(user, updateDescription);
     }
-    public static advertise AddAdvertise() // Metod för att skapa annons//D
-    {
-        string answer = string.Empty;
-        int option = 0;
-        bool isTrue = true;
-        System.Console.WriteLine("[1]Välj kategori");
-        System.Console.WriteLine("[2]Välj underkategori");
-        System.Console.WriteLine("");
+    // public static advertise AddAdvertise() // Metod för att skapa annons//D
+    // {
+    //     string answer = string.Empty;
+    //     int option = 0;
+    //     bool isTrue = true;
+    //     System.Console.WriteLine("[1]Välj kategori");
+    //     System.Console.WriteLine("[2]Välj underkategori");
+    //     System.Console.WriteLine("");
 
-        while (isTrue)
-        {
-            switch (option)
-            {
+    //     while (isTrue)
+    //     {
+    //         switch (option)
+    //         {
 
 
 
-            }
+    //         }
 
-        }
+    //     }
 
         //Välja kategori, underkategori, beskrivning, köpa eller sälja, bilder för annons.
         //Felhantering = Kanske maxantal ord för varje. Ha det öppet så att man ser helheten
         //Felhantering = Om man skriver fel på förra så kan man gå till baka och ändra innan man skapar annons
-        string rubric = string.Empty;
-        string description = string.Empty;
-        float price = 0f;
-        string location = string.Empty;
-        string municipality = string.Empty;
-        int postalNumber = 0;
-        User user = new();
+        // string rubric = string.Empty;
+        // string description = string.Empty;
+        // float price = 0f;
+        // string location = string.Empty;
+        // string municipality = string.Empty;
+        // int postalNumber = 0;
+        // User user = new();
 
-        advertise nyannons = new advertise(rubric, description, price, location, municipality, postalNumber, user.Id);
-        return nyannons;
-    }
+        // advertise nyannons = new advertise(rubric, description, price, location, municipality, postalNumber, user.Id);
+        // return nyannons;
+   // }
 
 }
