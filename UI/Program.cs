@@ -18,37 +18,37 @@ internal class Program
         //1. SKAPAKONTO
 
 
-        //user = CreateUser(user, logInService, userdb, identifier);
-        //userservise.MakeUser(userdb, user);
-
-      
-
-        // DELETE FUNKAR EJ, VAAAAD ÄR KNAAAAAS??????
-
-        //2. LOGGA IN PÅ BEFINTLIGT KONTO
-        user = new();
-        user.Email = "elinak90@icloud.com";//ConsoleInput.GetString("Enter your Email");
-        user.Password = 1010;//ConsoleInput.GetInt("Enter your Password");
-        user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
-        user.Id = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
-        if (user.Id == 0) //<- tex om user är inloggad då så kommer man till user page?
-        {
-            Console.WriteLine("Fel lösen eller mail");
-            Environment.Exit(0);
-        }
-          string updateDescription = ConsoleInput.GetString("Text: ");
-
-        if(userservise.DescriptionInput(user, updateDescription) == true)
-        {
-            Console.WriteLine("updated");
-        }
+        // user = CreateUser(user, logInService, userdb, identifier);
+        // userservise.MakeUser(user);
 
 
-        //1. TESTA GÖRA ANNONS
-        AddvertiseDb dbManager = new();
-        AdvertiseService advertiseService = new(dbManager);
-        advertise bil = new("BlåBil", "jätteBlåBill", 20000, "borås", "borås kommun", 50764, user.Id);
-        advertiseService.MakeNewAd(bil);
+
+        //     // DELETE FUNKAR EJ, VAAAAD ÄR KNAAAAAS??????
+
+        //     //2. LOGGA IN PÅ BEFINTLIGT KONTO
+            user = new();
+               user.Email = "elinak90@icloud.com";//ConsoleInput.GetString("Enter your Email");
+           user.Password = 1010;//ConsoleInput.GetInt("Enter your Password");
+            user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
+            user.Id = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
+            if (user.Id == 0) //<- tex om user är inloggad då så kommer man till user page?
+            {
+                Console.WriteLine("Fel lösen eller mail");
+                Environment.Exit(0);
+            }
+        //       string updateDescription = ConsoleInput.GetString("Text: ");
+
+        //     if(userservise.DescriptionInput(user, updateDescription) == true)
+        //     {
+        //         Console.WriteLine("updated");
+        //     }
+
+
+        //     //1. TESTA GÖRA ANNONS
+        //     AddvertiseDb dbManager = new();
+        //     AdvertiseService advertiseService = new(dbManager);
+        //     advertise bil = new("BlåBil", "jätteBlåBill", 20000, "borås", "borås kommun", 50764, user.Id);
+        //     advertiseService.MakeNewAd(bil);
 
 
         //2. TESTA SÖKA ANNONS
@@ -97,8 +97,12 @@ internal class Program
         // }
         //5. REDIGERA PROFIL
         // DELETE USER
-        DeleteAUser(user, userdb);
+        string answer = ConsoleInput.GetString("Are you sure you want to delete your account? [yes] [no]");
+        
         userservise.DeleteTheUser(user);
+
+
+
 
         //6. VISA MINA ANNONSER
 
@@ -141,7 +145,7 @@ internal class Program
                         //SÄTTER NAME TILL USERN
                         user.Name = ConsoleInput.GetString("Nickname: ");
                         //USERN SKICKAS IN I BECOMENEWUSER SOM SÄTTER IN USER I DATABASEN
-                        userHandeler.BecomeNewUser(user);
+                        userHandeler.CreateUser(user);
                         // här hämta id och lägg till i usern
                     }
                     break;
@@ -264,24 +268,7 @@ internal class Program
         user = logInService.MakeNewLogIn(user);                       //user = new(input, num, adress, email, password);
         return user;
     }
-    public static bool DeleteAUser(User user, IUserHandeler userHandeler)
-    {
-        string answer = ConsoleInput.GetString("Are you sure you want to delete your account? [yes] [no]");
-        int rows = 0;
-        if (answer == "yes")
-        {
-            Console.WriteLine("Account deleted!");
-        }
-        if (rows > 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-            // Environment.Exit(0);
-        }
-    }
+  
 
     public static void UpDateDescription(IUserHandeler userHandeler, User user)
     {
