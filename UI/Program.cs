@@ -6,8 +6,8 @@ internal class Program
         bool start = true;
         int loginOption = 0;
         string answer = string.Empty;
-        bool loggedIn = true;
-        int menuOptions = 0;
+        bool loggedInAsUser = true;
+        int LoggedInOptions = 0;
         bool loginPage = true;
         //TESTAR ETT STEG I TAGET HÄR
         Admin admin = new();
@@ -27,8 +27,12 @@ internal class Program
 
         //admin = CreateAdmin(admin, adminDB, logInService, identifier);
         //adminService.MakeAdmin(admin);
+
+        //While loop hör ihop med swith för skapa och logga in funktioner
         while (loginPage)
         {
+            System.Console.WriteLine("Välkommen till Scam_Blocket");
+            System.Console.WriteLine("");
             System.Console.WriteLine("[1] Skapa konto");
             System.Console.WriteLine("[2] Logga in");
             System.Console.WriteLine("[3] Logga in som admin");
@@ -89,21 +93,29 @@ internal class Program
             }
 
         }
-        while (loggedIn)
+
+        //While och switch för användare som är inloggade
+        while (loggedInAsUser)
         {
             System.Console.WriteLine("");
-            System.Console.WriteLine("----------");
+            System.Console.WriteLine("[1]");
             System.Console.WriteLine("[1]");
             System.Console.WriteLine("[2]");
             System.Console.WriteLine("[3]");
 
-            menuOptions = ConsoleInput.GetInt("Go to page");
+            LoggedInOptions = ConsoleInput.GetInt("Go to page");
 
-            switch (menuOptions)
+            switch (LoggedInOptions)
             {
                 case 1:
-
                     break;
+
+                case 2:
+                    break;
+                    
+                case 3:
+                    break;
+
             }
         }
 
