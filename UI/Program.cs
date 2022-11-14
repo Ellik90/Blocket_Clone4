@@ -23,11 +23,11 @@ internal class Program
         // user = CreateUser(user, logInService, userdb, identifier);
         // userservise.MakeUser( user);
 
-        admin = CreateAdmin(admin, adminDB, identifier);
-        adminService.MakeAdmin(admin);
+        // admin = CreateAdmin(admin, adminDB, identifier);
+        // adminService.MakeAdmin(admin);
         
-        user = CreateUser(user, logInService, userdb, identifier);
-        userservise.MakeUser( user);
+        // user = CreateUser(user, logInService, userdb, identifier);
+        // userservise.MakeUser( user);
 
        //admin = CreateAdmin(admin, adminDB, identifier);
        //adminService.MakeAdmin(admin);
@@ -288,7 +288,7 @@ internal class Program
         }
         return goToPage;
     }
-    public static Admin CreateAdmin(Admin admin, AdminDB adminDB, Identifier identifier)
+    public static Admin CreateAdmin(Admin admin, AdminDB adminDB, LogInService logInService, Identifier identifier)
     {
         admin.Email = ConsoleInput.GetString("Enter your mail-adress");
         if (adminDB.AdminEmailExists(admin.Email) > 0)
@@ -309,8 +309,12 @@ internal class Program
             Console.WriteLine("Social security number incorrect");
             Environment.Exit(0);
         }
+        admin = logInService.MakeNewLogIn(admin);
         return admin;
     }
+
+
+    
 
     public static User CreateUser(User user, LogInService logInService, UserDB userdb, Identifier identifier)
     {
