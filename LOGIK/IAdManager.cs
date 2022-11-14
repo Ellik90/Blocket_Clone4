@@ -4,7 +4,7 @@ public interface IAdManagement
     //Interface för funktioner av annonser
     public int CreateAd(advertise advertise);
 
-    public void RemoveAd(advertise advertise);
+    public void RemoveAd(int id);
 
     public List <advertise> ShowAllAds();
 

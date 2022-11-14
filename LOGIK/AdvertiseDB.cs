@@ -32,7 +32,7 @@ public class AddvertiseDb : IAdManagement
 
     }
 
-    public void RemoveAd(advertise advertise)
+    public void RemoveAd(int id)
     {
 
         int rowsEffected = 0;
@@ -41,15 +41,15 @@ public class AddvertiseDb : IAdManagement
         {
             string query = "DELETE FROM advertise WHERE id = @id;";
 
-            rowsEffected = con.ExecuteScalar<int>(query, param: advertise);
+            rowsEffected = con.ExecuteScalar<int>(query, new{@id = id});
         }
         if (rowsEffected >= 1)
         {
-            Console.WriteLine("Annons registrerad");
+            Console.WriteLine("Advertise removed");
         }
         else
         {
-            Console.WriteLine("Något gick fel.");
+            Console.WriteLine("Something went wrong.");
         }
 
     }
