@@ -33,7 +33,7 @@ public class AdminDB : IAdmin
         int rows = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
-            string? query = "SELECT * FROM admins WHERE email = @email ";
+            string? query = "SELECT * FROM admins WHERE email = @email";
             rows = connection.ExecuteScalar<int>(query, new { @email = Email });
         }
         return rows;

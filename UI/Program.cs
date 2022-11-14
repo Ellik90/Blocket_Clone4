@@ -13,7 +13,8 @@ internal class Program
 
         User user = new();
         UserDB userdb = new();
-        LogInService logInService = new(identifier, userdb);
+        AdminDB admindb = new();
+        LogInService logInService = new(identifier, userdb, admindb);
         UserService userservise = new(identifier, userdb, userdb);
         //LogInService logInService = new(identifier,userdb);
         //UserService userservise = new(identifier,userdb,userdb);
@@ -26,34 +27,36 @@ internal class Program
         // user = CreateUser(user, logInService, userdb, identifier);
         // userservise.MakeUser( user);
 
-<<<<<<< HEAD
-        // admin = CreateAdmin(admin, adminDB, identifier);
-        // adminService.MakeAdmin(admin);
-        
-=======
-        admin = CreateAdmin(admin, adminDB, identifier);
+        admin = CreateAdmin(admin, adminDB, logInService, identifier);
         adminService.MakeAdmin(admin);
 
->>>>>>> db67758e8d803943e8996fbab23d2b71558ee2d2
-        // user = CreateUser(user, logInService, userdb, identifier);
-        // userservise.MakeUser( user);
+        //2. LOGGA IN PÅ BEFINTLIGT KONTO
+        // user = new();
 
-        //admin = CreateAdmin(admin, adminDB, identifier);
-        //adminService.MakeAdmin(admin);
+        // user.Email = ConsoleInput.GetString("Enter your Email");
+        // user.Password = ConsoleInput.GetInt("Enter your Password");
+        // user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
+        // user.Id = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
+        // if (user.Id == 0) //<- tex om user är inloggad då så kommer man till user page?
+        // {
+        //     Console.WriteLine("Fel lösen eller mail");
+        //     Environment.Exit(0);
+        // }
+        // user = userservise.GetTheUser(user);
 
+        //2.5
         admin = new();
 
         admin.Email = ConsoleInput.GetString("Enter your Email");
-        //admin.Password = ConsoleInput.GetInt("Enter your Password");
-        //admin = logInService.UserLogIn(admin); //user skriver bara i sin mail och kod
-        //admin.Id = logInService.UserLogInIsValid(admin); //andvänder userhandler och ser om user finns
+        admin.PassWord = ConsoleInput.GetInt("Enter your Password");
+        admin = logInService.AdminLogIn(admin); //user skriver bara i sin mail och kod
+        admin.Id = logInService.AdminLogInIsValic(admin); //andvänder userhandler och ser om user finns
         if (admin.Id == 0) //<- tex om user är inloggad då så kommer man till user page?
         {
             Console.WriteLine("Fel lösen eller mail");
             Environment.Exit(0);
         }
-
-
+        admin = adminService.GetTheAdmin(admin);
 
         string delete = ConsoleInput.GetString(" ");
         if (adminDB.AdminEmailExists(admin.Email) > 0)
@@ -61,33 +64,6 @@ internal class Program
             adminService.DeleteAdmin(admin);
             Console.WriteLine("admin deleted ");
         }
-        //2. LOGGA IN PÅ BEFINTLIGT KONTO
-        user = new();
-
-        user.Email = ConsoleInput.GetString("Enter your Email");
-        user.Password = ConsoleInput.GetInt("Enter your Password");
-        user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
-        user.Id = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
-        if (user.Id == 0) //<- tex om user är inloggad då så kommer man till user page?
-        {
-            Console.WriteLine("Fel lösen eller mail");
-            Environment.Exit(0);
-        }
-        user = userservise.GetTheUser(user);
-
-        //2.5
-        admin = new();
-
-        admin.Email = ConsoleInput.GetString("Enter your Email");
-        admin.PassWord = ConsoleInput.GetInt("Enter your Password");
-        admin = logInService.UserLogIn(admin); //user skriver bara i sin mail och kod
-        admin.Id = logInService.UserLogInIsValid(admin); //andvänder userhandler och ser om user finns
-        if (admin.Id == 0) //<- tex om user är inloggad då så kommer man till user page?
-        {
-            Console.WriteLine("Fel lösen eller mail");
-            Environment.Exit(0);
-        }
-       // admin = adminService.GETADMIN HÄR(admin);
         //1. GÖR ANNONS
 
         AddvertiseDb dbManager = new();
@@ -334,7 +310,7 @@ internal class Program
     }
 
 
-    
+
 
     public static User CreateUser(User user, LogInService logInService, UserDB userdb, Identifier identifier)
     {
