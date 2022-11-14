@@ -6,5 +6,6 @@ namespace LOGIK
         public List<Advertise> SearchAd(string search);
         public void RemoveOneAd(int id);
         public Advertise ShowOneAd(int id);
+        public Advertise CheckAd(int id);
     }
 }

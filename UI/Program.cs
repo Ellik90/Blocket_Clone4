@@ -24,46 +24,12 @@ internal class Program
 
         //1. SKAPAKONTO
 
-        // user = CreateUser(user, logInService, userdb, identifier);
-        // userservise.MakeUser( user);
+        user = CreateUser(user, logInService, userdb, identifier);
+        userservise.MakeUser( user);
 
         // admin = CreateAdmin(admin, adminDB, logInService, identifier);
         // adminService.MakeAdmin(admin);
 
-        //2. LOGGA IN PÅ BEFINTLIGT KONTO
-        // user = new();
-
-        // user.Email = ConsoleInput.GetString("Enter your Email");
-        // user.Password = ConsoleInput.GetInt("Enter your Password");
-        // user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
-        // user.Id = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
-        // if (user.Id == 0) //<- tex om user är inloggad då så kommer man till user page?
-        // {
-        //     Console.WriteLine("Fel lösen eller mail");
-        //     Environment.Exit(0);
-        // }
-        // user = userservise.GetTheUser(user);
-
-        //2.5
-        admin = new();
-
-        admin.Email = ConsoleInput.GetString("Enter your Email");
-        admin.PassWord = ConsoleInput.GetInt("Enter your Password");
-        admin = logInService.AdminLogIn(admin); //user skriver bara i sin mail och kod
-        admin.Id = logInService.AdminLogInIsValic(admin); //andvänder userhandler och ser om user finns
-        if (admin.Id == 0) //<- tex om user är inloggad då så kommer man till user page?
-        {
-            Console.WriteLine("Fel lösen eller mail");
-            Environment.Exit(0);
-        }
-        admin = adminService.GetTheAdmin(admin);
-
-        string delete = ConsoleInput.GetString(" ");
-        if (adminDB.AdminEmailExists(admin.Email) > 0)
-        {
-            adminService.DeleteAdmin(admin);
-            Console.WriteLine("admin deleted ");
-        }
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
         user = new();
 
@@ -79,27 +45,38 @@ internal class Program
         user = userservise.GetTheUser(user);
 
         //2.5
-        admin = new();
+        // admin = new();
 
-        admin.Email = ConsoleInput.GetString("Enter your Email");
-        admin.PassWord = ConsoleInput.GetInt("Enter your Password");
-        admin = logInService.AdminLogIn(admin); //user skriver bara i sin mail och kod
-        admin.Id = logInService.AdminLogInIsValic(admin); //andvänder userhandler och ser om user finns
-        if (admin.Id == 0) //<- tex om user är inloggad då så kommer man till user page?
-        {
-            Console.WriteLine("Fel lösen eller mail");
-            Environment.Exit(0);
-        }
-        admin = adminService.GetTheAdmin(admin);
+        // admin.Email = ConsoleInput.GetString("Enter your Email");
+        // admin.PassWord = ConsoleInput.GetInt("Enter your Password");
+        // admin = logInService.AdminLogIn(admin); //user skriver bara i sin mail och kod
+        // admin.Id = logInService.AdminLogInIsValic(admin); //andvänder userhandler och ser om user finns
+        // if (admin.Id == 0) //<- tex om user är inloggad då så kommer man till user page?
+        // {
+        //     Console.WriteLine("Fel lösen eller mail");
+        //     Environment.Exit(0);
+        // }
+        // admin = adminService.GetTheAdmin(admin);
+
+        // string delete = ConsoleInput.GetString(" ");
+        // if (adminDB.AdminEmailExists(admin.Email) > 0)
+        // {
+        //     adminService.DeleteAdmin(admin);
+        //     Console.WriteLine("admin deleted ");
+        // }
+        // //2. LOGGA IN PÅ BEFINTLIGT KONTO
+       
+
+    
         //1. GÖR ANNONS
 
         AddvertiseDb dbManager = new();
         AdvertiseService advertiseService = new(dbManager);
 
-        //  Advertise bil = new("KLÄDER", "10 klänningar", 2021, "borås", "borås kommun", 50764, user.Id);
-        //  int advertiseId = advertiseService.MakeNewAd(bil);
-        //  Advertise kaka = new("SOFFGRUPP", "mockasoffa", 2021, "borås", "borås kommun", 50764, user.Id);
-        //  int advertiseId1 = advertiseService.MakeNewAd(kaka);
+          Advertise bil = new("KLÄDER", "10 klänningar", 2021, "borås", "borås kommun", 50764, user.Id);
+          int advertiseId = advertiseService.MakeNewAd(bil);
+          Advertise kaka = new("SOFFGRUPP", "mockasoffa", 2021, "borås", "borås kommun", 50764, user.Id);
+         int advertiseId1 = advertiseService.MakeNewAd(kaka);
 
         //2. SÖK ANNONS
         string search = ConsoleInput.GetString("SearchAd");
@@ -114,7 +91,7 @@ internal class Program
         // // 3. SKRIV MEDDELANDE TILL ANNONSENS ANVÄNDARE 
         //===========================================================================================0
         Message message = new();
-        int advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
+         advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
         int adUserId = userdb.GetUserIdFromAdvertise(advertiseId);
         // UserMakesMessage(toUserId, user, messageService); GAMLA STATISKA METODEN, TA BORT NÄR DEN NEDAN ÄR TESTAD
         // HÄR GÖR OBJEKT AV KLASSEN MESSAGEOPERATION OCH ANROPAR WRITEMESSAGETOAD METODEN HÄR
