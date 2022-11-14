@@ -1,5 +1,5 @@
 namespace LOGIK;
-interface IUIMessageHandler
+public interface IMessageService
 {
     public void MakeMessage(Message message, User user);
     public List<Message> ShowAllMessages(User user);

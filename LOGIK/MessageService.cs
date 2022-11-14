@@ -1,5 +1,5 @@
 namespace LOGIK;
-public class MessageService : IUIMessageHandler
+public class MessageService : IMessageService
 {
     //här i är funktionerna mellan användaren och db, tex makemessage(strin rubric, string content) osv..
     IMessageHandeler _messageHandeler;
