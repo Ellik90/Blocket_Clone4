@@ -33,7 +33,7 @@ class MessageOperator
 
     public int GetSender(int messageId)
     {
-        int participantId = _messageSender.GetSenderId(messageId);
+        int participantId = _messageService.GetSender(messageId);
         return participantId;
     }
 
