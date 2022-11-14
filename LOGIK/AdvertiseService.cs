@@ -2,10 +2,10 @@ namespace LOGIK;
 public class AdvertiseService
 {
     //Sökmetod 
-    IAdManagement _IadManager;
+    IAdHandler _IadManager;
     List<advertise> listOfAdvertise = new List<advertise>();
 
-    public AdvertiseService(IAdManagement _IadManager)
+    public AdvertiseService(IAdHandler _IadManager)
     {
         this._IadManager = _IadManager;
     }

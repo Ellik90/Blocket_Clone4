@@ -1,5 +1,5 @@
 namespace LOGIK;
-public interface IAdManagement
+public interface IAdHandler
 {
     //Interface för funktioner av annonser
     public int CreateAd(advertise advertise);
