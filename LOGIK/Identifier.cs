@@ -73,7 +73,7 @@ public class Identifier : IIdentifier
         }
         else
         {
-            return true;
+            return true;   // den ska flyttas
         }
     }
     public int GenerateUniqueCode()

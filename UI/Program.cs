@@ -11,11 +11,16 @@ internal class Program
         
         User user = new();
         UserDB userdb = new();
+<<<<<<< HEAD
+        LogInService logInService = new(identifier,userdb);
+        UserService userservise = new(identifier,userdb,userdb);
+=======
         LogInService logInService = new(identifier, userdb);
         UserService userservise = new(identifier, userdb, userdb);
+>>>>>>> 92d06da2ef6c4ba9df07a2b5c65a428fd913af52
         MessageDB messageDB = new();
         MessageService messageService = new(messageDB, messageDB);
-        AdminService adminService = new(identifier, userdb, userdb, adminDB );
+        AdminService adminService = new(identifier,userdb,userdb, adminDB );
 
         //1. SKAPAKONTO
         

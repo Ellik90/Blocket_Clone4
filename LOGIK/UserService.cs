@@ -1,5 +1,5 @@
 namespace LOGIK;
-public class UserService
+public class UserService : IUIuserHandeler
 {
     //här i är funktioner mellan anv och db, tex makenewuser(string name, string email) eller makenewuser(User user)samt kontrollerare osv;
 
