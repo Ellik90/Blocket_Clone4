@@ -10,19 +10,19 @@ internal class Program
         
         User user = new();
         UserDB userdb = new();
-        LogInService logInService = new(identifier, userdb);
-        UserService userservise = new(identifier, userdb, userdb);
+        LogInService logInService = new(identifier,userdb);
+        UserService userservise = new(identifier,userdb,userdb);
         MessageDB messageDB = new();
         MessageService messageService = new(messageDB, messageDB);
-        AdminService adminService = new(identifier, userdb, userdb, adminDB );
+        AdminService adminService = new(identifier,userdb,userdb, adminDB );
 
         //1. SKAPAKONTO
         
-        // user = CreateUser(user, logInService, userdb, identifier);
-        // userservise.MakeUser( user);
+        user = CreateUser(user, logInService, userdb, identifier);
+        userservise.MakeUser( user);
 
-       admin = CreateAdmin(admin, adminDB, identifier);
-       adminService.MakeAdmin(admin);
+       //admin = CreateAdmin(admin, adminDB, identifier);
+       //adminService.MakeAdmin(admin);
 
         
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
@@ -42,18 +42,21 @@ internal class Program
 
         AddvertiseDb dbManager = new();
         AdvertiseService advertiseService = new(dbManager);
-        //advertise bil = new("Barnvagn", "brun", 2021, "borås", "borås kommun", 50764, user.Id);
-        //int advertiseId = advertiseService.MakeNewAd(bil);
+       
+         Advertise bil = new("Barnvagn", "brun", 2021, "borås", "borås kommun", 50764, user.Id);
+         int advertiseId = advertiseService.MakeNewAd(bil);
+         Advertise kaka = new("hund", "brun", 2021, "borås", "borås kommun", 50764, user.Id);
+         int advertiseId1 = advertiseService.MakeNewAd(kaka);
 
         //2. SÖK ANNONS
-        // string search = ConsoleInput.GetString("SearchAd");
+        string search = ConsoleInput.GetString("SearchAd");
 
-        // // // NÄR DU HÄMTAR ALLA ANNONSER I DATABASEN, LÄGG ÄVEN TILL ANNONSEN OCH USERNS ID!!
-        // List <advertise> foundad = advertiseService.SearchAd(search);
-        // foreach(advertise item in foundad)
-        // {
-        //     System.Console.WriteLine(item.ToString());
-        // }
+        // // NÄR DU HÄMTAR ALLA ANNONSER I DATABASEN, LÄGG ÄVEN TILL ANNONSEN OCH USERNS ID!!
+        List <Advertise> foundad = advertiseService.SearchAd(search);
+        foreach(Advertise item in foundad)
+        {
+            System.Console.WriteLine(item.ToString());
+        }
 
         // // 3. SKRIV MEDDELANDE TILL ANNONSENS ANVÄNDARE 
         Message message = new();

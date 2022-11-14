@@ -1,16 +1,13 @@
 using Dapper;
 using MySqlConnector;
 namespace LOGIK;
-public class AddvertiseDb : IAdManagement
+public class AddvertiseDb : IAdHandler
 {
-
-
     //Klass för att hålla funktioner för annonserna
-    List<advertise> ads = new(); //Ska hålla annonserna
-
-    public int CreateAd(advertise advertise)
+    List<Advertise> ads = new(); //Ska hålla annonserna
+    public int CreateAd(Advertise advertise)
     {
-        List<advertise> CreateAd = new();
+        List<Advertise> CreateAd = new();
 
         int id = 0;
 
@@ -54,36 +51,36 @@ public class AddvertiseDb : IAdManagement
 
     }
 
-    public List<advertise> ShowAllAds()
+    public List<Advertise> ShowAllAds()
 
     {
-        List<advertise> allAds = new();
+        List<Advertise> allAds = new();
 
 
         using (MySqlConnection con = new MySqlConnection("Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
-            string query = "SELECT rubric,description,price,municipality,county FROM advertise";
+            string query = "SELECT rubric,description,price,municipality,county, is_checked AS 'isChecked' FROM advertise";
 
-            allAds = con.Query<advertise>(query).ToList();
+            allAds = con.Query<Advertise>(query).ToList();
         }
 
         return allAds;
     }
-    public advertise ShowAd(int id)
+    public Advertise ShowAd(int id)
     {
-        advertise advertise = new();
+        Advertise advertise = new();
 
          using (MySqlConnection con = new MySqlConnection("Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
             string query = "SELECT rubric,description,price,municipality,county,user_id AS 'userID' FROM advertise WHERE id = @id;";
 
-            advertise = con.QuerySingle<advertise>(query, new { @id = id });
+            advertise = con.QuerySingle<Advertise>(query, new { @id = id });
         }
         return advertise;
         //all info, även userid 
 
     }
-    public void AdOverview(advertise advertise)
+    public void AdOverview(Advertise advertise)
     {
 
     }
