@@ -81,7 +81,7 @@ internal class Program
             Console.WriteLine("Fel lösen eller mail");
             Environment.Exit(0);
         }
-       // admin = adminService.GETADMIN HÄR(admin);
+        admin = adminService.GetTheAdmin(admin);
         //1. GÖR ANNONS
 
         AddvertiseDb dbManager = new();
