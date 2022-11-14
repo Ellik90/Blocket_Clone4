@@ -8,7 +8,6 @@ class MessageOperator
         _messageService = messageService;
         _messageSender = messageSender;
     }
-
     public void WriteMessageToAd(int adUserId, User user)
     {
         // // 3. SKRIV MEDDELANDE TILL ANNONSENS ANVÄNDARE
@@ -38,5 +37,26 @@ class MessageOperator
         return participantId;
     }
 
+    public void ShowMessageConversation(int messageId, int participantId, User user)
+    {
+        List<Message> messages = _messageService.ShowOneMessageConversation(messageId, participantId, user.Id);
+        foreach (Message item in messages)
+        {
+            Console.WriteLine($"{item.nameFromUser}\n\r{item.Rubric}\n\r{item.Content}\n\r");
+        }
+    }
+
+    public void ReplyToMessage(int idToUser, User user)
+    {
+        string rubric = ConsoleInput.GetString("Rubric: ");
+        string content = ConsoleInput.GetString("Content: ");
+        Message replyMessage = new(rubric, content, user.Id, idToUser);
+        _messageService.MakeMessage(replyMessage, user);
+    }
+
+    public void DeleteConversation(User user, int participantId)
+    {
+        _messageService.DeleteConversation(user.Id, participantId);
+    }
 
 }
