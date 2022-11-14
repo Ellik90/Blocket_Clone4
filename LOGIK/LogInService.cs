@@ -27,6 +27,22 @@ public class LogInService
         return user;
     }
 
+    public Admin MakeNewLogIn(Admin admin)
+    {
+        //här anropar jag metoden och skickar in mailadressen som kommer in, denna metoden returnerar antingen true eller false 
+        if (_identifier.ValidateEmail(admin.Email) == true)
+        {
+            Console.WriteLine("Valid email");
+            user.Password = _identifier.SendCodeViaEmail(admin.Email);
+            Console.WriteLine("Code sent to your mail. Please check junkmail if mail not found.");
+        }
+        else
+        {
+            Console.WriteLine("Unvalid email");
+        }
+        return admin;
+    }
+
     public User UserLogIn(User user)
     {
         bool isValid = false;
@@ -40,8 +56,8 @@ public class LogInService
         {
             Console.WriteLine("Unvalid email");
         }
-        
-       return user;
+
+        return user;
     }
     public int UserLogInIsValid(User user)
     {

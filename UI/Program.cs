@@ -3,14 +3,17 @@ internal class Program
 {
     private static void Main(string[] args)
     {
+
+
         //TESTAR ETT STEG I TAGET HÄR
         Admin admin = new();
         AdminDB adminDB = new();
         Identifier identifier = new();
+     
 
         User user = new();
         UserDB userdb = new();
-        LogInService logInService = new(identifier, userdb);
+           LogInService logInService = new(identifier, userdb);
         UserService userservise = new(identifier, userdb, userdb);
         //LogInService logInService = new(identifier,userdb);
         //UserService userservise = new(identifier,userdb,userdb);
@@ -97,9 +100,10 @@ internal class Program
 
         //VISA ALLA MEDDELANDEN 
         //==========================================================================================
-        // HÄR NEDAN ÄR 
         messageOperations.ShowAllMessages(user);
+
         // VÄLJ MEDDELANDE ATT LÄSA  
+        //==================================================================================
         int messageId = ConsoleInput.GetInt("Enter message to read: ");
         // hämta det meddealndet via detta id!   så stoppar vi in touser och from user här under
         int participantId = messageDB.GetSenderId(messageId);
