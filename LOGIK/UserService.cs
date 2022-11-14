@@ -4,33 +4,31 @@ public class UserService
     //här i är funktioner mellan anv och db, tex makenewuser(string name, string email) eller makenewuser(User user)samt kontrollerare osv;
 
     IUserHandeler _userHandele;
-    IIdentifier _identifier;
     IUserEditor _userEditor;
 
-    public UserService(IIdentifier identifier, IUserHandeler userHandeler, IUserEditor userEditor)
+    public UserService(IUserHandeler userHandeler, IUserEditor userEditor)
     {
-        _identifier = identifier;
         _userHandele = userHandeler;
         _userEditor = userEditor;
     }
 
     public User GetTheUser(User user)
     {
-       List<User> users = _userHandele.GetUser();
+        List<User> users = _userHandele.GetUser();
 
-       foreach(User auser in users)
-       {
-        if(auser.Id == user.Id)
+        foreach (User auser in users)
         {
-            return user;
+            if (auser.Id == user.Id)
+            {
+                return user;
+            }
+            else
+            {
+                Console.WriteLine("something went wrong");
+            }
         }
-        else
-        {
-            Console.WriteLine("something went wrong");
-        }        
-       }
-       return user;
-               
+        return user;
+
     }
 
     public bool GetUserIdToAD(int advertiseId)
