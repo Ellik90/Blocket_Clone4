@@ -18,8 +18,8 @@ internal class Program
 
         //1. SKAPAKONTO
         
-        user = CreateUser(user, logInService, userdb, identifier);
-        userservise.MakeUser( user);
+        // user = CreateUser(user, logInService, userdb, identifier);
+        // userservise.MakeUser( user);
 
        //admin = CreateAdmin(admin, adminDB, identifier);
        //adminService.MakeAdmin(admin);
@@ -43,10 +43,10 @@ internal class Program
         AddvertiseDb dbManager = new();
         AdvertiseService advertiseService = new(dbManager);
        
-         Advertise bil = new("Barnvagn", "brun", 2021, "borås", "borås kommun", 50764, user.Id);
-         int advertiseId = advertiseService.MakeNewAd(bil);
-         Advertise kaka = new("hund", "brun", 2021, "borås", "borås kommun", 50764, user.Id);
-         int advertiseId1 = advertiseService.MakeNewAd(kaka);
+        //  Advertise bil = new("KLÄDER", "10 klänningar", 2021, "borås", "borås kommun", 50764, user.Id);
+        //  int advertiseId = advertiseService.MakeNewAd(bil);
+        //  Advertise kaka = new("SOFFGRUPP", "mockasoffa", 2021, "borås", "borås kommun", 50764, user.Id);
+        //  int advertiseId1 = advertiseService.MakeNewAd(kaka);
 
         //2. SÖK ANNONS
         string search = ConsoleInput.GetString("SearchAd");
@@ -59,23 +59,19 @@ internal class Program
         }
 
         // // 3. SKRIV MEDDELANDE TILL ANNONSENS ANVÄNDARE 
+        //===========================================================================================0
         Message message = new();
-        // int advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
-
-        // int toUserId = 10;//= userdb.GetUserIdFromAdvertise(advertiseId);
-        // UserMakesMessage(toUserId, user, messageService);
+        int advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
+        int adUserId = userdb.GetUserIdFromAdvertise(advertiseId);
+        // UserMakesMessage(toUserId, user, messageService); GAMLA STATISKA METODEN, TA BORT NÄR DEN NEDAN ÄR TESTAD
+        // HÄR GÖR OBJEKT AV KLASSEN MESSAGEOPERATION OCH ANROPAR WRITEMESSAGETOAD METODEN HÄR
+        MessageOperations messageOperations = new(messageService);
+        messageOperations.WriteMessageToAd(adUserId, user);
 
         //VISA ALLA MEDDELANDEN 
-        message = new();
-        user.messages = messageService.ShowAllMessages(user);  //  DENNA FUNKAR MED LÅNG QUERY
-        if (user.messages.Count() == 0)
-        {
-            Console.WriteLine("No Messages");
-        }
-        foreach (Message item in user.messages)
-        {
-            Console.WriteLine($"{item.MessagesToString()}");
-        }
+        //==========================================================================================
+        // HÄR NEDAN ÄR 
+        messageOperations.ShowAllMessages(user);
         // VÄLJ MEDDELANDE ATT LÄSA  
         int messageId = ConsoleInput.GetInt("Enter message to read: ");
         // hämta det meddealndet via detta id!   så stoppar vi in touser och from user här under
