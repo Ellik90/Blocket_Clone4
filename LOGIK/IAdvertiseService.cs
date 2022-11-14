@@ -1,6 +1,6 @@
 namespace LOGIK
 {
-    public interface IAdUIhandler
+    public interface IAdvertiseService
     {
         public int MakeNewAd(Advertise advertise);
         public List<Advertise> SearchAd(string search);
