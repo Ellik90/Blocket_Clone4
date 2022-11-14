@@ -13,10 +13,10 @@ internal class Program
         User user = new();
         UserDB userdb = new();
         LogInService logInService = new(identifier,userdb);
-        UserService userservise = new(userdb,userdb);
+        UserService userservise = new(identifier,userdb,userdb);
         MessageDB messageDB = new();
         MessageService messageService = new(messageDB, messageDB);
-        AdminService adminService = new(identifier,userdb,userdb,adminDB );
+        AdminService adminService = new(identifier,userdb,userdb, adminDB );
 
 
         //1. SKAPAKONTO
