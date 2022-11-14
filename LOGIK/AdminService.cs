@@ -59,6 +59,20 @@ public class AdminService
             return false;
         }
     }
+
+        public bool CheckAdminNameExists(string name)
+    {
+        int rows = 0;
+        _admin.AdminNameExists(name); //name admin
+        if (rows > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     // LÄGG IN METODER
     // updateadminname
 

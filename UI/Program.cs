@@ -16,11 +16,12 @@ internal class Program
         AdminDB admindb = new();
         LogInService logInService = new(identifier, userdb, admindb);
         UserService userservise = new(identifier, userdb, userdb);
-        //LogInService logInService = new(identifier,userdb);
-        //UserService userservise = new(identifier,userdb,userdb);
         MessageDB messageDB = new();
         MessageService messageService = new(messageDB, messageDB);
         AdminService adminService = new(identifier, userdb, userdb, adminDB);
+        UserOperator userOperator = new(logInService, user, userservise);
+        AdminOperator adminOperator = new(logInService,admin,adminService);
+        
 
         //1. SKAPAKONTO
 
@@ -31,6 +32,8 @@ internal class Program
         // adminService.MakeAdmin(admin);
 
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
+        userOperator.UserLogIn(user, logInService,userservise);
+        adminOperator.AdminLogin(admin, logInService,adminService);
         // user = new();
 
         // user.Email = ConsoleInput.GetString("Enter your Email");
@@ -65,32 +68,33 @@ internal class Program
             Console.WriteLine("admin deleted ");
         }
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
-        user = new();
+        // user = new();
 
-        user.Email = ConsoleInput.GetString("Enter your Email");
-        user.Password = ConsoleInput.GetInt("Enter your Password");
-        user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
-        user.Id = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
-        if (user.Id == 0) //<- tex om user är inloggad då så kommer man till user page?
-        {
-            Console.WriteLine("Fel lösen eller mail");
-            Environment.Exit(0);
-        }
-        user = userservise.GetTheUser(user);
-
+        // user.Email = ConsoleInput.GetString("Enter your Email");
+        // user.Password = ConsoleInput.GetInt("Enter your Password");
+        // user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
+        // user.Id = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
+        // if (user.Id == 0) //<- tex om user är inloggad då så kommer man till user page?
+        // {
+        //     Console.WriteLine("Fel lösen eller mail");
+        //     Environment.Exit(0);
+        // }
+        // user = userservise.GetTheUser(user);
+        
         //2.5
-        admin = new();
 
-        admin.Email = ConsoleInput.GetString("Enter your Email");
-        admin.PassWord = ConsoleInput.GetInt("Enter your Password");
-        admin = logInService.AdminLogIn(admin); //user skriver bara i sin mail och kod
-        admin.Id = logInService.AdminLogInIsValic(admin); //andvänder userhandler och ser om user finns
-        if (admin.Id == 0) //<- tex om user är inloggad då så kommer man till user page?
-        {
-            Console.WriteLine("Fel lösen eller mail");
-            Environment.Exit(0);
-        }
-        admin = adminService.GetTheAdmin(admin);
+        // admin = new();
+
+        // admin.Email = ConsoleInput.GetString("Enter your Email");
+        // admin.PassWord = ConsoleInput.GetInt("Enter your Password");
+        // admin = logInService.AdminLogIn(admin); //user skriver bara i sin mail och kod
+        // admin.Id = logInService.AdminLogInIsValic(admin); //andvänder userhandler och ser om user finns
+        // if (admin.Id == 0) //<- tex om user är inloggad då så kommer man till user page?
+        // {
+        //     Console.WriteLine("Fel lösen eller mail");
+        //     Environment.Exit(0);
+        // }
+        // admin = adminService.GetTheAdmin(admin);
         //1. GÖR ANNONS
 
         AddvertiseDb dbManager = new();

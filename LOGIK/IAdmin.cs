@@ -6,4 +6,5 @@ public interface IAdmin
     public List<Admin> GetAdmins(Admin admin );
      public int AdminLogInExists(Admin admin);
      
+     public int AdminNameExists(string name);
 }
