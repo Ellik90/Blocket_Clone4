@@ -2,14 +2,14 @@ namespace LOGIK;
 public interface IAdHandler
 {
     //Interface för funktioner av annonser
-    public int CreateAd(advertise advertise);
+    public int CreateAd(Advertise advertise);
 
     public void RemoveAd(int id);
 
-    public List <advertise> ShowAllAds();
+    public List <Advertise> ShowAllAds();
 
-    public void AdOverview(advertise advertise);
+    public void AdOverview(Advertise advertise);
 
-    public advertise ShowAd(int id);
+    public Advertise ShowAd(int id);
   
 }

@@ -1,6 +1,0 @@
-namespace LOGIK;
-public interface advUIhandler
-{
-    
-
-}

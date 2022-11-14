@@ -1,43 +1,46 @@
 namespace LOGIK;
-public class AdvertiseService
+public class AdvertiseService : IAdUIhandler
 {
     //Sökmetod 
     IAdHandler _IadManager;
-    List<advertise> listOfAdvertise = new List<advertise>();
+    List<Advertise> listOfAdvertise = new List<Advertise>();
 
     public AdvertiseService(IAdHandler _IadManager)
     {
         this._IadManager = _IadManager;
     }
-    public int MakeNewAd(advertise advertise)
+    public int MakeNewAd(Advertise advertise)
     {
         return _IadManager.CreateAd(advertise);
     }
-    public List<advertise> SearchAd(string search) //Sökmetod för rubriker/beskrvning
+    public List<Advertise> SearchAd(string search) //Sökmetod för rubriker/beskrvning
     {
 
-        List<advertise> findAd = _IadManager.ShowAllAds();
-        foreach (advertise item in findAd)
+        List<Advertise> findAd = _IadManager.ShowAllAds();
+
+        List<Advertise> foundAds = new();
+
+        foreach (Advertise item in findAd)
         {
-            if (item.Rubric.ToLower() == search.ToLower())
+            if (item.Rubric.ToLower() == search.ToLower() && item.isChecked == true)
             {
-                findAd.Add(item);
+                foundAds.Add(item);
 
             }
-            else if (item.Description.ToLower() == search.ToLower())
+            else if (item.Description.ToLower() == search.ToLower() && item.isChecked == true)
             {
-                findAd.Add(item);
+                foundAds.Add(item);
             }
 
         }
-        return findAd;
+        return foundAds;
 
     }
     public void RemoveOneAd(int id)
     {
         _IadManager.RemoveAd(id);
 
-        foreach (advertise item in listOfAdvertise)
+        foreach (Advertise item in listOfAdvertise)
         {
             if(id == item.Id)
             {
@@ -47,7 +50,7 @@ public class AdvertiseService
         }
 
     }
-    public advertise ShowOneAd(int id)
+    public Advertise ShowOneAd(int id)
     {
         return _IadManager.ShowAd(id);
        
