@@ -3,6 +3,9 @@ internal class Program
 {
     private static void Main(string[] args)
     {
+        string answer = string.Empty;
+        bool menu = true;
+        int menuOptions = 0;
         //TESTAR ETT STEG I TAGET HÄR
         Admin admin = new();
         AdminDB adminDB = new();
@@ -22,24 +25,46 @@ internal class Program
         //1. SKAPAKONTO
 
         user = CreateUser(user, logInService, userdb, identifier);
-        userservise.MakeUser( user);
+        userservise.MakeUser(user);
 
         // admin = CreateAdmin(admin, adminDB, logInService, identifier);
         // adminService.MakeAdmin(admin);
 
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
-        user = new();
-
-        user.Email = ConsoleInput.GetString("Enter your Email");
-        user.Password = ConsoleInput.GetInt("Enter your Password");
-        user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
-        user.Id = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
-        if (user.Id == 0) //<- tex om user är inloggad då så kommer man till user page?
+        while (menu)
         {
-            Console.WriteLine("Fel lösen eller mail");
-            Environment.Exit(0);
+            System.Console.WriteLine("Blocket");
+            System.Console.WriteLine("----------");
+            System.Console.WriteLine("[1]skapa konto");
+            System.Console.WriteLine("[2]");
+            System.Console.WriteLine("[3]");
+
+            answer = Console.ReadLine();
+            bool isNumber = int.TryParse(answer, out menuOptions);
+            if (!isNumber)
+            {
+                System.Console.WriteLine("Only number input is valid");
+            }
+
+            switch (menuOptions)
+            {
+                case 1:
+                    user = new();
+
+                    user.Email = ConsoleInput.GetString("Enter your Email");
+                    user.Password = ConsoleInput.GetInt("Enter your Password");
+                    user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
+                    user.Id = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
+                    if (user.Id == 0) //<- tex om user är inloggad då så kommer man till user page?
+                    {
+                        Console.WriteLine("Fel lösen eller mail");
+                        Environment.Exit(0);
+                    }
+                    user = userservise.GetTheUser(user);
+
+                break;
+            }
         }
-        user = userservise.GetTheUser(user);
 
         //2.5
         // admin = new();
@@ -62,18 +87,18 @@ internal class Program
         //     Console.WriteLine("admin deleted ");
         // }
         // //2. LOGGA IN PÅ BEFINTLIGT KONTO
-       
 
-    
+
+
         //1. GÖR ANNONS
 
         AddvertiseDb dbManager = new();
         AdvertiseService advertiseService = new(dbManager);
 
-          Advertise bil = new("KLÄDER", "10 klänningar", 2021, "borås", "borås kommun", 50764, user.Id);
-          int advertiseId = advertiseService.MakeNewAd(bil);
-          Advertise kaka = new("SOFFGRUPP", "mockasoffa", 2021, "borås", "borås kommun", 50764, user.Id);
-         int advertiseId1 = advertiseService.MakeNewAd(kaka);
+        Advertise bil = new("KLÄDER", "10 klänningar", 2021, "borås", "borås kommun", 50764, user.Id);
+        int advertiseId = advertiseService.MakeNewAd(bil);
+        Advertise kaka = new("SOFFGRUPP", "mockasoffa", 2021, "borås", "borås kommun", 50764, user.Id);
+        int advertiseId1 = advertiseService.MakeNewAd(kaka);
 
         //2. SÖK ANNONS
         string search = ConsoleInput.GetString("SearchAd");
@@ -88,7 +113,7 @@ internal class Program
         // // 3. SKRIV MEDDELANDE TILL ANNONSENS ANVÄNDARE 
         //=========================================
         Message message = new();
-         advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
+        advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
         int adUserId = userdb.GetUserIdFromAdvertise(advertiseId);
         // UserMakesMessage(toUserId, user, messageService); GAMLA STATISKA METODEN, TA BORT NÄR DEN NEDAN ÄR TESTAD
         // HÄR GÖR OBJEKT AV KLASSEN MESSAGEOPERATION OCH ANROPAR WRITEMESSAGETOAD METODEN HÄR
