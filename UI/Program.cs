@@ -3,7 +3,6 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        // DU SKA SVARA PÅ MEDDELANDET, DET GÅR EJ CHILD ROW NÅOGT!!
 
         //TESTAR ETT STEG I TAGET HÄR
         Admin admin = new();
@@ -12,16 +11,19 @@ internal class Program
         
         User user = new();
         UserDB userdb = new();
+<<<<<<< HEAD
         LogInService logInService = new(identifier,userdb);
         UserService userservise = new(identifier,userdb,userdb);
+=======
+        LogInService logInService = new(identifier, userdb);
+        UserService userservise = new(identifier, userdb, userdb);
+>>>>>>> 92d06da2ef6c4ba9df07a2b5c65a428fd913af52
         MessageDB messageDB = new();
         MessageService messageService = new(messageDB, messageDB);
         AdminService adminService = new(identifier,userdb,userdb, adminDB );
 
-
         //1. SKAPAKONTO
         
-
         // user = CreateUser(user, logInService, userdb, identifier);
         // userservise.MakeUser( user);
 
@@ -29,12 +31,11 @@ internal class Program
        adminService.MakeAdmin(admin);
 
         
-
-
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
         user = new();
-        user.Email = "elinak90@icloud.com";//ConsoleInput.GetString("Enter your Email");
-        user.Password = 1010;//ConsoleInput.GetInt("Enter your Password");
+        
+        user.Email = ConsoleInput.GetString("Enter your Email");
+        user.Password = ConsoleInput.GetInt("Enter your Password");
         user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
         user.Id = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
         if (user.Id == 0) //<- tex om user är inloggad då så kommer man till user page?
@@ -44,16 +45,15 @@ internal class Program
         }
         user = userservise.GetTheUser(user);
         //1. GÖR ANNONS
-      
+
         AddvertiseDb dbManager = new();
         AdvertiseService advertiseService = new(dbManager);
         //advertise bil = new("Barnvagn", "brun", 2021, "borås", "borås kommun", 50764, user.Id);
         //int advertiseId = advertiseService.MakeNewAd(bil);
-        
 
         //2. SÖK ANNONS
         // string search = ConsoleInput.GetString("SearchAd");
-    
+
         // // // NÄR DU HÄMTAR ALLA ANNONSER I DATABASEN, LÄGG ÄVEN TILL ANNONSEN OCH USERNS ID!!
         // List <advertise> foundad = advertiseService.SearchAd(search);
         // foreach(advertise item in foundad)
@@ -62,9 +62,9 @@ internal class Program
         // }
 
         // // 3. SKRIV MEDDELANDE TILL ANNONSENS ANVÄNDARE 
-            Message message = new();
+        Message message = new();
         // int advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
-       
+
         // int toUserId = 10;//= userdb.GetUserIdFromAdvertise(advertiseId);
         // UserMakesMessage(toUserId, user, messageService);
 
@@ -101,18 +101,21 @@ internal class Program
             messageService.DeleteConversation(user.Id, participantId);
         }
         // 5. REDIGERA PROFIL
-        // DELETE USER
-        // DeleteAUser(user, userdb);
-        // userservise.DeleteTheUser(userdb, user);
-        // UPDATE DESCRIPTION
-        //  string updateDescription = ConsoleInput.GetString("Text: ");
-        //  if(userservise.DescriptionInput(user, updateDescription) == true)
-        // {
-        //     Console.WriteLine("updated");
-        // }
-
-
-
+        int choice = ConsoleInput.GetInt("[1] Delete account [2] Update account");
+        if (choice == 1)
+        {
+            // DELETE USER
+            userservise.DeleteTheUser(user);
+        }
+        else if (choice == 2)
+        {
+            // UPDATE DESCRIPTION
+             string updateDescription = ConsoleInput.GetString("Text: ");
+             if(userservise.DescriptionInput(user, updateDescription) == true)
+            {
+                Console.WriteLine("updated");
+            }
+        }
 
         //6. VISA MINA ANNONSER
         // metod anropas från advertiseservice, som returnar en lista med alla annonsen där user_id = dennas id
@@ -130,11 +133,9 @@ internal class Program
         // int idToUser = fromUserId;
         Message answerMessage = new(rubric, content, user.Id, idToUser);
         messageService.MakeMessage(answerMessage, user);
-        Console.WriteLine("Skickat");
+       
         return answerMessage;
     }
-
-    // HÄR ÄR SJÄLVA BLOCKET HEMSIDAN, DEN TAR IN INTERFACES (OCH KLASSER SOM IMPLEMENTERAR DESSA)
     public static void ShowBlocketPages(int currentPage, IMessageHandeler messageHandeler, IUserHandeler userHandeler, Identifier identifier, IUserEditor userEditor)
     {
         User user = new();
@@ -212,7 +213,7 @@ internal class Program
         {
             case "1":
 
-               // AddAdvertise();
+                // AddAdvertise();
                 //admanagement.addadvertise(advertise);
                 break;
 
@@ -312,9 +313,9 @@ internal class Program
         user = logInService.MakeNewLogIn(user);                       //user = new(input, num, adress, email, password);
         return user;
     }
-  
 
-    public static void UpDateDescription(IUserHandeler userHandeler, User user, IUserEditor userEditor )
+
+    public static void UpDateDescription(IUserHandeler userHandeler, User user, IUserEditor userEditor)
     {
         string updateDescription = ConsoleInput.GetString("Text: ");
 
@@ -340,19 +341,19 @@ internal class Program
 
     //     }
 
-        //Välja kategori, underkategori, beskrivning, köpa eller sälja, bilder för annons.
-        //Felhantering = Kanske maxantal ord för varje. Ha det öppet så att man ser helheten
-        //Felhantering = Om man skriver fel på förra så kan man gå till baka och ändra innan man skapar annons
-        // string rubric = string.Empty;
-        // string description = string.Empty;
-        // float price = 0f;
-        // string location = string.Empty;
-        // string municipality = string.Empty;
-        // int postalNumber = 0;
-        // User user = new();
+    //Välja kategori, underkategori, beskrivning, köpa eller sälja, bilder för annons.
+    //Felhantering = Kanske maxantal ord för varje. Ha det öppet så att man ser helheten
+    //Felhantering = Om man skriver fel på förra så kan man gå till baka och ändra innan man skapar annons
+    // string rubric = string.Empty;
+    // string description = string.Empty;
+    // float price = 0f;
+    // string location = string.Empty;
+    // string municipality = string.Empty;
+    // int postalNumber = 0;
+    // User user = new();
 
-        // advertise nyannons = new advertise(rubric, description, price, location, municipality, postalNumber, user.Id);
-        // return nyannons;
-   // }
+    // advertise nyannons = new advertise(rubric, description, price, location, municipality, postalNumber, user.Id);
+    // return nyannons;
+    // }
 
 }

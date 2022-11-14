@@ -21,51 +21,25 @@ public class MessageService
         int usermessageId = _messageSender.SendMessage(message, newMessageId);
         int rows = _messageSender.AddConversationThread(user.Id, usermessageId);
         int toUserId = message.IDToUser;
-        rows = _messageSender.AddConversationThread(toUserId, usermessageId);
-        if(rows > 0)
-        {
-            Console.WriteLine("Skickat");
-        }
+        _messageSender.AddConversationThread(toUserId, usermessageId);
     }
-    // denna mindre funktion interface
     public List<Message> ShowAllMessages(User user)
     {
         List<Message> messages = _conversationHandler.GetMessagesNew(user); //_conversationHandler.GetAllMessagesOverlookTest(user);
         return messages;
     }
-
-    // denna nedanför behöver vara i annan interface, då den är mer funktion
-    public List<Message> ShowMessagesOverlook(User user)
-    {
-        allMessages = _conversationHandler.GetAllMessagesOverlookTest(user);
-        List<Message> listMessagePerSender = new();
-
-        foreach (Message item in allMessages)
-        {
-            if (!listMessagePerSender.Contains(item))
-            {
-                listMessagePerSender.Add(item);
-            }
-        }
-
-        return listMessagePerSender;
-
-    }
-    // denna i interface med mindre funktion, med mer bestämd db?
     public List<Message> ShowOneMessageConversation(int messageId, int participantId, int myId)
     {
         // den hittar meddelande med specifikt id
         List<Message> messages = _conversationHandler.GetMessageConversationTEST(messageId, participantId, myId);//_conversationHandler.GetMessageConversationTEST(messageId, fromUserId, thisUserId);
         return messages;
     }
-
     public List<Message> ShowStructuredConversation(int messageId, int fromUserId, int thisUserId)
     {
         // DENNA SKA INNEHÅLLA FUNKTION, TAR IN ALLA MEDDELANDEN OCH STRUKTURERAR KONVERSATION HÄR I?
         List<Message> messages = _conversationHandler.GetMessageConversationTEST(messageId, fromUserId, thisUserId);
         return messages;
     }
-
     public void DeleteConversation(int myid, int participantId)
     {
         _conversationHandler.DeleteMessageConversation(myid, participantId);
