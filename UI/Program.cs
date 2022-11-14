@@ -27,8 +27,8 @@ internal class Program
         // user = CreateUser(user, logInService, userdb, identifier);
         // userservise.MakeUser( user);
 
-        admin = CreateAdmin(admin, adminDB, logInService, identifier);
-        adminService.MakeAdmin(admin);
+        // admin = CreateAdmin(admin, adminDB, logInService, identifier);
+        // adminService.MakeAdmin(admin);
 
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
         // user = new();
