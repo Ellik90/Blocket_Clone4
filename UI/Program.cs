@@ -43,8 +43,9 @@ internal class Program
 
         AddvertiseDb dbManager = new();
         AdvertiseService advertiseService = new(dbManager);
-        //advertise bil = new("Barnvagn", "brun", 2021, "borås", "borås kommun", 50764, user.Id);
-        //int advertiseId = advertiseService.MakeNewAd(bil);
+        IAdvUIhandler adUIhandler;
+        // advertise bil = new("Barnvagn", "brun", 2021, "borås", "borås kommun", 50764, user.Id);
+        // int advertiseId = advertiseService.MakeNewAd(bil);
 
         //2. SÖK ANNONS
         // string search = ConsoleInput.GetString("SearchAd");

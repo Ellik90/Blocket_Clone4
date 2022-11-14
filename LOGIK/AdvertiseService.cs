@@ -1,5 +1,5 @@
 namespace LOGIK;
-public class AdvertiseService
+public class AdvertiseService : IAdvUIhandler
 {
     //Sökmetod 
     IAdHandler _IadManager;

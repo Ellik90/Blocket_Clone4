@@ -1,6 +1,12 @@
 namespace LOGIK;
-public interface advUIhandler
+public interface IAdvUIhandler
 {
-    
+    public int MakeNewAd(advertise advertise);
 
+    public List<advertise> SearchAd(string search);
+
+    public void RemoveOneAd(int id);
+
+    public advertise ShowOneAd(int id);
+   
 }
