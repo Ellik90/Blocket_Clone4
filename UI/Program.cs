@@ -9,11 +9,11 @@ internal class Program
         Admin admin = new();
         AdminDB adminDB = new();
         Identifier identifier = new();
-     
+
 
         User user = new();
         UserDB userdb = new();
-           LogInService logInService = new(identifier, userdb);
+        LogInService logInService = new(identifier, userdb);
         UserService userservise = new(identifier, userdb, userdb);
         //LogInService logInService = new(identifier,userdb);
         //UserService userservise = new(identifier,userdb,userdb);
@@ -28,14 +28,14 @@ internal class Program
 
         admin = CreateAdmin(admin, adminDB, identifier);
         adminService.MakeAdmin(admin);
-        
+
         // user = CreateUser(user, logInService, userdb, identifier);
         // userservise.MakeUser( user);
 
-       //admin = CreateAdmin(admin, adminDB, identifier);
-       //adminService.MakeAdmin(admin);
+        //admin = CreateAdmin(admin, adminDB, identifier);
+        //adminService.MakeAdmin(admin);
 
-         admin = new();
+        admin = new();
 
         admin.Email = ConsoleInput.GetString("Enter your Email");
         //admin.Password = ConsoleInput.GetInt("Enter your Password");
@@ -46,7 +46,7 @@ internal class Program
             Console.WriteLine("Fel lösen eller mail");
             Environment.Exit(0);
         }
-        
+
 
 
         string delete = ConsoleInput.GetString(" ");
@@ -68,11 +68,25 @@ internal class Program
             Environment.Exit(0);
         }
         user = userservise.GetTheUser(user);
+
+        //2.5
+        admin = new();
+
+        admin.Email = ConsoleInput.GetString("Enter your Email");
+        admin.PassWord = ConsoleInput.GetInt("Enter your Password");
+        admin = logInService.UserLogIn(admin); //user skriver bara i sin mail och kod
+        admin.Id = logInService.UserLogInIsValid(admin); //andvänder userhandler och ser om user finns
+        if (admin.Id == 0) //<- tex om user är inloggad då så kommer man till user page?
+        {
+            Console.WriteLine("Fel lösen eller mail");
+            Environment.Exit(0);
+        }
+       // admin = adminService.GETADMIN HÄR(admin);
         //1. GÖR ANNONS
 
         AddvertiseDb dbManager = new();
         AdvertiseService advertiseService = new(dbManager);
-       
+
         //  Advertise bil = new("KLÄDER", "10 klänningar", 2021, "borås", "borås kommun", 50764, user.Id);
         //  int advertiseId = advertiseService.MakeNewAd(bil);
         //  Advertise kaka = new("SOFFGRUPP", "mockasoffa", 2021, "borås", "borås kommun", 50764, user.Id);
@@ -82,8 +96,8 @@ internal class Program
         string search = ConsoleInput.GetString("SearchAd");
 
         // // NÄR DU HÄMTAR ALLA ANNONSER I DATABASEN, LÄGG ÄVEN TILL ANNONSEN OCH USERNS ID!!
-        List <Advertise> foundad = advertiseService.SearchAd(search);
-        foreach(Advertise item in foundad)
+        List<Advertise> foundad = advertiseService.SearchAd(search);
+        foreach (Advertise item in foundad)
         {
             System.Console.WriteLine(item.ToString());
         }
