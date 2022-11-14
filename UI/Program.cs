@@ -10,13 +10,10 @@ internal class Program
 
         User user = new();
         UserDB userdb = new();
-<<<<<<< HEAD
         LogInService logInService = new(identifier, userdb);
         UserService userservise = new(identifier, userdb, userdb);
-=======
-        LogInService logInService = new(identifier,userdb);
-        UserService userservise = new(identifier,userdb,userdb);
->>>>>>> e0d3cae793b35294d9dc16daf4f8215922ec57c9
+        //LogInService logInService = new(identifier,userdb);
+        //UserService userservise = new(identifier,userdb,userdb);
         MessageDB messageDB = new();
         MessageService messageService = new(messageDB, messageDB);
         AdminService adminService = new(identifier, userdb, userdb, adminDB);
