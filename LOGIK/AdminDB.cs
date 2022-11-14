@@ -1,9 +1,9 @@
 using Dapper;
 using MySqlConnector;
 namespace LOGIK;
-public class AdminDB : IAdmin 
+public class AdminDB : IAdmin
 {
-        public int CreateAdmin(Admin admin)
+    public int CreateAdmin(Admin admin)
     {
         int rows = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
@@ -11,9 +11,9 @@ public class AdminDB : IAdmin
             string query = "INSERT INTO admins(social_security_number,admin_name,email,pass_word)VALUES(@SocialSecurityNumber,@Name,@email,@PassWord);";
             rows = connection.ExecuteScalar<int>(query, param: admin);
         }
-      return rows;
+        return rows;
     }
-        public int AdminLogInExists(Admin admin)
+    public int AdminLogInExists(Admin admin)
     {
         // EGEN DB KLASS
         int id = 0;
@@ -24,10 +24,7 @@ public class AdminDB : IAdmin
             return id;
         }
     }
-
-
-
-       public int AdminEmailExists(string Email)
+    public int AdminEmailExists(string Email)
     {
         //EGEN DB KLASS?
         int rows = 0;
@@ -38,7 +35,7 @@ public class AdminDB : IAdmin
         }
         return rows;
     }
-        public int AdminNameExists(string name)
+    public int AdminNameExists(string name)
     {
         //EGEN DB KLASS
         int rows = 0;
@@ -47,10 +44,9 @@ public class AdminDB : IAdmin
             string? query = "SELECT * FROM admins WHERE admin_name = @name";
             rows = connection.ExecuteScalar<int>(query, new { @name = name });
         }
-     return rows;
+        return rows;
     }
-     
-      public int DeleteAdmin(Admin admin)
+    public int DeleteAdmin(Admin admin)
     {
         int rows = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
@@ -58,12 +54,12 @@ public class AdminDB : IAdmin
             string? query = " DELETE FROM admins WHERE id = @id";
             rows = connection.ExecuteScalar<int>(query, new { @id = admin.Id });//DET GÅR INTE ATT RADERA FÖR FOREIGN KEY, MESSAGE
         }
-        return rows;      
+        return rows;
     }
-       public List<Admin> GetAdmins(Admin admin)
+    public List<Admin> GetAdmins(Admin admin)
     {
         List<Admin> admins = new();
-         
+
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
             string query = "SELECT id AS 'id', social_security_number AS 'socialsecuritynumber',admin_name AS 'name', email AS 'email', role AS 'admin_role', pass_word AS 'password' FROM admins;";
@@ -71,5 +67,5 @@ public class AdminDB : IAdmin
             return admins;
         }
     }
-     
+
 }
