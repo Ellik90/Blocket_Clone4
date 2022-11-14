@@ -26,7 +26,6 @@ internal class Program
         AdminOperator adminOperator = new(logInService,admin,adminService);
         
 
-<<<<<<< HEAD
         //1. SKAPAKONTO
 
         // user = CreateUser(user, logInService, userdb, identifier);
@@ -59,11 +58,9 @@ internal class Program
         admin = logInService.AdminLogIn(admin); //user skriver bara i sin mail och kod
         admin.Id = logInService.AdminLogInIsValic(admin); //andvänder userhandler och ser om user finns
         if (admin.Id == 0) //<- tex om user är inloggad då så kommer man till user page?
-=======
         //admin = CreateAdmin(admin, adminDB, logInService, identifier);
         //adminService.MakeAdmin(admin);
         while (loginPage)
->>>>>>> 07d584fea81d7b21f8a953d7c04e349cff8a2a79
         {
             System.Console.WriteLine("[1] Skapa konto");
             System.Console.WriteLine("[2] Logga in");
