@@ -59,7 +59,7 @@ public class AddvertiseDb : IAdHandler
 
         using (MySqlConnection con = new MySqlConnection("Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
-            string query = "SELECT rubric,description,price,municipality,county FROM advertise";
+            string query = "SELECT rubric,description,price,municipality,county, is_checked AS 'isChecked' FROM advertise";
 
             allAds = con.Query<Advertise>(query).ToList();
         }

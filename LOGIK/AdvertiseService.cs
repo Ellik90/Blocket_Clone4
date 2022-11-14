@@ -17,20 +17,23 @@ public class AdvertiseService : IAdUIhandler
     {
 
         List<Advertise> findAd = _IadManager.ShowAllAds();
+
+        List<Advertise> foundAds = new();
+
         foreach (Advertise item in findAd)
         {
-            if (item.Rubric.ToLower() == search.ToLower())
+            if (item.Rubric.ToLower() == search.ToLower() && item.isChecked == true)
             {
-                findAd.Add(item);
+                foundAds.Add(item);
 
             }
-            else if (item.Description.ToLower() == search.ToLower())
+            else if (item.Description.ToLower() == search.ToLower() && item.isChecked == true)
             {
-                findAd.Add(item);
+                foundAds.Add(item);
             }
 
         }
-        return findAd;
+        return foundAds;
 
     }
     public void RemoveOneAd(int id)
