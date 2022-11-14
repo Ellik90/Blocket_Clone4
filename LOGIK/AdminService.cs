@@ -13,6 +13,26 @@ public class AdminService
         _userEditor = userEditor;
         _admin = admin;
     }
+
+     public Admin GetTheAdmin(Admin admin )
+    {
+       List<Admin> admins = _admin.GetAdmins(admin);
+
+       foreach(Admin item in admins)
+       {
+        if(item.Id == admin.Id)
+        {
+            return item;
+        }
+        else
+        {
+            Console.WriteLine("something went wrong");
+        }        
+       }
+       return admin;
+               
+    }
+
     public bool MakeAdmin(Admin admin)
     {
         int rows = 0;
