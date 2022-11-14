@@ -15,11 +15,6 @@ public class MessageSpecificDB : IMessageSender, IConversationHandler
         throw new NotImplementedException();
     }
 
-    public void DeleteMessageConversation(int messageId)
-    {
-        throw new NotImplementedException();
-    }
-
     public List<Message> GetMessageConversationTEST(int messageId, int otherUserId, int myId)
     {
         throw new NotImplementedException();
@@ -54,6 +49,11 @@ public class MessageSpecificDB : IMessageSender, IConversationHandler
     }
 
     List<Message> IConversationHandler.GetMessageConversationNew(int messageId, int participantId, int myId)
+    {
+        throw new NotImplementedException();
+    }
+
+    int IConversationHandler.DeleteMessageConversation(int myId, int usermessageId)
     {
         throw new NotImplementedException();
     }

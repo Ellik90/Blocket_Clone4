@@ -17,7 +17,7 @@ public class LogInService
         if (_identifier.ValidateEmail(user.Email) == true)
         {
             Console.WriteLine("Valid email");
-            user.Password = _identifier.SendEmailWithCode(user.Email);
+            user.Password = _identifier.SendCodeViaEmail(user.Email);
             Console.WriteLine("Code sent to your mail. Please check junkmail if mail not found.");
         }
         else
