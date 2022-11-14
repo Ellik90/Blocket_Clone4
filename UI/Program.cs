@@ -7,16 +7,24 @@ internal class Program
         Admin admin = new();
         AdminDB adminDB = new();
         Identifier identifier = new();
-        
+
         User user = new();
         UserDB userdb = new();
-        LogInService logInService = new(identifier,userdb);
-        UserService userservise = new(identifier,userdb,userdb);
+        LogInService logInService = new(identifier, userdb);
+        UserService userservise = new(identifier, userdb, userdb);
+        //LogInService logInService = new(identifier,userdb);
+        //UserService userservise = new(identifier,userdb,userdb);
         MessageDB messageDB = new();
         MessageService messageService = new(messageDB, messageDB);
-        AdminService adminService = new(identifier,userdb,userdb, adminDB );
+        AdminService adminService = new(identifier, userdb, userdb, adminDB);
 
         //1. SKAPAKONTO
+
+        // user = CreateUser(user, logInService, userdb, identifier);
+        // userservise.MakeUser( user);
+
+        admin = CreateAdmin(admin, adminDB, identifier);
+        adminService.MakeAdmin(admin);
         
         // user = CreateUser(user, logInService, userdb, identifier);
         // userservise.MakeUser( user);
@@ -24,10 +32,29 @@ internal class Program
        //admin = CreateAdmin(admin, adminDB, identifier);
        //adminService.MakeAdmin(admin);
 
+         admin = new();
+
+        admin.Email = ConsoleInput.GetString("Enter your Email");
+        //admin.Password = ConsoleInput.GetInt("Enter your Password");
+        //admin = logInService.UserLogIn(admin); //user skriver bara i sin mail och kod
+        //admin.Id = logInService.UserLogInIsValid(admin); //andvänder userhandler och ser om user finns
+        if (admin.Id == 0) //<- tex om user är inloggad då så kommer man till user page?
+        {
+            Console.WriteLine("Fel lösen eller mail");
+            Environment.Exit(0);
+        }
         
+
+
+        string delete = ConsoleInput.GetString(" ");
+        if (adminDB.AdminEmailExists(admin.Email) > 0)
+        {
+            adminService.DeleteAdmin(admin);
+            Console.WriteLine("admin deleted ");
+        }
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
         user = new();
-        
+
         user.Email = ConsoleInput.GetString("Enter your Email");
         user.Password = ConsoleInput.GetInt("Enter your Password");
         user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
@@ -103,8 +130,8 @@ internal class Program
         else if (choice == 2)
         {
             // UPDATE DESCRIPTION
-             string updateDescription = ConsoleInput.GetString("Text: ");
-             if(userservise.DescriptionInput(user, updateDescription) == true)
+            string updateDescription = ConsoleInput.GetString("Text: ");
+            if (userservise.DescriptionInput(user, updateDescription) == true)
             {
                 Console.WriteLine("updated");
             }
@@ -126,7 +153,7 @@ internal class Program
         // int idToUser = fromUserId;
         Message answerMessage = new(rubric, content, user.Id, idToUser);
         messageService.MakeMessage(answerMessage, user);
-       
+
         return answerMessage;
     }
     public static void ShowBlocketPages(int currentPage, IMessageHandeler messageHandeler, IUserHandeler userHandeler, Identifier identifier, IUserEditor userEditor)
@@ -259,7 +286,7 @@ internal class Program
     }
     public static Admin CreateAdmin(Admin admin, AdminDB adminDB, Identifier identifier)
     {
-         admin.Email = ConsoleInput.GetString("Enter your mail-adress");
+        admin.Email = ConsoleInput.GetString("Enter your mail-adress");
         if (adminDB.AdminEmailExists(admin.Email) > 0)
         {
             Console.WriteLine("Email allready exists");

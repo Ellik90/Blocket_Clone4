@@ -26,6 +26,19 @@ public class AdminService
             return false;
         }
     }
+    public bool DeleteAdmin(Admin admin)
+    {
+        int rows = 0;
+        _admin.DeleteAdmin(admin);
+        if(rows > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     // LÄGG IN METODER
 
 
