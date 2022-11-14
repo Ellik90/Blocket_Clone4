@@ -19,11 +19,12 @@ internal class Program
         AdminDB admindb = new();
         LogInService logInService = new(identifier, userdb, admindb);
         UserService userservise = new(identifier, userdb, userdb);
-        //LogInService logInService = new(identifier,userdb);
-        //UserService userservise = new(identifier,userdb,userdb);
         MessageDB messageDB = new();
         MessageService messageService = new(messageDB, messageDB);
         AdminService adminService = new(identifier, userdb, userdb, adminDB);
+        UserOperator userOperator = new(logInService, user, userservise);
+        AdminOperator adminOperator = new(logInService,admin,adminService);
+        
 
         //admin = CreateAdmin(admin, adminDB, logInService, identifier);
         //adminService.MakeAdmin(admin);
