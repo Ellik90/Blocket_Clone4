@@ -80,6 +80,23 @@ public class AddvertiseDb : IAdHandler
         //all info, även userid 
 
     }
+ public Advertise CheckAds(int id)
+
+    {
+        Advertise advertise = new();
+
+        using (MySqlConnection con = new MySqlConnection("Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
+        {
+            string query = "UPDATE advertise SET is_checked = true WHERE id = @id;";
+
+            advertise = con.QuerySingle<Advertise>(query);
+        }
+     
+            return advertise;
+        
+
+        
+    }
     public void AdOverview(Advertise advertise)
     {
 

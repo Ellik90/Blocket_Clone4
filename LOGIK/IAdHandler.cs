@@ -11,5 +11,7 @@ public interface IAdHandler
     public void AdOverview(Advertise advertise);
 
     public Advertise ShowAd(int id);
+
+    public Advertise CheckAds(int id);
   
 }

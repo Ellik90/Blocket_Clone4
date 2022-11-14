@@ -3,13 +3,16 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-
-
+        bool start = true;
+        int loginOption = 0;
+        string answer = string.Empty;
+        bool loggedIn = true;
+        int menuOptions = 0;
+        bool loginPage = true;
         //TESTAR ETT STEG I TAGET HÄR
         Admin admin = new();
         AdminDB adminDB = new();
         Identifier identifier = new();
-
 
         User user = new();
         UserDB userdb = new();
@@ -23,6 +26,7 @@ internal class Program
         AdminOperator adminOperator = new(logInService,admin,adminService);
         
 
+<<<<<<< HEAD
         //1. SKAPAKONTO
 
         // user = CreateUser(user, logInService, userdb, identifier);
@@ -55,15 +59,75 @@ internal class Program
         admin = logInService.AdminLogIn(admin); //user skriver bara i sin mail och kod
         admin.Id = logInService.AdminLogInIsValic(admin); //andvänder userhandler och ser om user finns
         if (admin.Id == 0) //<- tex om user är inloggad då så kommer man till user page?
+=======
+        //admin = CreateAdmin(admin, adminDB, logInService, identifier);
+        //adminService.MakeAdmin(admin);
+        while (loginPage)
+>>>>>>> 07d584fea81d7b21f8a953d7c04e349cff8a2a79
         {
-            Console.WriteLine("Fel lösen eller mail");
-            Environment.Exit(0);
-        }
-        admin = adminService.GetTheAdmin(admin);
+            System.Console.WriteLine("[1] Skapa konto");
+            System.Console.WriteLine("[2] Logga in");
+            System.Console.WriteLine("[3] Logga in som admin");
 
-        string delete = ConsoleInput.GetString(" ");
-        if (adminDB.AdminEmailExists(admin.Email) > 0)
+            loginOption = ConsoleInput.GetInt("Go to userpage");
+
+            switch (loginOption)
+            {
+                case 1:
+
+                    //1. SKAPAKONTO
+
+                    user = CreateUser(user, logInService, userdb, identifier);
+                    userservise.MakeUser(user);
+
+                    break;
+
+                case 2:
+                    user = new();
+
+                    user.Email = ConsoleInput.GetString("Enter your Email");
+                    user.Password = ConsoleInput.GetInt("Enter your Password");
+                    user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
+                    user.Id = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
+
+                    if (user.Id == 0) //<- tex om user är inloggad då så kommer man till user page?
+                    {
+                        Console.WriteLine("Fel lösen eller mail");
+                        Environment.Exit(0);
+                    }
+
+                    user = userservise.GetTheUser(user);
+
+                    break;
+
+                case 3:
+
+                    admin = new();
+
+                    admin.Email = ConsoleInput.GetString("Enter your Email");
+                    admin.PassWord = ConsoleInput.GetInt("Enter your Password");
+                    admin = logInService.AdminLogIn(admin); //user skriver bara i sin mail och kod
+                    admin.Id = logInService.AdminLogInIsValic(admin); //andvänder userhandler och ser om user finns
+                    if (admin.Id == 0) //<- tex om user är inloggad då så kommer man till user page?
+                    {
+                        Console.WriteLine("Fel lösen eller mail");
+                        Environment.Exit(0);
+                    }
+                    admin = adminService.GetTheAdmin(admin);
+
+                    // string delete = ConsoleInput.GetString(" ");
+                    // if (adminDB.AdminEmailExists(admin.Email) > 0)
+                    // {
+                    //     adminService.DeleteAdmin(admin);
+                    //     Console.WriteLine("admin deleted ");
+                    // }
+                    break;
+            }
+
+        }
+        while (loggedIn)
         {
+<<<<<<< HEAD
             adminService.DeleteAdmin(admin);
             Console.WriteLine("admin deleted ");
         }
@@ -95,15 +159,33 @@ internal class Program
         //     Environment.Exit(0);
         // }
         // admin = adminService.GetTheAdmin(admin);
+=======
+            System.Console.WriteLine("");
+            System.Console.WriteLine("----------");
+            System.Console.WriteLine("[1]");
+            System.Console.WriteLine("[2]");
+            System.Console.WriteLine("[3]");
+
+            menuOptions = ConsoleInput.GetInt("Go to page");
+
+            switch (menuOptions)
+            {
+                case 1:
+
+                    break;
+            }
+        }
+
+>>>>>>> 07d584fea81d7b21f8a953d7c04e349cff8a2a79
         //1. GÖR ANNONS
 
         AddvertiseDb dbManager = new();
         AdvertiseService advertiseService = new(dbManager);
 
-        //  Advertise bil = new("KLÄDER", "10 klänningar", 2021, "borås", "borås kommun", 50764, user.Id);
-        //  int advertiseId = advertiseService.MakeNewAd(bil);
-        //  Advertise kaka = new("SOFFGRUPP", "mockasoffa", 2021, "borås", "borås kommun", 50764, user.Id);
-        //  int advertiseId1 = advertiseService.MakeNewAd(kaka);
+        Advertise bil = new("KLÄDER", "10 klänningar", 2021, "borås", "borås kommun", 50764, user.Id);
+        int advertiseId = advertiseService.MakeNewAd(bil);
+        Advertise kaka = new("SOFFGRUPP", "mockasoffa", 2021, "borås", "borås kommun", 50764, user.Id);
+        int advertiseId1 = advertiseService.MakeNewAd(kaka);
 
         //2. SÖK ANNONS
         string search = ConsoleInput.GetString("SearchAd");
@@ -116,9 +198,9 @@ internal class Program
         }
 
         // // 3. SKRIV MEDDELANDE TILL ANNONSENS ANVÄNDARE 
-        //===========================================================================================0
+        //=========================================
         Message message = new();
-        int advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
+        advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
         int adUserId = userdb.GetUserIdFromAdvertise(advertiseId);
         // UserMakesMessage(toUserId, user, messageService); GAMLA STATISKA METODEN, TA BORT NÄR DEN NEDAN ÄR TESTAD
         // HÄR GÖR OBJEKT AV KLASSEN MESSAGEOPERATION OCH ANROPAR WRITEMESSAGETOAD METODEN HÄR
@@ -126,30 +208,26 @@ internal class Program
         messageOperator.WriteMessageToAd(adUserId, user);
 
         //VISA ALLA MEDDELANDEN 
-        //==========================================================================================
+        //=======================================
         messageOperator.ShowAllMessages(user);
 
         // VÄLJ MEDDELANDE ATT LÄSA  
-        //==================================================================================
+        //=========================================
         int messageId = ConsoleInput.GetInt("Enter message to read: ");
         // hämta det meddealndet via detta id!   så stoppar vi in touser och from user här under
         int participantId = messageOperator.GetSender(messageId);
-        // List<Message> messages = messageService.ShowOneMessageConversation(messageId);
-        List<Message> messages = messageService.ShowOneMessageConversation(messageId, participantId, user.Id);//messageDB.GetMessageConversationTEST(messageId, fromUserId, user.Id);
-        foreach (Message item in messages)
-        {
-            Console.WriteLine($"{item.nameFromUser}\n\r{item.Rubric}\n\r{item.Content}\n\r");
-        }
+        // VISA HELA KONVERSATIONEN PÅ VALT MESSAGE ID
+        messageOperator.ShowMessageConversation(messageId, participantId, user);
 
         //4. SVARA PÅ MEDDELANDE    // RADERA KONVERSATION   // ELLER TILLBAKA
         int chocie = ConsoleInput.GetInt("1 för att svara, 2 för att radera, 3 för tillbaka");
         if (chocie == 1)
         {
-            message = UserMakesMessage(participantId, user, messageService);
+            messageOperator.ReplyToMessage(participantId, user);
         }
         else if (chocie == 2)
         {
-            messageService.DeleteConversation(user.Id, participantId);
+            messageOperator.DeleteConversation(user, participantId);
         }
         // 5. REDIGERA PROFIL
         int choice = ConsoleInput.GetInt("[1] Delete account [2] Update account");
@@ -177,16 +255,6 @@ internal class Program
         //7.
     }
 
-    static Message UserMakesMessage(int idToUser, User user, MessageService messageService)
-    {
-        string rubric = ConsoleInput.GetString("Rubric: ");
-        string content = ConsoleInput.GetString("Content: ");
-        // int idToUser = fromUserId;
-        Message answerMessage = new(rubric, content, user.Id, idToUser);
-        messageService.MakeMessage(answerMessage, user);
-
-        return answerMessage;
-    }
     public static void ShowBlocketPages(int currentPage, IMessageHandeler messageHandeler, IUserHandeler userHandeler, Identifier identifier, IUserEditor userEditor)
     {
         User user = new();
