@@ -1,4 +1,4 @@
-public class advertise
+public class Advertise
 {
     //Publik klass för att skapa annonser
     //Properties some annons ska innehålla
@@ -10,10 +10,11 @@ public class advertise
     public string Municipality { get; set; }
     public int PostalNumber { get; set; }
     public int UserId {get; set;}
+    public bool isChecked {get; set;}
 
     //Konstruktor då annons är tvunget att hålla alla dessa egenskaper för att användas
 
-    public advertise(string rubric, string description, float price, string county, string municipality, int postalNumber, int userId, int id)
+    public Advertise(string rubric, string description, float price, string county, string municipality, int postalNumber, int userId, int id, bool isChecked)
     {
         this.Rubric = rubric;
         this.Description = description;
@@ -23,8 +24,9 @@ public class advertise
         this.PostalNumber = postalNumber;
         this.UserId = userId;
         this.Id = id;
+        this.isChecked = isChecked;
     }
-    public advertise() //Tom konstruktor
+    public Advertise() //Tom konstruktor
     {
 
     }

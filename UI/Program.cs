@@ -11,13 +11,8 @@ internal class Program
         
         User user = new();
         UserDB userdb = new();
-<<<<<<< HEAD
         LogInService logInService = new(identifier,userdb);
         UserService userservise = new(identifier,userdb,userdb);
-=======
-        LogInService logInService = new(identifier, userdb);
-        UserService userservise = new(identifier, userdb, userdb);
->>>>>>> 92d06da2ef6c4ba9df07a2b5c65a428fd913af52
         MessageDB messageDB = new();
         MessageService messageService = new(messageDB, messageDB);
         AdminService adminService = new(identifier,userdb,userdb, adminDB );
@@ -48,7 +43,7 @@ internal class Program
 
         AddvertiseDb dbManager = new();
         AdvertiseService advertiseService = new(dbManager);
-        IAdvUIhandler adUIhandler;
+        IAdUIhandler adUIhandler;
         // advertise bil = new("Barnvagn", "brun", 2021, "borås", "borås kommun", 50764, user.Id);
         // int advertiseId = advertiseService.MakeNewAd(bil);
 
