@@ -3,7 +3,6 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-
         //TESTAR ETT STEG I TAGET HÄR
         Admin admin = new();
         AdminDB adminDB = new();
