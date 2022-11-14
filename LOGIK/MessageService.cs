@@ -45,4 +45,9 @@ public class MessageService : IMessageService
         _conversationHandler.DeleteMessageConversation(myid, participantId);
     }
 
+    public int GetSender(int messageId)
+    {
+        return _messageSender.GetSenderId(messageId);
+    }
+
 }

@@ -14,7 +14,7 @@ public class AdminService
         _admin = admin;
     }
 
-     public Admin GetTheAdmin(Admin admin )
+     public Admin GetTheAdmin(Admin admin)
     {
        List<Admin> admins = _admin.GetAdmins(admin);
 
@@ -60,6 +60,6 @@ public class AdminService
         }
     }
     // LÄGG IN METODER
-
+    // updateadminname
 
 }
