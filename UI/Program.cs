@@ -3,8 +3,9 @@ internal class Program
 {
     private static void Main(string[] args)
     {
+        bool start = true;
         string answer = string.Empty;
-        bool menu = true;
+        bool loggedIn = true;
         int menuOptions = 0;
         //TESTAR ETT STEG I TAGET HÄR
         Admin admin = new();
@@ -31,20 +32,15 @@ internal class Program
         // adminService.MakeAdmin(admin);
 
         //2. LOGGA IN PÅ BEFINTLIGT KONTO
-        while (menu)
+        while (loggedIn)
         {
-            System.Console.WriteLine("Blocket");
+            System.Console.WriteLine("");
             System.Console.WriteLine("----------");
-            System.Console.WriteLine("[1]skapa konto");
+            System.Console.WriteLine("[1]");
             System.Console.WriteLine("[2]");
             System.Console.WriteLine("[3]");
 
-            answer = Console.ReadLine();
-            bool isNumber = int.TryParse(answer, out menuOptions);
-            if (!isNumber)
-            {
-                System.Console.WriteLine("Only number input is valid");
-            }
+            menuOptions = ConsoleInput.GetInt("Go to page");
 
             switch (menuOptions)
             {
