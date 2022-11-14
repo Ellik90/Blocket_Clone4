@@ -23,8 +23,8 @@ internal class Program
         MessageService messageService = new(messageDB, messageDB);
         AdminService adminService = new(identifier, userdb, userdb, adminDB);
         UserOperator userOperator = new(logInService, user, userservise);
-        AdminOperator adminOperator = new(logInService,admin,adminService);
-        
+        AdminOperator adminOperator = new(logInService, admin, adminService);
+
 
         //admin = CreateAdmin(admin, adminDB, logInService, identifier);
         //adminService.MakeAdmin(admin);
@@ -99,59 +99,71 @@ internal class Program
         while (loggedInAsUser)
         {
             System.Console.WriteLine("");
-            System.Console.WriteLine("[1]");
-            System.Console.WriteLine("[1]");
-            System.Console.WriteLine("[2]");
-            System.Console.WriteLine("[3]");
+            System.Console.WriteLine("[1] Kontoinformation");
+            System.Console.WriteLine("[2] Skapa annons ");
+            System.Console.WriteLine("[3] Visa mina annonser");
+            System.Console.WriteLine("[4] Sök annons");
 
             LoggedInOptions = ConsoleInput.GetInt("Go to page");
 
             switch (LoggedInOptions)
             {
                 case 1:
+                    //ShowUserPage(User user, IUserHandeler userHandeler, IUserEditor userEditor);
                     break;
 
                 case 2:
+
+                    AddvertiseDb dbManager = new();
+                    AdvertiseService advertiseService = new(dbManager);
+
+                    Advertise bil = new("KLÄDER", "10 klänningar", 2021, "borås", "borås kommun", 50764, user.Id);
+                    int advertiseId1 = advertiseService.MakeNewAd(bil);
+                    Advertise kaka = new("SOFFGRUPP", "mockasoffa", 2021, "borås", "borås kommun", 50764, user.Id);
+                    int advertiseId2 = advertiseService.MakeNewAd(kaka);
+
                     break;
-                    
+
                 case 3:
+                    //6. VISA MINA ANNONSER
+                    // metod anropas från advertiseservice, som returnar en lista med alla annonsen där user_id = dennas id
+
+                    //7. MINA SÅLDA OBJEKT?)
+                    // bool isSold? eller det tas sen
+                    break;
+
+                case 4:
+                    advertiseService = new(new AddvertiseDb());
+                    string search = ConsoleInput.GetString("SearchAd");
+
+                    // // NÄR DU HÄMTAR ALLA ANNONSER I DATABASEN, LÄGG ÄVEN TILL ANNONSEN OCH USERNS ID!!
+                    List<Advertise> foundad = advertiseService.SearchAd(search);
+
+                    foreach (Advertise item in foundad)
+                    {
+                        System.Console.WriteLine(item.ToString());
+                    }
+
+
                     break;
 
             }
         }
 
-        //1. GÖR ANNONS
 
-        AddvertiseDb dbManager = new();
-        AdvertiseService advertiseService = new(dbManager);
+        // 3. SKRIV MEDDELANDE TILL ANNONSENS ANVÄNDARE 
+        // =========================================
 
-        Advertise bil = new("KLÄDER", "10 klänningar", 2021, "borås", "borås kommun", 50764, user.Id);
-        int advertiseId = advertiseService.MakeNewAd(bil);
-        Advertise kaka = new("SOFFGRUPP", "mockasoffa", 2021, "borås", "borås kommun", 50764, user.Id);
-        int advertiseId1 = advertiseService.MakeNewAd(kaka);
-
-        //2. SÖK ANNONS
-        string search = ConsoleInput.GetString("SearchAd");
-
-        // // NÄR DU HÄMTAR ALLA ANNONSER I DATABASEN, LÄGG ÄVEN TILL ANNONSEN OCH USERNS ID!!
-        List<Advertise> foundad = advertiseService.SearchAd(search);
-        foreach (Advertise item in foundad)
-        {
-            System.Console.WriteLine(item.ToString());
-        }
-
-        // // 3. SKRIV MEDDELANDE TILL ANNONSENS ANVÄNDARE 
-        //=========================================
         Message message = new();
-        advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
+        int advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
         int adUserId = userdb.GetUserIdFromAdvertise(advertiseId);
         // UserMakesMessage(toUserId, user, messageService); GAMLA STATISKA METODEN, TA BORT NÄR DEN NEDAN ÄR TESTAD
         // HÄR GÖR OBJEKT AV KLASSEN MESSAGEOPERATION OCH ANROPAR WRITEMESSAGETOAD METODEN HÄR
         MessageOperator messageOperator = new(messageService, messageDB);
         messageOperator.WriteMessageToAd(adUserId, user);
 
-        //VISA ALLA MEDDELANDEN 
-        //=======================================
+        // VISA ALLA MEDDELANDEN 
+        // =======================================
         messageOperator.ShowAllMessages(user);
 
         // VÄLJ MEDDELANDE ATT LÄSA  
@@ -189,11 +201,7 @@ internal class Program
             }
         }
 
-        //6. VISA MINA ANNONSER
-        // metod anropas från advertiseservice, som returnar en lista med alla annonsen där user_id = dennas id
 
-        //7. MINA SÅLDA OBJEKT?)
-        // bool isSold? eller det tas sen
 
         //7.
     }
@@ -275,7 +283,7 @@ internal class Program
         {
             case "1":
 
-                // AddAdvertise();
+                AddAdvertise();
                 //admanagement.addadvertise(advertise);
                 break;
 
@@ -387,39 +395,39 @@ internal class Program
 
         userEditor.UpDateDescription(user, updateDescription);
     }
-    // public static advertise AddAdvertise() // Metod för att skapa annons//D
-    // {
-    //     string answer = string.Empty;
-    //     int option = 0;
-    //     bool isTrue = true;
-    //     System.Console.WriteLine("[1]Välj kategori");
-    //     System.Console.WriteLine("[2]Välj underkategori");
-    //     System.Console.WriteLine("");
+    public static advertise AddAdvertise() // Metod för att skapa annons//D
+    {
+        string answer = string.Empty;
+        int option = 0;
+        bool isTrue = true;
+        System.Console.WriteLine("[1]Välj kategori");
+        System.Console.WriteLine("[2]Välj underkategori");
+        System.Console.WriteLine("");
 
-    //     while (isTrue)
-    //     {
-    //         switch (option)
-    //         {
+        while (isTrue)
+        {
+            switch (option)
+            {
 
 
 
-    //         }
+            }
 
-    //     }
+        }
 
-    //Välja kategori, underkategori, beskrivning, köpa eller sälja, bilder för annons.
-    //Felhantering = Kanske maxantal ord för varje. Ha det öppet så att man ser helheten
-    //Felhantering = Om man skriver fel på förra så kan man gå till baka och ändra innan man skapar annons
-    // string rubric = string.Empty;
-    // string description = string.Empty;
-    // float price = 0f;
-    // string location = string.Empty;
-    // string municipality = string.Empty;
-    // int postalNumber = 0;
-    // User user = new();
+        Välja kategori, underkategori, beskrivning, köpa eller sälja, bilder för annons.
+    Felhantering = Kanske maxantal ord för varje. Ha det öppet så att man ser helheten
+    Felhantering = Om man skriver fel på förra så kan man gå till baka och ändra innan man skapar annons
+    string rubric = string.Empty;
+        string description = string.Empty;
+        float price = 0f;
+        string location = string.Empty;
+        string municipality = string.Empty;
+        int postalNumber = 0;
+        User user = new();
 
-    // advertise nyannons = new advertise(rubric, description, price, location, municipality, postalNumber, user.Id);
-    // return nyannons;
-    // }
+        advertise nyannons = new advertise(rubric, description, price, location, municipality, postalNumber, user.Id);
+        return nyannons;
+    }
 
 }
