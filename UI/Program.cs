@@ -118,18 +118,18 @@ internal class Program
         int adUserId = userdb.GetUserIdFromAdvertise(advertiseId);
         // UserMakesMessage(toUserId, user, messageService); GAMLA STATISKA METODEN, TA BORT NÄR DEN NEDAN ÄR TESTAD
         // HÄR GÖR OBJEKT AV KLASSEN MESSAGEOPERATION OCH ANROPAR WRITEMESSAGETOAD METODEN HÄR
-        MessageOperations messageOperations = new(messageService);
-        messageOperations.WriteMessageToAd(adUserId, user);
+        MessageOperator messageOperator = new(messageService, messageDB);
+        messageOperator.WriteMessageToAd(adUserId, user);
 
         //VISA ALLA MEDDELANDEN 
         //==========================================================================================
-        messageOperations.ShowAllMessages(user);
+        messageOperator.ShowAllMessages(user);
 
         // VÄLJ MEDDELANDE ATT LÄSA  
         //==================================================================================
         int messageId = ConsoleInput.GetInt("Enter message to read: ");
         // hämta det meddealndet via detta id!   så stoppar vi in touser och from user här under
-        int participantId = messageDB.GetSenderId(messageId);
+        int participantId = messageOperator.GetSender(messageId);
         // List<Message> messages = messageService.ShowOneMessageConversation(messageId);
         List<Message> messages = messageService.ShowOneMessageConversation(messageId, participantId, user.Id);//messageDB.GetMessageConversationTEST(messageId, fromUserId, user.Id);
         foreach (Message item in messages)

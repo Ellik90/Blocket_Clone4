@@ -1,10 +1,12 @@
 using LOGIK;
-class MessageOperations
+class MessageOperator
 {
     IMessageService _messageService;
-    public MessageOperations(IMessageService messageService)
+    IMessageSender _messageSender;
+    public MessageOperator(IMessageService messageService, IMessageSender messageSender)
     {
         _messageService = messageService;
+        _messageSender = messageSender;
     }
 
     public void WriteMessageToAd(int adUserId, User user)
@@ -28,6 +30,12 @@ class MessageOperations
         {
             Console.WriteLine($"{item.MessagesToString()}");
         }
+    }
+
+    public int GetSender(int messageId)
+    {
+        int participantId = _messageSender.GetSenderId(messageId);
+        return participantId;
     }
 
 
