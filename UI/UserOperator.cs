@@ -1,7 +1,7 @@
 namespace LOGIK;
 class UserOperator
 {
-    IUserService _userService;
+    IuserService _userService;
     User _user;
     LogInService _loginService;
 
