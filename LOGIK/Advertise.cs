@@ -14,7 +14,7 @@ public class Advertise
 
     //Konstruktor då annons är tvunget att hålla alla dessa egenskaper för att användas
 
-    public Advertise(string rubric, string description, float price, string county, string municipality, int postalNumber, int userId, int id, bool isChecked)
+    public Advertise(string rubric, string description, float price, string county, string municipality, int postalNumber, int userId)
     {
         this.Rubric = rubric;
         this.Description = description;
@@ -23,8 +23,7 @@ public class Advertise
         this.Municipality = municipality;
         this.PostalNumber = postalNumber;
         this.UserId = userId;
-        this.Id = id;
-        this.isChecked = isChecked;
+        this.isChecked = false;
     }
     public Advertise() //Tom konstruktor
     {
