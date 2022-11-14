@@ -8,7 +8,7 @@ public class AdminDB : IAdmin
         int rows = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
-            string query = "INSERT INTO admin(social_security_number,admin_name,email,pass_word)VALUES(@SocialSecurityNumber,@Name,@email,@PassWord);";
+            string query = "INSERT INTO admins(social_security_number,admin_name,email,pass_word)VALUES(@SocialSecurityNumber,@Name,@email,@PassWord);";
             rows = connection.ExecuteScalar<int>(query, param: admin);
         }
       return rows;
@@ -20,7 +20,7 @@ public class AdminDB : IAdmin
         int rows = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
-            string? query = "SELECT * FROM admin WHERE email = @email ";
+            string? query = "SELECT * FROM admins WHERE email = @email ";
             rows = connection.ExecuteScalar<int>(query, new { @email = Email });
         }
         return rows;
@@ -31,10 +31,21 @@ public class AdminDB : IAdmin
         int rows = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
-            string? query = "SELECT * FROM admin WHERE admin_name = @name";
+            string? query = "SELECT * FROM admins WHERE admin_name = @name";
             rows = connection.ExecuteScalar<int>(query, new { @name = name });
         }
      return rows;
+    }
+     
+      public int DeleteAdmin(Admin admin)
+    {
+        int rows = 0;
+        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
+        {
+            string? query = " DELETE FROM admins WHERE id = @id";
+            rows = connection.ExecuteScalar<int>(query, new { @id = admin.Id });//DET GÅR INTE ATT RADERA FÖR FOREIGN KEY, MESSAGE
+        }
+        return rows;      
     }
      
 }
