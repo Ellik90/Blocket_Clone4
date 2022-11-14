@@ -3,12 +3,14 @@ public class LogInService
 {
     IIdentifier _identifier;
     IUserHandeler _userHandeler;
+    IAdmin _adminHandeler;
     public LogInService(IIdentifier identifier, IUserHandeler userHandeler, IAdmin adminhandeler)
     {
         // för att komma åt det som är i interface för identifier, tex skicka mail
         _identifier = identifier;
         // för att komma åt att validera om kunden finns 
         _userHandeler = userHandeler;
+        _adminHandeler = adminhandeler;
     }
     User user = new();
     public User MakeNewLogIn(User user)
@@ -33,7 +35,7 @@ public class LogInService
         if (_identifier.ValidateEmail(admin.Email) == true)
         {
             Console.WriteLine("Valid email");
-            user.Password = _identifier.SendCodeViaEmail(admin.Email);
+            admin.PassWord = _identifier.SendCodeViaEmail(admin.Email);
             Console.WriteLine("Code sent to your mail. Please check junkmail if mail not found.");
         }
         else
@@ -59,7 +61,7 @@ public class LogInService
 
         return user;
     }
-    public Admin UserLogIn(Admin admin)
+    public Admin AdminLogIn(Admin admin)
     {
         bool isValid = false;
 
@@ -82,7 +84,7 @@ public class LogInService
 
     public int AdminLogInIsValic(Admin admin)
     {
-        return _adminHandeler.UserLogInExists(admin);
+        return _adminHandeler.AdminLogInExists(admin);
     }
 
 }
