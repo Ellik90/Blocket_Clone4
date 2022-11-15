@@ -114,6 +114,8 @@ internal class Program
             switch (LoggedInOptions)
             {
                 case 1:
+                    
+                
                     AddvertiseDb dbManager = new();
                     advertiseService = new(dbManager);
 
