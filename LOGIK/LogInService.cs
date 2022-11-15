@@ -1,5 +1,5 @@
 namespace LOGIK;
-public class LogInService
+public class LogInService : ILogInService
 {
     IIdentifier _identifier;
     IUserHandeler _userHandeler;

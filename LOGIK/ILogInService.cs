@@ -7,7 +7,7 @@ public interface ILogInService
 
     public User UserLogIn(User user);
 
-    public Type AdminLogIn(Type t);
+    public Admin AdminLogIn(Admin admin);
 
     public int UserLogInIsValid(User user);
 
