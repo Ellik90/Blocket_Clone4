@@ -18,19 +18,21 @@ public class UserService : IuserService
     public User GetTheUser(User user)
     {
        List<User> users = _userHandele.GetUser();
+       User getUser = new();
 
        foreach(User auser in users)
        {
         if(auser.Id == user.Id)
         {
-            return user;
+            getUser = auser;
         }
         else
         {
             Console.WriteLine("something went wrong");
-        }        
+          
+        }    
        }
-       return user;
+       return getUser;    
                
     }
 
