@@ -48,8 +48,6 @@ internal class Program
 
                     //1. SKAPAKONTO
 
-                    //CreateUser(user, logInService, userdb, identifier);
-
                     user = userOperator.CreateUser(user, logInService, userdb, identifier);
                     userservise.MakeUser(user);
 
@@ -161,71 +159,37 @@ internal class Program
 
                 case 4:
 
-<<<<<<< HEAD
-                    // Message message = new();
-                    // int advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
-                    // int adUserId = userdb.GetUserIdFromAdvertise(advertiseId);
-                    // // UserMakesMessage(toUserId, user, messageService); GAMLA STATISKA METODEN, TA BORT NÄR DEN NEDAN ÄR TESTAD
-                    // // HÄR GÖR OBJEKT AV KLASSEN MESSAGEOPERATION OCH ANROPAR WRITEMESSAGETOAD METODEN HÄR
-                    // MessageOperator messageOperator = new(messageService, messageDB);
-                    // messageOperator.WriteMessageToAd(adUserId, user);
-
-                    // VISA ALLA MEDDELANDEN 
-                    // =======================================
-                    // messageOperator.ShowAllMessages(user);
-
-                    // // VÄLJ MEDDELANDE ATT LÄSA  
-                    // //=========================================
-                    // int messageId = ConsoleInput.GetInt("Enter message to read: ");
-                    // // hämta det meddealndet via detta id!   så stoppar vi in touser och from user här under
-                    // int participantId = messageOperator.GetSender(messageId);
-                    // // VISA HELA KONVERSATIONEN PÅ VALT MESSAGE ID
-                    // messageOperator.ShowMessageConversation(messageId, participantId, user);
-
-                    // //4. SVARA PÅ MEDDELANDE    // RADERA KONVERSATION   // ELLER TILLBAKA
-                    // int chocie = ConsoleInput.GetInt("1 för att svara, 2 för att radera, 3 för tillbaka");
-                    // if (chocie == 1)
-                    // {
-                    //     messageOperator.ReplyToMessage(participantId, user);
-                    // }
-                    // else if (chocie == 2)
-                    // {
-                    //     messageOperator.DeleteConversation(user, participantId);
-                    // }
-                    // break;
-=======
-                // Message message = new();
-                // int advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
-                // int adUserId = userdb.GetUserIdFromAdvertise(advertiseId);
-                // // UserMakesMessage(toUserId, user, messageService); GAMLA STATISKA METODEN, TA BORT NÄR DEN NEDAN ÄR TESTAD
-                // // HÄR GÖR OBJEKT AV KLASSEN MESSAGEOPERATION OCH ANROPAR WRITEMESSAGETOAD METODEN HÄR
-                // MessageOperator messageOperator = new(messageService, messageDB);
-                // messageOperator.WriteMessageToAd(adUserId, user);
+                Message message = new();
+                int advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
+                int adUserId = userdb.GetUserIdFromAdvertise(advertiseId);
+                // UserMakesMessage(toUserId, user, messageService); GAMLA STATISKA METODEN, TA BORT NÄR DEN NEDAN ÄR TESTAD
+                // HÄR GÖR OBJEKT AV KLASSEN MESSAGEOPERATION OCH ANROPAR WRITEMESSAGETOAD METODEN HÄR
+                MessageOperator messageOperator = new(messageService, messageDB);
+                messageOperator.WriteMessageToAd(adUserId, user);
 
                 // VISA ALLA MEDDELANDEN 
                 // =======================================
-                // messageOperator.ShowAllMessages(user);
+                messageOperator.ShowAllMessages(user);
 
                 // VÄLJ MEDDELANDE ATT LÄSA  
                 //=========================================
-                // int messageId = ConsoleInput.GetInt("Enter message to read: ");
+                int messageId = ConsoleInput.GetInt("Enter message to read: ");
                 // hämta det meddealndet via detta id!   så stoppar vi in touser och from user här under
-                // int participantId = messageOperator.GetSender(messageId);
+                int participantId = messageOperator.GetSender(messageId);
                 // VISA HELA KONVERSATIONEN PÅ VALT MESSAGE ID
-                // messageOperator.ShowMessageConversation(messageId, participantId, user);
+                messageOperator.ShowMessageConversation(messageId, participantId, user);
 
                 //4. SVARA PÅ MEDDELANDE    // RADERA KONVERSATION   // ELLER TILLBAKA
-                // int chocie = ConsoleInput.GetInt("1 för att svara, 2 för att radera, 3 för tillbaka");
-                // if (chocie == 1)
-                // {
-                //     messageOperator.ReplyToMessage(participantId, user);
-                // }
-                // else if (chocie == 2)
-                // {
-                //     messageOperator.DeleteConversation(user, participantId);
-                // }
-                // break;
->>>>>>> 6566025a8077b36a7b48d198ddef5aab5c200ffd
+                int chocie = ConsoleInput.GetInt("1 för att svara, 2 för att radera, 3 för tillbaka");
+                if (chocie == 1)
+                {
+                    messageOperator.ReplyToMessage(participantId, user);
+                }
+                else if (chocie == 2)
+                {
+                    messageOperator.DeleteConversation(user, participantId);
+                }
+                break;
 
 
                 case 5:
@@ -347,59 +311,59 @@ internal class Program
         {
 
         }
-        static Admin CreateAdmin(Admin admin, AdminDB adminDB, LogInService logInService, Identifier identifier)
-        {
-            admin.Email = ConsoleInput.GetString("Enter your mail-adress");
-            if (adminDB.AdminEmailExists(admin.Email) > 0)
-            {
-                Console.WriteLine("Email allready exists");
-                Environment.Exit(0);
-            }
-            //<-här har user med sig email, lösenord|elina tar över user och gör resten
-            admin.Name = ConsoleInput.GetString("name: ");
-            if (adminDB.AdminNameExists(admin.Name) > 0)
-            {
-                Console.WriteLine("Nickname allready exists");
-                Environment.Exit(0);
-            }
-            admin.SocialSecurityNumber = ConsoleInput.GetString("social security number: ");
-            if (identifier.ValidateSocialSecurityNumber(admin.SocialSecurityNumber) == false)
-            {
-                Console.WriteLine("Social security number incorrect");
-                Environment.Exit(0);
-            }
-            admin = logInService.MakeNewLogIn(admin);
-            return admin;
-        }
+        // static Admin CreateAdmin(Admin admin, AdminDB adminDB, LogInService logInService, Identifier identifier)
+        // {
+        //     admin.Email = ConsoleInput.GetString("Enter your mail-adress");
+        //     if (adminDB.AdminEmailExists(admin.Email) > 0)
+        //     {
+        //         Console.WriteLine("Email allready exists");
+        //         Environment.Exit(0);
+        //     }
+        //     //<-här har user med sig email, lösenord|elina tar över user och gör resten
+        //     admin.Name = ConsoleInput.GetString("name: ");
+        //     if (adminDB.AdminNameExists(admin.Name) > 0)
+        //     {
+        //         Console.WriteLine("Nickname allready exists");
+        //         Environment.Exit(0);
+        //     }
+        //     admin.SocialSecurityNumber = ConsoleInput.GetString("social security number: ");
+        //     if (identifier.ValidateSocialSecurityNumber(admin.SocialSecurityNumber) == false)
+        //     {
+        //         Console.WriteLine("Social security number incorrect");
+        //         Environment.Exit(0);
+        //     }
+        //     admin = logInService.MakeNewLogIn(admin);
+        //     return admin;
+        // }
 
 
 
 
-        static User CreateUser(User user, LogInService logInService, UserDB userdb, Identifier identifier)
-        {
-            user.Email = ConsoleInput.GetString("Enter your mail-adress");
-            if (userdb.UserEmailExists(user.Email) > 0)
-            {
-                Console.WriteLine("Email allready exists");
-                Environment.Exit(0);
-            }
-            //<-här har user med sig email, lösenord|elina tar över user och gör resten
-            user.Name = ConsoleInput.GetString("name: ");
-            if (userdb.NicknameExists(user.Name) > 0)
-            {
-                Console.WriteLine("Nickname allready exists");
-                Environment.Exit(0);
-            }
-            user.SocialSecurityNumber = ConsoleInput.GetString("social security number: ");
-            if (identifier.ValidateSocialSecurityNumber(user.SocialSecurityNumber) == false)
-            {
-                Console.WriteLine("Social security number incorrect");
-                Environment.Exit(0);
-            }
-            user.Adress = ConsoleInput.GetString("adress: "); //FÖR USER HAR EMAIL HÄR // och password
-            user = logInService.MakeNewLogIn(user);                       //user = new(input, num, adress, email, password);
-            return user;
-        }
+        // static User CreateUser(User user, LogInService logInService, UserDB userdb, Identifier identifier)
+        // {
+        //     user.Email = ConsoleInput.GetString("Enter your mail-adress");
+        //     if (userdb.UserEmailExists(user.Email) > 0)
+        //     {
+        //         Console.WriteLine("Email allready exists");
+        //         Environment.Exit(0);
+        //     }
+        //     //<-här har user med sig email, lösenord|elina tar över user och gör resten
+        //     user.Name = ConsoleInput.GetString("name: ");
+        //     if (userdb.NicknameExists(user.Name) > 0)
+        //     {
+        //         Console.WriteLine("Nickname allready exists");
+        //         Environment.Exit(0);
+        //     }
+        //     user.SocialSecurityNumber = ConsoleInput.GetString("social security number: ");
+        //     if (identifier.ValidateSocialSecurityNumber(user.SocialSecurityNumber) == false)
+        //     {
+        //         Console.WriteLine("Social security number incorrect");
+        //         Environment.Exit(0);
+        //     }
+        //     user.Adress = ConsoleInput.GetString("adress: "); //FÖR USER HAR EMAIL HÄR // och password
+        //     user = logInService.MakeNewLogIn(user);                       //user = new(input, num, adress, email, password);
+        //     return user;
+        // }
 
 
         static void UpDateDescription(IUserHandeler userHandeler, User user, IUserEditor userEditor)

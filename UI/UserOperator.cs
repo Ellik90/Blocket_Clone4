@@ -13,7 +13,7 @@ class UserOperator
         _userService = userService;
     }
 
-     public User CreateUser(User user, LogInService logInService, UserDB userdb, Identifier identifier)
+    public User CreateUser(User user, LogInService logInService, UserDB userdb, Identifier identifier)
     {
         user.Email = ConsoleInput.GetString("Enter your mail-adress");
         if (userdb.UserEmailExists(user.Email) > 0)
@@ -40,8 +40,9 @@ class UserOperator
     }
 
 
-    public void UserLogIn(User user, LogInService logInService, UserService userService)
+    public bool UserLogIn(User user, LogInService logInService, UserService userService)
     {
+        bool loggedInAsUser = false;
         user = new();
         user.Email = ConsoleInput.GetString("Enter your Email");
         user.Password = ConsoleInput.GetInt("Enter your Password");
@@ -52,8 +53,12 @@ class UserOperator
             Console.WriteLine("Fel lösen eller mail");
             Environment.Exit(0);
         }
-        user = userService.GetTheUser(user);
+        else
+        {
+            loggedInAsUser = true;
+        }
+        return loggedInAsUser;
     }
-    
+
 
 }
