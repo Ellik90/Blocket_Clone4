@@ -214,8 +214,15 @@ internal class Program
                 case 1:
             
                 break;
-                
+
                 case 2:
+
+                AddvertiseDb addvertiseDb = new();
+                AdvertiseService advertiseService = new (addvertiseDb);
+                advertiseoperator advertiseoperator = new(advertiseService);
+                int advertiseID = ConsoleInput.GetInt("Enter advertise id to check: ");
+
+                advertiseoperator.CheckAd(advertiseID);
 
                 break;
                 

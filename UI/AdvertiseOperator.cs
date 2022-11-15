@@ -13,4 +13,8 @@ class advertiseoperator
     {
 
     }
+    public void CheckAd(int advertiseID)
+    {
+        _advertiseService.CheckAd(advertiseID);
+    }
 }
