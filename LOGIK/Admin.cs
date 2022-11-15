@@ -1,5 +1,5 @@
 namespace LOGIK;
-public class Admin
+public class Admin 
 {
 
     public int Id { get; set; }
@@ -19,4 +19,28 @@ public class Admin
 
     }
 
+    public int CreateAdmin(Admin admin)
+    {
+        throw new NotImplementedException();
+    }
+
+    public int DeleteAdmin(Admin admin)
+    {
+        throw new NotImplementedException();
+    }
+
+    public List<Admin> GetAdmins(Admin admin)
+    {
+        throw new NotImplementedException();
+    }
+
+    public int AdminLogInExists(Admin admin)
+    {
+        throw new NotImplementedException();
+    }
+
+    public int AdminNameExists(string name)
+    {
+        throw new NotImplementedException();
+    }
 }

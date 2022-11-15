@@ -13,7 +13,7 @@ internal class Program
         Admin admin = new();
         AdminDB adminDB = new();
         Identifier identifier = new();
-
+        
         User user = new();
         UserDB userdb = new();
         AdminDB admindb = new();
@@ -23,7 +23,7 @@ internal class Program
         MessageService messageService = new(messageDB, messageDB);
         AdminService adminService = new(identifier, userdb, userdb, adminDB);
         UserOperator userOperator = new(logInService, user, userservise);
-        AdminOperator adminOperator = new(logInService, admin, adminService);
+        AdminOperator adminOperator = new(logInService, adminService,userservise);
 
 
         //admin = CreateAdmin(admin, adminDB, logInService, identifier);
@@ -46,7 +46,7 @@ internal class Program
 
                     //1. SKAPAKONTO
 
-                    user = CreateUser(user, logInService, userdb, identifier);
+                    user = userOperator.CreateUser(user, logInService, userdb, identifier);
                     userservise.MakeUser(user);
 
                     break;
@@ -84,12 +84,12 @@ internal class Program
                     }
                     admin = adminService.GetTheAdmin(admin);
 
-                    // string delete = ConsoleInput.GetString(" ");
-                    // if (adminDB.AdminEmailExists(admin.Email) > 0)
-                    // {
-                    //     adminService.DeleteAdmin(admin);
-                    //     Console.WriteLine("admin deleted ");
-                    // }
+                    string delete = ConsoleInput.GetString("Admin email: ");
+                    if (adminDB.AdminEmailExists(admin.Email) > 0)
+                    {
+                        adminService.DeleteAdmin(admin);
+                        Console.WriteLine("admin deleted ");
+                    }
                     break;
             }
         }
@@ -330,59 +330,59 @@ internal class Program
         }
       
     }
-    public static Admin CreateAdmin(Admin admin, AdminDB adminDB, LogInService logInService, Identifier identifier)
-    {
-        admin.Email = ConsoleInput.GetString("Enter your mail-adress");
-        if (adminDB.AdminEmailExists(admin.Email) > 0)
-        {
-            Console.WriteLine("Email allready exists");
-            Environment.Exit(0);
-        }
-        //<-här har user med sig email, lösenord|elina tar över user och gör resten
-        admin.Name = ConsoleInput.GetString("name: ");
-        if (adminDB.AdminNameExists(admin.Name) > 0)
-        {
-            Console.WriteLine("Nickname allready exists");
-            Environment.Exit(0);
-        }
-        admin.SocialSecurityNumber = ConsoleInput.GetString("social security number: ");
-        if (identifier.ValidateSocialSecurityNumber(admin.SocialSecurityNumber) == false)
-        {
-            Console.WriteLine("Social security number incorrect");
-            Environment.Exit(0);
-        }
-        admin = logInService.MakeNewLogIn(admin);
-        return admin;
-    }
+    // public static Admin CreateAdmin(Admin admin, AdminDB adminDB, LogInService logInService, Identifier identifier)
+    // {
+    //     admin.Email = ConsoleInput.GetString("Enter your mail-adress");
+    //     if (adminDB.AdminEmailExists(admin.Email) > 0)
+    //     {
+    //         Console.WriteLine("Email allready exists");
+    //         Environment.Exit(0);
+    //     }
+    //     //<-här har user med sig email, lösenord|elina tar över user och gör resten
+    //     admin.Name = ConsoleInput.GetString("name: ");
+    //     if (adminDB.AdminNameExists(admin.Name) > 0)
+    //     {
+    //         Console.WriteLine("Nickname allready exists");
+    //         Environment.Exit(0);
+    //     }
+    //     admin.SocialSecurityNumber = ConsoleInput.GetString("social security number: ");
+    //     if (identifier.ValidateSocialSecurityNumber(admin.SocialSecurityNumber) == false)
+    //     {
+    //         Console.WriteLine("Social security number incorrect");
+    //         Environment.Exit(0);
+    //     }
+    //     admin = logInService.MakeNewLogIn(admin);
+    //     return admin;
+    // }
 
 
 
 
-    public static User CreateUser(User user, LogInService logInService, UserDB userdb, Identifier identifier)
-    {
-        user.Email = ConsoleInput.GetString("Enter your mail-adress");
-        if (userdb.UserEmailExists(user.Email) > 0)
-        {
-            Console.WriteLine("Email allready exists");
-            Environment.Exit(0);
-        }
-        //<-här har user med sig email, lösenord|elina tar över user och gör resten
-        user.Name = ConsoleInput.GetString("name: ");
-        if (userdb.NicknameExists(user.Name) > 0)
-        {
-            Console.WriteLine("Nickname allready exists");
-            Environment.Exit(0);
-        }
-        user.SocialSecurityNumber = ConsoleInput.GetString("social security number: ");
-        if (identifier.ValidateSocialSecurityNumber(user.SocialSecurityNumber) == false)
-        {
-            Console.WriteLine("Social security number incorrect");
-            Environment.Exit(0);
-        }
-        user.Adress = ConsoleInput.GetString("adress: "); //FÖR USER HAR EMAIL HÄR // och password
-        user = logInService.MakeNewLogIn(user);                       //user = new(input, num, adress, email, password);
-        return user;
-    }
+    // public static User CreateUser(User user, LogInService logInService, UserDB userdb, Identifier identifier)
+    // {
+    //     user.Email = ConsoleInput.GetString("Enter your mail-adress");
+    //     if (userdb.UserEmailExists(user.Email) > 0)
+    //     {
+    //         Console.WriteLine("Email allready exists");
+    //         Environment.Exit(0);
+    //     }
+    //     //<-här har user med sig email, lösenord|elina tar över user och gör resten
+    //     user.Name = ConsoleInput.GetString("name: ");
+    //     if (userdb.NicknameExists(user.Name) > 0)
+    //     {
+    //         Console.WriteLine("Nickname allready exists");
+    //         Environment.Exit(0);
+    //     }
+    //     user.SocialSecurityNumber = ConsoleInput.GetString("social security number: ");
+    //     if (identifier.ValidateSocialSecurityNumber(user.SocialSecurityNumber) == false)
+    //     {
+    //         Console.WriteLine("Social security number incorrect");
+    //         Environment.Exit(0);
+    //     }
+    //     user.Adress = ConsoleInput.GetString("adress: "); //FÖR USER HAR EMAIL HÄR // och password
+    //     user = logInService.MakeNewLogIn(user);                       //user = new(input, num, adress, email, password);
+    //     return user;
+    // }
 
 
     public static void UpDateDescription(IUserHandeler userHandeler, User user, IUserEditor userEditor)

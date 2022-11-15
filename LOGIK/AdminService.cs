@@ -1,5 +1,5 @@
 namespace LOGIK;
-public class AdminService 
+public class AdminService : IAdminService
 {
     IUserHandeler _userHandele;
     IIdentifier _identifier;
