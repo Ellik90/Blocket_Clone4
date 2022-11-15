@@ -9,7 +9,7 @@ class advertiseoperator
         this._advertiseService = _advertiseService;
         
     }
-    public void CreateAd(Advertise advertise, User user)
+    public void CreateAd(User user)
     {
         string rubric = ConsoleInput.GetString("Advertise rubric: ");
         string description = ConsoleInput.GetString("Advertise description");
@@ -19,7 +19,7 @@ class advertiseoperator
         int postalNumber = ConsoleInput.GetInt("Advertise location postal number: ");
         int userId = user.Id;  // HÄR TA IN USER OCH TA DENS ID HÄR
 
-        advertise = new(rubric, description, price, county, municipality, postalNumber, userId);
+        Advertise advertise = new(rubric, description, price, county, municipality, postalNumber, userId);
 
         _advertiseService.MakeNewAd(advertise);
 

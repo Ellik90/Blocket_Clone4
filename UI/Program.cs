@@ -114,15 +114,9 @@ internal class Program
             switch (LoggedInOptions)
             {
                 case 1:
-                    
-                
-                    AddvertiseDb dbManager = new();
-                    advertiseService = new(dbManager);
+                advertiseoperator.CreateAd(user);
 
-                    Advertise bil = new("KLÄDER", "10 klänningar", 20121, "borås", "borås kommun", 50764, user.Id);
-                    int advertiseId1 = advertiseService.MakeNewAd(bil);
-                    Advertise kaka = new("SOFFGRUPP", "mockasoffa", 2021, "borås", "borås kommun", 50764, user.Id);
-                    int advertiseId2 = advertiseService.MakeNewAd(kaka);
+                    
                     break;
                 case 2:
                     //6. VISA MINA ANNONSER
