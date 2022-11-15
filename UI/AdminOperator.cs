@@ -40,28 +40,16 @@ public class AdminOperator
         return admin;
     }
 
-    public bool AdminLogin(Admin admin, LogInService logInService, AdminService adminService)
+    public int AdminLogin()
     {
-        bool loggedInAsAdmin = false;
-        admin = new();
+        Admin admin = new();
 
         admin.Email = ConsoleInput.GetString("Enter your Email");
         admin.PassWord = ConsoleInput.GetInt("Enter your Password");
-        admin = logInService.AdminLogIn(admin); //user skriver bara i sin mail och kod
-        admin.Id = logInService.AdminLogInIsValid(admin); //andvänder userhandler och ser om user finns
-        if (admin.Id == 0) //<- tex om user är inloggad då så kommer man till user page?
-        {
-            Console.WriteLine("Fel lösen eller mail");
-            Environment.Exit(0);
-        }
-        else
-        {
-            admin = adminService.GetTheAdmin(admin);
-            loggedInAsAdmin = true;
-
-        }
-        admin = adminService.GetTheAdmin(admin); //
-        return loggedInAsAdmin;
+        admin = _loginService.AdminLogIn(admin); //user skriver bara i sin mail och kod
+        admin.Id = _loginService.AdminLogInIsValid(admin); //andvänder userhandler och ser om user finns
+       
+        return admin.Id;
     }
 
 

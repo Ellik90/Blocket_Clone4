@@ -13,6 +13,7 @@ internal class Program
         int adminOptions = 0;
 
         User user = new();
+        Admin admin = new();
         UserDB userdb = new();
         AdminDB admindb = new();
         Identifier identifier = new();
@@ -42,42 +43,49 @@ internal class Program
                 case 1:
                     //1. SKAPAKONTO
                     user = userOperator.CreateUser(user, logInService, userdb, identifier);
-                    userservise.MakeUser(user);
                     break;
                 case 2:
                     //Logga in 
-                    user = new();
-                    user.Email = ConsoleInput.GetString("Enter your Email");
-                    user.Password = ConsoleInput.GetInt("Enter your Password");
-                    user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
-                    user.Id = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
-                    if (user.Id == 0) //<- tex om user är inloggad då så kommer man till user page?
+                    // user = new();
+                    // user.Email = ConsoleInput.GetString("Enter your Email");
+                    // user.Password = ConsoleInput.GetInt("Enter your Password");
+                    // user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
+                    // user.Id = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
+                    // if (user.Id == 0) //<- tex om user är inloggad då så kommer man till user page?
+                    // {
+                    //     Console.WriteLine("Fel lösen eller mail");
+                    //     Environment.Exit(0);
+                    // }
+                    // else
+                    // {
+                    //     loggedInAsUser = true;
+                    //     loginPage = false;
+                    // }
+                    int id = userOperator.UserLogIn();
+                    if (id == 0)
                     {
-                        Console.WriteLine("Fel lösen eller mail");
-                        Environment.Exit(0);
+                        Console.WriteLine("Wrong email or password.");
+                        loginPage = true;
                     }
                     else
                     {
                         loggedInAsUser = true;
+                        user.Id = id;
                         loginPage = false;
                     }
                     break;
                 case 3:
-                    Admin admin = new();
-                    admin.Email = ConsoleInput.GetString("Enter your Email");
-                    admin.PassWord = ConsoleInput.GetInt("Enter your Password");
-                    admin = logInService.AdminLogIn(admin); //user skriver bara i sin mail och kod
-                    admin.Id = logInService.AdminLogInIsValid(admin); //andvänder userhandler och ser om user finns
-                    if (admin.Id == 0) //<- tex om user är inloggad då så kommer man till user page?
+                    int adminId = adminOperator.AdminLogin();
+                    if (adminId == 0)
                     {
-                        Console.WriteLine("Fel lösen eller mail");
-                        Environment.Exit(0);
+                        Console.WriteLine("Wrong email or password.");
+                        loginPage = true;
                     }
                     else
                     {
-                        admin = adminService.GetTheAdmin(admin);
                         loggedInAsAdmin = true;
-                        break;
+                        admin.Id = adminId;
+                        loginPage = false;
                     }
                     // string delete = ConsoleInput.GetString("Admin email: ");
                     // if (adminDB.AdminEmailExists(admin.Email) > 0)
@@ -91,8 +99,8 @@ internal class Program
         //While och switch för användare som är inloggade
         while (loggedInAsUser)
         {
-            user = userservise.GetTheUser(user);
-            System.Console.WriteLine(user.Name.ToUpper() + "Konto");
+            user = userOperator.GetUser(user);
+            System.Console.WriteLine(user.Name.ToUpper() + " Konto");
             System.Console.WriteLine("-------------------------------");
             System.Console.WriteLine("[1] Skapa annons ");
             System.Console.WriteLine("[2] Visa mina annonser");
@@ -178,7 +186,7 @@ internal class Program
                             //Raderar användare om användare finns
                             string delete = ConsoleInput.GetString("Delete account [yes]  [no] ");
                             if (delete == "yes")
-                            { 
+                            {
                                 userOperator.DeleteUser(user);
                             }
                             else if (delete == "no")
@@ -205,24 +213,25 @@ internal class Program
         }
         while (loggedInAsAdmin)
         {
+            admin = adminService.GetTheAdmin(admin); //
             System.Console.WriteLine("[1] Add new admin-account");
             System.Console.WriteLine("[2] Check advertises");
             System.Console.WriteLine("[3] User-handeler");
             System.Console.WriteLine("[4] Advertise-handeler");
-            switch(adminOptions)
+            switch (adminOptions)
             {
                 case 1:
-            
-                break;
+
+                    break;
                 case 2:
 
-                break;
+                    break;
                 case 3:
 
-                break;
+                    break;
                 case 4:
 
-                break;           
+                    break;
             }
         }
 
