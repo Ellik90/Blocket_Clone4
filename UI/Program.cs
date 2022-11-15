@@ -269,26 +269,26 @@ internal class Program
             }
         }
     }
-    public static int ShowUserPage(User user, IUserHandeler userHandeler, IUserEditor userEditor)
+    public static void ShowUserPage(User user, IUserHandeler userHandeler, IUserEditor userEditor)
     {
         Console.WriteLine($"Lägg in annons [1]  Sök annons [2]  Dina meddelanden [3]");
-        Console.WriteLine($"{user.Name}");
+        Console.WriteLine($"{user.Name.ToUpper()}");
         Console.WriteLine($"Redigera profil [4]");
         Console.WriteLine();
         Console.WriteLine("Mina annonser [5]  Sparade annonser [6] Sålda objekt [7]");
 
         string answer = Console.ReadLine();
-        int goToPage = 0;
+      
         switch (answer)
         {
             case "1":
 
-                AddAdvertise();
-                //admanagement.addadvertise(advertise);
+                // AddAdvertise();
+                // //admanagement.addadvertise(advertise);
                 break;
 
             case "3":
-                goToPage = 3;
+              
                 // om man väljer tex 1
                 // så visaas medde med nr 1
                 break;
@@ -300,39 +300,39 @@ internal class Program
                     case "1":
                         //Raderar användare om användare finns
 
-                        string delete = ConsoleInput.GetString(" ");
-                        if (userHandeler.DeleteUser(user) > 0)
-                        {
-                            Console.WriteLine("Account deleted.");
-                            Environment.Exit(0);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Something went wrong.");
-                        }
+                        // string delete = ConsoleInput.GetString(" ");
+                        // if (userHandeler.DeleteUser(user) > 0)
+                        // {
+                        //     Console.WriteLine("Account deleted.");
+                        //     Environment.Exit(0);
+                        // }
+                        // else
+                        // {
+                        //     Console.WriteLine("Something went wrong.");
+                        // }
                         break;
                     case "2":
-                        //Uppdaterar emailen 
-                        string updateEmail = ConsoleInput.GetString("Update email: ");
-                        // userHandeler.UpdateEmail(user, updateEmail);
+                        // //Uppdaterar emailen 
+                        // string updateEmail = ConsoleInput.GetString("Update email: ");
+                        // // userHandeler.UpdateEmail(user, updateEmail);
                         break;
                     case "3":
-                        // Uppdaterar nickname
-                        string updateNickname = ConsoleInput.GetString("nickname: ");
-                        userEditor.UpdateNickName(user, updateNickname);
+                        // // Uppdaterar nickname
+                        // string updateNickname = ConsoleInput.GetString("nickname: ");
+                        // userEditor.UpdateNickName(user, updateNickname);
                         break;
                     case "4":
-                        //användaren skriver in sin beskrivning
-                        string updateDescription = ConsoleInput.GetString("Text: ");
-                        userEditor.UpDateDescription(user, updateDescription);
+                        // //användaren skriver in sin beskrivning
+                        // string updateDescription = ConsoleInput.GetString("Text: ");
+                        // userEditor.UpDateDescription(user, updateDescription);
                         break;
                 }
                 break;
             case "5":
-                goToPage = 4;
+                
                 break;
         }
-        return goToPage;
+      
     }
     public static Admin CreateAdmin(Admin admin, AdminDB adminDB, LogInService logInService, Identifier identifier)
     {
