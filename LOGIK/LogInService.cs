@@ -82,7 +82,7 @@ public class LogInService
         return _userHandeler.UserLogInExists(user);
     }
 
-    public int AdminLogInIsValic(Admin admin)
+    public int AdminLogInIsValid(Admin admin)
     {
         return _adminHandeler.AdminLogInExists(admin);
     }
