@@ -52,5 +52,14 @@ public class AdminOperator
         return admin.Id;
     }
 
+    public void GetNonCheckedAds()
+    {
+        List<Advertise> nonCheckedAds = _adminService.GetNonCheckAds();
+        foreach(Advertise item in nonCheckedAds)
+        {
+            Console.WriteLine(item.ToString());
+        }
+    }
+
 
 }

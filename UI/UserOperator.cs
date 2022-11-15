@@ -102,7 +102,7 @@ class UserOperator
 
     public User GetUser(User user)
     {
-        _userService.GetTheUser(user);
+        user = _userService.GetTheUser(user);
         return user;
     }
 

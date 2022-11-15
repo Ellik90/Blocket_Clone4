@@ -19,9 +19,12 @@ internal class Program
         Identifier identifier = new();
         LogInService logInService = new(identifier, userdb, admindb);
         UserService userservise = new(identifier, userdb, userdb);
+        AddvertiseDb addvertiseDb = new();
+        AdvertiseService advertiseService = new(addvertiseDb);
+        advertiseoperator advertiseoperator = new(advertiseService);
         MessageDB messageDB = new();
         MessageService messageService = new(messageDB, messageDB);
-        AdminService adminService = new(identifier, userdb, userdb, admindb, admindb);
+        AdminService adminService = new(identifier, userdb, userdb, admindb, admindb, addvertiseDb);
         UserOperator userOperator = new(logInService, user, userservise);
         AdminOperator adminOperator = new(logInService, adminService, userservise);
         MessageOperator messageOperator = new(messageService);
@@ -112,7 +115,7 @@ internal class Program
             {
                 case 1:
                     AddvertiseDb dbManager = new();
-                    AdvertiseService advertiseService = new(dbManager);
+                    advertiseService = new(dbManager);
 
                     Advertise bil = new("KLÄDER", "10 klänningar", 20121, "borås", "borås kommun", 50764, user.Id);
                     int advertiseId1 = advertiseService.MakeNewAd(bil);
@@ -214,18 +217,23 @@ internal class Program
         while (loggedInAsAdmin)
         {
             admin = adminService.GetTheAdmin(admin); //
-            System.Console.WriteLine("[1] Add new admin-account");
-            System.Console.WriteLine("[2] Check advertises");
-            System.Console.WriteLine("[3] User-handeler");
-            System.Console.WriteLine("[4] Advertise-handeler");
+            adminOptions = ConsoleInput.GetInt("[1] Add new admin-account   [2] Check advertises   [3] User-handeler   [4] Advertise-handeler");
             switch (adminOptions)
             {
                 case 1:
 
                     break;
+
                 case 2:
 
+                    adminOperator.GetNonCheckedAds();
+
+                    int advertiseID = ConsoleInput.GetInt("Enter advertise id to check: ");
+
+                    advertiseoperator.CheckAd(advertiseID);
+
                     break;
+
                 case 3:
 
                     break;

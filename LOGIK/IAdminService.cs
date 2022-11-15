@@ -6,4 +6,5 @@ public interface IAdminService
     public bool DeleteAdmin(Admin admin);
     public bool CheckAdminNameExists(string name);
     public bool CheckAdminEmailExists(string Email);
+    public List<Advertise> GetNonCheckAds();
 }

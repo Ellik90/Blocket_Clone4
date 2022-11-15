@@ -4,14 +4,16 @@ public class AdminService : IAdminService
     IUserHandeler _userHandele;
     IIdentifier _identifier;
     IUserEditor _userEditor;
+    IAdHandler _adHandeler;
     IAdmin _admin;
 
-    public AdminService(IIdentifier identifier, IUserHandeler userHandeler, IUserEditor userEditor, IAdmin admin, IAdminEditor adminEditor)
+    public AdminService(IIdentifier identifier, IUserHandeler userHandeler, IUserEditor userEditor, IAdmin admin, IAdminEditor adminEditor, IAdHandler adHandler)
     {
         _identifier = identifier;
         _userHandele = userHandeler;
         _userEditor = userEditor;
         _admin = admin;
+        _adHandeler = adHandler;
     }
 
      public Admin GetTheAdmin(Admin admin)
@@ -85,6 +87,20 @@ public class AdminService : IAdminService
         {
             return false;
         }
+    }
+
+    public List<Advertise> GetNonCheckAds()
+    {
+        List<Advertise>allAdvertises = _adHandeler.ShowAllAds();
+        List<Advertise>nonCheckedAds = new();
+        foreach(Advertise item in allAdvertises)
+        {
+            if(item.isChecked == false)
+            {
+                nonCheckedAds.Add(item);
+            }
+        }
+        return nonCheckedAds;
     }
     // LÄGG IN METODER
     // updateadminname

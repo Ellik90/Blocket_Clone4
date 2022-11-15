@@ -11,6 +11,16 @@ class advertiseoperator
     }
     public void CreateAd()
     {
+        string rubric = ConsoleInput.GetString("Rubric on advertise: ");
 
+
+
+        Advertise advertise = new(rubric);
+        // till service makead?? 
+        // den är inlagd meddelande?
+    }
+    public void CheckAd(int advertiseID)
+    {
+        _advertiseService.CheckAd(advertiseID);
     }
 }

@@ -55,11 +55,11 @@ public class AddvertiseDb : IAdHandler
 
     {
         List<Advertise> allAds = new();
-
+// id
 
         using (MySqlConnection con = new MySqlConnection("Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
-            string query = "SELECT rubric,description,price,municipality,county, is_checked AS 'isChecked' FROM advertise";
+            string query = "SELECT id, rubric,description,price,municipality,county, is_checked AS 'isChecked' FROM advertise";
 
             allAds = con.Query<Advertise>(query).ToList();
         }
@@ -80,22 +80,18 @@ public class AddvertiseDb : IAdHandler
         //all info, även userid 
 
     }
- public Advertise CheckAds(int id)
+ public void CheckAds(int id)
 
     {
-        Advertise advertise = new();
 
         using (MySqlConnection con = new MySqlConnection("Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
             string query = "UPDATE advertise SET is_checked = true WHERE id = @id;";
 
-            advertise = con.QuerySingle<Advertise>(query);
+            int rows = con.ExecuteScalar<int>(query, new{@id = id});
         }
      
-            return advertise;
-        
-
-        
+    
     }
     public void AdOverview(Advertise advertise)
     {

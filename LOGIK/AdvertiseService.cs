@@ -55,9 +55,9 @@ public class AdvertiseService : IAdvertiseService
         return _IadManager.ShowAd(id);
     }
 
-    public Advertise CheckAd(int id)
+    public void CheckAd(int id)
     {
-        return _IadManager.CheckAds(id);
+        _IadManager.CheckAds(id);
     }
     // här finns funktioner som hanterar advertise, mellan användare och databasen
     //här in behövs ju då komma ett interface IAdManager adManager; behöver finnas tex via konstruktorn
