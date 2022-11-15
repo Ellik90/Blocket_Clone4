@@ -64,6 +64,11 @@ internal class Program
                         Console.WriteLine("Fel lösen eller mail");
                         Environment.Exit(0);
                     }
+                    else
+                    {
+                        loggedInAsUser = true;
+                        break;
+                    }
 
                     user = userservise.GetTheUser(user);
 
@@ -283,7 +288,7 @@ internal class Program
         {
             case "1":
 
-                AddAdvertise();
+
                 //admanagement.addadvertise(advertise);
                 break;
 
@@ -395,39 +400,40 @@ internal class Program
 
         userEditor.UpDateDescription(user, updateDescription);
     }
-    public static advertise AddAdvertise() // Metod för att skapa annons//D
-    {
-        string answer = string.Empty;
-        int option = 0;
-        bool isTrue = true;
-        System.Console.WriteLine("[1]Välj kategori");
-        System.Console.WriteLine("[2]Välj underkategori");
-        System.Console.WriteLine("");
+//     // public static advertise AddAdvertise() // Metod för att skapa annons//D
+//     //{
+//     //     string answer = string.Empty;
+//     //     int option = 0;
+//     //     bool isTrue = true;
+//     //     System.Console.WriteLine("[1]Välj kategori");
+//     //     System.Console.WriteLine("[2]Välj underkategori");
+//     //     System.Console.WriteLine("");
 
-        while (isTrue)
-        {
-            switch (option)
-            {
+//     //     while (isTrue)
+//          {
+//     //         switch (option)
+//              {
 
 
 
-            }
+//              }
 
-        }
+//         }
+//     }
+// //     Välja kategori, underkategori, beskrivning, köpa eller sälja, bilder för annons.
+// // Felhantering = Kanske maxantal ord för varje. Ha det öppet så att man ser helheten
+// // Felhantering = Om man skriver fel på förra så kan man gå till baka och ändra innan man skapar annons
+// string rubric = string.Empty;
+// string description = string.Empty;
+// float price = 0f;
+// string location = string.Empty;
+// string municipality = string.Empty;
+// int postalNumber = 0;
+// User user = new();
 
-        Välja kategori, underkategori, beskrivning, köpa eller sälja, bilder för annons.
-    Felhantering = Kanske maxantal ord för varje. Ha det öppet så att man ser helheten
-    Felhantering = Om man skriver fel på förra så kan man gå till baka och ändra innan man skapar annons
-    string rubric = string.Empty;
-        string description = string.Empty;
-        float price = 0f;
-        string location = string.Empty;
-        string municipality = string.Empty;
-        int postalNumber = 0;
-        User user = new();
+//     // advertise nyannons = new advertise(rubric, description, price, location, municipality, postalNumber, user.Id);
+//     // return nyannons;
+ 
 
-        advertise nyannons = new advertise(rubric, description, price, location, municipality, postalNumber, user.Id);
-        return nyannons;
-    }
-
+// }
 }
