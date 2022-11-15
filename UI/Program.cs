@@ -48,10 +48,10 @@ internal class Program
 
                     //1. SKAPAKONTO
 
-                    CreateUser(user, logInService, userdb, identifier);
+                    //CreateUser(user, logInService, userdb, identifier);
 
-                    // user = userOperator.CreateUser(user, logInService, userdb, identifier);
-                    // userservise.MakeUser(user);
+                    user = userOperator.CreateUser(user, logInService, userdb, identifier);
+                    userservise.MakeUser(user);
 
                     break;
 
@@ -73,7 +73,7 @@ internal class Program
                     {
                         user = userservise.GetTheUser(user);
                         loggedInAsUser = true;
-                        break;
+                        loginPage = false;
                     }
                     break;
 
