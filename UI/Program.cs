@@ -175,17 +175,24 @@ internal class Program
                     {
                         case "1":
                             //Raderar användare om användare finns
-                            string delete = ConsoleInput.GetString(" ");
-                            if (userservise.DeleteTheUser(user))
+                            string delete = ConsoleInput.GetString("Delete account [yes]  [no] ");
+                            if (delete == "yes")
                             {
+                                
+                                userOperator. DeleteTheUser(user);
                                 Console.WriteLine("Account deleted.");
                                 Environment.Exit(0);
+                            }
+                            else if (delete == "no")
+                            {
+                                break;
                             }
                             else
                             {
                                 Console.WriteLine("Something went wrong.");
                             }
-                            break;//hopp
+
+                            break;
                         case "2":
                             // //Uppdaterar emailen 
                             string updateEmail = ConsoleInput.GetString("Update email: ");
