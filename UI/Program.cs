@@ -199,7 +199,7 @@ internal class Program
                             {
                                 Console.WriteLine("Something went wrong.");
                             }
-                            break;
+                            break;//hopp
                         case "2":
                             // //Uppdaterar emailen 
                             string updateEmail = ConsoleInput.GetString("Update email: ");
