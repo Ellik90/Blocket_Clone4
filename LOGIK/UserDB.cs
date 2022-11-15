@@ -117,4 +117,34 @@ public class UserDB : IUserHandeler, IUserEditor
         }
         return rows;
     }
+
+    public User GetTheUser(User user)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool GetUserIdToAD(int advertiseId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool MakeUser(User user)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool CheckNickNameExists(string nickName)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool DeleteTheUser(User user)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool DescriptionInput(User user, string updateDescription)
+    {
+        throw new NotImplementedException();
+    }
 }

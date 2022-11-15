@@ -1,11 +1,12 @@
 namespace LOGIK;
-public class UserService : IuserService, IUserHandeler
+public class UserService : IuserService
 {
     //här i är funktioner mellan anv och db, tex makenewuser(string name, string email) eller makenewuser(User user)samt kontrollerare osv;
 
     IUserHandeler _userHandele;
     IIdentifier _identifier;
     IUserEditor _userEditor;
+    
 
     public UserService(IIdentifier identifier, IUserHandeler userHandeler, IUserEditor userEditor)
     {
@@ -135,6 +136,21 @@ public class UserService : IuserService, IUserHandeler
     }
 
     public List<User> GetUser()
+    {
+        throw new NotImplementedException();
+    }
+
+    public int UpdateEmail(User user, string userEmail)
+    {
+        throw new NotImplementedException();
+    }
+
+    public int UpdateNickName(User user, string nickname)
+    {
+        throw new NotImplementedException();
+    }
+
+    public int UpDateDescription(User user, string updateDescription)
     {
         throw new NotImplementedException();
     }

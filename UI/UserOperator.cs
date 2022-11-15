@@ -4,9 +4,9 @@ class UserOperator
     IUserEditor _userEditor;
     IuserService _userService;
     User _user;
-    LogInService _loginService;
+    ILogInService _loginService;
 
-    public UserOperator(LogInService logInService, User user, UserService userService)
+    public UserOperator(ILogInService logInService, User user, UserService userService)
     {
         _loginService = logInService;
         _user = user;

@@ -6,7 +6,7 @@ public class AdminService : IAdminService
     IUserEditor _userEditor;
     IAdmin _admin;
 
-    public AdminService(IIdentifier identifier, IUserHandeler userHandeler, IUserEditor userEditor, IAdmin admin)
+    public AdminService(IIdentifier identifier, IUserHandeler userHandeler, IUserEditor userEditor, IAdmin admin, IAdminEditor adminEditor)
     {
         _identifier = identifier;
         _userHandele = userHandeler;
