@@ -10,20 +10,20 @@ internal class Program
         int LoggedInOptions = 0;
         bool loginPage = true;
 
-        bool loggedInAsAdmin = false,
+        bool loggedInAsAdmin = false;
         //TESTAR ETT STEG I TAGET HÄR
-        Admin admin = new();
-        AdminDB adminDB = new();
-        Identifier identifier = new();
+
+
 
         User user = new();
         UserDB userdb = new();
         AdminDB admindb = new();
+        Identifier identifier = new();
         LogInService logInService = new(identifier, userdb, admindb);
         UserService userservise = new(identifier, userdb, userdb);
         MessageDB messageDB = new();
         MessageService messageService = new(messageDB, messageDB);
-        AdminService adminService = new(identifier, userdb, userdb, adminDB);
+        AdminService adminService = new(identifier, userdb, userdb, admindb);
         UserOperator userOperator = new(logInService, user, userservise);
         AdminOperator adminOperator = new(logInService, adminService, userservise);
 
@@ -79,7 +79,7 @@ internal class Program
 
                 case 3:
 
-                    admin = new();
+                    Admin admin = new();
 
                     admin.Email = ConsoleInput.GetString("Enter your Email");
                     admin.PassWord = ConsoleInput.GetInt("Enter your Password");
@@ -98,12 +98,12 @@ internal class Program
                     }
 
 
-                    string delete = ConsoleInput.GetString("Admin email: ");
-                    if (adminDB.AdminEmailExists(admin.Email) > 0)
-                    {
-                        adminService.DeleteAdmin(admin);
-                        Console.WriteLine("admin deleted ");
-                    }
+                    // string delete = ConsoleInput.GetString("Admin email: ");
+                    // if (adminDB.AdminEmailExists(admin.Email) > 0)
+                    // {
+                    //     adminService.DeleteAdmin(admin);
+                    //     Console.WriteLine("admin deleted ");
+                    // }
                     break;
             }
         }
@@ -111,6 +111,7 @@ internal class Program
         while (loggedInAsUser)
         {
             System.Console.WriteLine(user.Name.ToUpper() + "Konto");
+            System.Console.WriteLine("-------------------------------");
             System.Console.WriteLine("[1] Skapa annons ");
             System.Console.WriteLine("[2] Visa mina annonser");
             System.Console.WriteLine("[3] Sök annons");
