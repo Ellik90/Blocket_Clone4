@@ -65,7 +65,6 @@ public class UserDB : IUserHandeler, IUserEditor
 
     public int UserEmailExists(string Email)
     {
-        //EGEN DB KLASS?
         int rows = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {

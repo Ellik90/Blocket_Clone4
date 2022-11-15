@@ -48,22 +48,6 @@ internal class Program
                     user = userOperator.CreateUser(user, logInService, userdb, identifier);
                     break;
                 case 2:
-                    //Logga in 
-                    // user = new();
-                    // user.Email = ConsoleInput.GetString("Enter your Email");
-                    // user.Password = ConsoleInput.GetInt("Enter your Password");
-                    // user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
-                    // user.Id = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
-                    // if (user.Id == 0) //<- tex om user är inloggad då så kommer man till user page?
-                    // {
-                    //     Console.WriteLine("Fel lösen eller mail");
-                    //     Environment.Exit(0);
-                    // }
-                    // else
-                    // {
-                    //     loggedInAsUser = true;
-                    //     loginPage = false;
-                    // }
                     int id = userOperator.UserLogIn();
                     if (id == 0)
                     {
@@ -115,15 +99,10 @@ internal class Program
             {
                 case 1:
                 advertiseoperator.CreateAd(user);
-
-                    
                     break;
                 case 2:
-                    //6. VISA MINA ANNONSER
-                    // metod anropas från advertiseservice, som returnar en lista med alla annonsen där user_id = dennas id
-
-                    //7. MINA SÅLDA OBJEKT?)
-                    // bool isSold? eller det tas sen
+                // EN METOD BEHÖVS SOM HÄMTAR ANNONSER PÅ MITT ID GETMYADDS(INT USERID) OCH TILL ADVERTISESERVICE EN GETMYADDS OCH TILL 
+                // ADVERTISEOPERATOR LIST<ADVERTISE> SHOWMYADS() SOM GENOM FOREACH SKRIVER UT ALLA MINA ANNONSER
                     break;
                 case 3:
                     advertiseService = new(new AddvertiseDb());
@@ -140,7 +119,7 @@ internal class Program
                     {
                         if (choice == 1)
                         {
-                            loginOption = 3;
+                            LoggedInOptions = 3;
                         }
                         else if (choice == 2)
                         {
@@ -152,7 +131,7 @@ internal class Program
                         }
                         else if(choice == 3)
                         {
-                            loginOption = 1;
+                            LoggedInOptions = 1;
                         }
                     }
                     break;
