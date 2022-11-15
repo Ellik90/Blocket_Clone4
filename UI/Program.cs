@@ -13,7 +13,7 @@ internal class Program
         Admin admin = new();
         AdminDB adminDB = new();
         Identifier identifier = new();
-
+        
         User user = new();
         UserDB userdb = new();
         AdminDB admindb = new();
@@ -23,7 +23,7 @@ internal class Program
         MessageService messageService = new(messageDB, messageDB);
         AdminService adminService = new(identifier, userdb, userdb, adminDB);
         UserOperator userOperator = new(logInService, user, userservise);
-        AdminOperator adminOperator = new(logInService, admin, adminService);
+        AdminOperator adminOperator = new(logInService, adminService,userservise);
 
 
         //admin = CreateAdmin(admin, adminDB, logInService, identifier);
@@ -45,7 +45,8 @@ internal class Program
                 case 1:
 
                     //1. SKAPAKONTO
-                    user = CreateUser(user, logInService, userdb, identifier);
+
+                    user = userOperator.CreateUser(user, logInService, userdb, identifier);
                     userservise.MakeUser(user);
 
                     break;
@@ -54,10 +55,10 @@ internal class Program
                     //Logga in 
                     user = new();
 
-                    user.Email = ConsoleInput.GetString("Enter your Email");
-                    user.Password = ConsoleInput.GetInt("Enter your Password");
-                    user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
-                    user.Id = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
+                    // user.Email = ConsoleInput.GetString("Enter your Email");
+                    // user.Password = ConsoleInput.GetInt("Enter your Password");
+                    // user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
+                    // user.Id = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
 
                     if (user.Id == 0) //<- tex om user är inloggad då så kommer man till user page?
                     {
@@ -81,7 +82,7 @@ internal class Program
                     admin.Email = ConsoleInput.GetString("Enter your Email");
                     admin.PassWord = ConsoleInput.GetInt("Enter your Password");
                     admin = logInService.AdminLogIn(admin); //user skriver bara i sin mail och kod
-                    admin.Id = logInService.AdminLogInIsValic(admin); //andvänder userhandler och ser om user finns
+                    admin.Id = logInService.AdminLogInIsValid(admin); //andvänder userhandler och ser om user finns
                     if (admin.Id == 0) //<- tex om user är inloggad då så kommer man till user page?
                     {
                         Console.WriteLine("Fel lösen eller mail");
@@ -89,12 +90,12 @@ internal class Program
                     }
                     admin = adminService.GetTheAdmin(admin);
 
-                    // string delete = ConsoleInput.GetString(" ");
-                    // if (adminDB.AdminEmailExists(admin.Email) > 0)
-                    // {
-                    //     adminService.DeleteAdmin(admin);
-                    //     Console.WriteLine("admin deleted ");
-                    // }
+                    string delete = ConsoleInput.GetString("Admin email: ");
+                    if (adminDB.AdminEmailExists(admin.Email) > 0)
+                    {
+                        adminService.DeleteAdmin(admin);
+                        Console.WriteLine("admin deleted ");
+                    }
                     break;
             }
         }

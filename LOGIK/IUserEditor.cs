@@ -1,5 +1,5 @@
 namespace LOGIK;
-public interface IUserEditor
+public interface IUserEditor 
 {
     public int UpdateEmail(User user, string userEmail);
     public int UpdateNickName(User user, string nickname);
