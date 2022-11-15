@@ -26,6 +26,7 @@ internal class Program
         AdminService adminService = new(identifier, userdb, userdb, admindb,admindb);
         UserOperator userOperator = new(logInService, user, userservise);
         AdminOperator adminOperator = new(logInService, adminService, userservise);
+        MessageOperator messageOperator = new(messageService);
 
 
         //admin = CreateAdmin(admin, adminDB, logInService, identifier);
@@ -146,7 +147,7 @@ internal class Program
                 case 3:
 
                     advertiseService = new(new AddvertiseDb());
-                    string search = ConsoleInput.GetString("SearchAd");
+                    string search = ConsoleInput.GetString("Search Ad: ");
 
                     // // NÄR DU HÄMTAR ALLA ANNONSER I DATABASEN, LÄGG ÄVEN TILL ANNONSEN OCH USERNS ID!!
                     List<Advertise> foundad = advertiseService.SearchAd(search);
@@ -157,111 +158,74 @@ internal class Program
                     }
                     break;
 
-
-
                 case 4:
 
-<<<<<<< HEAD
-                    // Message message = new();
-                    // int advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
-                    // int adUserId = userdb.GetUserIdFromAdvertise(advertiseId);
-                    // // UserMakesMessage(toUserId, user, messageService); GAMLA STATISKA METODEN, TA BORT NÄR DEN NEDAN ÄR TESTAD
-                    // // HÄR GÖR OBJEKT AV KLASSEN MESSAGEOPERATION OCH ANROPAR WRITEMESSAGETOAD METODEN HÄR
-                    // MessageOperator messageOperator = new(messageService, messageDB);
-                    // messageOperator.WriteMessageToAd(adUserId, user);
-
-                    // VISA ALLA MEDDELANDEN 
-                    // =======================================
-                    // messageOperator.ShowAllMessages(user);
-
-                    // // VÄLJ MEDDELANDE ATT LÄSA  
-                    // //=========================================
-                    // int messageId = ConsoleInput.GetInt("Enter message to read: ");
-                    // // hämta det meddealndet via detta id!   så stoppar vi in touser och from user här under
-                    // int participantId = messageOperator.GetSender(messageId);
-                    // // VISA HELA KONVERSATIONEN PÅ VALT MESSAGE ID
-                    // messageOperator.ShowMessageConversation(messageId, participantId, user);
-
-                    // //4. SVARA PÅ MEDDELANDE    // RADERA KONVERSATION   // ELLER TILLBAKA
-                    // int chocie = ConsoleInput.GetInt("1 för att svara, 2 för att radera, 3 för tillbaka");
-                    // if (chocie == 1)
-                    // {
-                    //     messageOperator.ReplyToMessage(participantId, user);
-                    // }
-                    // else if (chocie == 2)
-                    // {
-                    //     messageOperator.DeleteConversation(user, participantId);
-                    // }
-                    // break;
-=======
-                // Message message = new();
-                // int advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
-                // int adUserId = userdb.GetUserIdFromAdvertise(advertiseId);
-                // // UserMakesMessage(toUserId, user, messageService); GAMLA STATISKA METODEN, TA BORT NÄR DEN NEDAN ÄR TESTAD
-                // // HÄR GÖR OBJEKT AV KLASSEN MESSAGEOPERATION OCH ANROPAR WRITEMESSAGETOAD METODEN HÄR
-                // MessageOperator messageOperator = new(messageService, messageDB);
-                // messageOperator.WriteMessageToAd(adUserId, user);
+                int advertiseID = ConsoleInput.GetInt("Enter advertise ID to write message: ");
+                int adUserID = userdb.GetUserIdFromAdvertise(advertiseID);
+                // UserMakesMessage(toUserId, user, messageService); GAMLA STATISKA METODEN, TA BORT NÄR DEN NEDAN ÄR TESTAD
+                // HÄR GÖR OBJEKT AV KLASSEN MESSAGEOPERATION OCH ANROPAR WRITEMESSAGETOAD METODEN HÄR
+        
+                messageOperator.WriteMessageToAd(adUserID, user);
 
                 // VISA ALLA MEDDELANDEN 
                 // =======================================
-                // messageOperator.ShowAllMessages(user);
+                messageOperator.ShowAllMessages(user);
 
                 // VÄLJ MEDDELANDE ATT LÄSA  
-                //=========================================
-                // int messageId = ConsoleInput.GetInt("Enter message to read: ");
+                // =========================================
+                int messageId = ConsoleInput.GetInt("Enter message to read: ");
                 // hämta det meddealndet via detta id!   så stoppar vi in touser och from user här under
-                // int participantId = messageOperator.GetSender(messageId);
+                int participantId = messageOperator.GetSender(messageId);
                 // VISA HELA KONVERSATIONEN PÅ VALT MESSAGE ID
-                // messageOperator.ShowMessageConversation(messageId, participantId, user);
+                messageOperator.ShowMessageConversation(messageId, participantId, user);
 
-                //4. SVARA PÅ MEDDELANDE    // RADERA KONVERSATION   // ELLER TILLBAKA
-                // int chocie = ConsoleInput.GetInt("1 för att svara, 2 för att radera, 3 för tillbaka");
-                // if (chocie == 1)
-                // {
-                //     messageOperator.ReplyToMessage(participantId, user);
-                // }
-                // else if (chocie == 2)
-                // {
-                //     messageOperator.DeleteConversation(user, participantId);
-                // }
-                // break;
->>>>>>> 6566025a8077b36a7b48d198ddef5aab5c200ffd
+                // 4. SVARA PÅ MEDDELANDE    // RADERA KONVERSATION   // ELLER TILLBAKA
+                int chocie = ConsoleInput.GetInt("1 för att svara, 2 för att radera, 3 för tillbaka");
+                if (chocie == 1)
+                {
+                    messageOperator.ReplyToMessage(participantId, user);
+                }
+                else if (chocie == 2)
+                {
+                    messageOperator.DeleteConversation(user, participantId);
+                }
+                break;
 
 
                 case 5:
-                    // string anAnswer = ConsoleInput.GetString($" [1]Delete my account  [2]Update my Email  [3]Update my nickname  [4]Update description ");
-                    // switch (anAnswer)
-                    // {
-                    //     case "1":
-                    //         //Raderar användare om användare finns
+                    string anAnswer = ConsoleInput.GetString($" [1]Delete my account  [2]Update my Email  [3]Update my nickname  [4]Update description ");
+                    switch (anAnswer)
+                    {
+                        case "1":
+                            //Raderar användare om användare finns
 
-                    //         string delete = ConsoleInput.GetString(" ");
-                    //         if (userHandeler.DeleteUser(user) > 0)
-                    //         {
-                    //             Console.WriteLine("Account deleted.");
-                    //             Environment.Exit(0);
-                    //         }
-                    //         else
-                    //         {
-                    //             Console.WriteLine("Something went wrong.");
-                    //         }
-                    //         break;
-                    //     case "2":
-                    //         // //Uppdaterar emailen 
-                    //         string updateEmail = ConsoleInput.GetString("Update email: ");
-                    //         userHandeler.UpdateEmail(user, updateEmail);
-                    //         break;
-                    //     case "3":
-                    //         // // Uppdaterar nickname
-                    //         string updateNickname = ConsoleInput.GetString("nickname: ");
-                    //         userEditor.UpdateNickName(user, updateNickname);
-                    //         break;
-                    //     case "4":
-                    //         // //användaren skriver in sin beskrivning
-                    //         string updateDescription = ConsoleInput.GetString("Text: ");
-                    //         userEditor.UpDateDescription(user, updateDescription);
-                    //         break;
-                    // }
+                            string delete = ConsoleInput.GetString(" ");
+                            if (userservise.DeleteUser(user) > 0)
+                            {
+                                Console.WriteLine("Account deleted.");
+                                Environment.Exit(0);
+                            }
+                            else
+                            {
+                                Console.WriteLine("Something went wrong.");
+                            }
+                            break;
+                        case "2":
+                            // //Uppdaterar emailen 
+                            string updateEmail = ConsoleInput.GetString("Update email: ");
+                            userHandeler.UpdateEmail(user, updateEmail);
+                            break;
+                        case "3":
+                            // // Uppdaterar nickname
+                            string updateNickname = ConsoleInput.GetString("nickname: ");
+                            userEditor.UpdateNickName(user, updateNickname);
+                            break;
+                        case "4":
+                            // //användaren skriver in sin beskrivning
+                            string updateDescription = ConsoleInput.GetString("Text: ");
+                            userEditor.UpDateDescription(user, updateDescription);
+                            break;
+                    }
                     break;
 
 
@@ -277,7 +241,6 @@ internal class Program
         int adUserId = userdb.GetUserIdFromAdvertise(advertiseId);
         // UserMakesMessage(toUserId, user, messageService); GAMLA STATISKA METODEN, TA BORT NÄR DEN NEDAN ÄR TESTAD
         // HÄR GÖR OBJEKT AV KLASSEN MESSAGEOPERATION OCH ANROPAR WRITEMESSAGETOAD METODEN HÄR
-        MessageOperator messageOperator = new(messageService);
         messageOperator.WriteMessageToAd(adUserId, user);
 
         static void ShowBlocketPages(int currentPage, IMessageHandeler messageHandeler, IUserHandeler userHandeler, Identifier identifier, IUserEditor userEditor)
