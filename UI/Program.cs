@@ -92,9 +92,7 @@ internal class Program
                     // }
                     break;
             }
-
         }
-
         //While och switch för användare som är inloggade
         while (loggedInAsUser)
         {
@@ -143,8 +141,6 @@ internal class Program
                     {
                         System.Console.WriteLine(item.ToString());
                     }
-
-
                     break;
 
             }
@@ -242,7 +238,7 @@ internal class Program
                     break;
                 case 2:
                     //PAGE 2, USERS FÖRSTASIDA 
-                    currentPage = ShowUserPage(user, userHandeler, userEditor);
+                    // currentPage = ShowUserPage(user, userHandeler, userEditor);
                     break;
                 case 3:
                     //PAGE 3 VISAR ALLA MEDDELANDEN SOM ÄR TILL USERN FRÅN DATABASEN
