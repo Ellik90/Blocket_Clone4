@@ -6,14 +6,16 @@ internal class Program
         bool start = true;
         int loginOption = 0;
         string answer = string.Empty;
-        bool loggedInAsUser = true;
+        bool loggedInAsUser = false;
         int LoggedInOptions = 0;
         bool loginPage = true;
+
+        bool loggedInAsAdmin = false,
         //TESTAR ETT STEG I TAGET HÄR
         Admin admin = new();
         AdminDB adminDB = new();
         Identifier identifier = new();
-        
+
         User user = new();
         UserDB userdb = new();
         AdminDB admindb = new();
@@ -23,7 +25,7 @@ internal class Program
         MessageService messageService = new(messageDB, messageDB);
         AdminService adminService = new(identifier, userdb, userdb, adminDB);
         UserOperator userOperator = new(logInService, user, userservise);
-        AdminOperator adminOperator = new(logInService, adminService,userservise);
+        AdminOperator adminOperator = new(logInService, adminService, userservise);
 
 
         //admin = CreateAdmin(admin, adminDB, logInService, identifier);
@@ -67,12 +69,10 @@ internal class Program
                     }
                     else
                     {
+                        user = userservise.GetTheUser(user);
                         loggedInAsUser = true;
                         break;
                     }
-
-                    user = userservise.GetTheUser(user);
-
                     break;
 
                 case 3:
@@ -88,7 +88,13 @@ internal class Program
                         Console.WriteLine("Fel lösen eller mail");
                         Environment.Exit(0);
                     }
-                    admin = adminService.GetTheAdmin(admin);
+                    else
+                    {
+                        admin = adminService.GetTheAdmin(admin);
+                        loggedInAsAdmin = true;
+                        break;
+                    }
+
 
                     string delete = ConsoleInput.GetString("Admin email: ");
                     if (adminDB.AdminEmailExists(admin.Email) > 0)
@@ -151,37 +157,37 @@ internal class Program
 
                 case 4:
 
-                    // Message message = new();
-                    // int advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
-                    // int adUserId = userdb.GetUserIdFromAdvertise(advertiseId);
-                    // // UserMakesMessage(toUserId, user, messageService); GAMLA STATISKA METODEN, TA BORT NÄR DEN NEDAN ÄR TESTAD
-                    // // HÄR GÖR OBJEKT AV KLASSEN MESSAGEOPERATION OCH ANROPAR WRITEMESSAGETOAD METODEN HÄR
-                    // MessageOperator messageOperator = new(messageService, messageDB);
-                    // messageOperator.WriteMessageToAd(adUserId, user);
+                // Message message = new();
+                // int advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
+                // int adUserId = userdb.GetUserIdFromAdvertise(advertiseId);
+                // // UserMakesMessage(toUserId, user, messageService); GAMLA STATISKA METODEN, TA BORT NÄR DEN NEDAN ÄR TESTAD
+                // // HÄR GÖR OBJEKT AV KLASSEN MESSAGEOPERATION OCH ANROPAR WRITEMESSAGETOAD METODEN HÄR
+                // MessageOperator messageOperator = new(messageService, messageDB);
+                // messageOperator.WriteMessageToAd(adUserId, user);
 
-                    // VISA ALLA MEDDELANDEN 
-                    // =======================================
-                    // messageOperator.ShowAllMessages(user);
+                // VISA ALLA MEDDELANDEN 
+                // =======================================
+                // messageOperator.ShowAllMessages(user);
 
-                    // VÄLJ MEDDELANDE ATT LÄSA  
-                    //=========================================
-                    // int messageId = ConsoleInput.GetInt("Enter message to read: ");
-                    // hämta det meddealndet via detta id!   så stoppar vi in touser och from user här under
-                    // int participantId = messageOperator.GetSender(messageId);
-                    // VISA HELA KONVERSATIONEN PÅ VALT MESSAGE ID
-                    // messageOperator.ShowMessageConversation(messageId, participantId, user);
+                // VÄLJ MEDDELANDE ATT LÄSA  
+                //=========================================
+                // int messageId = ConsoleInput.GetInt("Enter message to read: ");
+                // hämta det meddealndet via detta id!   så stoppar vi in touser och from user här under
+                // int participantId = messageOperator.GetSender(messageId);
+                // VISA HELA KONVERSATIONEN PÅ VALT MESSAGE ID
+                // messageOperator.ShowMessageConversation(messageId, participantId, user);
 
-                    //4. SVARA PÅ MEDDELANDE    // RADERA KONVERSATION   // ELLER TILLBAKA
-                    // int chocie = ConsoleInput.GetInt("1 för att svara, 2 för att radera, 3 för tillbaka");
-                    // if (chocie == 1)
-                    // {
-                    //     messageOperator.ReplyToMessage(participantId, user);
-                    // }
-                    // else if (chocie == 2)
-                    // {
-                    //     messageOperator.DeleteConversation(user, participantId);
-                    // }
-                    // break;
+                //4. SVARA PÅ MEDDELANDE    // RADERA KONVERSATION   // ELLER TILLBAKA
+                // int chocie = ConsoleInput.GetInt("1 för att svara, 2 för att radera, 3 för tillbaka");
+                // if (chocie == 1)
+                // {
+                //     messageOperator.ReplyToMessage(participantId, user);
+                // }
+                // else if (chocie == 2)
+                // {
+                //     messageOperator.DeleteConversation(user, participantId);
+                // }
+                // break;
 
 
                 case 5:
