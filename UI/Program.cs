@@ -86,30 +86,27 @@ internal class Program
                         loggedInAsAdmin = true;
                         break;
                     }
-                    string delete = ConsoleInput.GetString("Admin email: ");
-                    if (adminService.CheckAdminEmailExists(admin.Email))
-                    {
-                        adminService.DeleteAdmin(admin);
-                        Console.WriteLine("admin deleted ");
-                    }
+                    // string delete = ConsoleInput.GetString("Admin email: ");
+                    // if (adminDB.AdminEmailExists(admin.Email) > 0)
+                    // {
+                    //     adminService.DeleteAdmin(admin);
+                    //     Console.WriteLine("admin deleted ");
+                    // }
                     break;
             }
         }
         //While och switch för användare som är inloggade
         while (loggedInAsUser)
         {
-
             user = userservise.GetTheUser(user);
             System.Console.WriteLine(user.Name.ToUpper() + "Konto");
             System.Console.WriteLine("-------------------------------");
             System.Console.WriteLine("[1] Skapa annons ");
             System.Console.WriteLine("[2] Visa mina annonser");
             System.Console.WriteLine("[3] Sök annons");
-            System.Console.WriteLine("[4] Mina meddelanden");
+            System.Console.WriteLine("[4] Mina Meddelanden");
             System.Console.WriteLine("[5] Redigera profil");
-
             LoggedInOptions = ConsoleInput.GetInt("Go to page");
-
             switch (LoggedInOptions)
             {
                 case 1:
@@ -144,16 +141,25 @@ internal class Program
                     {
                         System.Console.WriteLine(item.ToString());
                     }
+                    Console.WriteLine("[1] Write to user about advertise  [2] Search [3] Quit search");
+                    int choice = ConsoleInput.GetInt("[1] Go back       [2] Message to advertise");
+                    {
+                        if (choice == 1)
+                        {
+                            loginOption = 1;
+                        }
+                        else if (choice == 2)
+                        {
+                            int advertiseID = ConsoleInput.GetInt("Advertise Number: ");
+                            int adUserID = userdb.GetUserIdFromAdvertise(advertiseID);
+                            // UserMakesMessage(toUserId, user, messageService); GAMLA STATISKA METODEN, TA BORT NÄR DEN NEDAN ÄR TESTAD
+                            // HÄR GÖR OBJEKT AV KLASSEN MESSAGEOPERATION OCH ANROPAR WRITEMESSAGETOAD METODEN HÄR
+
+                            messageOperator.WriteMessageToAd(adUserID, user);
+                        }
+                    }
                     break;
-
                 case 4:
-
-                    int advertiseID = ConsoleInput.GetInt("Enter advertise ID to write message: ");
-                    int adUserID = userdb.GetUserIdFromAdvertise(advertiseID);
-                    // UserMakesMessage(toUserId, user, messageService); GAMLA STATISKA METODEN, TA BORT NÄR DEN NEDAN ÄR TESTAD
-                    // HÄR GÖR OBJEKT AV KLASSEN MESSAGEOPERATION OCH ANROPAR WRITEMESSAGETOAD METODEN HÄR
-
-                    messageOperator.WriteMessageToAd(adUserID, user);
 
                     // VISA ALLA MEDDELANDEN 
                     // =======================================
@@ -166,8 +172,6 @@ internal class Program
                     int participantId = messageOperator.GetSender(messageId);
                     // VISA HELA KONVERSATIONEN PÅ VALT MESSAGE ID
                     messageOperator.ShowMessageConversation(messageId, participantId, user);
-
-                    // 4. SVARA PÅ MEDDELANDE    // RADERA KONVERSATION   // ELLER TILLBAKA
                     int chocie = ConsoleInput.GetInt("1 för att svara, 2 för att radera, 3 för tillbaka");
                     if (chocie == 1)
                     {
@@ -178,8 +182,6 @@ internal class Program
                         messageOperator.DeleteConversation(user, participantId);
                     }
                     break;
-
-
                 case 5:
                     string anAnswer = ConsoleInput.GetString($" [1]Delete my account  [2]Update my Email  [3]Update my nickname  [4]Update description ");
                     switch (anAnswer)
@@ -215,8 +217,6 @@ internal class Program
                             break;
                     }
                     break;
-
-
             }
         }
 
