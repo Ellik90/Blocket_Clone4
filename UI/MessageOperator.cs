@@ -17,7 +17,6 @@ class MessageOperator
         Message answerMessage = new(rubric, content, user.Id, idToUser);
         _messageService.MakeMessage(answerMessage, user);
     }
-
     public void ShowAllMessages(User user)
     {
         user.messages = _messageService.ShowAllMessages(user);  //  DENNA FUNKAR MED LÅNG QUERY
@@ -30,13 +29,11 @@ class MessageOperator
             Console.WriteLine($"{item.MessagesToString()}");
         }
     }
-
     public int GetSender(int messageId)
     {
         int participantId = _messageService.GetSender(messageId);
         return participantId;
     }
-
     public void ShowMessageConversation(int messageId, int participantId, User user)
     {
         List<Message> messages = _messageService.ShowOneMessageConversation(messageId, participantId, user.Id);
@@ -45,7 +42,6 @@ class MessageOperator
             Console.WriteLine($"{item.nameFromUser}\n\r{item.Rubric}\n\r{item.Content}\n\r");
         }
     }
-
     public void ReplyToMessage(int idToUser, User user)
     {
         string rubric = ConsoleInput.GetString("Rubric: ");
@@ -53,10 +49,8 @@ class MessageOperator
         Message replyMessage = new(rubric, content, user.Id, idToUser);
         _messageService.MakeMessage(replyMessage, user);
     }
-
     public void DeleteConversation(User user, int participantId)
     {
         _messageService.DeleteConversation(user.Id, participantId);
     }
-
 }
