@@ -1,6 +1,7 @@
 namespace LOGIK;
 public class AdminService : IAdminService
 {
+    IAdminEditor _adminEditor;
     IUserHandeler _userHandele;
     IIdentifier _identifier;
     IUserEditor _userEditor;
@@ -14,8 +15,22 @@ public class AdminService : IAdminService
         _userEditor = userEditor;
         _admin = admin;
         _adHandeler = adHandler;
+        _adminEditor = adminEditor;
     }
-
+    
+      public bool UpdateEmail(Admin admin, string adminEmail)
+    {
+        int rows = 0;
+        _adminEditor.UpdateAdminEmail(admin, adminEmail );
+          if (rows > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
      public Admin GetTheAdmin(Admin admin)
     {
        List<Admin> admins = _admin.GetAdmins(admin);
@@ -38,7 +53,7 @@ public class AdminService : IAdminService
     public bool MakeAdmin(Admin admin)
     {
         int rows = 0;
-        _admin.CreateAdmin(admin);
+        rows = _admin.CreateAdmin(admin);
         if (rows > 0)
         {
             return true;

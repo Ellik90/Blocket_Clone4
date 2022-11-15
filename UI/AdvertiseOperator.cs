@@ -15,7 +15,7 @@ class advertiseoperator
 
 
 
-        Advertise advertise = new(rubric);
+        // Advertise advertise = new(rubric,);
         // till service makead?? 
         // den är inlagd meddelande?
     }

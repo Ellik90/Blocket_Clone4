@@ -26,7 +26,7 @@ internal class Program
         MessageService messageService = new(messageDB, messageDB);
         AdminService adminService = new(identifier, userdb, userdb, admindb, admindb, addvertiseDb);
         UserOperator userOperator = new(logInService, user, userservise);
-        AdminOperator adminOperator = new(logInService, adminService, userservise);
+        AdminOperator adminOperator = new(logInService, adminService, userservise, admindb, identifier);
         MessageOperator messageOperator = new(messageService);
 
         //admin = CreateAdmin(admin, adminDB, logInService, identifier);
@@ -215,12 +215,13 @@ internal class Program
             }
         }
         while (loggedInAsAdmin)
-        {
+        { 
             admin = adminService.GetTheAdmin(admin); //
-            adminOptions = ConsoleInput.GetInt("[1] Add new admin-account   [2] Check advertises   [3] User-handeler   [4] Advertise-handeler");
+            adminOptions = ConsoleInput.GetInt("[1] Add new admin-account   [2] Check advertises   [3] User-handeler   [4] Advertise-handeler [5] Update email");
             switch (adminOptions)
             {
                 case 1:
+                admin = adminOperator.CreateAdmin(admindb);
 
                     break;
 
@@ -239,6 +240,9 @@ internal class Program
                     break;
                 case 4:
 
+                    break;
+                    case 5:
+                    adminOperator.UpdateEmail(admin);
                     break;
             }
         }
