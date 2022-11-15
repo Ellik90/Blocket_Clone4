@@ -353,12 +353,12 @@ internal class Program
         // }
 
 
-        static void UpDateDescription(IUserHandeler userHandeler, User user, IUserEditor userEditor)
-        {
-            string updateDescription = ConsoleInput.GetString("Text: ");
+        // static void UpDateDescription(IUserHandeler userHandeler, User user, IUserEditor userEditor)
+        // {
+        //     string updateDescription = ConsoleInput.GetString("Text: ");
 
-            userEditor.UpDateDescription(user, updateDescription);
-        }
+        //     userEditor.UpDateDescription(user, updateDescription);
+        // }
         static Advertise AddAdvertise() // Metod för att skapa annons//D
         {
             string answer = string.Empty;
