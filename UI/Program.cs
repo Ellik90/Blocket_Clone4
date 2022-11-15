@@ -136,12 +136,11 @@ internal class Program
                     {
                         System.Console.WriteLine(item.ToString());
                     }
-                    Console.WriteLine("[1] Write to user about advertise  [2] Search [3] Quit search");
-                    int choice = ConsoleInput.GetInt("[1] Go back       [2] Message to advertise");
+                    int choice = ConsoleInput.GetInt("[1] New Search   [2] Write message to advertise   [3] Return");
                     {
                         if (choice == 1)
                         {
-                            loginOption = 1;
+                            loginOption = 3;
                         }
                         else if (choice == 2)
                         {
@@ -149,8 +148,11 @@ internal class Program
                             int adUserID = userdb.GetUserIdFromAdvertise(advertiseID);
                             // UserMakesMessage(toUserId, user, messageService); GAMLA STATISKA METODEN, TA BORT NÄR DEN NEDAN ÄR TESTAD
                             // HÄR GÖR OBJEKT AV KLASSEN MESSAGEOPERATION OCH ANROPAR WRITEMESSAGETOAD METODEN HÄR
-
                             messageOperator.WriteMessageToAd(adUserID, user);
+                        }
+                        else if(choice == 3)
+                        {
+                            loginOption = 1;
                         }
                     }
                     break;
@@ -167,7 +169,7 @@ internal class Program
                     int participantId = messageOperator.GetSender(messageId);
                     // VISA HELA KONVERSATIONEN PÅ VALT MESSAGE ID
                     messageOperator.ShowMessageConversation(messageId, participantId, user);
-                    int chocie = ConsoleInput.GetInt("1 för att svara, 2 för att radera, 3 för tillbaka");
+                    int chocie = ConsoleInput.GetInt("[1] Reply    [2] Delete conversation    [3] Return");
                     if (chocie == 1)
                     {
                         messageOperator.ReplyToMessage(participantId, user);
@@ -243,25 +245,5 @@ internal class Program
             }
         }
 
-        static Advertise AddAdvertise() // Metod för att skapa annons//D
-        {
-            string answer = string.Empty;
-            int option = 0;
-            bool isTrue = true;
-            System.Console.WriteLine("[1]Välj kategori");
-            System.Console.WriteLine("[2]Välj underkategori");
-            System.Console.WriteLine("");
-            // Felhantering = Kanske maxantal ord för varje. Ha det öppet så att man ser helheten
-            // Felhantering = Om man skriver fel på förra så kan man gå till baka och ändra innan man skapar annons
-            string rubric = string.Empty;
-            string description = string.Empty;
-            float price = 0f;
-            string location = string.Empty;
-            string municipality = string.Empty;
-            int postalNumber = 0;
-            User user = new();
-            Advertise nyannons = new Advertise(rubric, description, price, location, municipality, postalNumber, user.Id);
-            return nyannons;
-        }
     }
 }
