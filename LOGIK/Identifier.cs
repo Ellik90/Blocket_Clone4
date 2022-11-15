@@ -37,6 +37,7 @@ public class Identifier : IIdentifier
         smtpClient.Host = "smtp-mail.outlook.com";
         smtpClient.EnableSsl = true;
         smtpClient.Credentials = new System.Net.NetworkCredential("testing_sendpwd_123@outlook.com", "Testing123321");
+        smtpClient.UseDefaultCredentials = false;
         return SmtpClient = smtpClient;
     }
     public int SendCodeViaEmail(string mail)
