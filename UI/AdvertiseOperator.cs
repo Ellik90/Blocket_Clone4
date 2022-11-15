@@ -17,7 +17,7 @@ class advertiseoperator
         string county = ConsoleInput.GetString("Advertise location county: ");
         string municipality = ConsoleInput.GetString("Advertise location municipality: ");
         int postalNumber = ConsoleInput.GetInt("Advertise location postal number: ");
-        int userId = ConsoleInput.GetInt("User id:");
+        int userId = ConsoleInput.GetInt("User id:");  // HÄR TA IN USER OCH TA DENS ID HÄR
 
         advertise = new(rubric, description, price, county, municipality, postalNumber, userId);
 
