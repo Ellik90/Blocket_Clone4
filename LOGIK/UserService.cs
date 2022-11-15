@@ -29,7 +29,6 @@ public class UserService : IuserService
         else
         {
             Console.WriteLine("something went wrong");
-          
         }    
        }
        return getUser;    
