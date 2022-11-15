@@ -13,7 +13,7 @@ internal class Program
         Admin admin = new();
         AdminDB adminDB = new();
         Identifier identifier = new();
-        
+
         User user = new();
         UserDB userdb = new();
         AdminDB admindb = new();
@@ -23,7 +23,7 @@ internal class Program
         MessageService messageService = new(messageDB, messageDB);
         AdminService adminService = new(identifier, userdb, userdb, adminDB);
         UserOperator userOperator = new(logInService, user, userservise);
-        AdminOperator adminOperator = new(logInService, adminService,userservise);
+        AdminOperator adminOperator = new(logInService, adminService, userservise);
 
 
         //admin = CreateAdmin(admin, adminDB, logInService, identifier);
@@ -46,8 +46,10 @@ internal class Program
 
                     //1. SKAPAKONTO
 
-                    user = userOperator.CreateUser(user, logInService, userdb, identifier);
-                    userservise.MakeUser(user);
+                    CreateUser(user, logInService, userdb, identifier);
+
+                    // user = userOperator.CreateUser(user, logInService, userdb, identifier);
+                    // userservise.MakeUser(user);
 
                     break;
 
@@ -55,10 +57,10 @@ internal class Program
                     //Logga in 
                     user = new();
 
-                    // user.Email = ConsoleInput.GetString("Enter your Email");
-                    // user.Password = ConsoleInput.GetInt("Enter your Password");
-                    // user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
-                    // user.Id = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
+                    user.Email = ConsoleInput.GetString("Enter your Email");
+                    user.Password = ConsoleInput.GetInt("Enter your Password");
+                    user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
+                    user.Id = logInService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
 
                     if (user.Id == 0) //<- tex om user är inloggad då så kommer man till user page?
                     {
@@ -117,7 +119,7 @@ internal class Program
                     AddvertiseDb dbManager = new();
                     AdvertiseService advertiseService = new(dbManager);
 
-                    Advertise bil = new("KLÄDER", "10 klänningar", 2021, "borås", "borås kommun", 50764, user.Id);
+                    Advertise bil = new("KLÄDER", "10 klänningar", 20121, "borås", "borås kommun", 50764, user.Id);
                     int advertiseId1 = advertiseService.MakeNewAd(bil);
                     Advertise kaka = new("SOFFGRUPP", "mockasoffa", 2021, "borås", "borås kommun", 50764, user.Id);
                     int advertiseId2 = advertiseService.MakeNewAd(kaka);
@@ -151,37 +153,37 @@ internal class Program
 
                 case 4:
 
-                    // Message message = new();
-                    // int advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
-                    // int adUserId = userdb.GetUserIdFromAdvertise(advertiseId);
-                    // // UserMakesMessage(toUserId, user, messageService); GAMLA STATISKA METODEN, TA BORT NÄR DEN NEDAN ÄR TESTAD
-                    // // HÄR GÖR OBJEKT AV KLASSEN MESSAGEOPERATION OCH ANROPAR WRITEMESSAGETOAD METODEN HÄR
-                    // MessageOperator messageOperator = new(messageService, messageDB);
-                    // messageOperator.WriteMessageToAd(adUserId, user);
+                // Message message = new();
+                // int advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
+                // int adUserId = userdb.GetUserIdFromAdvertise(advertiseId);
+                // // UserMakesMessage(toUserId, user, messageService); GAMLA STATISKA METODEN, TA BORT NÄR DEN NEDAN ÄR TESTAD
+                // // HÄR GÖR OBJEKT AV KLASSEN MESSAGEOPERATION OCH ANROPAR WRITEMESSAGETOAD METODEN HÄR
+                // MessageOperator messageOperator = new(messageService, messageDB);
+                // messageOperator.WriteMessageToAd(adUserId, user);
 
-                    // VISA ALLA MEDDELANDEN 
-                    // =======================================
-                    // messageOperator.ShowAllMessages(user);
+                // VISA ALLA MEDDELANDEN 
+                // =======================================
+                // messageOperator.ShowAllMessages(user);
 
-                    // VÄLJ MEDDELANDE ATT LÄSA  
-                    //=========================================
-                    // int messageId = ConsoleInput.GetInt("Enter message to read: ");
-                    // hämta det meddealndet via detta id!   så stoppar vi in touser och from user här under
-                    // int participantId = messageOperator.GetSender(messageId);
-                    // VISA HELA KONVERSATIONEN PÅ VALT MESSAGE ID
-                    // messageOperator.ShowMessageConversation(messageId, participantId, user);
+                // VÄLJ MEDDELANDE ATT LÄSA  
+                //=========================================
+                // int messageId = ConsoleInput.GetInt("Enter message to read: ");
+                // hämta det meddealndet via detta id!   så stoppar vi in touser och from user här under
+                // int participantId = messageOperator.GetSender(messageId);
+                // VISA HELA KONVERSATIONEN PÅ VALT MESSAGE ID
+                // messageOperator.ShowMessageConversation(messageId, participantId, user);
 
-                    //4. SVARA PÅ MEDDELANDE    // RADERA KONVERSATION   // ELLER TILLBAKA
-                    // int chocie = ConsoleInput.GetInt("1 för att svara, 2 för att radera, 3 för tillbaka");
-                    // if (chocie == 1)
-                    // {
-                    //     messageOperator.ReplyToMessage(participantId, user);
-                    // }
-                    // else if (chocie == 2)
-                    // {
-                    //     messageOperator.DeleteConversation(user, participantId);
-                    // }
-                    // break;
+                //4. SVARA PÅ MEDDELANDE    // RADERA KONVERSATION   // ELLER TILLBAKA
+                // int chocie = ConsoleInput.GetInt("1 för att svara, 2 för att radera, 3 för tillbaka");
+                // if (chocie == 1)
+                // {
+                //     messageOperator.ReplyToMessage(participantId, user);
+                // }
+                // else if (chocie == 2)
+                // {
+                //     messageOperator.DeleteConversation(user, participantId);
+                // }
+                // break;
 
 
                 case 5:
@@ -235,9 +237,6 @@ internal class Program
         // HÄR GÖR OBJEKT AV KLASSEN MESSAGEOPERATION OCH ANROPAR WRITEMESSAGETOAD METODEN HÄR
         MessageOperator messageOperator = new(messageService);
         messageOperator.WriteMessageToAd(adUserId, user);
-
-        // 5. REDIGERA PROFIL
-
 
         static void ShowBlocketPages(int currentPage, IMessageHandeler messageHandeler, IUserHandeler userHandeler, Identifier identifier, IUserEditor userEditor)
         {
@@ -304,34 +303,6 @@ internal class Program
         }
         static void ShowUserPage(User user, IUserHandeler userHandeler, IUserEditor userEditor)
         {
-            Console.WriteLine($"Lägg in annons [1]  Sök annons [2]  Dina meddelanden [3]");
-            Console.WriteLine($"{user.Name.ToUpper()}");
-            Console.WriteLine($"Redigera profil [4]");
-            Console.WriteLine();
-            Console.WriteLine("Mina annonser [5]  Sparade annonser [6] Sålda objekt [7]");
-
-            string answer = Console.ReadLine();
-
-            switch (answer)
-            {
-                case "1":
-
-                    // AddAdvertise();
-                    // //admanagement.addadvertise(advertise);
-                    break;
-
-                case "3":
-
-                    // om man väljer tex 1
-                    // så visaas medde med nr 1
-                    break;
-
-                case "4":
-
-                case "5":
-
-                    break;
-            }
 
         }
         static Admin CreateAdmin(Admin admin, AdminDB adminDB, LogInService logInService, Identifier identifier)
