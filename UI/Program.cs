@@ -227,6 +227,13 @@ internal class Program
         // 3. SKRIV MEDDELANDE TILL ANNONSENS ANVÄNDARE 
         // =========================================
 
+        Message message = new();
+        int advertiseId = ConsoleInput.GetInt("Enter advertise ID to write message: ");
+        int adUserId = userdb.GetUserIdFromAdvertise(advertiseId);
+        // UserMakesMessage(toUserId, user, messageService); GAMLA STATISKA METODEN, TA BORT NÄR DEN NEDAN ÄR TESTAD
+        // HÄR GÖR OBJEKT AV KLASSEN MESSAGEOPERATION OCH ANROPAR WRITEMESSAGETOAD METODEN HÄR
+        MessageOperator messageOperator = new(messageService);
+        messageOperator.WriteMessageToAd(adUserId, user);
 
         // 5. REDIGERA PROFIL
 
