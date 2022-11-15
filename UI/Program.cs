@@ -155,7 +155,7 @@ internal class Program
         int adUserId = userdb.GetUserIdFromAdvertise(advertiseId);
         // UserMakesMessage(toUserId, user, messageService); GAMLA STATISKA METODEN, TA BORT NÄR DEN NEDAN ÄR TESTAD
         // HÄR GÖR OBJEKT AV KLASSEN MESSAGEOPERATION OCH ANROPAR WRITEMESSAGETOAD METODEN HÄR
-        MessageOperator messageOperator = new(messageService, messageDB);
+        MessageOperator messageOperator = new(messageService);
         messageOperator.WriteMessageToAd(adUserId, user);
 
         // VISA ALLA MEDDELANDEN 
