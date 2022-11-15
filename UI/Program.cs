@@ -9,7 +9,8 @@ internal class Program
         bool loggedInAsUser = false;
         int LoggedInOptions = 0;
         bool loginPage = true;
-        bool loggedInAsAdmin = false;
+        bool loggedInAsAdmin = true;
+        int adminOptions = 0;
 
         User user = new();
         UserDB userdb = new();
@@ -203,6 +204,24 @@ internal class Program
                             break;
                     }
                     break;
+            }
+        }
+        while (loggedInAsAdmin)
+        {
+            System.Console.WriteLine("[1]");
+            System.Console.WriteLine("[2]");
+            System.Console.WriteLine("[3]");
+            System.Console.WriteLine("[4]");
+            switch(adminOptions)
+            {
+                case 1:
+                break;
+                case 2:
+                break;
+                case 3:
+                break;
+                case 4:
+                break;           
             }
         }
 
