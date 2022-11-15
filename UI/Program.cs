@@ -176,17 +176,21 @@ internal class Program
                     {
                         case "1":
                             //Raderar användare om användare finns
-                            string delete = ConsoleInput.GetString(" ");
-                            if (userservise.DeleteTheUser(user))
+                            string delete = ConsoleInput.GetString("Delete account [yes]  [no] ");
+                            if (delete == "yes")
+                            { 
+                                userOperator.DeleteUser(user);
+                            }
+                            else if (delete == "no")
                             {
-                                Console.WriteLine("Account deleted.");
-                                Environment.Exit(0);
+                                break;
                             }
                             else
                             {
                                 Console.WriteLine("Something went wrong.");
                             }
-                            break;//hopp
+
+                            break;
                         case "2":
                             // //Uppdaterar emailen 
                             string updateEmail = ConsoleInput.GetString("Update email: ");
@@ -233,7 +237,6 @@ internal class Program
             System.Console.WriteLine("[1]Välj kategori");
             System.Console.WriteLine("[2]Välj underkategori");
             System.Console.WriteLine("");
-
             // Felhantering = Kanske maxantal ord för varje. Ha det öppet så att man ser helheten
             // Felhantering = Om man skriver fel på förra så kan man gå till baka och ändra innan man skapar annons
             string rubric = string.Empty;
@@ -243,12 +246,8 @@ internal class Program
             string municipality = string.Empty;
             int postalNumber = 0;
             User user = new();
-
             Advertise nyannons = new Advertise(rubric, description, price, location, municipality, postalNumber, user.Id);
             return nyannons;
         }
-
-
-
     }
 }
