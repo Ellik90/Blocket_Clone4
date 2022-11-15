@@ -71,7 +71,6 @@ internal class Program
                     }
                     else
                     {
-                        user = userservise.GetTheUser(user);
                         loggedInAsUser = true;
                         loginPage = false;
                     }
@@ -110,6 +109,8 @@ internal class Program
         //While och switch för användare som är inloggade
         while (loggedInAsUser)
         {
+
+            user = userservise.GetTheUser(user);
             System.Console.WriteLine(user.Name.ToUpper() + "Konto");
             System.Console.WriteLine("-------------------------------");
             System.Console.WriteLine("[1] Skapa annons ");
