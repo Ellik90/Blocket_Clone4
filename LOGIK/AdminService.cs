@@ -73,6 +73,19 @@ public class AdminService : IAdminService
             return false;
         }
     }
+      public bool CheckAdminEmailExists(string Email)
+    {
+        int rows = 0;
+        _admin.AdminEmailExists(Email);
+        if (rows > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     // LÄGG IN METODER
     // updateadminname
 

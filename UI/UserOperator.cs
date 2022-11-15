@@ -5,6 +5,7 @@ class UserOperator
     IuserService _userService;
     User _user;
     ILogInService _loginService;
+    
 
     public UserOperator(ILogInService logInService, User user, UserService userService)
     {
