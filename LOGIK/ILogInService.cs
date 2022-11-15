@@ -1,5 +1,5 @@
 namespace LOGIK;
-interface ILogInService
+public interface ILogInService
 {
     public User MakeNewLogIn(User user);
 

@@ -28,7 +28,6 @@ public class UserService : IuserService, IUserHandeler
         else
         {
             Console.WriteLine("something went wrong");
-          
         }    
        }
        return getUser;    
