@@ -177,11 +177,8 @@ internal class Program
                             //Raderar användare om användare finns
                             string delete = ConsoleInput.GetString("Delete account [yes]  [no] ");
                             if (delete == "yes")
-                            {
-                                
-                                userOperator. DeleteTheUser(user);
-                                Console.WriteLine("Account deleted.");
-                                Environment.Exit(0);
+                            { 
+                                userOperator.DeleteUser(user);
                             }
                             else if (delete == "no")
                             {
