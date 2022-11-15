@@ -105,54 +105,75 @@ public class UserService : IuserService
             return false;
         }
     }
-
-    public int NicknameExists(string nickname)
+     public bool UpdateEmail(User user, string userEmail)
     {
-        throw new NotImplementedException();
+        int rows = 0;
+        _userEditor.UpdateEmail(user, userEmail);
+          if (rows > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
-    public int CreateUser(User user)
+      public bool UpdateNickname(User user, string updateNickname)
     {
-        throw new NotImplementedException();
+        int rows = 0;
+        _userEditor.UpdateNickName(user, updateNickname);
+           if (rows > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
-    public int UserLogInExists(User user)
+    public bool UpDateDescription(User user, string updateDescription)
     {
-        throw new NotImplementedException();
+       int rows = 0;
+       _userEditor.UpDateDescription(user, updateDescription);
+          if (rows > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
-    public int UserEmailExists(string email)
-    {
-        throw new NotImplementedException();
-    }
 
-    public int DeleteUser(User user)
-    {
-        throw new NotImplementedException();
-    }
 
-    public int GetUserIdFromAdvertise(int advertiseId)
-    {
-        throw new NotImplementedException();
-    }
+  
 
-    public List<User> GetUser()
-    {
-        throw new NotImplementedException();
-    }
+    
 
-    public int UpdateEmail(User user, string userEmail)
-    {
-        throw new NotImplementedException();
-    }
+    // public int UserEmailExists(string email)
+    // {
+    //     throw new NotImplementedException();
+    // }
 
-    public int UpdateNickName(User user, string nickname)
-    {
-        throw new NotImplementedException();
-    }
+    // public int DeleteUser(User user)
+    // {
+    //     throw new NotImplementedException();
+    // }
 
-    public int UpDateDescription(User user, string updateDescription)
-    {
-        throw new NotImplementedException();
-    }
+    // public int GetUserIdFromAdvertise(int advertiseId)
+    // {
+    //     throw new NotImplementedException();
+    // }
+
+    // public List<User> GetUser()
+    // {
+    //     throw new NotImplementedException();
+    // }
+
+   
+
+  
 }

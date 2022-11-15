@@ -5,4 +5,5 @@ public interface IAdminService
     public bool MakeAdmin(Admin admin);
     public bool DeleteAdmin(Admin admin);
     public bool CheckAdminNameExists(string name);
+    public bool CheckAdminEmailExists(string Email);
 }

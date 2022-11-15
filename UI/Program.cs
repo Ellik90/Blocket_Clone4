@@ -23,7 +23,7 @@ internal class Program
         UserService userservise = new(identifier, userdb, userdb);
         MessageDB messageDB = new();
         MessageService messageService = new(messageDB, messageDB);
-        AdminService adminService = new(identifier, userdb, userdb, admindb,admindb);
+        AdminService adminService = new(identifier, userdb, userdb, admindb, admindb);
         UserOperator userOperator = new(logInService, user, userservise);
         AdminOperator adminOperator = new(logInService, adminService, userservise);
         MessageOperator messageOperator = new(messageService);
@@ -46,18 +46,13 @@ internal class Program
             switch (loginOption)
             {
                 case 1:
-
                     //1. SKAPAKONTO
-
                     user = userOperator.CreateUser(user, logInService, userdb, identifier);
                     userservise.MakeUser(user);
-
                     break;
-
                 case 2:
                     //Logga in 
                     user = new();
-
                     user.Email = ConsoleInput.GetString("Enter your Email");
                     user.Password = ConsoleInput.GetInt("Enter your Password");
                     user = logInService.UserLogIn(user); //user skriver bara i sin mail och kod
@@ -74,11 +69,8 @@ internal class Program
                         loginPage = false;
                     }
                     break;
-
                 case 3:
-
                     Admin admin = new();
-
                     admin.Email = ConsoleInput.GetString("Enter your Email");
                     admin.PassWord = ConsoleInput.GetInt("Enter your Password");
                     admin = logInService.AdminLogIn(admin); //user skriver bara i sin mail och kod
@@ -94,14 +86,12 @@ internal class Program
                         loggedInAsAdmin = true;
                         break;
                     }
-
-
-                    // string delete = ConsoleInput.GetString("Admin email: ");
-                    // if (adminDB.AdminEmailExists(admin.Email) > 0)
-                    // {
-                    //     adminService.DeleteAdmin(admin);
-                    //     Console.WriteLine("admin deleted ");
-                    // }
+                    string delete = ConsoleInput.GetString("Admin email: ");
+                    if (adminService.CheckAdminEmailExists(admin.Email))
+                    {
+                        adminService.DeleteAdmin(admin);
+                        Console.WriteLine("admin deleted ");
+                    }
                     break;
             }
         }
@@ -158,36 +148,36 @@ internal class Program
 
                 case 4:
 
-                int advertiseID = ConsoleInput.GetInt("Enter advertise ID to write message: ");
-                int adUserID = userdb.GetUserIdFromAdvertise(advertiseID);
-                // UserMakesMessage(toUserId, user, messageService); GAMLA STATISKA METODEN, TA BORT NÄR DEN NEDAN ÄR TESTAD
-                // HÄR GÖR OBJEKT AV KLASSEN MESSAGEOPERATION OCH ANROPAR WRITEMESSAGETOAD METODEN HÄR
-        
-                messageOperator.WriteMessageToAd(adUserID, user);
+                    int advertiseID = ConsoleInput.GetInt("Enter advertise ID to write message: ");
+                    int adUserID = userdb.GetUserIdFromAdvertise(advertiseID);
+                    // UserMakesMessage(toUserId, user, messageService); GAMLA STATISKA METODEN, TA BORT NÄR DEN NEDAN ÄR TESTAD
+                    // HÄR GÖR OBJEKT AV KLASSEN MESSAGEOPERATION OCH ANROPAR WRITEMESSAGETOAD METODEN HÄR
 
-                // VISA ALLA MEDDELANDEN 
-                // =======================================
-                messageOperator.ShowAllMessages(user);
+                    messageOperator.WriteMessageToAd(adUserID, user);
 
-                // VÄLJ MEDDELANDE ATT LÄSA  
-                // =========================================
-                int messageId = ConsoleInput.GetInt("Enter message to read: ");
-                // hämta det meddealndet via detta id!   så stoppar vi in touser och from user här under
-                int participantId = messageOperator.GetSender(messageId);
-                // VISA HELA KONVERSATIONEN PÅ VALT MESSAGE ID
-                messageOperator.ShowMessageConversation(messageId, participantId, user);
+                    // VISA ALLA MEDDELANDEN 
+                    // =======================================
+                    messageOperator.ShowAllMessages(user);
 
-                // 4. SVARA PÅ MEDDELANDE    // RADERA KONVERSATION   // ELLER TILLBAKA
-                int chocie = ConsoleInput.GetInt("1 för att svara, 2 för att radera, 3 för tillbaka");
-                if (chocie == 1)
-                {
-                    messageOperator.ReplyToMessage(participantId, user);
-                }
-                else if (chocie == 2)
-                {
-                    messageOperator.DeleteConversation(user, participantId);
-                }
-                break;
+                    // VÄLJ MEDDELANDE ATT LÄSA  
+                    // =========================================
+                    int messageId = ConsoleInput.GetInt("Enter message to read: ");
+                    // hämta det meddealndet via detta id!   så stoppar vi in touser och from user här under
+                    int participantId = messageOperator.GetSender(messageId);
+                    // VISA HELA KONVERSATIONEN PÅ VALT MESSAGE ID
+                    messageOperator.ShowMessageConversation(messageId, participantId, user);
+
+                    // 4. SVARA PÅ MEDDELANDE    // RADERA KONVERSATION   // ELLER TILLBAKA
+                    int chocie = ConsoleInput.GetInt("1 för att svara, 2 för att radera, 3 för tillbaka");
+                    if (chocie == 1)
+                    {
+                        messageOperator.ReplyToMessage(participantId, user);
+                    }
+                    else if (chocie == 2)
+                    {
+                        messageOperator.DeleteConversation(user, participantId);
+                    }
+                    break;
 
 
                 case 5:
@@ -198,7 +188,7 @@ internal class Program
                             //Raderar användare om användare finns
 
                             string delete = ConsoleInput.GetString(" ");
-                            if (userservise.DeleteUser(user) > 0)
+                            if (userservise.DeleteTheUser(user) )
                             {
                                 Console.WriteLine("Account deleted.");
                                 Environment.Exit(0);
@@ -216,7 +206,7 @@ internal class Program
                         case "3":
                             // // Uppdaterar nickname
                             string updateNickname = ConsoleInput.GetString("nickname: ");
-                            userservise.UpdateNickName(user, updateNickname);
+                            userservise.UpdateNickname(user, updateNickname);
                             break;
                         case "4":
                             // //användaren skriver in sin beskrivning

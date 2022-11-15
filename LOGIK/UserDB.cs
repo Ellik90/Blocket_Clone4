@@ -97,13 +97,13 @@ public class UserDB : IUserHandeler, IUserEditor
         return rows;
     }
 
-    public int UpdateNickName(User user, string nickname)
+    public int UpdateNickName(User user, string nickName)
     {
         int rows = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
-            string? query = "UPDATE users SET nick_name = @nickName WHERE id = @id";
-            rows = connection.ExecuteScalar<int>(query, param: new { @nick_name = nickname, @id = user });
+            string? query = "UPDATE users SET nick_name = @nickname WHERE id = @id";
+            rows = connection.ExecuteScalar<int>(query, param: new { @nickname = nickName, @id = user.Id });
         }
         return rows;
     }

@@ -7,4 +7,5 @@ public interface IAdmin
      public int AdminLogInExists(Admin admin);
      
      public int AdminNameExists(string name);
+     public int AdminEmailExists(string Email);
 }
