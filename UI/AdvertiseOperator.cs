@@ -9,13 +9,20 @@ class advertiseoperator
         this._advertiseService = _advertiseService;
         
     }
-    public void CreateAd()
+    public void CreateAd(Advertise advertise)
     {
-        string rubric = ConsoleInput.GetString("Rubric on advertise: ");
+        string rubric = ConsoleInput.GetString("Advertise rubric: ");
+        string description = ConsoleInput.GetString("Advertise description");
+        float price = ConsoleInput.GetFloat("Advertise price: ");
+        string county = ConsoleInput.GetString("Advertise location county: ");
+        string municipality = ConsoleInput.GetString("Advertise location municipality: ");
+        int postalNumber = ConsoleInput.GetInt("Advertise location postal number: ");
+        int userId = ConsoleInput.GetInt("User id:");
 
+        advertise = new(rubric, description, price, county, municipality, postalNumber, userId);
 
+        _advertiseService.MakeNewAd(advertise);
 
-        // Advertise advertise = new(rubric,);
         // till service makead?? 
         // den är inlagd meddelande?
     }

@@ -2,7 +2,6 @@ namespace LOGIK;
 public class MessageService : IMessageService
 {
     //här i är funktionerna mellan användaren och db, tex makemessage(strin rubric, string content) osv..
-    IMessageHandeler _messageHandeler;
     IMessageSender _messageSender;
     IConversationHandler _conversationHandler;
     List<Message> allMessages = new();
@@ -13,7 +12,7 @@ public class MessageService : IMessageService
         _messageSender = messageSender;
         _conversationHandler = conversationHandler;
     }
-    public void MakeMessage(Message message, User user)
+    public bool MakeMessage(Message message, User user)
     {
         int newMessageId = _messageSender.CreateMessage(message);
         message.ID = newMessageId;
@@ -21,7 +20,15 @@ public class MessageService : IMessageService
         int usermessageId = _messageSender.SendMessage(message, newMessageId);
         int rows = _messageSender.AddConversationThread(user.Id, usermessageId);
         int toUserId = message.IDToUser;
-        _messageSender.AddConversationThread(toUserId, usermessageId);
+        int converstaionRows = _messageSender.AddConversationThread(toUserId, usermessageId);
+        if(newMessageId > 0 && usermessageId > 0 && rows > 0 && converstaionRows > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     public List<Message> ShowAllMessages(User user)
     {

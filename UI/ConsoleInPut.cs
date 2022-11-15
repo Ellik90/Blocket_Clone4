@@ -31,5 +31,25 @@ public class ConsoleInput
         return inputInt;
     }
 
-    
+    public static float GetFloat(string output)
+    {
+        float inputFloat = 0;
+        while (true)
+        {
+            try
+            {
+                Console.WriteLine(output);
+                string input = Console.ReadLine();
+                inputFloat = float.Parse(input);
+                break;
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine("Please enter a digit.");
+            }
+        }
+        return inputFloat;
+    }
+
+
 }

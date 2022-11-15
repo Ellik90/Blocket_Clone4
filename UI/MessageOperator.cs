@@ -72,7 +72,14 @@ class MessageOperator
         string rubric = ConsoleInput.GetString("Rubric: ");
         string content = ConsoleInput.GetString("Content: ");
         Message replyMessage = new(rubric, content, user.Id, idToUser);
-        _messageService.MakeMessage(replyMessage, user);
+        if(_messageService.MakeMessage(replyMessage, user) == true)
+        {
+            Console.WriteLine("Message sent!");
+        }
+        else
+        {
+            Console.WriteLine("Something went wrong.");
+        }
     }
     public void DeleteConversation(User user, int participantId)
     {
