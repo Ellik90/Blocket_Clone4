@@ -6,9 +6,11 @@ internal class Program
         bool start = true;
         int loginOption = 0;
         string answer = string.Empty;
-        bool loggedInAsUser = true;
+        bool loggedInAsUser = false;
         int LoggedInOptions = 0;
         bool loginPage = true;
+
+        bool loggedInAsAdmin = false,
         //TESTAR ETT STEG I TAGET HÄR
         Admin admin = new();
         AdminDB adminDB = new();
@@ -69,12 +71,10 @@ internal class Program
                     }
                     else
                     {
+                        user = userservise.GetTheUser(user);
                         loggedInAsUser = true;
                         break;
                     }
-
-                    user = userservise.GetTheUser(user);
-
                     break;
 
                 case 3:
@@ -90,7 +90,13 @@ internal class Program
                         Console.WriteLine("Fel lösen eller mail");
                         Environment.Exit(0);
                     }
-                    admin = adminService.GetTheAdmin(admin);
+                    else
+                    {
+                        admin = adminService.GetTheAdmin(admin);
+                        loggedInAsAdmin = true;
+                        break;
+                    }
+
 
                     string delete = ConsoleInput.GetString("Admin email: ");
                     if (adminDB.AdminEmailExists(admin.Email) > 0)
