@@ -5,7 +5,7 @@ class UserOperator
     IuserService _userService;
     User _user;
     ILogInService _loginService;
-    
+
 
     public UserOperator(ILogInService logInService, User user, UserService userService)
     {
@@ -59,6 +59,21 @@ class UserOperator
             loggedInAsUser = true;
         }
         return loggedInAsUser;
+    }
+
+    public void DeleteUser(User user)
+    {
+        
+        try
+        {
+            _userService.DeleteTheUser(user);
+            Console.WriteLine("Account deleted!");
+        }
+        catch (MySqlConnector.MySqlException)
+        {
+            Console.WriteLine("The site is under construction. Try again later.");
+        }
+
     }
 
 

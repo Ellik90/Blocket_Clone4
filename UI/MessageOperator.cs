@@ -66,9 +66,6 @@ class MessageOperator
             Console.WriteLine("No conversation found.");
         }
 
-
-
-
     }
     public void ReplyToMessage(int idToUser, User user)
     {

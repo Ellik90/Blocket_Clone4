@@ -214,7 +214,6 @@ internal class Program
             System.Console.WriteLine("[1]Välj kategori");
             System.Console.WriteLine("[2]Välj underkategori");
             System.Console.WriteLine("");
-
             // Felhantering = Kanske maxantal ord för varje. Ha det öppet så att man ser helheten
             // Felhantering = Om man skriver fel på förra så kan man gå till baka och ändra innan man skapar annons
             string rubric = string.Empty;
@@ -224,12 +223,8 @@ internal class Program
             string municipality = string.Empty;
             int postalNumber = 0;
             User user = new();
-
             Advertise nyannons = new Advertise(rubric, description, price, location, municipality, postalNumber, user.Id);
             return nyannons;
         }
-
-
-
     }
 }
