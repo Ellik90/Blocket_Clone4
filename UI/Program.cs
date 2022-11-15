@@ -189,7 +189,6 @@ internal class Program
                             {
                                 Console.WriteLine("Something went wrong.");
                             }
-
                             break;
                         case "2":
                             // //Uppdaterar emailen 
@@ -212,19 +211,23 @@ internal class Program
         }
         while (loggedInAsAdmin)
         {
-            System.Console.WriteLine("[1]");
-            System.Console.WriteLine("[2]");
-            System.Console.WriteLine("[3]");
-            System.Console.WriteLine("[4]");
+            System.Console.WriteLine("[1] Add new admin-account");
+            System.Console.WriteLine("[2] Check advertises");
+            System.Console.WriteLine("[3] User-handeler");
+            System.Console.WriteLine("[4] Advertise-handeler");
             switch(adminOptions)
             {
                 case 1:
+            
                 break;
                 case 2:
+
                 break;
                 case 3:
+
                 break;
                 case 4:
+
                 break;           
             }
         }
