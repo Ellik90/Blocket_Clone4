@@ -205,10 +205,6 @@ internal class Program
                 Console.WriteLine("updated");
             }
         }
-
-
-
-        //7.
     }
 
     public static void ShowBlocketPages(int currentPage, IMessageHandeler messageHandeler, IUserHandeler userHandeler, Identifier identifier, IUserEditor userEditor)
