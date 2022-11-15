@@ -191,19 +191,13 @@ internal class Program
 
                             break;
                         case "2":
-                            // //Uppdaterar emailen 
-                            string updateEmail = ConsoleInput.GetString("Update email: ");
-                            userservise.UpdateEmail(user, updateEmail);
+                            userOperator.UpdateEmail(user);
                             break;
                         case "3":
-                            // // Uppdaterar nickname
-                            string updateNickname = ConsoleInput.GetString("nickname: ");
-                            userservise.UpdateNickname(user, updateNickname);
+                            userOperator.UpdateNickName(user);
                             break;
                         case "4":
-                            // //användaren skriver in sin beskrivning
-                            string updateDescription = ConsoleInput.GetString("Text: ");
-                            userservise.UpDateDescription(user, updateDescription);
+                            userOperator.UpdateDescription(user);
                             break;
                     }
                     break;

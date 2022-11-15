@@ -60,11 +60,11 @@ class UserOperator
         }
         return loggedInAsUser;
     }
-    
+
 
     public void DeleteUser(User user)
     {
-        
+
         try
         {
             _userService.DeleteTheUser(user);
@@ -77,5 +77,36 @@ class UserOperator
 
     }
 
+    public void UpdateEmail(User user)
+    {
+        try
+        {
+            string updateEmail = ConsoleInput.GetString("Update email: ");
+            _userEditor.UpdateEmail(user, updateEmail);
+        }
+        catch (Exception)
+        {
+            Console.WriteLine("Something went wrong");
+        }
+    }
+
+    public void UpdateNickName(User user)
+    {
+        try
+        {
+            string updateNickname = ConsoleInput.GetString("nickname: ");
+            _userEditor.UpdateNickName(user, updateNickname);
+        }
+        catch (Exception)
+        {
+            Console.WriteLine("Something went wrong");
+        }
+    }
+
+    public void UpdateDescription(User user)
+    {
+        string updateDescription = ConsoleInput.GetString("Text: ");
+        _userEditor.UpDateDescription(user, updateDescription);
+    }
 
 }
