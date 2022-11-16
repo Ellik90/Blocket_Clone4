@@ -1,4 +1,5 @@
 using LOGIK;
+using TYPES;
 
 class advertiseoperator
 {
@@ -29,5 +30,16 @@ class advertiseoperator
     public void CheckAd(int advertiseID)
     {
         _advertiseService.CheckAd(advertiseID);
+    }
+    public List<Advertise> Showmyads(int id)
+    {
+        List<Advertise> userAds = _advertiseService.ShowMyads(id);
+
+        foreach (Advertise item in userAds)
+        {
+            System.Console.WriteLine(item.ToString());
+        }
+
+        return userAds;
     }
 }

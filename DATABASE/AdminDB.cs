@@ -1,6 +1,7 @@
 using Dapper;
 using MySqlConnector;
-namespace LOGIK;
+using TYPES;
+namespace DATABASE;
 public class AdminDB : IAdmin, IAdminEditor
 {
     //Admin granskaannons metod is_checked, är den granskad

@@ -1,4 +1,4 @@
-namespace LOGIK;
+namespace TYPES;
 public class Message
 {
     public int ID { get; set; }

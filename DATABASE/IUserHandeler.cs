@@ -1,4 +1,5 @@
-namespace LOGIK;
+using TYPES;
+namespace DATABASE;
 public interface IUserHandeler
 {
     public int NicknameExists(string nickname);

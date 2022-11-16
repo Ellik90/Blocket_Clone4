@@ -1,4 +1,4 @@
-namespace LOGIK;
+namespace TYPES;
 public class Admin 
 {
 

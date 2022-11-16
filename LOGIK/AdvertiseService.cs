@@ -1,3 +1,5 @@
+using TYPES;
+using DATABASE;
 namespace LOGIK;
 public class AdvertiseService : IAdvertiseService
 {
@@ -58,6 +60,13 @@ public class AdvertiseService : IAdvertiseService
     public void CheckAd(int id)
     {
         _IadManager.CheckAds(id);
+    }
+      public List <Advertise> ShowMyads(int id)
+    {
+        List <Advertise> userAds = _IadManager.ShowMyads(id);
+
+        return userAds;
+        
     }
     // här finns funktioner som hanterar advertise, mellan användare och databasen
     //här in behövs ju då komma ett interface IAdManager adManager; behöver finnas tex via konstruktorn

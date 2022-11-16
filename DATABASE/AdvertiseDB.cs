@@ -1,6 +1,7 @@
 using Dapper;
 using MySqlConnector;
-namespace LOGIK;
+using TYPES;
+namespace DATABASE;
 public class AddvertiseDb : IAdHandler
 {
     //Klass för att hålla funktioner för annonserna
@@ -92,6 +93,20 @@ public class AddvertiseDb : IAdHandler
         }
      
     
+    }
+    public List <Advertise> ShowMyads(int id)
+    {
+        List <Advertise> userAds = ads;
+
+        using (MySqlConnection con = new MySqlConnection("Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
+        {
+
+            string query = "SELECT id, rubric,description,price,municipality,county, is_checked AS 'isChecked' FROM advertise WHERE user_id = @id;";
+
+            userAds = con.Query<Advertise>(query, new{@id = id}).ToList();
+
+        }
+        return userAds;
     }
     public void AdOverview(Advertise advertise)
     {

@@ -1,4 +1,5 @@
-namespace LOGIK;
+using TYPES;
+namespace DATABASE;
 public interface IConversationHandler
 {
     //public List<Message> GetAllMessagesOverlookTest(User user);

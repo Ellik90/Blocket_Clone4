@@ -1,4 +1,5 @@
-namespace LOGIK;
+using TYPES;
+namespace DATABASE;
 public interface IAdminEditor
 {
     public int UpdateAdminEmail(Admin admin, string adminEmail);

@@ -1,3 +1,5 @@
+using TYPES;
+using DATABASE;
 namespace LOGIK
 {
     public interface IAdvertiseService
@@ -7,5 +9,6 @@ namespace LOGIK
         public void RemoveOneAd(int id);
         public Advertise ShowOneAd(int id);
         public void CheckAd(int id);
+        public List <Advertise> ShowMyads(int id);
     }
 }
