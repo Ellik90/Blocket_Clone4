@@ -3,6 +3,7 @@ namespace DATABASE;
 public interface IAdHandler
 {
     //Interface för funktioner av annonser
+    // alla metoder i advertisedb ska vara skrivna här 
     public int CreateAd(Advertise advertise);
 
     public void RemoveAd(int id);
@@ -14,7 +15,6 @@ public interface IAdHandler
     public Advertise ShowAd(int id);
 
     public void CheckAds(int id);
-
     public List <Advertise> ShowMyads(int id);
   
 }

@@ -31,9 +31,9 @@ class advertiseoperator
     {
         _advertiseService.CheckAd(advertiseID);
     }
-    public List<Advertise> Showmyads()
+    public List<Advertise> Showmyads(int id)
     {
-        List<Advertise> userAds = new();
+        List<Advertise> userAds = _advertiseService.ShowMyads(id);
 
         foreach (Advertise item in userAds)
         {

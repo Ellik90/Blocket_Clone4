@@ -108,7 +108,7 @@ internal class Program
                     break;
                 case 2:
 
-                  advertiseoperator.Showmyads();
+                  advertiseoperator.Showmyads(user.Id);
 
                     // EN METOD BEHÖVS SOM HÄMTAR ANNONSER PÅ MITT ID GETMYADDS(INT USERID) OCH TILL ADVERTISESERVICE EN GETMYADDS OCH TILL 
                     // ADVERTISEOPERATOR LIST<ADVERTISE> SHOWMYADS() SOM GENOM FOREACH SKRIVER UT ALLA MINA ANNONSER

@@ -63,7 +63,7 @@ public class AdvertiseService : IAdvertiseService
     }
       public List <Advertise> ShowMyads(int id)
     {
-        List <Advertise> userAds = listOfAdvertise;
+        List <Advertise> userAds = _IadManager.ShowMyads(id);
 
         return userAds;
         
