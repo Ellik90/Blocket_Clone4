@@ -96,14 +96,14 @@ public class AddvertiseDb : IAdHandler
     }
     public List <Advertise> ShowMyads(int id)
     {
-        List <Advertise> userAds =  new();
-        
+        List <Advertise> userAds = ads;
+
         using (MySqlConnection con = new MySqlConnection("Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
 
             string query = "SELECT id, rubric,description,price,municipality,county, is_checked AS 'isChecked' FROM advertise WHERE user_id = @id;";
 
-            userAds = con.Query<Advertise>(query, new{@id = id}).ToList();
+            userAds = con.Query<Advertise>(query).ToList();
 
         }
         return userAds;
