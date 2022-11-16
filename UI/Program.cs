@@ -29,9 +29,11 @@ internal class Program
         UserOperator userOperator = new(logInService, user, userservise);
         AdminOperator adminOperator = new(logInService, adminService, userservise, admindb, identifier);
         MessageOperator messageOperator = new(messageService);
+   
 
         //admin = CreateAdmin(admin, adminDB, logInService, identifier);
         //adminService.MakeAdmin(admin);
+        // hejsan 
 
         //While loop hör ihop med swith för skapa och logga in funktioner
         while (loginPage)
