@@ -35,6 +35,7 @@ public class Identifier : IIdentifier
         SmtpClient smtpClient = new SmtpClient("smtp-mail.outlook.com");
         smtpClient.Port = 587;// port 587 för utgående epost 
         smtpClient.Host = "smtp-mail.outlook.com";
+        smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
         smtpClient.EnableSsl = true;
         smtpClient.Credentials = new System.Net.NetworkCredential("testing_sendpwd_123@outlook.com", "Testing123321");
         smtpClient.UseDefaultCredentials = false;
