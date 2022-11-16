@@ -95,6 +95,7 @@ internal class Program
             System.Console.WriteLine("[4] Mina Meddelanden");
             System.Console.WriteLine("[5] Redigera profil");
             LoggedInOptions = ConsoleInput.GetInt("Go to page");
+            
             switch (LoggedInOptions)
             {
                 case 1:
