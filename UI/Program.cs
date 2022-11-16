@@ -104,11 +104,14 @@ internal class Program
             switch (LoggedInOptions)
             {
                 case 1:
-                advertiseoperator.CreateAd(user);
+                    advertiseoperator.CreateAd(user);
                     break;
                 case 2:
-                // EN METOD BEHÖVS SOM HÄMTAR ANNONSER PÅ MITT ID GETMYADDS(INT USERID) OCH TILL ADVERTISESERVICE EN GETMYADDS OCH TILL 
-                // ADVERTISEOPERATOR LIST<ADVERTISE> SHOWMYADS() SOM GENOM FOREACH SKRIVER UT ALLA MINA ANNONSER
+
+                  advertiseoperator.Showmyads();
+
+                    // EN METOD BEHÖVS SOM HÄMTAR ANNONSER PÅ MITT ID GETMYADDS(INT USERID) OCH TILL ADVERTISESERVICE EN GETMYADDS OCH TILL 
+                    // ADVERTISEOPERATOR LIST<ADVERTISE> SHOWMYADS() SOM GENOM FOREACH SKRIVER UT ALLA MINA ANNONSER
                     break;
                 case 3:
                     advertiseService = new(new AddvertiseDb());
@@ -135,7 +138,7 @@ internal class Program
                             // HÄR GÖR OBJEKT AV KLASSEN MESSAGEOPERATION OCH ANROPAR WRITEMESSAGETOAD METODEN HÄR
                             messageOperator.WriteMessageToAd(adUserID, user);
                         }
-                        else if(choice == 3)
+                        else if (choice == 3)
                         {
                             LoggedInOptions = 1;
                         }
@@ -198,13 +201,13 @@ internal class Program
             }
         }
         while (loggedInAsAdmin)
-        { 
+        {
             admin = adminService.GetTheAdmin(admin); //
             adminOptions = ConsoleInput.GetInt("[1] Add new admin-account   [2] Check advertises   [3] User-handeler   [4] Advertise-handeler [5] Update email");
             switch (adminOptions)
             {
                 case 1:
-                admin = adminOperator.CreateAdmin(admindb);
+                    admin = adminOperator.CreateAdmin(admindb);
 
                     break;
 
@@ -224,7 +227,7 @@ internal class Program
                 case 4:
 
                     break;
-                    case 5:
+                case 5:
                     adminOperator.UpdateEmail(admin);
                     break;
             }
