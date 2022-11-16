@@ -10,7 +10,7 @@ public class AdminDB : IAdmin, IAdminEditor
         int rows = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
-            string query = "INSERT INTO admins(social_security_number,admin_name,email,pass_word) VALUES (@SocialSecurityNumber,@Name,@email,@PassWord);";
+            string query = "INSERT INTO admins(social_security_number,admin_name,email,pass_word)VALUES(@SocialSecurityNumber,@Name,@email,@PassWord);";
             rows = connection.ExecuteScalar<int>(query, param: admin);
         }
         return rows;
