@@ -1,6 +1,7 @@
 using Dapper;
 using MySqlConnector;
-namespace LOGIK;
+using TYPES;
+namespace DATABASE;
 public class UserDB : IUserHandeler, IUserEditor
 {
     public List<User> GetUser()

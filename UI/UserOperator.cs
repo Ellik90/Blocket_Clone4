@@ -1,4 +1,6 @@
-namespace LOGIK;
+using LOGIK;
+using TYPES;
+using DATABASE;
 class UserOperator
 {
     IUserEditor _userEditor;

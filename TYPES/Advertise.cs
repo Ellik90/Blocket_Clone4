@@ -1,3 +1,4 @@
+namespace TYPES;
 public class Advertise
 {
     //Publik klass för att skapa annonser

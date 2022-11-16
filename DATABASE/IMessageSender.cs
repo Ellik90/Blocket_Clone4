@@ -1,4 +1,5 @@
-namespace LOGIK;
+using TYPES;
+namespace DATABASE;
 public interface IMessageSender
 {
     public int CreateMessage(Message message);

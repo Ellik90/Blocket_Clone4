@@ -1,3 +1,4 @@
+using TYPES;
 namespace LOGIK;
 public interface IMessageService
 {
