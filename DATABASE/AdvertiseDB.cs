@@ -103,7 +103,7 @@ public class AddvertiseDb : IAdHandler
 
             string query = "SELECT id, rubric,description,price,municipality,county, is_checked AS 'isChecked' FROM advertise WHERE user_id = @id;";
 
-            userAds = con.Query<Advertise>(query).ToList();
+            userAds = con.Query<Advertise>(query, new{@id = id}).ToList();
 
         }
         return userAds;
