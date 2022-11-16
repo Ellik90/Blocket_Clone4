@@ -30,4 +30,15 @@ class advertiseoperator
     {
         _advertiseService.CheckAd(advertiseID);
     }
+    public List<Advertise> Showmyads()
+    {
+        List<Advertise> userAds = new();
+
+        foreach (Advertise item in userAds)
+        {
+            System.Console.WriteLine("Mina annonser" + userAds);
+        }
+
+        return userAds;
+    }
 }
