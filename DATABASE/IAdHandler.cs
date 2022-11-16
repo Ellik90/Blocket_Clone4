@@ -1,4 +1,5 @@
-namespace LOGIK;
+using TYPES;
+namespace DATABASE;
 public interface IAdHandler
 {
     //Interface för funktioner av annonser

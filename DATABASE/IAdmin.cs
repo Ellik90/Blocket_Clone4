@@ -1,4 +1,5 @@
-namespace LOGIK;
+using TYPES;
+namespace DATABASE;
 public interface IAdmin
 {
     public int CreateAdmin(Admin admin);

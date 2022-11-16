@@ -1,6 +1,7 @@
 using Dapper;
 using MySqlConnector;
-namespace LOGIK;
+using TYPES;
+namespace DATABASE;
 public class AddvertiseDb : IAdHandler
 {
     //Klass för att hålla funktioner för annonserna

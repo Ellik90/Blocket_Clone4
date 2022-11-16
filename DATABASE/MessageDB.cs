@@ -1,5 +1,6 @@
 using Dapper;
 using MySqlConnector;
+using TYPES;
 namespace DATABASE;
 // message borde ha from_user_id, så sender alltid är med i meddelandet som skapas direkt.
 // conversation table borde finnas med
