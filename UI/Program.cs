@@ -1,4 +1,5 @@
 ﻿using LOGIK;
+
 internal class Program
 {
     private static void Main(string[] args)
@@ -28,9 +29,11 @@ internal class Program
         UserOperator userOperator = new(logInService, user, userservise);
         AdminOperator adminOperator = new(logInService, adminService, userservise, admindb, identifier);
         MessageOperator messageOperator = new(messageService);
+   
 
         //admin = CreateAdmin(admin, adminDB, logInService, identifier);
         //adminService.MakeAdmin(admin);
+        // hejsan 
 
         //While loop hör ihop med swith för skapa och logga in funktioner
         while (loginPage)
@@ -95,6 +98,7 @@ internal class Program
             System.Console.WriteLine("[4] Mina Meddelanden");
             System.Console.WriteLine("[5] Redigera profil");
             LoggedInOptions = ConsoleInput.GetInt("Go to page");
+            
             switch (LoggedInOptions)
             {
                 case 1:

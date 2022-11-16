@@ -32,12 +32,13 @@ public class Identifier : IIdentifier
     }
     public SmtpClient SetUpSmtpClient()
     {
+        //PORT 587 BLOCKED I BORAS STAD INTERNET? KOLLA OM ANVÄNDA ANNAN PORT??
         SmtpClient smtpClient = new SmtpClient("smtp-mail.outlook.com");
         smtpClient.Port = 587;// port 587 för utgående epost 
         smtpClient.Host = "smtp-mail.outlook.com";
+        smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
         smtpClient.EnableSsl = true;
         smtpClient.Credentials = new System.Net.NetworkCredential("testing_sendpwd_123@outlook.com", "Testing123321");
-        smtpClient.UseDefaultCredentials = false;
         return SmtpClient = smtpClient;
     }
     public int SendCodeViaEmail(string mail)

@@ -13,6 +13,7 @@ public class ConsoleInput
     }
     public static int GetInt(string output)
     {
+        // default paramterer try = 0
         int inputInt = 0;
         while (true)
         {
