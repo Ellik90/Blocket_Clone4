@@ -26,10 +26,6 @@ public class UserService : IuserService
         {
             getUser = auser;
         }
-        // else
-        // {
-        //     Console.WriteLine("something went wrong");
-        // }    
        }
        return getUser;    
                
