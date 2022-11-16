@@ -17,12 +17,12 @@ public class AdminService : IAdminService
         _adHandeler = adHandler;
         _adminEditor = adminEditor;
     }
-    
-      public bool UpdateEmail(Admin admin, string adminEmail)
+
+    public bool UpdateEmail(Admin admin, string adminEmail)
     {
         int rows = 0;
-        _adminEditor.UpdateAdminEmail(admin, adminEmail );
-          if (rows > 0)
+        _adminEditor.UpdateAdminEmail(admin, adminEmail);
+        if (rows > 0)
         {
             return true;
         }
@@ -31,24 +31,18 @@ public class AdminService : IAdminService
             return false;
         }
     }
-     public Admin GetTheAdmin(Admin admin)
+    public Admin GetTheAdmin(Admin admin)
     {
-       List<Admin> admins = _admin.GetAdmins(admin);
+        List<Admin> admins = _admin.GetAdmins(admin);
 
-       foreach(Admin item in admins)
-       {
-        if(item.Id == admin.Id)
+        foreach (Admin item in admins)
         {
-            return item;
+            if (item.Id == admin.Id)
+            {
+                return item;
+            }
         }
-        else
-        {
-            // HÄR STÅR DET FÖR VARJE PERSON SOM INTE MATCHAR! TA BORT DETTA? :) SAMT I USERSERVICE?
-            Console.WriteLine("something went wrong");
-        }        
-       }
-       return admin;
-               
+        return admin;
     }
 
     public bool MakeAdmin(Admin admin)
@@ -68,7 +62,7 @@ public class AdminService : IAdminService
     {
         int rows = 0;
         _admin.DeleteAdmin(admin);
-        if(rows > 0)
+        if (rows > 0)
         {
             return true;
         }
@@ -78,7 +72,7 @@ public class AdminService : IAdminService
         }
     }
 
-        public bool CheckAdminNameExists(string name)
+    public bool CheckAdminNameExists(string name)
     {
         int rows = 0;
         _admin.AdminNameExists(name); //name admin
@@ -91,7 +85,7 @@ public class AdminService : IAdminService
             return false;
         }
     }
-      public bool CheckAdminEmailExists(string Email)
+    public bool CheckAdminEmailExists(string Email)
     {
         int rows = 0;
         _admin.AdminEmailExists(Email);
@@ -107,11 +101,11 @@ public class AdminService : IAdminService
 
     public List<Advertise> GetNonCheckAds()
     {
-        List<Advertise>allAdvertises = _adHandeler.ShowAllAds();
-        List<Advertise>nonCheckedAds = new();
-        foreach(Advertise item in allAdvertises)
+        List<Advertise> allAdvertises = _adHandeler.ShowAllAds();
+        List<Advertise> nonCheckedAds = new();
+        foreach (Advertise item in allAdvertises)
         {
-            if(item.isChecked == false)
+            if (item.isChecked == false)
             {
                 nonCheckedAds.Add(item);
             }

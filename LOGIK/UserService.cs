@@ -26,10 +26,10 @@ public class UserService : IuserService
         {
             getUser = auser;
         }
-        else
-        {
-            Console.WriteLine("something went wrong");
-        }    
+        // else
+        // {
+        //     Console.WriteLine("something went wrong");
+        // }    
        }
        return getUser;    
                
@@ -146,34 +146,5 @@ public class UserService : IuserService
             return false;
         }
     }
-
-
-
-  
-
-    
-
-    // public int UserEmailExists(string email)
-    // {
-    //     throw new NotImplementedException();
-    // }
-
-    // public int DeleteUser(User user)
-    // {
-    //     throw new NotImplementedException();
-    // }
-
-    // public int GetUserIdFromAdvertise(int advertiseId)
-    // {
-    //     throw new NotImplementedException();
-    // }
-
-    // public List<User> GetUser()
-    // {
-    //     throw new NotImplementedException();
-    // }
-
    
-
-  
 }

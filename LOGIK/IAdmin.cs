@@ -6,6 +6,6 @@ public interface IAdmin
     public List<Admin> GetAdmins(Admin admin );
      public int AdminLogInExists(Admin admin);
      
-     public int AdminNameExists(string name);
+     public int AdminNameExists(string name); //fungerar dessa två?
      public int AdminEmailExists(string Email);
 }

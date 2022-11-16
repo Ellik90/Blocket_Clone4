@@ -4,7 +4,7 @@ namespace LOGIK;
 public class AdminDB : IAdmin, IAdminEditor
 {
     //Admin granskaannons metod is_checked, är den granskad
-    //Admin uppdatera namn metod
+    
     public int CreateAdmin(Admin admin)
     {
         int rows = 0;
