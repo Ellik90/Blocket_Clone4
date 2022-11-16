@@ -96,13 +96,13 @@ public class AddvertiseDb : IAdHandler
     public List <Advertise> ShowMyads(int id)
     {
         List <Advertise> userAds = ads;
-        
+
         using (MySqlConnection con = new MySqlConnection("Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
 
             string query = "SELECT advertise FROM users WHERE id = @id;";
 
-            int rows = con.ExecuteScalar<int>(query, new{@id = id});
+            userAds = con.Query<Advertise>(query).ToList();
 
         }
         return userAds;
