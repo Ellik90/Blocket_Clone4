@@ -98,6 +98,7 @@ public class UserDB : IUserHandeler, IUserEditor
 
     public int UpdateNickName(User user, string nickName)
     {
+        // git add .\LOGIK\UserDB.cs 
         int rows = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
