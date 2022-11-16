@@ -37,7 +37,7 @@ class advertiseoperator
 
         foreach (Advertise item in userAds)
         {
-            System.Console.WriteLine("Mina annonser" + userAds);
+            System.Console.WriteLine(item.ToString);
         }
 
         return userAds;
