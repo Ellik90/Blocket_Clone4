@@ -103,7 +103,7 @@ public class AddvertiseDb : IAdHandler
 
             string query = "SELECT advertise FROM users WHERE id = @id;";
 
-            userAds = con.Query<Advertise>(query).ToList();
+            userAds = con.Query<Advertise>(query, new{@id = id}).ToList();
 
         }
         return userAds;
