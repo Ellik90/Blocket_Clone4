@@ -92,6 +92,16 @@ public class MessageService : IMessageService
     }
     public List<Message> GetMessagesFromAdmin(User user)
     {
-        return _conversationHandler.GetMessagesFromAdmin(user);
+        List<Message> getMessages = _conversationHandler.GetMessagesFromAdmin(user);
+        List<Message> messagesNotOld = new();
+        foreach(Message item in messagesNotOld)
+        {
+            if(DateTime.Now.AddDays(7) < item.DateSent)
+            {
+                messagesNotOld.Add(item);
+            }
+        }
+        return messagesNotOld;
+
     }
 }

@@ -143,7 +143,7 @@ internal class Program
                     break;
                 case 4:
                     messageOperator.ShowAllMessages(user);
-                    Console.WriteLine("Messages from Admin: ");
+                    Console.WriteLine("Messages from Admin (will be shown here for 7 days): ");
                     Console.WriteLine("----------------------");
                     messageOperator.ShowMessagesFromAdmin(user);
                     int messageId = ConsoleInput.GetInt("Enter message to read: ");
