@@ -72,17 +72,16 @@ class UserOperator
 
     }
 
-    public void UpdateEmail(UserDB userDB)
+    public void UpdateEmail(User user)
     {
-        User user = new(); 
         try
         {
             string updateEmail = ConsoleInput.GetString("Update email: ");
             _userEditor.UpdateEmail(user, updateEmail);
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            Console.WriteLine(e.Message);
+            Console.WriteLine("Something went wrong");
         }
     }
 

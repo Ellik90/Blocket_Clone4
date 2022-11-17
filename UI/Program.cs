@@ -189,7 +189,7 @@ internal class Program
                             }
                             break;
                         case "2":
-                            userOperator.UpdateEmail(userdb);
+                            userOperator.UpdateEmail(user);
                             break;
                         case "3":
                             userOperator.UpdateNickName(user);
