@@ -11,7 +11,7 @@ internal class Program
         bool loggedInAsUser = false;
         int LoggedInOptions = 0;
         bool loginPage = true;
-        bool loggedInAsAdmin = true;
+        bool loggedInAsAdmin = false;
         int adminOptions = 0;
 
         User user = new();
@@ -143,6 +143,9 @@ internal class Program
                     break;
                 case 4:
                     messageOperator.ShowAllMessages(user);
+                    Console.WriteLine("Messages from Admin: ");
+                    Console.WriteLine("----------------------");
+                    messageOperator.ShowMessagesFromAdmin(user);
                     int messageId = ConsoleInput.GetInt("Enter message to read: ");
                     // hämta det meddealndet via detta id!   så stoppar vi in touser och from user här under
                     int participantId = messageOperator.GetSender(messageId);
@@ -212,7 +215,14 @@ internal class Program
                     advertiseoperator.CheckAd(advertiseID);
                     break;
                 case 3:
-                    
+                    messageOperator.ShowUsersUnreadMessages(admin);
+                    int choice = ConsoleInput.GetInt("[1] Reply   [2] Return");
+                    if(choice == 1)
+                    {
+                        int messageId = ConsoleInput.GetInt("Message ID to reply: ");
+                        int userId = messageOperator.AdminGetSender(messageId);
+                        messageOperator.AdminMakeMessage(admin, userId, messageId);
+                    }
                     // För vidare utveckling
                     break;
                 case 4:
