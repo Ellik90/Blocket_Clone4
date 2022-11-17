@@ -11,7 +11,7 @@ internal class Program
         bool loggedInAsUser = false;
         int LoggedInOptions = 0;
         bool loginPage = true;
-        bool loggedInAsAdmin = true;
+        bool loggedInAsAdmin = false;
         int adminOptions = 0;
 
         User user = new();
@@ -212,7 +212,14 @@ internal class Program
                     advertiseoperator.CheckAd(advertiseID);
                     break;
                 case 3:
-                    
+                    messageOperator.ShowUsersUnreadMessages(admin);
+                    int choice = ConsoleInput.GetInt("[1] Reply   [2] Return");
+                    if(choice == 1)
+                    {
+                        int messageId = ConsoleInput.GetInt("Message ID to reply: ");
+                        int userId = messageOperator.GetSender(messageId);
+                        messageOperator.AdminMakeMessage(admin, userId);
+                    }
                     // För vidare utveckling
                     break;
                 case 4:

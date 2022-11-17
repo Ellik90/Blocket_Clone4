@@ -133,7 +133,7 @@ public class MessageDB : IMessageSender, IConversationHandler
         return adminIds;
     }
 
-    public int SendMessageToAdmin(int userId, Message message, List<int> adminIds)
+    public int SendMessageUserAdmin(int userId, Message message, List<int> adminIds)
     {
         int usermessageId = 0;
         foreach (int item in adminIds)
@@ -149,14 +149,34 @@ public class MessageDB : IMessageSender, IConversationHandler
     public List<Message> GetUsersMessages(Admin admin)
     {
         List<Message> usersMessages = new();
-         using (MySqlConnection connection = new MySqlConnection("Server=localhost;Database=blocket_clone;Uid=root;Pwd=;"))
-            {
-                string query = "SELECT user_id, date, rubric, content, name as 'namefromuser' FROM admin_messages " +
-                "INNER JOIN message ON admin_message.message_id = message.id "+
-                "INNER JOIN users ON admin_message.user_id = users.id WHERE is_read = false;";
-                usersMessages = connection.Query<Message>(query).ToList();
-            }
-            return usersMessages;
+        using (MySqlConnection connection = new MySqlConnection("Server=localhost;Database=blocket_clone;Uid=root;Pwd=;"))
+        {
+            string query = "SELECT message_id as 'id', user_id, date_sent as 'date', rubric, content, nick_name as 'namefromuser' FROM admin_message " +
+            "INNER JOIN message ON admin_message.message_id = message.id " +
+            "INNER JOIN users ON admin_message.user_id = users.id WHERE isreplied = false;";
+            usersMessages = connection.Query<Message>(query).ToList();
+        }
+        return usersMessages;
+    }
+
+    public void UpdateMessageIsReplied(int messageId, Admin admin)
+    {
+        using (MySqlConnection connection = new MySqlConnection("Server=localhost;Database=blocket_clone;Uid=root;Pwd=;"))
+        {
+            string query = "UPDATE admin_message SET isreplied = true WHERE message_id = @messageid;";
+            int rows = connection.ExecuteScalar<int>(query, new { @messageid = messageId });
+        }
+    }
+
+    public int SendMessageFromAdmin(int userId, int adminId, int messageId)
+    {
+        int newMessageId = 0;
+        using (MySqlConnection connection = new MySqlConnection("Server=localhost;Database=blocket_clone;Uid=root;Pwd=;"))
+        {
+            string query = "INSERT INTO admin_message (user_id, admin_id, message_id) VALUES(@userId, @adminId, @messageId); SELECT LAST_INSERT_ID();";
+            messageId = connection.ExecuteScalar<int>(query, new { @userId = userId, @adminId = adminId, @messageId = messageId });
+        }
+        return newMessageId;
     }
 
 

@@ -102,13 +102,33 @@ class MessageOperator
             Console.WriteLine(e.Message);
         }
     }
+    public void AdminMakeMessage(Admin admin, int userId)
+    {
+        string rubric = ConsoleInput.GetString("Rubric: ");
+        string content = ConsoleInput.GetString("Content: ");
+        int idToUser = 0;
+        try
+        {
+            Message newMessage = new(rubric, content, userId, idToUser);
+            _messageService.MessageAdminToUser(admin, newMessage, userId);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+    }
 
     public void ShowUsersUnreadMessages(Admin admin)
     {
-        List<Message>messages = _messageService.GetUsersMessages(admin);
-        foreach(Message item in messages)
+        List<Message> messages = _messageService.GetUsersMessages(admin);
+        foreach (Message item in messages)
         {
             Console.WriteLine(item.AdminMessageString());
         }
+    }
+
+    public void AdminReplyToMessage(Admin admin, Message message, int messageId)
+    {
+        _messageService.MessageAdminToUser(admin, message, messageId);
     }
 }

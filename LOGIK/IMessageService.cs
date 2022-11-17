@@ -10,6 +10,7 @@ public interface IMessageService
     public int GetSender(int messageId);
     public bool MessageToAdmin(User user, Message message);
     public List<Message> GetUsersMessages(Admin admin);
+    public void MessageAdminToUser(Admin admin, Message message, int senderId);
     
     
 }
