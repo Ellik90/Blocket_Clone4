@@ -23,7 +23,7 @@ public class MessageService : IMessageService
         int rows = _messageSender.AddConversationThread(user.Id, usermessageId);
         int toUserId = message.IDToUser;
         int converstaionRows = _messageSender.AddConversationThread(toUserId, usermessageId);
-        if(newMessageId > 0 && usermessageId > 0 && rows > 0 && converstaionRows > 0)
+        if (newMessageId > 0 && usermessageId > 0 && rows > 0 && converstaionRows > 0)
         {
             return true;
         }
@@ -59,4 +59,24 @@ public class MessageService : IMessageService
         return _messageSender.GetSenderId(messageId);
     }
 
+    public bool MessageToAdmin(User user, Message message)
+    {
+        int newMessageId = _messageSender.CreateMessage(message);
+        message.ID = newMessageId;
+        allMessages.Add(message);
+        List<int>adminIds = _messageSender.GetAdminId();
+        int rows = _messageSender.SendMessageToAdmin(user.Id, message, adminIds);
+        if(rows > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    public List<Message> GetUsersMessages(Admin admin)
+    {
+        return _conversationHandler.GetUsersMessages(admin);
+    }
 }

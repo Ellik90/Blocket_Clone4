@@ -87,7 +87,8 @@ internal class Program
             System.Console.WriteLine("[3] Search For Ads");
             System.Console.WriteLine("[4] My Messages");
             System.Console.WriteLine("[5] Edit profile");
-            System.Console.WriteLine("[6] Log Out");
+            System.Console.WriteLine("[6] Contact us");
+            System.Console.WriteLine("[7] Log Out");
             LoggedInOptions = ConsoleInput.GetInt("Go to page: ");
 
             switch (LoggedInOptions)
@@ -182,6 +183,18 @@ internal class Program
                             break;
                     }
                     break;
+                    case 6:
+                    choice = ConsoleInput.GetInt("[1] Write Message to Admin  [2] Return");
+                    if(choice == 1)
+                    {
+                        messageOperator.WriteMessageToAdmin(user);
+                        Console.WriteLine("You will recieve a reply in your inbox here at blocket-scam.");
+                    }
+                    break;
+                    case 7:
+                    loginPage = true;
+                    loggedInAsUser = false;
+                    break;
             }
         }
         while (loggedInAsAdmin)
@@ -199,6 +212,7 @@ internal class Program
                     advertiseoperator.CheckAd(advertiseID);
                     break;
                 case 3:
+                    
                     // För vidare utveckling
                     break;
                 case 4:
