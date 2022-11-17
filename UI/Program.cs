@@ -31,7 +31,7 @@ internal class Program
         UserOperator userOperator = new(logInService, user, userservise, new Validator());
         AdminOperator adminOperator = new(logInService, adminService, userservise, admindb, new Validator());
         MessageOperator messageOperator = new(messageService);
-   
+
 
         //admin = CreateAdmin(admin, adminDB, logInService, identifier);
         //adminService.MakeAdmin(admin);
@@ -94,15 +94,22 @@ internal class Program
             System.Console.WriteLine("[4] Mina Meddelanden");
             System.Console.WriteLine("[5] Redigera profil");
             LoggedInOptions = ConsoleInput.GetInt("Go to page");
-            
+
             switch (LoggedInOptions)
             {
                 case 1:
                     advertiseoperator.CreateAd(user);
+
                     break;
                 case 2:
+                    System.Console.WriteLine("Aktiva annonser");
 
-                  advertiseoperator.Showmyads(user.Id);
+                    advertiseoperator.Showmyads(user.Id);
+
+                    System.Console.WriteLine("Radera annons");
+
+                    advertiseService.RemoveOneAd(user.Id);
+
 
                     // EN METOD BEHÖVS SOM HÄMTAR ANNONSER PÅ MITT ID GETMYADDS(INT USERID) OCH TILL ADVERTISESERVICE EN GETMYADDS OCH TILL 
                     // ADVERTISEOPERATOR LIST<ADVERTISE> SHOWMYADS() SOM GENOM FOREACH SKRIVER UT ALLA MINA ANNONSER
@@ -128,10 +135,10 @@ internal class Program
                         {
                             int advertiseID = ConsoleInput.GetInt("Advertise Number: ");
                             int adUserID = userdb.GetUserIdFromAdvertise(advertiseID);
-                        //     UserMakesMessage(toUserId, user, messageService); GAMLA STATISKA METODEN, TA BORT NÄR DEN NEDAN ÄR TESTAD
-                        //     HÄR GÖR OBJEKT AV KLASSEN MESSAGEOPERATION OCH ANROPAR WRITEMESSAGETOAD METODEN HÄR
-                        //    cd ui
-                         messageOperator.WriteMessageToAd(adUserID, user);
+                            //     UserMakesMessage(toUserId, user, messageService); GAMLA STATISKA METODEN, TA BORT NÄR DEN NEDAN ÄR TESTAD
+                            //     HÄR GÖR OBJEKT AV KLASSEN MESSAGEOPERATION OCH ANROPAR WRITEMESSAGETOAD METODEN HÄR
+                            //    cd ui
+                            messageOperator.WriteMessageToAd(adUserID, user);
                         }
                         else if (choice == 3)
                         {
