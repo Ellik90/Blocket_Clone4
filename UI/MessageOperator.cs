@@ -148,12 +148,8 @@ class MessageOperator
         List<Message> messages = _messageService.GetMessagesFromAdmin(user);
         foreach (Message item in messages)
         {
-            Console.WriteLine(item.ConversationToString());
+            Console.WriteLine(item.AdminMessageString());
         }
     }
 
-    // public void AdminReplyToMessage(Admin admin, Message message, int messageId)
-    // {
-    //     _messageService.MessageAdminToUser(admin, message, messageId);
-    // }
 }

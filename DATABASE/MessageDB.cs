@@ -168,7 +168,6 @@ public class MessageDB : IMessageSender, IConversationHandler
         }
         return usersMessages;
     }
-
     public void UpdateMessageIsReplied(int messageId)
     {
         using (MySqlConnection connection = new MySqlConnection("Server=localhost;Database=blocket_clone;Uid=root;Pwd=;"))
@@ -177,7 +176,6 @@ public class MessageDB : IMessageSender, IConversationHandler
             int rows = connection.ExecuteScalar<int>(query, new { @messageid = messageId });
         }
     }
-
     public List<Message> GetMessagesFromAdmin(User user)
     {
         List<Message> adminMessages = new();
@@ -185,7 +183,7 @@ public class MessageDB : IMessageSender, IConversationHandler
         {
             string query = "SELECT message_id as 'id', date_sent as 'date', rubric, content, nick_name as 'namefromuser' FROM admin_message " +
             "INNER JOIN message ON admin_message.message_id = message.id " +
-            "INNER JOIN users ON admin_message.user_id = users.id WHERE user_id = @id;";
+            "INNER JOIN users ON admin_message.user_id = users.id WHERE user_id = @id ORDER BY ID DESC LIMIT 1;";
             adminMessages = connection.Query<Message>(query,param: user).ToList();
         }
         return adminMessages;
