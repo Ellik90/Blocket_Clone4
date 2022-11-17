@@ -32,7 +32,6 @@ public class AddvertiseDb : IAdHandler
 
     public void RemoveAd(int id)
     {
-
         int rowsEffected = 0;
 
         using (MySqlConnection con = new MySqlConnection("Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
@@ -45,13 +44,7 @@ public class AddvertiseDb : IAdHandler
         {
             Console.WriteLine("Advertise removed");
         }
-        else
-        {
-            Console.WriteLine("Something went wrong.");
-        }
-
     }
-
     public List<Advertise> ShowAllAds()
 
     {

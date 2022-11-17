@@ -1,7 +1,7 @@
 using TYPES;
 using DATABASE;
 namespace LOGIK;
-public interface IuserService
+public interface IUserService
 {
     public User GetTheUser(User user);
     public bool GetUserIdToAD(int advertiseId);

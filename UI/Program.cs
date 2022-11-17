@@ -6,7 +6,6 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        bool start = true;
         int loginOption = 0;
         string answer = string.Empty;
         bool loggedInAsUser = false;
@@ -19,7 +18,6 @@ internal class Program
         Admin admin = new();
         UserDB userdb = new();
         AdminDB admindb = new();
-        // Identifier identifier = new();
         LogInService logInService = new(userdb, admindb, new Validator(), new EmailSender());
         UserService userservise = new(userdb, userdb);
         AddvertiseDb addvertiseDb = new();
@@ -28,14 +26,9 @@ internal class Program
         MessageDB messageDB = new();
         MessageService messageService = new(messageDB, messageDB);
         AdminService adminService = new(userdb, userdb, admindb, admindb, addvertiseDb);
-        UserOperator userOperator = new(logInService, user, userservise, new Validator());
+        UserOperator userOperator = new(logInService, userservise, new Validator());
         AdminOperator adminOperator = new(logInService, adminService, userservise, admindb, new Validator());
         MessageOperator messageOperator = new(messageService);
-
-
-        //admin = CreateAdmin(admin, adminDB, logInService, identifier);
-        //adminService.MakeAdmin(admin);
-        // hejsan 
 
         //While loop hör ihop med swith för skapa och logga in funktioner
         while (loginPage)
@@ -86,24 +79,38 @@ internal class Program
         while (loggedInAsUser)
         {
             user = userOperator.GetUser(user);
-            System.Console.WriteLine(user.Name.ToUpper() + " Konto");
+            System.Console.WriteLine(user.Name.ToUpper() + "'s Account");
             System.Console.WriteLine("-------------------------------");
-            System.Console.WriteLine("[1] Skapa annons ");
-            System.Console.WriteLine("[2] Visa mina annonser");
-            System.Console.WriteLine("[3] Sök annons");
-            System.Console.WriteLine("[4] Mina Meddelanden");
-            System.Console.WriteLine("[5] Redigera profil");
-            LoggedInOptions = ConsoleInput.GetInt("Go to page");
-
+            System.Console.WriteLine("[1] Create Ad ");
+            System.Console.WriteLine("[2] Show My Ads");
+            System.Console.WriteLine("[3] Search For Ads");
+            System.Console.WriteLine("[4] My Messages");
+            System.Console.WriteLine("[5] Edit profile");
+            System.Console.WriteLine("[6] Log Out");
+            LoggedInOptions = ConsoleInput.GetInt("Go to page: ");
+            
             switch (LoggedInOptions)
             {
                 case 1:
                     advertiseoperator.CreateAd(user);
+
                     break;
                 case 2:
+                    System.Console.WriteLine("Active ads: ");
 
                     advertiseoperator.Showmyads(user.Id);
 
+                    int choices = ConsoleInput.GetInt("[1] Delete ad   [2] Return");
+                    int advertiseID = 0;
+                    if(choices == 1)
+                    {
+                        advertiseID = ConsoleInput.GetInt("Ad to delete: ");
+                        advertiseService.RemoveOneAd(advertiseID);
+                    }
+                    else
+                    {
+                        break;
+                    }
                     // EN METOD BEHÖVS SOM HÄMTAR ANNONSER PÅ MITT ID GETMYADDS(INT USERID) OCH TILL ADVERTISESERVICE EN GETMYADDS OCH TILL 
                     // ADVERTISEOPERATOR LIST<ADVERTISE> SHOWMYADS() SOM GENOM FOREACH SKRIVER UT ALLA MINA ANNONSER
                     break;
@@ -122,11 +129,11 @@ internal class Program
                     {
                         if (choice == 1)
                         {
-                            LoggedInOptions = 3;
+                            LoggedInOptions = 3; // funkar ej?
                         }
                         else if (choice == 2)
                         {
-                            int advertiseID = ConsoleInput.GetInt("Advertise Number: ");
+                            advertiseID = ConsoleInput.GetInt("Advertise Number: ");
                             int adUserID = userdb.GetUserIdFromAdvertise(advertiseID);
                             //     UserMakesMessage(toUserId, user, messageService); GAMLA STATISKA METODEN, TA BORT NÄR DEN NEDAN ÄR TESTAD
                             //     HÄR GÖR OBJEKT AV KLASSEN MESSAGEOPERATION OCH ANROPAR WRITEMESSAGETOAD METODEN HÄR
@@ -140,13 +147,8 @@ internal class Program
                     }
                     break;
                 case 4:
-
-                    // VISA ALLA MEDDELANDEN 
-                    // =======================================
                     messageOperator.ShowAllMessages(user);
 
-                    //VÄLJ MEDDELANDE ATT LÄSA  
-                    // =========================================
                     int messageId = ConsoleInput.GetInt("Enter message to read: ");
                     // hämta det meddealndet via detta id!   så stoppar vi in touser och from user här under
                     int participantId = messageOperator.GetSender(messageId);
@@ -206,7 +208,6 @@ internal class Program
             {
                 case 1:
                     admin = adminOperator.CreateAdmin(admindb);
-
                     break;
 
                 case 2:

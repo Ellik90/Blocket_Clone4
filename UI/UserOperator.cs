@@ -4,14 +4,14 @@ using DATABASE;
 class UserOperator
 {
     IUserEditor _userEditor;
-    IuserService _userService;
-    User _user;
+    IUserService _userService;
+    
     ILogInService _loginService;
     IValidator _validator;
-    public UserOperator(ILogInService logInService, User user, UserService userService, IValidator validator)
+    public UserOperator(ILogInService logInService,IUserService userService, IValidator validator)
     {
         _loginService = logInService;
-        _user = user;
+        
         _userService = userService;
         _validator = validator;
     }
@@ -22,20 +22,20 @@ class UserOperator
         if (userdb.UserEmailExists(user.Email) > 0)
         {
             Console.WriteLine("Email allready exists");
-            Environment.Exit(0);
+            
         }
         //<-här har user med sig email, lösenord|elina tar över user och gör resten
         user.Name = ConsoleInput.GetString("name: ");
         if (userdb.NicknameExists(user.Name) > 0)
         {
             Console.WriteLine("Nickname allready exists");
-            Environment.Exit(0);
+            
         }
         user.SocialSecurityNumber = ConsoleInput.GetString("social security number: ");
         if (_validator.ValidateSocialSecurityNumber(user.SocialSecurityNumber) == false)
         {
             Console.WriteLine("Social security number incorrect");
-            Environment.Exit(0);
+            
         }
         user.Adress = ConsoleInput.GetString("adress: "); //FÖR USER HAR EMAIL HÄR // och password
         user = _loginService.MakeNewLogIn(user);
@@ -95,7 +95,7 @@ class UserOperator
             Console.WriteLine("Something went wrong");
         }
     }
-    
+
     public void UpdatePasswordUser(User user)
     {
         try

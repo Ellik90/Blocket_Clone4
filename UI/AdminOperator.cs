@@ -5,13 +5,13 @@ using DATABASE;
 public class AdminOperator
 {
     IAdminEditor _adminEditor;
-    IuserService _userService;
+    IUserService _userService;
     IAdminService _adminService;
     Admin _admin;
     ILogInService _loginService;
     IValidator _validator;
 
-    public AdminOperator(ILogInService logInService, IAdminService adminService, IuserService userService, IAdminEditor adminEditor, IValidator validator)
+    public AdminOperator(ILogInService logInService, IAdminService adminService, IUserService userService, IAdminEditor adminEditor, IValidator validator)
     {
         _adminEditor = adminEditor;
         _userService = userService;
