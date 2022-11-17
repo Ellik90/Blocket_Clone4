@@ -1,7 +1,7 @@
 using LOGIK;
 using TYPES;
 using DATABASE;
-class UserOperator
+class UserOperator //
 {
     IUserEditor _userEditor;
     IUserService _userService;
@@ -18,27 +18,53 @@ class UserOperator
 
     public User CreateUser(User user, LogInService logInService, UserDB userdb)
     {
+        bool exists = false;
         do
         {
-            user.Email = ConsoleInput.GetString("Enter your email-adress");
-        } while (userdb.UserEmailExists(user.Email) > 0);
+            user.Email = ConsoleInput.GetString("Enter your email-adress: ");
+            if (userdb.UserEmailExists(user.Email) > 0)
+            {
+                Console.WriteLine("Email alredy exists");
+                exists = true;
+            }
+            else
+            {
+                exists = false;
+            }
+        } while (exists);
 
         do
         {
             user.Name = ConsoleInput.GetString("name: ");
-        } while (userdb.NicknameExists(user.Name) > 0);
+            if ((userdb.NicknameExists(user.Name) > 0))
+            {
+                Console.WriteLine("name alredy exists");
+                exists = true;
+            }
+            else
+            {
+                exists = false;
+            }
+        } while (exists);
         do
         {
             user.SocialSecurityNumber = ConsoleInput.GetString("social security number: ");
-        } while (_validator.ValidateSocialSecurityNumber(user.SocialSecurityNumber) == false);
+            if ((_validator.ValidateSocialSecurityNumber(user.SocialSecurityNumber) == false))
+            {
+                Console.WriteLine("social security number alredy exists");
+                exists = true;
+            }
+            else
+            {
+                exists = false;
+            }
+        } while (exists);
+
         user.Adress = ConsoleInput.GetString("adress: "); //FÖR USER HAR EMAIL HÄR // och password
         user = _loginService.MakeNewLogIn(user);
         _userService.MakeUser(user); // FELHANTERING MED BOOLEN?                 //user = new(input, num, adress, email, password);
         return user;
     }
-
-
-
     public int UserLogIn()
     {
         User user = new();
@@ -62,7 +88,6 @@ class UserOperator
         {
             Console.WriteLine("The site is under construction. Try again later.");
         }
-
     }
 
     public void UpdateEmail(User user)
@@ -103,17 +128,14 @@ class UserOperator
             Console.WriteLine("Something went wrong");
         }
     }
-
     public void UpdateDescription(User user)
     {
         string updateDescription = ConsoleInput.GetString("Text: ");
         _userService.UpDateDescription(user, updateDescription);
     }
-
     public User GetUser(User user)
     {
         user = _userService.GetTheUser(user);
         return user;
     }
-
 }
