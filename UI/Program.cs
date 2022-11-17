@@ -79,12 +79,12 @@ internal class Program
                         admin.Id = adminId;
                         loginPage = false;
                     }
-                    // string delete = ConsoleInput.GetString("Admin email: ");
-                    // if (adminDB.AdminEmailExists(admin.Email) > 0)
-                    // {
-                    //     adminService.DeleteAdmin(admin);
-                    //     Console.WriteLine("admin deleted ");
-                    // }
+                    string delete = ConsoleInput.GetString("Admin email: ");
+                    if (adminService.CheckAdminEmailExists(admin.Email)) //här tog jag bort > 0 
+                    {
+                        adminService.DeleteAdmin(admin);
+                        Console.WriteLine("admin deleted ");
+                    }
                     break;
             }
         }
@@ -134,9 +134,10 @@ internal class Program
                         {
                             int advertiseID = ConsoleInput.GetInt("Advertise Number: ");
                             int adUserID = userdb.GetUserIdFromAdvertise(advertiseID);
-                            // UserMakesMessage(toUserId, user, messageService); GAMLA STATISKA METODEN, TA BORT NÄR DEN NEDAN ÄR TESTAD
-                            // HÄR GÖR OBJEKT AV KLASSEN MESSAGEOPERATION OCH ANROPAR WRITEMESSAGETOAD METODEN HÄR
-                            messageOperator.WriteMessageToAd(adUserID, user);
+                        //     UserMakesMessage(toUserId, user, messageService); GAMLA STATISKA METODEN, TA BORT NÄR DEN NEDAN ÄR TESTAD
+                        //     HÄR GÖR OBJEKT AV KLASSEN MESSAGEOPERATION OCH ANROPAR WRITEMESSAGETOAD METODEN HÄR
+                        //    cd ui
+                         messageOperator.WriteMessageToAd(adUserID, user);
                         }
                         else if (choice == 3)
                         {
@@ -150,12 +151,12 @@ internal class Program
                     // =======================================
                     messageOperator.ShowAllMessages(user);
 
-                    // VÄLJ MEDDELANDE ATT LÄSA  
+                    //VÄLJ MEDDELANDE ATT LÄSA  
                     // =========================================
                     int messageId = ConsoleInput.GetInt("Enter message to read: ");
                     // hämta det meddealndet via detta id!   så stoppar vi in touser och from user här under
                     int participantId = messageOperator.GetSender(messageId);
-                    // VISA HELA KONVERSATIONEN PÅ VALT MESSAGE ID
+                    // // VISA HELA KONVERSATIONEN PÅ VALT MESSAGE ID
                     messageOperator.ShowMessageConversation(messageId, participantId, user);
                     int chocie = ConsoleInput.GetInt("[1] Reply    [2] Delete conversation    [3] Return");
                     if (chocie == 1)
