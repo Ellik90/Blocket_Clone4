@@ -79,8 +79,8 @@ internal class Program
                         admin.Id = adminId;
                         loginPage = false;
                     }
-                    string delete = ConsoleInput.GetString("Admin email: ");
-                    if (adminService.CheckAdminEmailExists(admin.Email)) //här tog jag bort > 0 
+        
+                    if (adminService.CheckAdminEmailExists(admin.Email) == false) //här tog jag bort > 0 
                     {
                         adminService.DeleteAdmin(admin);
                         Console.WriteLine("admin deleted ");
@@ -189,7 +189,7 @@ internal class Program
                             }
                             break;
                         case "2":
-                            userOperator.UpdateEmail(user);
+                            userOperator.UpdateEmail(userdb);
                             break;
                         case "3":
                             userOperator.UpdateNickName(user);
