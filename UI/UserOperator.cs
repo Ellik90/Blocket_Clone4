@@ -7,16 +7,18 @@ class UserOperator
     IuserService _userService;
     User _user;
     ILogInService _loginService;
+    IValidator _validator;
 
 
-    public UserOperator(ILogInService logInService, User user, UserService userService)
+    public UserOperator(ILogInService logInService, User user, UserService userService, IValidator validator)
     {
         _loginService = logInService;
         _user = user;
         _userService = userService;
+        _validator = validator;
     }
 
-    public User CreateUser(User user, LogInService logInService, UserDB userdb, Identifier identifier)
+    public User CreateUser(User user, LogInService logInService, UserDB userdb)
     {
         user.Email = ConsoleInput.GetString("Enter your mail-adress");
         if (userdb.UserEmailExists(user.Email) > 0)
@@ -32,7 +34,7 @@ class UserOperator
             Environment.Exit(0);
         }
         user.SocialSecurityNumber = ConsoleInput.GetString("social security number: ");
-        if (identifier.ValidateSocialSecurityNumber(user.SocialSecurityNumber) == false)
+        if (_validator.ValidateSocialSecurityNumber(user.SocialSecurityNumber) == false)
         {
             Console.WriteLine("Social security number incorrect");
             Environment.Exit(0);

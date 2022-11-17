@@ -6,13 +6,10 @@ public class UserService : IuserService
     //här i är funktioner mellan anv och db, tex makenewuser(string name, string email) eller makenewuser(User user)samt kontrollerare osv;
 
     IUserHandeler _userHandele;
-    IIdentifier _identifier;
     IUserEditor _userEditor;
-    
-
-    public UserService(IIdentifier identifier, IUserHandeler userHandeler, IUserEditor userEditor)
+ 
+    public UserService(IUserHandeler userHandeler, IUserEditor userEditor)
     {
-        _identifier = identifier;
         _userHandele = userHandeler;
         _userEditor = userEditor;
     }
