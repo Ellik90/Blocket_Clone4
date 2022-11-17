@@ -45,7 +45,7 @@ public class UserDB : IUserHandeler, IUserEditor
         int rows = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
-            string query = "INSERT INTO users(nick_name,social_security_number,email, adress,pass_word)VALUES(@name,@SocialSecurityNumber,@email,@adress,@passWord);";
+            string query = "INSERT INTO users(nick_name,social_security_number,email,pass_word)VALUES(@name,@SocialSecurityNumber,@email,@passWord);";
             rows = connection.ExecuteScalar<int>(query, param: user);
         }
         return rows;

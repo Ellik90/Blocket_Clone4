@@ -229,7 +229,7 @@ internal class Program
                     // För vidare utveckling
                     break;
                 case 5:
-                    adminOperator.UpdateEmail(admin);
+                    adminOperator.UpdateEmail(admindb);
                     break;
                 case 6:
                     string delete = ConsoleInput.GetString("Delete account [Yes]  [No] ");

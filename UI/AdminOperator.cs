@@ -34,8 +34,9 @@ public class AdminOperator
             Console.WriteLine("The site is under construction. Try again later.");
         }
     }
-    public void UpdateEmail(Admin admin)
+    public void UpdateEmail(AdminDB admindb)
     {
+        Admin admin = new();
         try
         {
             string updateEmail = ConsoleInput.GetString("Update email: ");
