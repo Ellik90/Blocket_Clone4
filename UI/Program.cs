@@ -31,6 +31,7 @@ internal class Program
         MessageOperator messageOperator = new(messageService);
 
         //While loop hör ihop med swith för skapa och logga in funktioner
+        Console.Clear();
         while (loginPage)
         {
             System.Console.WriteLine("Välkommen till Scam_Blocket");
@@ -111,8 +112,7 @@ internal class Program
                     {
                         break;
                     }
-                    // EN METOD BEHÖVS SOM HÄMTAR ANNONSER PÅ MITT ID GETMYADDS(INT USERID) OCH TILL ADVERTISESERVICE EN GETMYADDS OCH TILL 
-                    // ADVERTISEOPERATOR LIST<ADVERTISE> SHOWMYADS() SOM GENOM FOREACH SKRIVER UT ALLA MINA ANNONSER
+                
                     break;
                 case 3:
                     advertiseService = new(new AddvertiseDb());
