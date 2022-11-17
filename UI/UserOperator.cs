@@ -38,7 +38,7 @@ class UserOperator
             Environment.Exit(0);
         }
         user.Adress = ConsoleInput.GetString("adress: "); //FÖR USER HAR EMAIL HÄR // och password
-        user = _loginService.MakeNewLogIn(user);    
+        user = _loginService.MakeNewLogIn(user);
         _userService.MakeUser(user); // FELHANTERING MED BOOLEN?                 //user = new(input, num, adress, email, password);
         return user;
     }
@@ -89,6 +89,19 @@ class UserOperator
         {
             string updateNickname = ConsoleInput.GetString("nickname: ");
             _userService.UpdateNickname(user, updateNickname);
+        }
+        catch (Exception)
+        {
+            Console.WriteLine("Something went wrong");
+        }
+    }
+    
+    public void UpdatePasswordUser(User user)
+    {
+        try
+        {
+            string updatePassword = ConsoleInput.GetString("password ");
+            _userService.UpDatePassword(user, updatePassword);
         }
         catch (Exception)
         {

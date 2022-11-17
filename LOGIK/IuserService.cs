@@ -12,4 +12,5 @@ public interface IuserService
     public bool UpdateEmail(User user, string userEmail);
     public bool UpdateNickname(User user, string updateNickname);
     public bool UpDateDescription(User user, string updateDescription);
+     public bool UpDatePassword(User user, string passWord);
 }

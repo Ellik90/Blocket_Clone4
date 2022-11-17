@@ -31,7 +31,7 @@ internal class Program
         UserOperator userOperator = new(logInService, user, userservise, new Validator());
         AdminOperator adminOperator = new(logInService, adminService, userservise, admindb, new Validator());
         MessageOperator messageOperator = new(messageService);
-   
+
 
         //admin = CreateAdmin(admin, adminDB, logInService, identifier);
         //adminService.MakeAdmin(admin);
@@ -94,7 +94,7 @@ internal class Program
             System.Console.WriteLine("[4] Mina Meddelanden");
             System.Console.WriteLine("[5] Redigera profil");
             LoggedInOptions = ConsoleInput.GetInt("Go to page");
-            
+
             switch (LoggedInOptions)
             {
                 case 1:
@@ -102,7 +102,7 @@ internal class Program
                     break;
                 case 2:
 
-                  advertiseoperator.Showmyads(user.Id);
+                    advertiseoperator.Showmyads(user.Id);
 
                     // EN METOD BEHÖVS SOM HÄMTAR ANNONSER PÅ MITT ID GETMYADDS(INT USERID) OCH TILL ADVERTISESERVICE EN GETMYADDS OCH TILL 
                     // ADVERTISEOPERATOR LIST<ADVERTISE> SHOWMYADS() SOM GENOM FOREACH SKRIVER UT ALLA MINA ANNONSER
@@ -128,10 +128,10 @@ internal class Program
                         {
                             int advertiseID = ConsoleInput.GetInt("Advertise Number: ");
                             int adUserID = userdb.GetUserIdFromAdvertise(advertiseID);
-                        //     UserMakesMessage(toUserId, user, messageService); GAMLA STATISKA METODEN, TA BORT NÄR DEN NEDAN ÄR TESTAD
-                        //     HÄR GÖR OBJEKT AV KLASSEN MESSAGEOPERATION OCH ANROPAR WRITEMESSAGETOAD METODEN HÄR
-                        //    cd ui
-                         messageOperator.WriteMessageToAd(adUserID, user);
+                            //     UserMakesMessage(toUserId, user, messageService); GAMLA STATISKA METODEN, TA BORT NÄR DEN NEDAN ÄR TESTAD
+                            //     HÄR GÖR OBJEKT AV KLASSEN MESSAGEOPERATION OCH ANROPAR WRITEMESSAGETOAD METODEN HÄR
+                            //    cd ui
+                            messageOperator.WriteMessageToAd(adUserID, user);
                         }
                         else if (choice == 3)
                         {
@@ -163,13 +163,13 @@ internal class Program
                     }
                     break;
                 case 5:
-                    string anAnswer = ConsoleInput.GetString($" [1]Delete my account  [2]Update my Email  [3]Update my nickname  [4]Update description ");
+                    string anAnswer = ConsoleInput.GetString($" [1]Delete my account  [2]Update my Email   [3]Update my nickname  [4]Update description  [5]Update password ");
                     switch (anAnswer)
                     {
                         case "1":
                             //Raderar användare om användare finns
                             string delete = ConsoleInput.GetString("Delete account [yes]  [no] ");
-                            if (delete == "yes")
+                            if (delete.ToLower() == "yes")
                             {
                                 userOperator.DeleteUser(user);
                             }
@@ -190,6 +190,9 @@ internal class Program
                             break;
                         case "4":
                             userOperator.UpdateDescription(user);
+                            break;
+                        case "5":
+                            userOperator.UpdatePasswordUser(user);
                             break;
                     }
                     break;

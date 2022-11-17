@@ -141,5 +141,18 @@ public class UserService : IuserService
             return false;
         }
     }
+     public bool UpDatePassword(User user, string passWord)
+    {
+       int rows = 0;
+       _userEditor.UpDatePassword(user, passWord);
+          if (rows > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
    
 }
