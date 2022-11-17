@@ -88,7 +88,7 @@ internal class Program
             System.Console.WriteLine("[5] Edit profile");
             System.Console.WriteLine("[6] Log Out");
             LoggedInOptions = ConsoleInput.GetInt("Go to page: ");
-            
+
             switch (LoggedInOptions)
             {
                 case 1:
@@ -102,7 +102,7 @@ internal class Program
 
                     int choices = ConsoleInput.GetInt("[1] Delete ad   [2] Return");
                     int advertiseID = 0;
-                    if(choices == 1)
+                    if (choices == 1)
                     {
                         advertiseID = ConsoleInput.GetInt("Ad to delete: ");
                         advertiseService.RemoveOneAd(advertiseID);
@@ -170,18 +170,14 @@ internal class Program
                     {
                         case "1":
                             //Raderar användare om användare finns
-                            string delete = ConsoleInput.GetString("Delete account [yes]  [no] ");
-                            if (delete.ToLower() == "yes")
+                            string delete = ConsoleInput.GetString("Delete account [Yes]  [No] ");
+                            if (delete.ToLower() == "Yes")
                             {
-                                userOperator.DeleteUser(user);
-                            }
-                            else if (delete == "no")
-                            {
-                                break;
+                            userOperator.DeleteUser(user);
                             }
                             else
                             {
-                                Console.WriteLine("Something went wrong.");
+                                break;
                             }
                             break;
                         case "2":

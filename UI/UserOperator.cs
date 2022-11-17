@@ -5,43 +5,38 @@ class UserOperator
 {
     IUserEditor _userEditor;
     IUserService _userService;
-    
+
     ILogInService _loginService;
     IValidator _validator;
-    public UserOperator(ILogInService logInService,IUserService userService, IValidator validator)
+    public UserOperator(ILogInService logInService, IUserService userService, IValidator validator)
     {
         _loginService = logInService;
-        
+
         _userService = userService;
         _validator = validator;
     }
 
     public User CreateUser(User user, LogInService logInService, UserDB userdb)
     {
-        user.Email = ConsoleInput.GetString("Enter your mail-adress");
-        if (userdb.UserEmailExists(user.Email) > 0)
+        do
         {
-            Console.WriteLine("Email allready exists");
-            
-        }
-        //<-här har user med sig email, lösenord|elina tar över user och gör resten
-        user.Name = ConsoleInput.GetString("name: ");
-        if (userdb.NicknameExists(user.Name) > 0)
+            user.Email = ConsoleInput.GetString("Enter your email-adress");
+        } while (userdb.UserEmailExists(user.Email) > 0);
+
+        do
         {
-            Console.WriteLine("Nickname allready exists");
-            
-        }
-        user.SocialSecurityNumber = ConsoleInput.GetString("social security number: ");
-        if (_validator.ValidateSocialSecurityNumber(user.SocialSecurityNumber) == false)
+            user.Name = ConsoleInput.GetString("name: ");
+        } while (userdb.NicknameExists(user.Name) > 0);
+        do
         {
-            Console.WriteLine("Social security number incorrect");
-            
-        }
+            user.SocialSecurityNumber = ConsoleInput.GetString("social security number: ");
+        } while (_validator.ValidateSocialSecurityNumber(user.SocialSecurityNumber) == false);
         user.Adress = ConsoleInput.GetString("adress: "); //FÖR USER HAR EMAIL HÄR // och password
         user = _loginService.MakeNewLogIn(user);
         _userService.MakeUser(user); // FELHANTERING MED BOOLEN?                 //user = new(input, num, adress, email, password);
         return user;
     }
+
 
 
     public int UserLogIn()
