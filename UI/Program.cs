@@ -102,15 +102,21 @@ internal class Program
 
                     break;
                 case 2:
-                    System.Console.WriteLine("Aktiva annonser");
+                    System.Console.WriteLine("Active ads: ");
 
                     advertiseoperator.Showmyads(user.Id);
 
-                    System.Console.WriteLine("Radera annons");
-
-                    advertiseService.RemoveOneAd(user.Id);
-
-
+                    int choices = ConsoleInput.GetInt("[1] Delete ad   [2] Return");
+                    int advertiseID = 0;
+                    if(choices == 1)
+                    {
+                        advertiseID = ConsoleInput.GetInt("Ad to delete: ");
+                        advertiseService.RemoveOneAd(advertiseID);
+                    }
+                    else
+                    {
+                        break;
+                    }
                     // EN METOD BEHÖVS SOM HÄMTAR ANNONSER PÅ MITT ID GETMYADDS(INT USERID) OCH TILL ADVERTISESERVICE EN GETMYADDS OCH TILL 
                     // ADVERTISEOPERATOR LIST<ADVERTISE> SHOWMYADS() SOM GENOM FOREACH SKRIVER UT ALLA MINA ANNONSER
                     break;
@@ -129,11 +135,11 @@ internal class Program
                     {
                         if (choice == 1)
                         {
-                            LoggedInOptions = 3;
+                            LoggedInOptions = 3; // funkar ej?
                         }
                         else if (choice == 2)
                         {
-                            int advertiseID = ConsoleInput.GetInt("Advertise Number: ");
+                            advertiseID = ConsoleInput.GetInt("Advertise Number: ");
                             int adUserID = userdb.GetUserIdFromAdvertise(advertiseID);
                             //     UserMakesMessage(toUserId, user, messageService); GAMLA STATISKA METODEN, TA BORT NÄR DEN NEDAN ÄR TESTAD
                             //     HÄR GÖR OBJEKT AV KLASSEN MESSAGEOPERATION OCH ANROPAR WRITEMESSAGETOAD METODEN HÄR

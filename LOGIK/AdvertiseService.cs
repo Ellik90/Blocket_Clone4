@@ -47,7 +47,6 @@ public class AdvertiseService : IAdvertiseService
             if(id == item.Id)
             {
                 listOfAdvertise.Remove(item);
-
             }
         }
 
