@@ -44,9 +44,7 @@ public class AddvertiseDb : IAdHandler
         {
             Console.WriteLine("Advertise removed");
         }
-
     }
-
     public List<Advertise> ShowAllAds()
 
     {
