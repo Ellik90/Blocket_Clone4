@@ -10,7 +10,7 @@ public class UserDB : IUserHandeler, IUserEditor
 
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
-            string query = "SELECT id AS 'id', nick_name AS 'name', social_security_number AS 'socialsecuritynumber', description AS 'description', phone_number AS 'phonenumber', email AS 'email', pass_word AS 'password', adress AS 'adress' FROM users;";
+            string query = "SELECT id AS 'id', nick_name AS 'name', social_security_number AS 'socialsecuritynumber', description AS 'description', email AS 'email', pass_word AS 'password' FROM users;";
             users = connection.Query<User>(query).ToList();
             return users;
         }

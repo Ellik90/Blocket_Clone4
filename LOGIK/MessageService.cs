@@ -23,7 +23,7 @@ public class MessageService : IMessageService
         int rows = _messageSender.AddConversationThread(user.Id, usermessageId);
         int toUserId = message.IDToUser;
         int converstaionRows = _messageSender.AddConversationThread(toUserId, usermessageId);
-        if(newMessageId > 0 && usermessageId > 0 && rows > 0 && converstaionRows > 0)
+        if (newMessageId > 0 && usermessageId > 0 && rows > 0 && converstaionRows > 0)
         {
             return true;
         }
@@ -58,5 +58,40 @@ public class MessageService : IMessageService
     {
         return _messageSender.GetSenderId(messageId);
     }
+     public int AdminGetSender(int messageId)
+    {
+        return _messageSender.AdminGetSenderId(messageId);
+    }
 
+    public bool MessageToAdmin(User user, Message message)
+    {
+        int newMessageId = _messageSender.CreateMessage(message);
+        message.ID = newMessageId;
+        allMessages.Add(message);
+        List<int>adminIds = _messageSender.GetAdminId();
+        int rows = _messageSender.SendMessageUserAdmin(user.Id, message, adminIds);
+        if(rows > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+     public void MessageAdminToUser(Admin admin, Message message, int senderId, int messageId)
+    {
+        int newMessageId = _messageSender.CreateMessage(message);
+        allMessages.Add(message);
+        int replyId = _messageSender.SendMessageFromAdmin(senderId, admin.Id, newMessageId);
+        _messageSender.UpdateMessageIsReplied(messageId);
+    }
+    public List<Message> GetUsersMessages(Admin admin)
+    {
+        return _conversationHandler.GetUsersMessages(admin);
+    }
+    public List<Message> GetMessagesFromAdmin(User user)
+    {
+        return _conversationHandler.GetMessagesFromAdmin(user);
+    }
 }

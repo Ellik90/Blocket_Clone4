@@ -78,11 +78,11 @@ class UserOperator //
 
     public void DeleteUser(User user)
     {
-
         try
         {
             _userService.DeleteTheUser(user);
             Console.WriteLine("Account deleted!");
+            Environment.Exit(0);
         }
         catch (MySqlConnector.MySqlException)
         {
