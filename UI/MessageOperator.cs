@@ -52,6 +52,23 @@ class MessageOperator
         }
         return participantId;
     }
+    public int AdminGetSender(int messageId)
+    {
+        int participantId = 0;
+        try
+        {
+            participantId = _messageService.AdminGetSender(messageId);
+            if (participantId == 0)
+            {
+                throw new ArgumentNullException();
+            }
+        }
+        catch (ArgumentNullException)
+        {
+            Console.WriteLine("Can't find sender to make reply.");
+        }
+        return participantId;
+    }
     public void ShowMessageConversation(int messageId, int participantId, User user)
     {
         try
@@ -102,7 +119,7 @@ class MessageOperator
             Console.WriteLine(e.Message);
         }
     }
-    public void AdminMakeMessage(Admin admin, int userId)
+    public void AdminMakeMessage(Admin admin, int userId, int messageId)
     {
         string rubric = ConsoleInput.GetString("Rubric: ");
         string content = ConsoleInput.GetString("Content: ");
@@ -110,7 +127,7 @@ class MessageOperator
         try
         {
             Message newMessage = new(rubric, content, userId, idToUser);
-            _messageService.MessageAdminToUser(admin, newMessage, userId);
+            _messageService.MessageAdminToUser(admin, newMessage, userId, messageId);
         }
         catch (Exception e)
         {
@@ -126,9 +143,17 @@ class MessageOperator
             Console.WriteLine(item.AdminMessageString());
         }
     }
-
-    public void AdminReplyToMessage(Admin admin, Message message, int messageId)
+     public void ShowMessagesFromAdmin(User user)
     {
-        _messageService.MessageAdminToUser(admin, message, messageId);
+        List<Message> messages = _messageService.GetMessagesFromAdmin(user);
+        foreach (Message item in messages)
+        {
+            Console.WriteLine(item.ConversationToString());
+        }
     }
+
+    // public void AdminReplyToMessage(Admin admin, Message message, int messageId)
+    // {
+    //     _messageService.MessageAdminToUser(admin, message, messageId);
+    // }
 }

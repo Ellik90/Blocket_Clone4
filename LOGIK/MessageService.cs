@@ -58,6 +58,10 @@ public class MessageService : IMessageService
     {
         return _messageSender.GetSenderId(messageId);
     }
+     public int AdminGetSender(int messageId)
+    {
+        return _messageSender.AdminGetSenderId(messageId);
+    }
 
     public bool MessageToAdmin(User user, Message message)
     {
@@ -75,15 +79,19 @@ public class MessageService : IMessageService
             return false;
         }
     }
-     public void MessageAdminToUser(Admin admin, Message message, int senderId)
+     public void MessageAdminToUser(Admin admin, Message message, int senderId, int messageId)
     {
         int newMessageId = _messageSender.CreateMessage(message);
         allMessages.Add(message);
         int replyId = _messageSender.SendMessageFromAdmin(senderId, admin.Id, newMessageId);
-        _messageSender.UpdateMessageIsReplied(replyId, admin);
+        _messageSender.UpdateMessageIsReplied(messageId);
     }
     public List<Message> GetUsersMessages(Admin admin)
     {
         return _conversationHandler.GetUsersMessages(admin);
+    }
+    public List<Message> GetMessagesFromAdmin(User user)
+    {
+        return _conversationHandler.GetMessagesFromAdmin(user);
     }
 }

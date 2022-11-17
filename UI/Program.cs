@@ -143,6 +143,9 @@ internal class Program
                     break;
                 case 4:
                     messageOperator.ShowAllMessages(user);
+                    Console.WriteLine("Messages from Admin: ");
+                    Console.WriteLine("----------------------");
+                    messageOperator.ShowMessagesFromAdmin(user);
                     int messageId = ConsoleInput.GetInt("Enter message to read: ");
                     // hämta det meddealndet via detta id!   så stoppar vi in touser och from user här under
                     int participantId = messageOperator.GetSender(messageId);
@@ -217,8 +220,8 @@ internal class Program
                     if(choice == 1)
                     {
                         int messageId = ConsoleInput.GetInt("Message ID to reply: ");
-                        int userId = messageOperator.GetSender(messageId);
-                        messageOperator.AdminMakeMessage(admin, userId);
+                        int userId = messageOperator.AdminGetSender(messageId);
+                        messageOperator.AdminMakeMessage(admin, userId, messageId);
                     }
                     // För vidare utveckling
                     break;
