@@ -19,17 +19,17 @@ internal class Program
         Admin admin = new();
         UserDB userdb = new();
         AdminDB admindb = new();
-        Identifier identifier = new();
-        LogInService logInService = new(identifier, userdb, admindb);
-        UserService userservise = new(identifier, userdb, userdb);
+        // Identifier identifier = new();
+        LogInService logInService = new(userdb, admindb, new Validator(), new EmailSender());
+        UserService userservise = new(userdb, userdb);
         AddvertiseDb addvertiseDb = new();
         AdvertiseService advertiseService = new(addvertiseDb);
         advertiseoperator advertiseoperator = new(advertiseService);
         MessageDB messageDB = new();
         MessageService messageService = new(messageDB, messageDB);
-        AdminService adminService = new(identifier, userdb, userdb, admindb, admindb, addvertiseDb);
-        UserOperator userOperator = new(logInService, user, userservise);
-        AdminOperator adminOperator = new(logInService, adminService, userservise, admindb, identifier);
+        AdminService adminService = new(userdb, userdb, admindb, admindb, addvertiseDb);
+        UserOperator userOperator = new(logInService, user, userservise, new Validator());
+        AdminOperator adminOperator = new(logInService, adminService, userservise, admindb, new Validator());
         MessageOperator messageOperator = new(messageService);
    
 
@@ -50,7 +50,7 @@ internal class Program
             {
                 case 1:
                     //1. SKAPAKONTO
-                    user = userOperator.CreateUser(user, logInService, userdb, identifier);
+                    user = userOperator.CreateUser(user, logInService, userdb);
                     break;
                 case 2:
                     int id = userOperator.UserLogIn();

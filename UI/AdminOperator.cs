@@ -9,18 +9,16 @@ public class AdminOperator
     IAdminService _adminService;
     Admin _admin;
     ILogInService _loginService;
-    IIdentifier _identifier;
+    IValidator _validator;
 
-    public AdminOperator(ILogInService logInService, IAdminService adminService, IuserService userService, IAdminEditor adminEditor, IIdentifier identifier)
+    public AdminOperator(ILogInService logInService, IAdminService adminService, IuserService userService, IAdminEditor adminEditor, IValidator validator)
     {
         _adminEditor = adminEditor;
         _userService = userService;
         _loginService = logInService;
-        // _admin = admin;
         _adminService = adminService;
-        _identifier = identifier;
+        _validator = validator;
     }
-
     public void UpdateEmail(Admin admin)
     {
         try
@@ -33,8 +31,6 @@ public class AdminOperator
             Console.WriteLine("Something went wrong " + e.Message);
         }
     }
-
-
     public Admin CreateAdmin(AdminDB adminDB)
     {
         Admin admin = new();
@@ -52,7 +48,7 @@ public class AdminOperator
             Environment.Exit(0);
         }
         admin.SocialSecurityNumber = ConsoleInput.GetString("social security number: ");
-        if (_identifier.ValidateSocialSecurityNumber(admin.SocialSecurityNumber) == false)
+        if (_validator.ValidateSocialSecurityNumber(admin.SocialSecurityNumber) == false)
         {
             Console.WriteLine("Social security number incorrect");
             Environment.Exit(0);
@@ -73,7 +69,6 @@ public class AdminOperator
 
         return admin.Id;
     }
-
     public void GetNonCheckedAds()
     {
         List<Advertise> nonCheckedAds = _adminService.GetNonCheckAds();
@@ -82,6 +77,4 @@ public class AdminOperator
             Console.WriteLine(item.ToString());
         }
     }
-
-
 }

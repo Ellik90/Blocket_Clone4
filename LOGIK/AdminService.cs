@@ -5,14 +5,12 @@ public class AdminService : IAdminService
 {
     IAdminEditor _adminEditor;
     IUserHandeler _userHandele;
-    IIdentifier _identifier;
     IUserEditor _userEditor;
     IAdHandler _adHandeler;
     IAdmin _admin;
 
-    public AdminService(IIdentifier identifier, IUserHandeler userHandeler, IUserEditor userEditor, IAdmin admin, IAdminEditor adminEditor, IAdHandler adHandler)
+    public AdminService(IUserHandeler userHandeler, IUserEditor userEditor, IAdmin admin, IAdminEditor adminEditor, IAdHandler adHandler)
     {
-        _identifier = identifier;
         _userHandele = userHandeler;
         _userEditor = userEditor;
         _admin = admin;
