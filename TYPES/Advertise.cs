@@ -32,7 +32,7 @@ public class Advertise
     }
     public override string ToString()
     {
-      return  $"Advertise:[{Id}] {Rubric} \n\r{Description} \n\r{Price}kr Location: {County}";
+      return  $"Advertise:[{Id}] {Rubric} | {Description} | {Price}kr | Location: {County}";
     }
 
 }
