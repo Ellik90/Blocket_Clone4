@@ -9,4 +9,7 @@ public interface IuserService
     public bool CheckNickNameExists(string nickName);
     public bool DeleteTheUser(User user);
     public bool DescriptionInput(User user, string updateDescription);
+    public bool UpdateEmail(User user, string userEmail);
+    public bool UpdateNickname(User user, string updateNickname);
+    public bool UpDateDescription(User user, string updateDescription);
 }

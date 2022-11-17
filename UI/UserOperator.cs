@@ -8,8 +8,6 @@ class UserOperator
     User _user;
     ILogInService _loginService;
     IValidator _validator;
-
-
     public UserOperator(ILogInService logInService, User user, UserService userService, IValidator validator)
     {
         _loginService = logInService;
@@ -77,11 +75,11 @@ class UserOperator
         try
         {
             string updateEmail = ConsoleInput.GetString("Update email: ");
-            _userEditor.UpdateEmail(user, updateEmail);
+            _userService.UpdateEmail(user, updateEmail);
         }
-        catch (Exception)
+        catch (Exception e)
         {
-            Console.WriteLine("Something went wrong");
+            Console.WriteLine("Something went wrong" + e.Message);
         }
     }
 
@@ -90,7 +88,7 @@ class UserOperator
         try
         {
             string updateNickname = ConsoleInput.GetString("nickname: ");
-            _userEditor.UpdateNickName(user, updateNickname);
+            _userService.UpdateNickname(user, updateNickname);
         }
         catch (Exception)
         {
@@ -101,7 +99,7 @@ class UserOperator
     public void UpdateDescription(User user)
     {
         string updateDescription = ConsoleInput.GetString("Text: ");
-        _userEditor.UpDateDescription(user, updateDescription);
+        _userService.UpDateDescription(user, updateDescription);
     }
 
     public User GetUser(User user)

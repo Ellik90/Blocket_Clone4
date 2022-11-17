@@ -65,7 +65,7 @@ public class AdminDB : IAdmin, IAdminEditor
 
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
-            string query = "SELECT id AS 'id', social_security_number AS 'socialsecuritynumber',admin_name AS 'name', email AS 'email', role AS 'admin_role', pass_word AS 'password' FROM admins;";
+            string query = "SELECT id AS 'id', social_security_number AS 'socialsecuritynumber',admin_name AS 'name', email AS 'email', pass_word AS 'password' FROM admins;";
             admins = connection.Query<Admin>(query).ToList();
             return admins;
         }
