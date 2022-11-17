@@ -21,7 +21,8 @@ public class EmailSender : IEmailSender
         smtpClient.Port = 587;// port 587 för utgående epost 
         smtpClient.Host = "smtp-mail.outlook.com";
         smtpClient.EnableSsl = true;
-        smtpClient.Credentials = new System.Net.NetworkCredential("testing_sendpwd_123@outlook.com", "Testing123321");
+        smtpClient.UseDefaultCredentials = false;
+        smtpClient.Credentials = new System.Net.NetworkCredential("blocket_clone_project@outlook.com", "Testing123321");
         return SmtpClient = smtpClient;
     }
     public int SendCodeViaEmail(string email)
@@ -30,7 +31,7 @@ public class EmailSender : IEmailSender
         int code = GenerateUniqueCode();
         var message = new MailMessage()
         {
-            From = new MailAddress("testing_sendpwd_123@outlook.com"),
+            From = new MailAddress("blocket_clone_project@outlook.com"),
             Subject = $"Validation Email. Blocket-Klon.Com",
             Body = $"Here is your unique code to login at Blocket-Klon.com: {code}"
         };
