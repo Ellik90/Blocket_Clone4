@@ -15,5 +15,6 @@ public interface ILogInService
 
     public int AdminLogInIsValid(Admin admin);
 
-
+    public User SendNewCode(User user);
+    
 }

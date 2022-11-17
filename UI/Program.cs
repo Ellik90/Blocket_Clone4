@@ -6,7 +6,6 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        bool start = true;
         int loginOption = 0;
         string answer = string.Empty;
         bool loggedInAsUser = false;
@@ -79,15 +78,6 @@ internal class Program
                         admin.Id = adminId;
                         loginPage = false;
                     }
-<<<<<<< HEAD
-        
-                    if (adminService.CheckAdminEmailExists(admin.Email) == false) //här tog jag bort > 0 
-                    {
-                        adminService.DeleteAdmin(admin);
-                        Console.WriteLine("admin deleted ");
-                    }
-=======
->>>>>>> e73d49e4ccd41b634c2f9f55aea9484819efc03d
                     break;
             }
         }
@@ -95,14 +85,15 @@ internal class Program
         while (loggedInAsUser)
         {
             user = userOperator.GetUser(user);
-            System.Console.WriteLine(user.Name.ToUpper() + " Konto");
+            System.Console.WriteLine(user.Name.ToUpper() + "'s Account");
             System.Console.WriteLine("-------------------------------");
-            System.Console.WriteLine("[1] Skapa annons ");
-            System.Console.WriteLine("[2] Visa mina annonser");
-            System.Console.WriteLine("[3] Sök annons");
-            System.Console.WriteLine("[4] Mina Meddelanden");
-            System.Console.WriteLine("[5] Redigera profil");
-            LoggedInOptions = ConsoleInput.GetInt("Go to page");
+            System.Console.WriteLine("[1] Create Ad ");
+            System.Console.WriteLine("[2] Show My Ads");
+            System.Console.WriteLine("[3] Search For Ads");
+            System.Console.WriteLine("[4] My Messages");
+            System.Console.WriteLine("[5] Edit profile");
+            System.Console.WriteLine("[6] Log Out");
+            LoggedInOptions = ConsoleInput.GetInt("Go to page: ");
             
             switch (LoggedInOptions)
             {
@@ -149,13 +140,8 @@ internal class Program
                     }
                     break;
                 case 4:
-
-                    // VISA ALLA MEDDELANDEN 
-                    // =======================================
                     messageOperator.ShowAllMessages(user);
 
-                    //VÄLJ MEDDELANDE ATT LÄSA  
-                    // =========================================
                     int messageId = ConsoleInput.GetInt("Enter message to read: ");
                     // hämta det meddealndet via detta id!   så stoppar vi in touser och from user här under
                     int participantId = messageOperator.GetSender(messageId);
