@@ -21,7 +21,8 @@ public class EmailSender : IEmailSender
         smtpClient.Port = 587;// port 587 för utgående epost 
         smtpClient.Host = "smtp-mail.outlook.com";
         smtpClient.EnableSsl = true;
-        smtpClient.Credentials = new System.Net.NetworkCredential("testing_sendpwd_123@outlook.com", "Testing123321");
+        smtpClient.UseDefaultCredentials = false;
+        smtpClient.Credentials = new System.Net.NetworkCredential("testing_sendpwd_123@outlook.com, "Testing123321");
         return SmtpClient = smtpClient;
     }
     public int SendCodeViaEmail(string email)
