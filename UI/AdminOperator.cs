@@ -19,6 +19,21 @@ public class AdminOperator
         _adminService = adminService;
         _validator = validator;
     }
+
+    
+    public void DeleteAdmin(Admin admin)
+    {
+        try
+        {
+            _adminService.DeleteAdmin(admin);
+            Console.WriteLine("Account deleted!");
+            Environment.Exit(0);
+        }
+        catch (MySqlConnector.MySqlException)
+        {
+            Console.WriteLine("The site is under construction. Try again later.");
+        }
+    }
     public void UpdateEmail(Admin admin)
     {
         try

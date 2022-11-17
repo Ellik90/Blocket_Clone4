@@ -94,13 +94,10 @@ internal class Program
             {
                 case 1:
                     advertiseoperator.CreateAd(user);
-
                     break;
                 case 2:
                     System.Console.WriteLine("Active ads: ");
-
                     advertiseoperator.Showmyads(user.Id);
-
                     int choices = ConsoleInput.GetInt("[1] Delete ad   [2] Return");
                     int advertiseID = 0;
                     if (choices == 1)
@@ -112,13 +109,10 @@ internal class Program
                     {
                         break;
                     }
-                
                     break;
                 case 3:
                     advertiseService = new(new AddvertiseDb());
                     string search = ConsoleInput.GetString("Search Ad: ");
-
-                    // // NÄR DU HÄMTAR ALLA ANNONSER I DATABASEN, LÄGG ÄVEN TILL ANNONSEN OCH USERNS ID!!
                     List<Advertise> foundad = advertiseService.SearchAd(search);
 
                     foreach (Advertise item in foundad)
@@ -148,7 +142,6 @@ internal class Program
                     break;
                 case 4:
                     messageOperator.ShowAllMessages(user);
-
                     int messageId = ConsoleInput.GetInt("Enter message to read: ");
                     // hämta det meddealndet via detta id!   så stoppar vi in touser och from user här under
                     int participantId = messageOperator.GetSender(messageId);
@@ -169,15 +162,10 @@ internal class Program
                     switch (anAnswer)
                     {
                         case "1":
-                            //Raderar användare om användare finns
                             string delete = ConsoleInput.GetString("Delete account [Yes]  [No] ");
-                            if (delete.ToLower() == "Yes")
+                            if (delete.ToLower() == "yes")
                             {
-                            userOperator.DeleteUser(user);
-                            }
-                            else
-                            {
-                                break;
+                                userOperator.DeleteUser(user);
                             }
                             break;
                         case "2":
@@ -198,32 +186,33 @@ internal class Program
         }
         while (loggedInAsAdmin)
         {
-            admin = adminService.GetTheAdmin(admin); //
-            adminOptions = ConsoleInput.GetInt("[1] Add new admin-account   [2] Check advertises   [3] User-handeler   [4] Advertise-handeler [5] Update email");
+            admin = adminService.GetTheAdmin(admin);
+            adminOptions = ConsoleInput.GetInt("[1] Add new admin-account   [2] Check advertises   [3] User-handeler   [4] Advertise-handeler [5] Update email [6] Delete admin account");
             switch (adminOptions)
             {
                 case 1:
                     admin = adminOperator.CreateAdmin(admindb);
                     break;
-
                 case 2:
-
                     adminOperator.GetNonCheckedAds();
-
                     int advertiseID = ConsoleInput.GetInt("Enter advertise id to check: ");
-
                     advertiseoperator.CheckAd(advertiseID);
-
                     break;
-
                 case 3:
-
+                    // För vidare utveckling
                     break;
                 case 4:
-
+                    // För vidare utveckling
                     break;
                 case 5:
                     adminOperator.UpdateEmail(admin);
+                    break;
+                case 6:
+                    string delete = ConsoleInput.GetString("Delete account [Yes]  [No] ");
+                    if (delete.ToLower() == "yes")
+                    {
+                       adminOperator.DeleteAdmin(admin);
+                    }
                     break;
             }
         }
