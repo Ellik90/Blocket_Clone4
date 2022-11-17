@@ -46,4 +46,9 @@ public class Message
         return $"{Rubric}\n\r{Content}\n\r//{nameFromUser}";
     }
 
+    public string AdminMessageString()
+    {
+        return $"Message ID:[{ID}] {Rubric}\n\r{Content}\n\r//{nameFromUser}";
+    }
+
 }

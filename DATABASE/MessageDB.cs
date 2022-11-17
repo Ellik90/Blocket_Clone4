@@ -146,6 +146,18 @@ public class MessageDB : IMessageSender, IConversationHandler
         }
         return usermessageId;
     }
+    public List<Message> GetUsersMessages(Admin admin)
+    {
+        List<Message> usersMessages = new();
+         using (MySqlConnection connection = new MySqlConnection("Server=localhost;Database=blocket_clone;Uid=root;Pwd=;"))
+            {
+                string query = "SELECT user_id, date, rubric, content, name as 'namefromuser' FROM admin_messages " +
+                "INNER JOIN message ON admin_message.message_id = message.id "+
+                "INNER JOIN users ON admin_message.user_id = users.id WHERE is_read = false;";
+                usersMessages = connection.Query<Message>(query).ToList();
+            }
+            return usersMessages;
+    }
 
 
 }

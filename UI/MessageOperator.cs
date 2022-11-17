@@ -73,7 +73,7 @@ class MessageOperator
         string rubric = ConsoleInput.GetString("Rubric: ");
         string content = ConsoleInput.GetString("Content: ");
         Message replyMessage = new(rubric, content, user.Id, idToUser);
-        if(_messageService.MakeMessage(replyMessage, user) == true)
+        if (_messageService.MakeMessage(replyMessage, user) == true)
         {
             Console.WriteLine("Message sent!");
         }
@@ -89,6 +89,26 @@ class MessageOperator
 
     public void WriteMessageToAdmin(User user)
     {
-        
+        string rubric = ConsoleInput.GetString("Rubric: ");
+        string content = ConsoleInput.GetString("Content: ");
+        int idToUser = 0;
+        try
+        {
+            Message newMessage = new(rubric, content, user.Id, idToUser);
+            _messageService.MessageToAdmin(user, newMessage);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+    }
+
+    public void ShowUsersUnreadMessages(Admin admin)
+    {
+        List<Message>messages = _messageService.GetUsersMessages(admin);
+        foreach(Message item in messages)
+        {
+            Console.WriteLine(item.AdminMessageString());
+        }
     }
 }

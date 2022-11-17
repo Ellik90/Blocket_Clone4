@@ -59,7 +59,7 @@ public class MessageService : IMessageService
         return _messageSender.GetSenderId(messageId);
     }
 
-    public bool MessageToAdmin(User user, int messageId)
+    public bool MessageToAdmin(User user, Message message)
     {
         int newMessageId = _messageSender.CreateMessage(message);
         message.ID = newMessageId;
@@ -74,5 +74,9 @@ public class MessageService : IMessageService
         {
             return false;
         }
+    }
+    public List<Message> GetUsersMessages(Admin admin)
+    {
+        return _conversationHandler.GetUsersMessages(admin);
     }
 }
