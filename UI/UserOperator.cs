@@ -59,8 +59,7 @@ class UserOperator //
                 exists = false;
             }
         } while (exists);
-
-        user.Adress = ConsoleInput.GetString("adress: "); //FÖR USER HAR EMAIL HÄR // och password
+        
         user = _loginService.MakeNewLogIn(user);
         _userService.MakeUser(user); // FELHANTERING MED BOOLEN?                 //user = new(input, num, adress, email, password);
         return user;
