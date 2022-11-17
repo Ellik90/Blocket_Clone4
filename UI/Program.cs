@@ -79,6 +79,15 @@ internal class Program
                         admin.Id = adminId;
                         loginPage = false;
                     }
+<<<<<<< HEAD
+        
+                    if (adminService.CheckAdminEmailExists(admin.Email) == false) //här tog jag bort > 0 
+                    {
+                        adminService.DeleteAdmin(admin);
+                        Console.WriteLine("admin deleted ");
+                    }
+=======
+>>>>>>> e73d49e4ccd41b634c2f9f55aea9484819efc03d
                     break;
             }
         }
