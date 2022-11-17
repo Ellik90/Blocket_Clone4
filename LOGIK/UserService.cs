@@ -1,7 +1,7 @@
 using TYPES;
 using DATABASE;
 namespace LOGIK;
-public class UserService : IuserService
+public class UserService : IUserService
 {
     //här i är funktioner mellan anv och db, tex makenewuser(string name, string email) eller makenewuser(User user)samt kontrollerare osv;
 
@@ -132,6 +132,19 @@ public class UserService : IuserService
     {
        int rows = 0;
        _userEditor.UpDateDescription(user, updateDescription);
+          if (rows > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+     public bool UpDatePassword(User user, string passWord)
+    {
+       int rows = 0;
+       _userEditor.UpDatePassword(user, passWord);
           if (rows > 0)
         {
             return true;

@@ -5,19 +5,34 @@ using DATABASE;
 public class AdminOperator
 {
     IAdminEditor _adminEditor;
-    IuserService _userService;
+    IUserService _userService;
     IAdminService _adminService;
     Admin _admin;
     ILogInService _loginService;
     IValidator _validator;
 
-    public AdminOperator(ILogInService logInService, IAdminService adminService, IuserService userService, IAdminEditor adminEditor, IValidator validator)
+    public AdminOperator(ILogInService logInService, IAdminService adminService, IUserService userService, IAdminEditor adminEditor, IValidator validator)
     {
         _adminEditor = adminEditor;
         _userService = userService;
         _loginService = logInService;
         _adminService = adminService;
         _validator = validator;
+    }
+
+    
+    public void DeleteAdmin(Admin admin)
+    {
+        try
+        {
+            _adminService.DeleteAdmin(admin);
+            Console.WriteLine("Account deleted!");
+            Environment.Exit(0);
+        }
+        catch (MySqlConnector.MySqlException)
+        {
+            Console.WriteLine("The site is under construction. Try again later.");
+        }
     }
     public void UpdateEmail(Admin admin)
     {

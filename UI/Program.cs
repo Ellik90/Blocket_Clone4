@@ -18,7 +18,6 @@ internal class Program
         Admin admin = new();
         UserDB userdb = new();
         AdminDB admindb = new();
-        // Identifier identifier = new();
         LogInService logInService = new(userdb, admindb, new Validator(), new EmailSender());
         UserService userservise = new(userdb, userdb);
         AddvertiseDb addvertiseDb = new();
@@ -27,16 +26,12 @@ internal class Program
         MessageDB messageDB = new();
         MessageService messageService = new(messageDB, messageDB);
         AdminService adminService = new(userdb, userdb, admindb, admindb, addvertiseDb);
-        UserOperator userOperator = new(logInService, user, userservise, new Validator());
+        UserOperator userOperator = new(logInService, userservise, new Validator());
         AdminOperator adminOperator = new(logInService, adminService, userservise, admindb, new Validator());
         MessageOperator messageOperator = new(messageService);
 
-
-        //admin = CreateAdmin(admin, adminDB, logInService, identifier);
-        //adminService.MakeAdmin(admin);
-        // hejsan 
-
         //While loop hör ihop med swith för skapa och logga in funktioner
+        Console.Clear();
         while (loginPage)
         {
             System.Console.WriteLine("Välkommen till Scam_Blocket");
@@ -94,21 +89,18 @@ internal class Program
             System.Console.WriteLine("[5] Edit profile");
             System.Console.WriteLine("[6] Log Out");
             LoggedInOptions = ConsoleInput.GetInt("Go to page: ");
-            
+
             switch (LoggedInOptions)
             {
                 case 1:
                     advertiseoperator.CreateAd(user);
-
                     break;
                 case 2:
                     System.Console.WriteLine("Active ads: ");
-
                     advertiseoperator.Showmyads(user.Id);
-
                     int choices = ConsoleInput.GetInt("[1] Delete ad   [2] Return");
                     int advertiseID = 0;
-                    if(choices == 1)
+                    if (choices == 1)
                     {
                         advertiseID = ConsoleInput.GetInt("Ad to delete: ");
                         advertiseService.RemoveOneAd(advertiseID);
@@ -117,14 +109,10 @@ internal class Program
                     {
                         break;
                     }
-                    // EN METOD BEHÖVS SOM HÄMTAR ANNONSER PÅ MITT ID GETMYADDS(INT USERID) OCH TILL ADVERTISESERVICE EN GETMYADDS OCH TILL 
-                    // ADVERTISEOPERATOR LIST<ADVERTISE> SHOWMYADS() SOM GENOM FOREACH SKRIVER UT ALLA MINA ANNONSER
                     break;
                 case 3:
                     advertiseService = new(new AddvertiseDb());
                     string search = ConsoleInput.GetString("Search Ad: ");
-
-                    // // NÄR DU HÄMTAR ALLA ANNONSER I DATABASEN, LÄGG ÄVEN TILL ANNONSEN OCH USERNS ID!!
                     List<Advertise> foundad = advertiseService.SearchAd(search);
 
                     foreach (Advertise item in foundad)
@@ -154,7 +142,6 @@ internal class Program
                     break;
                 case 4:
                     messageOperator.ShowAllMessages(user);
-
                     int messageId = ConsoleInput.GetInt("Enter message to read: ");
                     // hämta det meddealndet via detta id!   så stoppar vi in touser och from user här under
                     int participantId = messageOperator.GetSender(messageId);
@@ -171,23 +158,14 @@ internal class Program
                     }
                     break;
                 case 5:
-                    string anAnswer = ConsoleInput.GetString($" [1]Delete my account  [2]Update my Email  [3]Update my nickname  [4]Update description ");
+                    string anAnswer = ConsoleInput.GetString($" [1]Delete my account  [2]Update my Email   [3]Update my nickname  [4]Update description  [5]Update password ");
                     switch (anAnswer)
                     {
                         case "1":
-                            //Raderar användare om användare finns
-                            string delete = ConsoleInput.GetString("Delete account [yes]  [no] ");
-                            if (delete == "yes")
+                            string delete = ConsoleInput.GetString("Delete account [Yes]  [No] ");
+                            if (delete.ToLower() == "yes")
                             {
                                 userOperator.DeleteUser(user);
-                            }
-                            else if (delete == "no")
-                            {
-                                break;
-                            }
-                            else
-                            {
-                                Console.WriteLine("Something went wrong.");
                             }
                             break;
                         case "2":
@@ -199,39 +177,42 @@ internal class Program
                         case "4":
                             userOperator.UpdateDescription(user);
                             break;
+                        case "5":
+                            userOperator.UpdatePasswordUser(user);
+                            break;
                     }
                     break;
             }
         }
         while (loggedInAsAdmin)
         {
-            admin = adminService.GetTheAdmin(admin); //
-            adminOptions = ConsoleInput.GetInt("[1] Add new admin-account   [2] Check advertises   [3] User-handeler   [4] Advertise-handeler [5] Update email");
+            admin = adminService.GetTheAdmin(admin);
+            adminOptions = ConsoleInput.GetInt("[1] Add new admin-account   [2] Check advertises   [3] User-handeler   [4] Advertise-handeler [5] Update email [6] Delete admin account");
             switch (adminOptions)
             {
                 case 1:
                     admin = adminOperator.CreateAdmin(admindb);
-
                     break;
-
                 case 2:
-
                     adminOperator.GetNonCheckedAds();
-
                     int advertiseID = ConsoleInput.GetInt("Enter advertise id to check: ");
-
                     advertiseoperator.CheckAd(advertiseID);
-
                     break;
-
                 case 3:
-
+                    // För vidare utveckling
                     break;
                 case 4:
-
+                    // För vidare utveckling
                     break;
                 case 5:
                     adminOperator.UpdateEmail(admin);
+                    break;
+                case 6:
+                    string delete = ConsoleInput.GetString("Delete account [Yes]  [No] ");
+                    if (delete.ToLower() == "yes")
+                    {
+                       adminOperator.DeleteAdmin(admin);
+                    }
                     break;
             }
         }

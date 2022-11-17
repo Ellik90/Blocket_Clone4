@@ -7,7 +7,7 @@ public class UserDB : IUserHandeler, IUserEditor
     public List<User> GetUser()
     {
         List<User> users = new();
-         
+
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
             string query = "SELECT id AS 'id', nick_name AS 'name', social_security_number AS 'socialsecuritynumber', description AS 'description', phone_number AS 'phonenumber', email AS 'email', pass_word AS 'password', adress AS 'adress' FROM users;";
@@ -37,7 +37,7 @@ public class UserDB : IUserHandeler, IUserEditor
             string? query = "SELECT * FROM users WHERE nick_name = @name";
             rows = connection.ExecuteScalar<int>(query, new { @name = nickname });
         }
-     return rows;
+        return rows;
     }
 
     public int CreateUser(User user)
@@ -48,7 +48,7 @@ public class UserDB : IUserHandeler, IUserEditor
             string query = "INSERT INTO users(nick_name,social_security_number,email, adress,pass_word)VALUES(@name,@SocialSecurityNumber,@email,@adress,@passWord);";
             rows = connection.ExecuteScalar<int>(query, param: user);
         }
-      return rows;
+        return rows;
     }
     //hämta ut id från user
     //testa alla querys i databasen
@@ -83,7 +83,7 @@ public class UserDB : IUserHandeler, IUserEditor
             string? query = "DELETE FROM user_message WHERE from_user_id = @id OR to_user_id = @id; DELETE FROM users WHERE id = @id";
             rows = connection.ExecuteScalar<int>(query, new { @id = user.Id });//DET GÅR INTE ATT RADERA FÖR FOREIGN KEY, MESSAGE
         }
-        return rows;      
+        return rows;
     }
 
     public int UpdateEmail(User user, string userEmail)
@@ -119,33 +119,16 @@ public class UserDB : IUserHandeler, IUserEditor
         return rows;
     }
 
-    public User GetTheUser(User user)
+    public int UpDatePassword(User user, string passWord)
     {
-        throw new NotImplementedException();
+        int rows = 0;
+        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
+        {
+            string? query = "UPDATE users SET pass_word = @password WHERE id = @id";
+            rows = connection.ExecuteScalar<int>(query, param: new { @password = passWord, @id = user.Id });
+        }
+        return rows;
     }
 
-    public bool GetUserIdToAD(int advertiseId)
-    {
-        throw new NotImplementedException();
-    }
 
-    public bool MakeUser(User user)
-    {
-        throw new NotImplementedException();
-    }
-
-    public bool CheckNickNameExists(string nickName)
-    {
-        throw new NotImplementedException();
-    }
-
-    public bool DeleteTheUser(User user)
-    {
-        throw new NotImplementedException();
-    }
-
-    public bool DescriptionInput(User user, string updateDescription)
-    {
-        throw new NotImplementedException();
-    }
 }
