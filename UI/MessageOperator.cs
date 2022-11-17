@@ -86,4 +86,9 @@ class MessageOperator
     {
         _messageService.DeleteConversation(user.Id, participantId);
     }
+
+    public void WriteMessageToAdmin(User user)
+    {
+        
+    }
 }

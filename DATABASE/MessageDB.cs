@@ -122,5 +122,30 @@ public class MessageDB : IMessageSender, IConversationHandler
         return messages;
     }
 
+    public List<int> GetAdminId()
+    {
+        List<int> adminIds = new();
+        using (MySqlConnection connection = new MySqlConnection("Server=localhost;Database=blocket_clone;Uid=root;Pwd=;"))
+        {
+            string query = "SELECT id FROM admins";
+            adminIds = connection.Query<int>(query).ToList();
+        }
+        return adminIds;
+    }
+
+    public int SendMessageToAdmin(int userId, Message message, List<int> adminIds)
+    {
+        int usermessageId = 0;
+        foreach (int item in adminIds)
+        {
+            using (MySqlConnection connection = new MySqlConnection("Server=localhost;Database=blocket_clone;Uid=root;Pwd=;"))
+            {
+                string query = "INSERT INTO admin_message (user_id, admin_id, message_id) VALUES(@userId, @adminId, @messageId);";
+                usermessageId = connection.ExecuteScalar<int>(query, new { @userId = message.IDFromUser, @adminId = item, @messageId = message.ID });
+            }
+        }
+        return usermessageId;
+    }
+
 
 }
