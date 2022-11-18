@@ -7,9 +7,9 @@ public class AdminService : IAdminService
     IUserHandeler _userHandele;
     IUserEditor _userEditor;
     IAdHandler _adHandeler;
-    IAdmin _admin;
+    IAdminHandeler _admin;
 
-    public AdminService(IUserHandeler userHandeler, IUserEditor userEditor, IAdmin admin, IAdminEditor adminEditor, IAdHandler adHandler)
+    public AdminService(IUserHandeler userHandeler, IUserEditor userEditor, IAdminHandeler admin, IAdminEditor adminEditor, IAdHandler adHandler)
     {
         _userHandele = userHandeler;
         _userEditor = userEditor;

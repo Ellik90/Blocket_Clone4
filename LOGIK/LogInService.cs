@@ -4,10 +4,10 @@ namespace LOGIK;
 public class LogInService : ILogInService
 {
     IUserHandeler _userHandeler;
-    IAdmin _adminHandeler;
+    IAdminHandeler _adminHandeler;
     IValidator _validator;
     IEmailSender _emailSender;
-    public LogInService(IUserHandeler userHandeler, IAdmin adminhandeler, IValidator validator, IEmailSender emailSender)
+    public LogInService(IUserHandeler userHandeler, IAdminHandeler adminhandeler, IValidator validator, IEmailSender emailSender)
     {
         _userHandeler = userHandeler;
         _adminHandeler = adminhandeler;

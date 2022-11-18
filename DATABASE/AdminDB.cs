@@ -2,7 +2,7 @@ using Dapper;
 using MySqlConnector;
 using TYPES;
 namespace DATABASE;
-public class AdminDB : IAdmin, IAdminEditor
+public class AdminDB : IAdminHandeler, IAdminEditor
 {
     //Admin granskaannons metod is_checked, är den granskad
     
