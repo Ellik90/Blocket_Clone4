@@ -1,6 +1,6 @@
 using TYPES;
 namespace DATABASE;
-public interface IAdmin
+public interface IAdminHandeler
 {
     public int CreateAdmin(Admin admin);
     public int DeleteAdmin(Admin admin);

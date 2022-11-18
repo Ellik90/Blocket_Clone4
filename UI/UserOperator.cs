@@ -1,28 +1,24 @@
 using LOGIK;
 using TYPES;
 using DATABASE;
-class UserOperator //
+class UserOperator 
 {
-    IUserEditor _userEditor;
     IUserService _userService;
-
     ILogInService _loginService;
     IValidator _validator;
     public UserOperator(ILogInService logInService, IUserService userService, IValidator validator)
     {
         _loginService = logInService;
-
         _userService = userService;
         _validator = validator;
     }
-
-    public User CreateUser(User user, LogInService logInService, UserDB userdb)
+    public User CreateUser(User user, LogInService logInService)
     {
         bool exists = false;
         do
         {
             user.Email = ConsoleInput.GetString("Enter your email-adress: ");
-            if (userdb.UserEmailExists(user.Email) > 0)
+            if ( _userService.CheckUserEmailExists(user.Email))
             {
                 Console.WriteLine("Email alredy exists");
                 exists = true;
@@ -32,11 +28,10 @@ class UserOperator //
                 exists = false;
             }
         } while (exists);
-
         do
         {
             user.Name = ConsoleInput.GetString("name: ");
-            if ((userdb.NicknameExists(user.Name) > 0))
+            if ((_userService.CheckUserEmailExists(user.Name)))
             {
                 Console.WriteLine("name alredy exists");
                 exists = true;
@@ -61,7 +56,7 @@ class UserOperator //
         } while (exists);
         
         user = _loginService.MakeNewLogIn(user);
-        _userService.MakeUser(user); // FELHANTERING MED BOOLEN?                 //user = new(input, num, adress, email, password);
+        _userService.MakeUser(user);               
         return user;
     }
     public int UserLogIn()
@@ -73,8 +68,6 @@ class UserOperator //
         user.Id = _loginService.UserLogInIsValid(user); //andvänder userhandler och ser om user finns
         return user.Id;
     }
-
-
     public void DeleteUser(User user)
     {
         try
@@ -114,7 +107,6 @@ class UserOperator //
             Console.WriteLine("Something went wrong");
         }
     }
-
     public void UpdatePasswordUser(User user)
     {
         try
