@@ -122,7 +122,7 @@ internal class Program
                         if (choice == 1)
                         {
                             advertiseID = ConsoleInput.GetInt("Advertise Number: ");
-                            int adUserID = userdb.GetUserIdFromAdvertise(advertiseID);
+                            int adUserID = advertiseoperator.GetUserIdFromAdvertise(advertiseID);
                             //     UserMakesMessage(toUserId, user, messageService); GAMLA STATISKA METODEN, TA BORT NÄR DEN NEDAN ÄR TESTAD
                             //     HÄR GÖR OBJEKT AV KLASSEN MESSAGEOPERATION OCH ANROPAR WRITEMESSAGETOAD METODEN HÄR
                             //    cd ui

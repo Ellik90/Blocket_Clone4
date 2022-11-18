@@ -42,4 +42,8 @@ class advertiseoperator
 
         return userAds;
     }
+    public int GetUserIdFromAdvertise(int advertiseId)
+    {
+        return advertiseId;
+    }
 }

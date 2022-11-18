@@ -10,5 +10,7 @@ namespace LOGIK
         public Advertise ShowOneAd(int id);
         public void CheckAd(int id);
         public List <Advertise> ShowMyads(int id);
+
+        public int GetUserIdFromAdvertise(int advertiseId);
     }
 }
