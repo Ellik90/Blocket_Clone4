@@ -238,6 +238,7 @@ internal class Program
                        adminOperator.DeleteAdmin(admin);
                     }
                     break;
+                    //nu är jag så jäkla trött på alla dessa problem och ja fattar naaaadaaaaa
             }
         }
 
