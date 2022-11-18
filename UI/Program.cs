@@ -44,7 +44,7 @@ internal class Program
             {
                 case 1:
                     //1. SKAPAKONTO
-                    user = userOperator.CreateUser(user, logInService, userdb);
+                    user = userOperator.CreateUser(user, logInService);
                     break;
                 case 2:
                     int id = userOperator.UserLogIn();

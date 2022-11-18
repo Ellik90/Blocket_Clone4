@@ -7,6 +7,7 @@ public interface IUserService
     public bool GetUserIdToAD(int advertiseId);
     public bool MakeUser(User user);
     public bool CheckNickNameExists(string nickName);
+    public bool CheckUserEmailExists(string Email);
     public bool DeleteTheUser(User user);
     public bool DescriptionInput(User user, string updateDescription);
     public bool UpdateEmail(User user, string userEmail);

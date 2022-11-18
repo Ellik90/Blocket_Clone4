@@ -42,7 +42,6 @@ public class UserService : IUserService
             return false;
         }
     }
-
     public bool MakeUser(User user)
     {
         int rows = 0;
@@ -56,7 +55,6 @@ public class UserService : IUserService
             return false;
         }
     }
-
     public bool CheckNickNameExists(string nickName)
     {
         int rows = 0;
@@ -70,7 +68,6 @@ public class UserService : IUserService
             return false;
         }
     }
-
      public bool CheckUserEmailExists(string Email)
     {
         int rows = 0;

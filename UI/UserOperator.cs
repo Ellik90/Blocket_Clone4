@@ -1,7 +1,7 @@
 using LOGIK;
 using TYPES;
 using DATABASE;
-class UserOperator //
+class UserOperator 
 {
     IUserService _userService;
     ILogInService _loginService;
@@ -12,13 +12,13 @@ class UserOperator //
         _userService = userService;
         _validator = validator;
     }
-    public User CreateUser(User user, LogInService logInService, UserDB userdb)
+    public User CreateUser(User user, LogInService logInService)
     {
         bool exists = false;
         do
         {
             user.Email = ConsoleInput.GetString("Enter your email-adress: ");
-            if ( userdb.UserEmailExists(user.Email) > 0)
+            if ( _userService.CheckUserEmailExists(user.Email))
             {
                 Console.WriteLine("Email alredy exists");
                 exists = true;
@@ -28,11 +28,10 @@ class UserOperator //
                 exists = false;
             }
         } while (exists);
-
         do
         {
             user.Name = ConsoleInput.GetString("name: ");
-            if ((userdb.NicknameExists(user.Name) > 0))
+            if ((_userService.CheckUserEmailExists(user.Name)))
             {
                 Console.WriteLine("name alredy exists");
                 exists = true;
