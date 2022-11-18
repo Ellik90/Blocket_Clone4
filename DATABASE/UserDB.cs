@@ -27,7 +27,6 @@ public class UserDB : IUserHandeler, IUserEditor
             return id;
         }
     }
-
     public int NicknameExists(string nickname)
     {
         //EGEN DB KLASS
