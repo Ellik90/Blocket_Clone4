@@ -120,13 +120,9 @@ internal class Program
                     {
                         System.Console.WriteLine(item.ToString());
                     }
-                    int choice = ConsoleInput.GetInt("[1] New Search   [2] Write message to advertise   [3] Return");
+                    int choice = ConsoleInput.GetInt("[1] Write message to advertise   [2] Return");
                     {
                         if (choice == 1)
-                        {
-                            LoggedInOptions = 3; // funkar ej?
-                        }
-                        else if (choice == 2)
                         {
                             advertiseID = ConsoleInput.GetInt("Advertise Number: ");
                             int adUserID = userdb.GetUserIdFromAdvertise(advertiseID);
@@ -135,7 +131,7 @@ internal class Program
                             //    cd ui
                             messageOperator.WriteMessageToAd(adUserID, user);
                         }
-                        else if (choice == 3)
+                        else if (choice == 2)
                         {
                             LoggedInOptions = 1;
                         }
