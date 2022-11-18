@@ -44,6 +44,6 @@ class advertiseoperator
     }
     public int GetUserIdFromAdvertise(int advertiseId)
     {
-        return advertiseId;
+        return _advertiseService.GetUserIdFromAdvertise(advertiseId);
     }
 }

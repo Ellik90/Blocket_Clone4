@@ -13,4 +13,6 @@ public interface IMessageSender
     public List<int> GetAdminId();
     // public void UpdateMessageIsReplied(int messageId);
 
+    public int CreateMessageTest(Message message);
+
 }

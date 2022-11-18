@@ -69,7 +69,7 @@ public class AdvertiseService : IAdvertiseService
     }
     public int GetUserIdFromAdvertise(int advertiseId)
     {
-        return advertiseId;
+        return _IadManager.GetUserIdFromAdvertise(advertiseId);
     }
    
     // här finns funktioner som hanterar advertise, mellan användare och databasen

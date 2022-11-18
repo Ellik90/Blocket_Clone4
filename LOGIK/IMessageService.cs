@@ -13,6 +13,7 @@ public interface IMessageService
     public void MessageAdminToUser(Admin admin, Message message, int senderId, int messageId);
      public int AdminGetSender(int messageId);
      public List<Message> GetMessagesFromAdmin(User user);
+     public bool MakeMessageTest(Message message);
     
     
 }

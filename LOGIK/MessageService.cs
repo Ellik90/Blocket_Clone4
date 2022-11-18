@@ -33,6 +33,19 @@ public class MessageService : IMessageService
             return false;
         }
     }
+
+    public bool MakeMessageTest(Message message)
+    {
+        int rows = _messageSender.CreateMessageTest(message);
+        if(rows > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     public List<Message> ShowAllMessages(User user)
     {
         List<Message> messages = _conversationHandler.GetMessagesNew(user); //_conversationHandler.GetAllMessagesOverlookTest(user);

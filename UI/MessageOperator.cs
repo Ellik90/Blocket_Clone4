@@ -16,7 +16,7 @@ class MessageOperator
         try
         {
             Message answerMessage = new(rubric, content, user.Id, idToUser);
-            _messageService.MakeMessage(answerMessage, user);
+            _messageService.MakeMessageTest(answerMessage);
         }
         catch (Exception e)
         {
@@ -87,10 +87,12 @@ class MessageOperator
     }
     public void ReplyToMessage(int idToUser, User user)
     {
+
         string rubric = ConsoleInput.GetString("Rubric: ");
         string content = ConsoleInput.GetString("Content: ");
         Message replyMessage = new(rubric, content, user.Id, idToUser);
-        if (_messageService.MakeMessage(replyMessage, user) == true)
+        if (_messageService.MakeMessageTest(replyMessage) == true)
+        // _messageService.MakeMessage(replyMessage, user
         {
             Console.WriteLine("Message sent!");
         }
@@ -143,7 +145,7 @@ class MessageOperator
             Console.WriteLine(item.AdminMessageString());
         }
     }
-     public void ShowMessagesFromAdmin(User user)
+    public void ShowMessagesFromAdmin(User user)
     {
         List<Message> messages = _messageService.GetMessagesFromAdmin(user);
         foreach (Message item in messages)
