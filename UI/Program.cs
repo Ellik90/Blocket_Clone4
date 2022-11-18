@@ -15,6 +15,9 @@ internal class Program
         int adminOptions = 0;
         int choice = 0;
 
+        // DANIEL GETUSERIDFROMADVERTISE HÄMTAR EJ!! USERID HELA VÄGEN TILLBAKA FRÅN ADVERTISEDB!
+
+        
         MessageService messageService = new(new MessageDB(), new MessageDB(), new AdminMessageDB());
         AdminService adminService = new(new UserDB(), new UserDB(), new AdminDB(), new AdminDB(), new AddvertiseDb());
         LogInService logInService = new(new UserDB(), new AdminDB(), new Validator(), new EmailSender());
