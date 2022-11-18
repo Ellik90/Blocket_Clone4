@@ -13,27 +13,22 @@ internal class Program
         bool loginPage = true;
         bool loggedInAsAdmin = false;
         int adminOptions = 0;
+        int choice = 0;
 
-        User user = new();
-        Admin admin = new();
-        UserDB userdb = new();
-        AdminDB admindb = new();
-        LogInService logInService = new(userdb, admindb, new Validator(), new EmailSender());
-        UserService userservise = new(userdb, userdb);
-        AddvertiseDb addvertiseDb = new();
-        AdvertiseService advertiseService = new(addvertiseDb);
+        LogInService logInService = new(new UserDB(), new AdminDB(), new Validator(), new EmailSender());
+        UserService userservise = new(new UserDB(), new UserDB());
+        AdvertiseService advertiseService = new(new AddvertiseDb());
         advertiseoperator advertiseoperator = new(advertiseService);
-        AdminMessageDB adminMessageDB = new();
         MessageService messageService = new(new MessageDB(), new MessageDB(), new AdminMessageDB());
-        AdminService adminService = new(userdb, userdb, admindb, admindb, addvertiseDb);
+        AdminService adminService = new(new UserDB(), new UserDB(), new AdminDB(), new AdminDB(), new AddvertiseDb());
         UserOperator userOperator = new(logInService, userservise, new Validator());
-        AdminOperator adminOperator = new(logInService, adminService, userservise, admindb, new Validator());
+        AdminOperator adminOperator = new(logInService, adminService, userservise, new AdminDB(), new Validator());
         MessageOperator messageOperator = new(messageService);
 
-        //While loop hör ihop med swith för skapa och logga in funktioner
         Console.Clear();
         while (loginPage)
         {
+            User user = new();
             System.Console.WriteLine("Välkommen till Scam_Blocket");
             System.Console.WriteLine("");
             System.Console.WriteLine("[1] Skapa konto");
@@ -44,7 +39,7 @@ internal class Program
             {
                 case 1:
                     //1. SKAPAKONTO
-                    user = userOperator.CreateUser(user, logInService, userdb);
+                    user = userOperator.CreateUser(user, logInService);
                     break;
                 case 2:
                     int id = userOperator.UserLogIn();
@@ -61,6 +56,7 @@ internal class Program
                     }
                     break;
                 case 3:
+                Admin admin = new();
                     int adminId = adminOperator.AdminLogin();
                     if (adminId == 0)
                     {
@@ -79,6 +75,7 @@ internal class Program
         //While och switch för användare som är inloggade
         while (loggedInAsUser)
         {
+            User user = new();
             user = userOperator.GetUser(user);
             System.Console.WriteLine(user.Name.ToUpper() + "'s Account");
             System.Console.WriteLine("-------------------------------");
@@ -120,7 +117,7 @@ internal class Program
                     {
                         System.Console.WriteLine(item.ToString());
                     }
-                    int choice = ConsoleInput.GetInt("[1] Write message to advertise   [2] Return");
+                    choice = ConsoleInput.GetInt("[1] Write message to advertise   [2] Return");
                     {
                         if (choice == 1)
                         {
@@ -199,12 +196,13 @@ internal class Program
         }
         while (loggedInAsAdmin)
         {
+            Admin admin = new();
             admin = adminService.GetTheAdmin(admin);
             adminOptions = ConsoleInput.GetInt("[1] Add new admin-account   [2] Check advertises   [3] User-handeler   [4] Advertise-handeler [5] Update email [6] Delete admin account");
             switch (adminOptions)
             {
                 case 1:
-                    admin = adminOperator.CreateAdmin(admindb);
+                    admin = adminOperator.CreateAdmin();
                     break;
                 case 2:
                     adminOperator.GetNonCheckedAds();
@@ -213,7 +211,7 @@ internal class Program
                     break;
                 case 3:
                     messageOperator.ShowUsersUnreadMessages(admin);
-                    int choice = ConsoleInput.GetInt("[1] Reply   [2] Return");
+                    choice = ConsoleInput.GetInt("[1] Reply   [2] Return");
                     if(choice == 1)
                     {
                         int messageId = ConsoleInput.GetInt("Message ID to reply: ");
@@ -226,7 +224,7 @@ internal class Program
                     // För vidare utveckling
                     break;
                 case 5:
-                    adminOperator.UpdateEmail(admindb);
+                    adminOperator.UpdateEmail();
                     break;
                 case 6:
                     string delete = ConsoleInput.GetString("Delete account [Yes]  [No] ");
