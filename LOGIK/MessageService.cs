@@ -3,16 +3,17 @@ using DATABASE;
 namespace LOGIK;
 public class MessageService : IMessageService
 {
-    //här i är funktionerna mellan användaren och db, tex makemessage(strin rubric, string content) osv..
     IMessageSender _messageSender;
     IConversationHandler _conversationHandler;
+    IAdminMessager _adminMessager;
     List<Message> allMessages = new();
     List<Message> oneConversationMessages = new();
     Message message = new();
-    public MessageService(IMessageSender messageSender, IConversationHandler conversationHandler)
+    public MessageService(IMessageSender messageSender, IConversationHandler conversationHandler, IAdminMessager adminMessager)
     {
         _messageSender = messageSender;
         _conversationHandler = conversationHandler;
+        _adminMessager = adminMessager;
     }
     public bool MakeMessage(Message message, User user)
     {
@@ -60,7 +61,7 @@ public class MessageService : IMessageService
     }
      public int AdminGetSender(int messageId)
     {
-        return _messageSender.AdminGetSenderId(messageId);
+        return _adminMessager.AdminGetSenderId(messageId);
     }
 
     public bool MessageToAdmin(User user, Message message)
@@ -69,7 +70,7 @@ public class MessageService : IMessageService
         message.ID = newMessageId;
         allMessages.Add(message);
         List<int>adminIds = _messageSender.GetAdminId();
-        int rows = _messageSender.SendMessageUserAdmin(user.Id, message, adminIds);
+        int rows = _messageSender.SendMessageToAdmin(user.Id, message, adminIds);
         if(rows > 0)
         {
             return true;
@@ -83,12 +84,12 @@ public class MessageService : IMessageService
     {
         int newMessageId = _messageSender.CreateMessage(message);
         allMessages.Add(message);
-        int replyId = _messageSender.SendMessageFromAdmin(senderId, admin.Id, newMessageId);
-        _messageSender.UpdateMessageIsReplied(messageId);
+        int replyId = _adminMessager.SendMessageFromAdmin(senderId, admin.Id, newMessageId);
+        _adminMessager.UpdateMessageIsReplied(messageId);
     }
     public List<Message> GetUsersMessages(Admin admin)
     {
-        return _conversationHandler.GetUsersMessages(admin);
+        return _adminMessager.GetUsersMessages(admin);
     }
     public List<Message> GetMessagesFromAdmin(User user)
     {
