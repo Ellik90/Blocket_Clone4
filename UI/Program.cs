@@ -23,8 +23,8 @@ internal class Program
         AddvertiseDb addvertiseDb = new();
         AdvertiseService advertiseService = new(addvertiseDb);
         advertiseoperator advertiseoperator = new(advertiseService);
-        MessageDB messageDB = new();
-        MessageService messageService = new(messageDB, messageDB);
+        AdminMessageDB adminMessageDB = new();
+        MessageService messageService = new(new MessageDB(), new MessageDB(), new AdminMessageDB());
         AdminService adminService = new(userdb, userdb, admindb, admindb, addvertiseDb);
         UserOperator userOperator = new(logInService, userservise, new Validator());
         AdminOperator adminOperator = new(logInService, adminService, userservise, admindb, new Validator());

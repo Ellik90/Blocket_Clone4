@@ -69,8 +69,8 @@ public class MessageService : IMessageService
         int newMessageId = _messageSender.CreateMessage(message);
         message.ID = newMessageId;
         allMessages.Add(message);
-        List<int>adminIds = _adminMessager.GetAdminId();
-        int rows = _messageSender.SendMessageUserAdmin(user.Id, message, adminIds);
+        List<int>adminIds = _messageSender.GetAdminId();
+        int rows = _messageSender.SendMessageToAdmin(user.Id, message, adminIds);
         if(rows > 0)
         {
             return true;
@@ -85,11 +85,11 @@ public class MessageService : IMessageService
         int newMessageId = _messageSender.CreateMessage(message);
         allMessages.Add(message);
         int replyId = _adminMessager.SendMessageFromAdmin(senderId, admin.Id, newMessageId);
-        _messageSender.UpdateMessageIsReplied(messageId);
+        _adminMessager.UpdateMessageIsReplied(messageId);
     }
     public List<Message> GetUsersMessages(Admin admin)
     {
-        return _conversationHandler.GetUsersMessages(admin);
+        return _adminMessager.GetUsersMessages(admin);
     }
     public List<Message> GetMessagesFromAdmin(User user)
     {
