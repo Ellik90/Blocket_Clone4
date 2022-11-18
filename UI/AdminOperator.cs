@@ -7,7 +7,6 @@ public class AdminOperator
     IAdminEditor _adminEditor;
     IUserService _userService;
     IAdminService _adminService;
-    Admin _admin;
     ILogInService _loginService;
     IValidator _validator;
 
@@ -18,9 +17,7 @@ public class AdminOperator
         _loginService = logInService;
         _adminService = adminService;
         _validator = validator;
-    }
-
-    
+    }  
     public void DeleteAdmin(Admin admin)
     {
         try
@@ -46,18 +43,17 @@ public class AdminOperator
             Console.WriteLine("Something went wrong " + e.Message);
         }
     }
-    public Admin CreateAdmin(AdminDB adminDB)
+    public Admin CreateAdmin(Admin admin)
     {
-        Admin admin = new();
         admin.Email = ConsoleInput.GetString("Enter your mail-adress");
-        if (adminDB.AdminEmailExists(admin.Email) > 0)
+        if (_adminService.CheckAdminEmailExists(admin.Email) == true)
         {
             Console.WriteLine("Email allready exists");
             Environment.Exit(0);
         }
         //<-här har user med sig email, lösenord|elina tar över user och gör resten
         admin.Name = ConsoleInput.GetString("name: ");
-        if (adminDB.AdminNameExists(admin.Name) > 0)
+        if (_adminService.CheckAdminNameExists(admin.Name) == true)
         {
             Console.WriteLine("Nickname allready exists");
             Environment.Exit(0);
@@ -70,6 +66,7 @@ public class AdminOperator
         }
         admin = _loginService.MakeNewLogIn(admin);
         _adminService.MakeAdmin(admin);
+        
         return admin;
     }
 

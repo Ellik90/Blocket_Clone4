@@ -201,7 +201,7 @@ internal class Program
             switch (adminOptions)
             {
                 case 1:
-                    admin = adminOperator.CreateAdmin();
+                     admin = adminOperator.CreateAdmin(admin);
                     break;
                 case 2:
                     adminOperator.GetNonCheckedAds();
@@ -232,6 +232,10 @@ internal class Program
                        adminOperator.DeleteAdmin(admin);
                     }
                     break;
+                    //kolla så alla exists och update fungerar, 
+                    //ska exists ha egen interface också?
+                    
+
             }
         }
 
