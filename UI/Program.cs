@@ -132,7 +132,6 @@ internal class Program
                         {
                             LoggedInOptions = 1;
                         }
-                        //hejsan hoppsan vad vi får rdera dessa gröninar
                     }
                     break;
                 case 4:
@@ -224,7 +223,7 @@ internal class Program
                     // För vidare utveckling
                     break;
                 case 5:
-                    adminOperator.UpdateEmail();
+                    adminOperator.UpdateEmail(admin);
                     break;
                 case 6:
                     string delete = ConsoleInput.GetString("Delete account [Yes]  [No] ");
