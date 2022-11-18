@@ -135,6 +135,7 @@ internal class Program
                         {
                             LoggedInOptions = 1;
                         }
+                        //hejsan hoppsan vad vi får rdera dessa gröninar
                     }
                     break;
                 case 4:
