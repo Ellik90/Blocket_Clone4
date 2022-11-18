@@ -34,6 +34,7 @@ public class AdminOperator
             Console.WriteLine("The site is under construction. Try again later.");
         }
     }
+    //här har ja ändrat hunda gåner
     public void UpdateEmail(AdminDB admindb)
     {
         Admin admin = new();
