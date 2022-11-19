@@ -14,12 +14,12 @@ public class MessageDB : IMessageSender, IConversationHandler
         {
             string query = "START TRANSACTION;"+
             "INSERT INTO message (rubric, content) VALUES(@rubric, @content);"+
-            "SELECT LAST_INSERT_ID();"+
-            "INSERT INTO user_message (from_user_id, to_user_id, message_id) VALUES(@idfromuser, @idtouser, LAST_INSERT_ID());"+
-            "SELECT LAST_INSERT_ID();"+
-            "INSERT INTO conversation_thread (user_id, user_message_id) VALUES(@idfromuser, LAST_INSERT_ID());"+
-            "INSERT INTO conversation_thread (user_id, user_message_id) VALUES(@idtouser, LAST_INSERT_ID());"+
-            "COMMIT;";
+            "SET @message_id := LAST_INSERT_ID();"+
+            "INSERT INTO user_message (from_user_id, to_user_id, message_id) VALUES(@idfromuser, @idtouser, @message_id);"+
+            "SET @user_message_id := LAST_INSERT_ID();"+
+            "INSERT INTO conversation_thread (user_id, user_message_id) VALUES(@idfromuser, @user_message_id);"+
+            "INSERT INTO conversation_thread (user_id, user_message_id) VALUES(@idtouser, @user_message_id);"+
+            "COMMIT; SELECT @user_message_id;";
             rows = connection.QuerySingle<int>(query, param : message);
         }
         return rows;
