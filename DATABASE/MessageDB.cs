@@ -57,27 +57,27 @@ public class MessageDB : IMessageSender, IConversationHandler
         }
         return messageId;
     }
-    public int SendMessage(Message message, int messageId) // int MessageId om create message hämtar medd ID
-    {
-        int usermessageId = 0;
-        using (MySqlConnection connection = new MySqlConnection("Server=localhost;Database=blocket_clone;Uid=root;Pwd=;"))
-        {
-            string query = "INSERT INTO user_message (from_user_id, to_user_id, message_id) VALUES(@IDFromUser, @IDToUser, @ID); SELECT LAST_INSERT_ID();";
-            usermessageId = connection.ExecuteScalar<int>(query, new { @IDFromUser = message.IDFromUser, @IDToUser = message.IDToUser, @ID = messageId });
-            //@fromuser = message.IDFromUser, @touser = message.IDToUser, @messageid = messageId 
-        }
-        return usermessageId;
-    }
-    public int AddConversationThread(int userId, int userMessageId)
-    {
-        int rows = 0;
-        using (MySqlConnection connection = new MySqlConnection("Server=localhost;Database=blocket_clone;Uid=root;Pwd=;"))
-        {
-            string query = "INSERT INTO conversation_thread (user_id, user_message_id) VALUES(@Id, @usermessageId);";
-            rows = connection.ExecuteScalar<int>(query, new { @Id = userId, @usermessageId = userMessageId });
-        }
-        return rows;
-    }
+    // public int SendMessage(Message message, int messageId) // int MessageId om create message hämtar medd ID
+    // {
+    //     int usermessageId = 0;
+    //     using (MySqlConnection connection = new MySqlConnection("Server=localhost;Database=blocket_clone;Uid=root;Pwd=;"))
+    //     {
+    //         string query = "INSERT INTO user_message (from_user_id, to_user_id, message_id) VALUES(@IDFromUser, @IDToUser, @ID); SELECT LAST_INSERT_ID();";
+    //         usermessageId = connection.ExecuteScalar<int>(query, new { @IDFromUser = message.IDFromUser, @IDToUser = message.IDToUser, @ID = messageId });
+    //         //@fromuser = message.IDFromUser, @touser = message.IDToUser, @messageid = messageId 
+    //     }
+    //     return usermessageId;
+    // }
+    // public int AddConversationThread(int userId, int userMessageId)
+    // {
+    //     int rows = 0;
+    //     using (MySqlConnection connection = new MySqlConnection("Server=localhost;Database=blocket_clone;Uid=root;Pwd=;"))
+    //     {
+    //         string query = "INSERT INTO conversation_thread (user_id, user_message_id) VALUES(@Id, @usermessageId);";
+    //         rows = connection.ExecuteScalar<int>(query, new { @Id = userId, @usermessageId = userMessageId });
+    //     }
+    //     return rows;
+    // }
     public int DeleteMessageConversation(int myId, int participantId)
     {
         int rows = 0;

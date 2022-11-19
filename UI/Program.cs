@@ -125,7 +125,7 @@ internal class Program
                             //     UserMakesMessage(toUserId, user, messageService); GAMLA STATISKA METODEN, TA BORT NÄR DEN NEDAN ÄR TESTAD
                             //     HÄR GÖR OBJEKT AV KLASSEN MESSAGEOPERATION OCH ANROPAR WRITEMESSAGETOAD METODEN HÄR
                             //    cd ui
-                            messageOperator.WriteMessageToAd(adUserID, user);
+                            messageOperator.MessageUser(adUserID, user);
                         }
                         else if (choice == 2)
                         {
@@ -146,7 +146,7 @@ internal class Program
                     int chocie = ConsoleInput.GetInt("[1] Reply    [2] Delete conversation    [3] Return");
                     if (chocie == 1)
                     {
-                        messageOperator.ReplyToMessage(participantId, user);
+                        messageOperator.MessageUser(participantId, user);
                     }
                     else if (chocie == 2)
                     {

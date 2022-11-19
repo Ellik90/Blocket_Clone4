@@ -15,24 +15,24 @@ public class MessageService : IMessageService
         _conversationHandler = conversationHandler;
         _adminMessager = adminMessager;
     }
-    public bool MakeMessage(Message message, User user)
-    {
-        int newMessageId = _messageSender.CreateMessage(message);
-        message.ID = newMessageId;
-        allMessages.Add(message);
-        int usermessageId = _messageSender.SendMessage(message, newMessageId);
-        int rows = _messageSender.AddConversationThread(user.Id, usermessageId);
-        int toUserId = message.IDToUser;
-        int converstaionRows = _messageSender.AddConversationThread(toUserId, usermessageId);
-        if (newMessageId > 0 && usermessageId > 0 && rows > 0 && converstaionRows > 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
+    // public bool MakeMessage(Message message, User user)
+    // {
+    //     int newMessageId = _messageSender.CreateMessage(message);
+    //     message.ID = newMessageId;
+    //     allMessages.Add(message);
+    //     int usermessageId = _messageSender.SendMessage(message, newMessageId);
+    //     int rows = _messageSender.AddConversationThread(user.Id, usermessageId);
+    //     int toUserId = message.IDToUser;
+    //     int converstaionRows = _messageSender.AddConversationThread(toUserId, usermessageId);
+    //     if (newMessageId > 0 && usermessageId > 0 && rows > 0 && converstaionRows > 0)
+    //     {
+    //         return true;
+    //     }
+    //     else
+    //     {
+    //         return false;
+    //     }
+    // }
 
     public bool MakeMessageTest(Message message)
     {

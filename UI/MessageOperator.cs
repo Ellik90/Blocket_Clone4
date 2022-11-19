@@ -7,22 +7,22 @@ class MessageOperator
     {
         _messageService = messageService;
     }
-    public void WriteMessageToAd(int adUserId, User user)
-    {
-        // // 3. SKRIV MEDDELANDE TILL ANNONSENS ANVÄNDARE
-        string rubric = ConsoleInput.GetString("Rubric: ");
-        string content = ConsoleInput.GetString("Content: ");
-        int idToUser = adUserId;
-        try
-        {
-            Message answerMessage = new(rubric, content, user.Id, idToUser);
-            _messageService.MakeMessageTest(answerMessage);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e.Message);
-        }
-    }
+    // public void WriteMessageToAd(int adUserId, User user)
+    // {
+    //     // // 3. SKRIV MEDDELANDE TILL ANNONSENS ANVÄNDARE
+    //     string rubric = ConsoleInput.GetString("Rubric: ");
+    //     string content = ConsoleInput.GetString("Content: ");
+    //     int idToUser = adUserId;
+    //     try
+    //     {
+    //         Message answerMessage = new(rubric, content, user.Id, idToUser);
+    //         _messageService.MakeMessageTest(answerMessage);
+    //     }
+    //     catch (Exception e)
+    //     {
+    //         Console.WriteLine(e.Message);
+    //     }
+    // }
     public void ShowAllMessages(User user)
     {
         user.messages = _messageService.ShowAllMessages(user);  //  DENNA FUNKAR MED LÅNG QUERY
@@ -85,7 +85,7 @@ class MessageOperator
         }
 
     }
-    public void ReplyToMessage(int idToUser, User user)
+    public void MessageUser(int idToUser, User user)
     {
 
         string rubric = ConsoleInput.GetString("Rubric: ");
