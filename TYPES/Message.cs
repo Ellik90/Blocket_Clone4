@@ -8,7 +8,7 @@ public class Message
     public int IDToUser { get; set; }
     public string Rubric { get; private set; }
     public string Content { get; private set; }
-    public readonly DateTime DateSent;
+    public DateTime DateSent {get; set;}
     // public annons annons;
     public int countMessagesFromUser{get;set;}
     public User user = new();

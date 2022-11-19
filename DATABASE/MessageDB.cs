@@ -155,9 +155,9 @@ public class MessageDB : IMessageSender, IConversationHandler
         List<Message> adminMessages = new();
         using (MySqlConnection connection = new MySqlConnection("Server=localhost;Database=blocket_clone;Uid=root;Pwd=;"))
         {
-            string query = "SELECT message_id as 'id', date_sent as 'date', rubric, content, nick_name as 'namefromuser' FROM admin_message " +
+            string query = "SELECT message_id as 'id', date_sent as 'datesent', rubric, content, nick_name as 'namefromuser' FROM admin_message " +
             "INNER JOIN message ON admin_message.message_id = message.id " +
-            "INNER JOIN users ON admin_message.user_id = users.id WHERE user_id = @id ORDER BY ID DESC LIMIT 1;";
+            "INNER JOIN users ON admin_message.user_id = users.id WHERE user_id = @id ORDER BY date_sent DESC LIMIT 1;";
             adminMessages = connection.Query<Message>(query, param: user).ToList();
         }
         return adminMessages;

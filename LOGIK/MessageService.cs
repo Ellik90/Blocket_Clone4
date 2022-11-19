@@ -34,7 +34,7 @@ public class MessageService : IMessageService
     //     }
     // }
 
-    public bool MakeMessageTest(Message message)
+    public bool MakeMessage(Message message)
     {
         int rows = _messageSender.CreateMessageTest(message);
         if(rows > 0)
@@ -72,10 +72,6 @@ public class MessageService : IMessageService
     {
         return _messageSender.GetSenderId(messageId);
     }
-     public int AdminGetSender(int messageId)
-    {
-        return _adminMessager.AdminGetSenderId(messageId);
-    }
 
     public bool MessageToAdmin(User user, Message message)
     {
@@ -93,29 +89,17 @@ public class MessageService : IMessageService
             return false;
         }
     }
-     public void MessageAdminToUser(Admin admin, Message message, int senderId, int messageId)
-    {
-        int newMessageId = _messageSender.CreateMessage(message);
-        allMessages.Add(message);
-        int replyId = _adminMessager.SendMessageFromAdmin(senderId, admin.Id, newMessageId);
-        _adminMessager.UpdateMessageIsReplied(messageId);
-    }
-    public List<Message> GetUsersMessages(Admin admin)
-    {
-        return _adminMessager.GetUsersMessages(admin);
-    }
     public List<Message> GetMessagesFromAdmin(User user)
     {
         List<Message> getMessages = _conversationHandler.GetMessagesFromAdmin(user);
         List<Message> messagesNotOld = new();
-        foreach(Message item in messagesNotOld)
+        foreach(Message item in getMessages)
         {
-            if(DateTime.Now.AddDays(7) < item.DateSent)
+            if(DateTime.Now < item.DateSent.AddDays(7))
             {
                 messagesNotOld.Add(item);
             }
         }
         return messagesNotOld;
-
     }
 }
