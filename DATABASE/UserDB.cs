@@ -63,13 +63,13 @@ public class UserDB : IUserHandeler, IUserEditor
         }
     }
 
-    public int UserEmailExists(string Email)
+    public int UserEmailExists(string email)
     {
         int rows = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
             string? query = "SELECT * FROM users WHERE email = @email ";
-            rows = connection.ExecuteScalar<int>(query, new { @email = Email });
+            rows = connection.ExecuteScalar<int>(query, new { @email = email });
         }
         return rows;
     }

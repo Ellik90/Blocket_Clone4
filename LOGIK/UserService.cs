@@ -68,10 +68,10 @@ public class UserService : IUserService
             return false;
         }
     }
-     public bool CheckUserEmailExists(string Email)
+     public bool CheckUserEmailExists(string email)
     {
         int rows = 0;
-        _userHandeler.UserEmailExists(Email);
+        _userHandeler.UserEmailExists(email);
         if (rows > 0)
         {
             return true;

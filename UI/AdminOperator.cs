@@ -45,31 +45,37 @@ public class AdminOperator
     }
     public Admin CreateAdmin(Admin admin)
     {
+        bool exists = false;
+        do
+        {
         admin.Email = ConsoleInput.GetString("Enter your mail-adress");
-        if (_adminService.CheckAdminEmailExists(admin.Email) == true)
+        if (_adminService.CheckAdminEmailExists(admin.Email))
         {
             Console.WriteLine("Email allready exists");
-            Environment.Exit(0);
+            exists = true;
         }
-        //<-här har user med sig email, lösenord|elina tar över user och gör resten
-        admin.Name = ConsoleInput.GetString("name: ");
-        if (_adminService.CheckAdminNameExists(admin.Name) == true)
+        else
         {
-            Console.WriteLine("Nickname allready exists");
-            Environment.Exit(0);
+            exists = false;
         }
+        }while (exists);
+
+        admin.Name = ConsoleInput.GetString("name: ");
+
+        do
+        {
         admin.SocialSecurityNumber = ConsoleInput.GetString("social security number: ");
         if (_validator.ValidateSocialSecurityNumber(admin.SocialSecurityNumber) == false)
         {
             Console.WriteLine("Social security number incorrect");
-            Environment.Exit(0);
+            exists = true;
         }
+        }while (exists);
         admin = _loginService.MakeNewLogIn(admin);
         _adminService.MakeAdmin(admin);
-        
+
         return admin;
     }
-
     public int AdminLogin()
     {
         Admin admin = new();
