@@ -14,11 +14,11 @@ class UserOperator
     }
     public User CreateUser(User user, LogInService logInService)
     {
-        bool exists = false;
+        bool exists = true;
         do
         {
             user.Email = ConsoleInput.GetString("Enter your email-adress: ");
-            if (_userService.CheckUserEmailExists(user.Email))
+            if ((_userService.CheckUserEmailExists(user.Email)))
             {
                 Console.WriteLine("Email alredy exists");
                 exists = true;
@@ -31,7 +31,7 @@ class UserOperator
         do
         {
             user.Name = ConsoleInput.GetString("name: ");
-            if (_userService.CheckNickNameExists(user.Name))
+            if ((_userService.CheckNickNameExists(user.Name)))
             {
                 Console.WriteLine("name alredy exists");
                 exists = true;
@@ -44,16 +44,16 @@ class UserOperator
         do
         {
             user.SocialSecurityNumber = ConsoleInput.GetString("social security number: ");
-            if ((_validator.ValidateSocialSecurityNumber(user.SocialSecurityNumber) == false))
+            if ((_validator.ValidateSocialSecurityNumber(user.SocialSecurityNumber)))
             {
                 Console.WriteLine("social security number alredy exists");
                 exists = true;
             }
-            else
+           else
             {
                 exists = false;
             }
-        } while (!exists);
+        } while (exists);
 
         user = _loginService.MakeNewLogIn(user);
         _userService.MakeUser(user);

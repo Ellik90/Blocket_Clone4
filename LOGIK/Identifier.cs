@@ -68,9 +68,9 @@ public class Identifier : IIdentifier
         }
         return isValid;
     }
-    public bool CheckIfUserExists(IUserHandeler userHandeler, User user)
+    public bool CheckIfUserExists(IUserExistsHandeler userExistsHandeler, User user)
     {
-        int id = userHandeler.UserLogInExists(user);
+        int id = userExistsHandeler.UserLogInExists(user);
         if (id == 0)
         {
             return false;

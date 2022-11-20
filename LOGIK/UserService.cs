@@ -7,10 +7,12 @@ public class UserService : IUserService
 
     IUserHandeler _userHandeler;
     IUserEditor _userEditor; 
-    public UserService(IUserHandeler userHandeler, IUserEditor userEditor)
+    IUserExistsHandeler _userExistsHandeler;
+    public UserService(IUserHandeler userHandeler, IUserEditor userEditor, IUserExistsHandeler userExistsHandeler)
     {
         _userHandeler = userHandeler;
         _userEditor = userEditor;
+        _userExistsHandeler = userExistsHandeler;
     }
     public User GetTheUser(User user)
     {
@@ -58,7 +60,7 @@ public class UserService : IUserService
     public bool CheckNickNameExists(string nickName)
     {
         int rows = 0;
-        _userHandeler.NicknameExists(nickName);
+        _userExistsHandeler.NicknameExists(nickName);
         if (rows > 0)
         {
             return true;
@@ -71,7 +73,7 @@ public class UserService : IUserService
      public bool CheckUserEmailExists(string email)
     {
         int rows = 0;
-        _userHandeler.UserEmailExists(email);
+        _userExistsHandeler.UserEmailExists(email);
         if (rows > 0)
         {
             return true;

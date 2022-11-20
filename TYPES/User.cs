@@ -10,7 +10,7 @@ public class User
     public string? Email { get; set; }
     public readonly DateTime Openaccount;
 
-    public User(string name, string SocialSecurityNumber, string email, int password)
+    public User(string name, string SocialSecurityNumber, string Email, int password)
     {
         Openaccount = DateTime.Now;
     }

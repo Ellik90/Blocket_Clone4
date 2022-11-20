@@ -9,3 +9,4 @@ de som hanterar andra admins tex lägga till ny admin i systemet osv
 - Annons ska kunna ha en bild på det man säljer, kategori (eget table?) 
 - Sökfunktion söka både efter produkt samt län? 
 - Betalningsmetod som blocket har, att de håller i pengarna mellan köpare och säljare till produkt levererad?
+- Man ska kunna radera en användare med relationer till andra users, admins, messages.

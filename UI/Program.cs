@@ -17,8 +17,8 @@ internal class Program
         int choice = 0;
         MessageService messageService = new(new MessageDB(), new MessageDB(), new AdminMessageDB());
         AdminService adminService = new(new UserDB(), new UserDB(), new AdminDB(), new AdminDB(), new AddvertiseDb());
-        LogInService logInService = new(new UserDB(), new AdminDB(), new Validator(), new EmailSender());
-        UserService userservise = new(new UserDB(), new UserDB());
+        LogInService logInService = new(new AdminDB(), new Validator(), new EmailSender(), new UserDB());
+        UserService userservise = new(new UserDB(), new UserDB(), new UserDB());
         AdminMessageService adminMessageService = new(new AdminMessageDB(), new MessageDB());
         AdvertiseService advertiseService = new(new AddvertiseDb());
         advertiseoperator advertiseoperator = new(advertiseService);
@@ -40,7 +40,7 @@ internal class Program
             switch (loginOption)
             {
                 case 1:
-                  user = userOperator.CreateUser(user, logInService);
+                   userOperator.CreateUser(user, logInService);
                     break;
                 case 2:
                     int id = userOperator.UserLogIn();

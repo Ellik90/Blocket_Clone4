@@ -2,7 +2,7 @@ using Dapper;
 using MySqlConnector;
 using TYPES;
 namespace DATABASE;
-public class UserDB : IUserHandeler, IUserEditor
+public class UserDB : IUserHandeler, IUserEditor, IUserExistsHandeler
 {
     public List<User> GetUser()
     {
