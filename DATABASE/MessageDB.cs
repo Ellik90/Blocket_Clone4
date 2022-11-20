@@ -4,9 +4,7 @@ using TYPES;
 namespace DATABASE;
 public class MessageDB : IMessageSender, IConversationHandler
 {
-    // transaction -> göra meddelandet, sätta in i user_message, sätta in i conversation_thread
     public MessageDB() { }
-
     public int CreateMessageTest(Message message)
     {
         int rows = 0;
@@ -104,6 +102,9 @@ public class MessageDB : IMessageSender, IConversationHandler
     }
     public int SendMessageToAdmin(int userId, Message message, List<int> adminIds)
     {
+        //vill ha att göra och skicka medd ska vara i transaktion, problemet är att det är ett okänt antal
+        //admins idn som ska sättas in i admin_message! kan ju senare om jag utv. detta ha att den skickas
+        // till admins som har en spcifik roll, tex kundhantering/kundservice? 
         int usermessageId = 0;
         foreach (int item in adminIds)
         {
