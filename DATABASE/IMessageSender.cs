@@ -3,8 +3,9 @@ namespace DATABASE;
 public interface IMessageSender
 {
     public int CreateMessage(Message message);
-    // public int SendMessage(Message message, int messageId);
-    // public int AddConversationThread(int fromUserId, int userMessageId);
+    // // public int SendMessage(Message message, int messageId);
+    // // public int AddConversationThread(int fromUserId, int userMessageId);
+    public int CreateMessageTest(Message message);
     public int GetSenderId(int messageId);
     // public int AdminGetSenderId(int messageId);
     // public List<int> GetAdminId();
@@ -12,7 +13,5 @@ public interface IMessageSender
     // public int SendMessageFromAdmin(int userId, int adminId, int messageId);
     public List<int> GetAdminId();
     // public void UpdateMessageIsReplied(int messageId);
-
-    public int CreateMessageTest(Message message);
 
 }

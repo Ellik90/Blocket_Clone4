@@ -1,14 +1,12 @@
 ﻿using LOGIK;
 using TYPES;
 using DATABASE;
-
 internal class Program
 {
     private static void Main(string[] args)
     {
         //HITTADE FEL:
         // ENTER MESSAGE TO READ, MAN SKA KUNNA VÄLJA RETURN
-        //
         int loginOption = 0;
         string answer = string.Empty;
         bool loggedInAsUser = false;
@@ -42,7 +40,7 @@ internal class Program
             switch (loginOption)
             {
                 case 1:
-                  //  user = userOperator.CreateUser(user, logInService);
+                  user = userOperator.CreateUser(user, logInService);
                     break;
                 case 2:
                     int id = userOperator.UserLogIn();
@@ -234,11 +232,7 @@ internal class Program
                     break;
                     //kolla så alla exists och update fungerar, 
                     //ska exists ha egen interface också?
-                    
-
             }
         }
-
     }
-
 }

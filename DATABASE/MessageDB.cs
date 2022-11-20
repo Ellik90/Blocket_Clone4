@@ -9,18 +9,18 @@ public class MessageDB : IMessageSender, IConversationHandler
 
     public int CreateMessageTest(Message message)
     {
-       int rows = 0;
+        int rows = 0;
         using (MySqlConnection connection = new MySqlConnection("Server=localhost;Database=blocket_clone;Uid=root;Pwd=;Allow User Variables=true;"))
         {
-            string query = "START TRANSACTION;"+
-            "INSERT INTO message (rubric, content) VALUES(@rubric, @content);"+
-            "SET @message_id := LAST_INSERT_ID();"+
-            "INSERT INTO user_message (from_user_id, to_user_id, message_id) VALUES(@idfromuser, @idtouser, @message_id);"+
-            "SET @user_message_id := LAST_INSERT_ID();"+
-            "INSERT INTO conversation_thread (user_id, user_message_id) VALUES(@idfromuser, @user_message_id);"+
-            "INSERT INTO conversation_thread (user_id, user_message_id) VALUES(@idtouser, @user_message_id);"+
+            string query = "START TRANSACTION;" +
+            "INSERT INTO message (rubric, content) VALUES(@rubric, @content);" +
+            "SET @message_id := LAST_INSERT_ID();" +
+            "INSERT INTO user_message (from_user_id, to_user_id, message_id) VALUES(@idfromuser, @idtouser, @message_id);" +
+            "SET @user_message_id := LAST_INSERT_ID();" +
+            "INSERT INTO conversation_thread (user_id, user_message_id) VALUES(@idfromuser, @user_message_id);" +
+            "INSERT INTO conversation_thread (user_id, user_message_id) VALUES(@idtouser, @user_message_id);" +
             "COMMIT; SELECT @user_message_id;";
-            rows = connection.QuerySingle<int>(query, param : message);
+            rows = connection.QuerySingle<int>(query, param: message);
         }
         return rows;
     }
@@ -47,37 +47,6 @@ public class MessageDB : IMessageSender, IConversationHandler
         }
         return messages;
     }
-    public int CreateMessage(Message message)
-    {
-        int messageId = 0;
-        using (MySqlConnection connection = new MySqlConnection("Server=localhost;Database=blocket_clone;Uid=root;Pwd=;"))
-        {
-            string query = "INSERT INTO message (rubric, content) VALUES(@rubric, @content);SELECT LAST_INSERT_ID();";
-            messageId = connection.ExecuteScalar<int>(query, param: message);
-        }
-        return messageId;
-    }
-    // public int SendMessage(Message message, int messageId) // int MessageId om create message hämtar medd ID
-    // {
-    //     int usermessageId = 0;
-    //     using (MySqlConnection connection = new MySqlConnection("Server=localhost;Database=blocket_clone;Uid=root;Pwd=;"))
-    //     {
-    //         string query = "INSERT INTO user_message (from_user_id, to_user_id, message_id) VALUES(@IDFromUser, @IDToUser, @ID); SELECT LAST_INSERT_ID();";
-    //         usermessageId = connection.ExecuteScalar<int>(query, new { @IDFromUser = message.IDFromUser, @IDToUser = message.IDToUser, @ID = messageId });
-    //         //@fromuser = message.IDFromUser, @touser = message.IDToUser, @messageid = messageId 
-    //     }
-    //     return usermessageId;
-    // }
-    // public int AddConversationThread(int userId, int userMessageId)
-    // {
-    //     int rows = 0;
-    //     using (MySqlConnection connection = new MySqlConnection("Server=localhost;Database=blocket_clone;Uid=root;Pwd=;"))
-    //     {
-    //         string query = "INSERT INTO conversation_thread (user_id, user_message_id) VALUES(@Id, @usermessageId);";
-    //         rows = connection.ExecuteScalar<int>(query, new { @Id = userId, @usermessageId = userMessageId });
-    //     }
-    //     return rows;
-    // }
     public int DeleteMessageConversation(int myId, int participantId)
     {
         int rows = 0;
@@ -113,19 +82,15 @@ public class MessageDB : IMessageSender, IConversationHandler
         }
         return allMessages;
     }
-    public List<Message> GetMessageConversationNew(int messageId, int participantId, int myId)
+    public int CreateMessage(Message message)
     {
-        List<Message> messages = new();
+        int messageId = 0;
         using (MySqlConnection connection = new MySqlConnection("Server=localhost;Database=blocket_clone;Uid=root;Pwd=;"))
         {
-            string query = "SELECT p.rubric, p.content, u1.nick_name as 'namefromuser' " +
-            " FROM user_message um  " +
-            "LEFT JOIN message p ON (um.message_id = p.id) LEFT JOIN users u1 ON (u1.id = um.from_user_id) " +
-            " LEFT JOIN users u2 ON (u2.id = um.to_user_id) LEFT JOIN conversation_thread ct ON (ct.user_id = u1.id) " +
-            "  WHERE (u1.id = @participantid AND u2.id = @myid) OR (u2.id = @participantid AND u1.id = @myid) AND ct.user_id = @myid GROUP BY ct.user_id ORDER BY um.date_sent ASC;";
-            messages = connection.Query<Message>(query, new { @messageid = messageId, @otheruserid = participantId, @myid = myId }).ToList();
+            string query = "INSERT INTO message (rubric, content) VALUES(@rubric, @content);SELECT LAST_INSERT_ID();";
+            messageId = connection.ExecuteScalar<int>(query, param: message);
         }
-        return messages;
+        return messageId;
     }
     public List<int> GetAdminId()
     {
