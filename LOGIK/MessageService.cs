@@ -5,26 +5,20 @@ public class MessageService : IMessageService
 {
     IMessageSender _messageSender;
     IConversationHandler _conversationHandler;
-    IAdminMessager _adminMessager;
+    IAdminMessageHandler _adminMessager;
     List<Message> allMessages = new();
     List<Message> oneConversationMessages = new();
     Message message = new();
-    public MessageService(IMessageSender messageSender, IConversationHandler conversationHandler, IAdminMessager adminMessager)
+    public MessageService(IMessageSender messageSender, IConversationHandler conversationHandler, IAdminMessageHandler adminMessager)
     {
         _messageSender = messageSender;
         _conversationHandler = conversationHandler;
         _adminMessager = adminMessager;
     }
-    public bool MakeMessage(Message message, User user)
+    public bool MakeMessage(Message message)
     {
-        int newMessageId = _messageSender.CreateMessage(message);
-        message.ID = newMessageId;
-        allMessages.Add(message);
-        int usermessageId = _messageSender.SendMessage(message, newMessageId);
-        int rows = _messageSender.AddConversationThread(user.Id, usermessageId);
-        int toUserId = message.IDToUser;
-        int converstaionRows = _messageSender.AddConversationThread(toUserId, usermessageId);
-        if (newMessageId > 0 && usermessageId > 0 && rows > 0 && converstaionRows > 0)
+        int rows = _messageSender.CreateMessageTest(message);
+        if(rows > 0)
         {
             return true;
         }
@@ -54,16 +48,10 @@ public class MessageService : IMessageService
     {
         _conversationHandler.DeleteMessageConversation(myid, participantId);
     }
-
     public int GetSender(int messageId)
     {
         return _messageSender.GetSenderId(messageId);
     }
-     public int AdminGetSender(int messageId)
-    {
-        return _adminMessager.AdminGetSenderId(messageId);
-    }
-
     public bool MessageToAdmin(User user, Message message)
     {
         int newMessageId = _messageSender.CreateMessage(message);
@@ -80,29 +68,17 @@ public class MessageService : IMessageService
             return false;
         }
     }
-     public void MessageAdminToUser(Admin admin, Message message, int senderId, int messageId)
-    {
-        int newMessageId = _messageSender.CreateMessage(message);
-        allMessages.Add(message);
-        int replyId = _adminMessager.SendMessageFromAdmin(senderId, admin.Id, newMessageId);
-        _adminMessager.UpdateMessageIsReplied(messageId);
-    }
-    public List<Message> GetUsersMessages(Admin admin)
-    {
-        return _adminMessager.GetUsersMessages(admin);
-    }
     public List<Message> GetMessagesFromAdmin(User user)
     {
         List<Message> getMessages = _conversationHandler.GetMessagesFromAdmin(user);
         List<Message> messagesNotOld = new();
-        foreach(Message item in messagesNotOld)
+        foreach(Message item in getMessages)
         {
-            if(DateTime.Now.AddDays(7) < item.DateSent)
+            if(DateTime.Now < item.DateSent.AddDays(7))
             {
                 messagesNotOld.Add(item);
             }
         }
         return messagesNotOld;
-
     }
 }

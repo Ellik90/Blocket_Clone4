@@ -12,7 +12,7 @@ class UserOperator
         _userService = userService;
         _validator = validator;
     }
-    public User CreateUser(User user)
+    public User CreateUser(User user, LogInService logInService)
     {
         bool exists = false;
         do

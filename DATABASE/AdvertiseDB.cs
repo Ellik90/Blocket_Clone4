@@ -14,11 +14,11 @@ public class AddvertiseDb : IAdHandler
 
         using (MySqlConnection con = new MySqlConnection("Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
-            string query = "INSERT INTO advertise(rubric,description,price,municipality,county,postal_number,user_id)VALUES(@rubric,@description,@price,@county,@municipality,@postalNumber, @userid); SELECT LAST_INSERT_ID();" ;
+            string query = "INSERT INTO advertise(rubric,description,price,municipality,county,postal_number,user_id)VALUES(@rubric,@description,@price,@county,@municipality,@postalNumber, @userid); SELECT LAST_INSERT_ID();";
 
             id = con.ExecuteScalar<int>(query, param: advertise);
         }
-        if (id >= 1 )
+        if (id >= 1)
         {
             Console.WriteLine("Registrerad.");
         }
@@ -38,7 +38,7 @@ public class AddvertiseDb : IAdHandler
         {
             string query = "DELETE FROM advertise WHERE id = @id;";
 
-            rowsEffected = con.ExecuteScalar<int>(query, new{@id = id});
+            rowsEffected = con.ExecuteScalar<int>(query, new { @id = id });
         }
         if (rowsEffected >= 1)
         {
@@ -49,7 +49,7 @@ public class AddvertiseDb : IAdHandler
 
     {
         List<Advertise> allAds = new();
-// id
+        // id
 
         using (MySqlConnection con = new MySqlConnection("Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
@@ -64,7 +64,7 @@ public class AddvertiseDb : IAdHandler
     {
         Advertise advertise = new();
 
-         using (MySqlConnection con = new MySqlConnection("Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
+        using (MySqlConnection con = new MySqlConnection("Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
             string query = "SELECT rubric,description,price,municipality,county,user_id AS 'userID' FROM advertise WHERE id = @id;";
 
@@ -74,7 +74,7 @@ public class AddvertiseDb : IAdHandler
         //all info, även userid 
 
     }
- public void CheckAds(int id)
+    public void CheckAds(int id)
 
     {
 
@@ -82,26 +82,26 @@ public class AddvertiseDb : IAdHandler
         {
             string query = "UPDATE advertise SET is_checked = true WHERE id = @id;";
 
-            int rows = con.ExecuteScalar<int>(query, new{@id = id});
+            int rows = con.ExecuteScalar<int>(query, new { @id = id });
         }
-     
-    
+
+
     }
-    public List <Advertise> ShowMyads(int id)
+    public List<Advertise> ShowMyads(int id)
     {
-        List <Advertise> userAds = ads;
+        List<Advertise> userAds = ads;
 
         using (MySqlConnection con = new MySqlConnection("Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
 
             string query = "SELECT id, rubric,description,price,municipality,county, is_checked AS 'isChecked' FROM advertise WHERE user_id = @id;";
 
-            userAds = con.Query<Advertise>(query, new{@id = id}).ToList();
+            userAds = con.Query<Advertise>(query, new { @id = id }).ToList();
 
         }
         return userAds;
     }
-      public int GetUserIdFromAdvertise(int advertiseId)
+    public int GetUserIdFromAdvertise(int advertiseId)
     {
         // daniel ska ha getadvertise, sedan i service -> 
         //en metod som ger ut endast userns id på annonsen
@@ -110,8 +110,9 @@ public class AddvertiseDb : IAdHandler
         {
             string query = "SELECT user_id FROM advertise WHERE id = @id";
             id = connection.ExecuteScalar<int>(query, new { @id = advertiseId });
-            return id;
+
         }
+        return id;
     }
     public void AdOverview(Advertise advertise)
     {
