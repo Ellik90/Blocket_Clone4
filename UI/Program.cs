@@ -36,7 +36,7 @@ internal class Program
             System.Console.WriteLine("[1] Skapa konto");
             System.Console.WriteLine("[2] Logga in");
             System.Console.WriteLine("[3] Logga in som admin");
-            loginOption = ConsoleInput.GetInt("Go to userpage");
+            loginOption = ConsoleInput.GetInt("Go to page: ");
             switch (loginOption)
             {
                 case 1:
@@ -111,7 +111,7 @@ internal class Program
                     advertiseService = new(new AddvertiseDb());
                     string search = ConsoleInput.GetString("Search Ad: ");
                     List<Advertise> foundad = advertiseService.SearchAd(search);
-
+                 
                     foreach (Advertise item in foundad)
                     {
                         System.Console.WriteLine(item.ToString());
