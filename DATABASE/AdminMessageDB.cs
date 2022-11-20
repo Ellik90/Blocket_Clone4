@@ -2,10 +2,8 @@ using Dapper;
 using MySqlConnector;
 using TYPES;
 namespace DATABASE;
-public class AdminMessageDB : IAdminMessager
+public class AdminMessageDB : IAdminMessageHandler
 {
-    //GÖR TRANSACTION MED MEDD FRÅN ADMIN OCKSÅ! SEDAN SAMT TILL ADMIN!!
-
     public int CreateMessage(Message message, int repliedMessageId)
     {
         int rows = 0;
@@ -31,24 +29,6 @@ public class AdminMessageDB : IAdminMessager
         }
         return fromUserId;
     }
-    public int SendMessageFromAdmin(int userId, int adminId, int messageId)
-    {
-        int newMessageId = 0;
-        using (MySqlConnection connection = new MySqlConnection("Server=localhost;Database=blocket_clone;Uid=root;Pwd=;"))
-        {
-            string query = "INSERT INTO admin_message (user_id, admin_id, message_id, isreplied) VALUES(@userId, @adminId, @messageId, true); SELECT LAST_INSERT_ID();";
-            messageId = connection.ExecuteScalar<int>(query, new { @userId = userId, @adminId = adminId, @messageId = messageId });
-        }
-        return newMessageId;
-    }
-    public void UpdateMessageIsReplied(int messageId)
-    {
-        using (MySqlConnection connection = new MySqlConnection("Server=localhost;Database=blocket_clone;Uid=root;Pwd=;"))
-        {
-            string query = "UPDATE admin_message SET isreplied = true WHERE message_id = @messageid;";
-            int rows = connection.ExecuteScalar<int>(query, new { @messageid = messageId });
-        }
-    }
     public List<Message> GetUsersMessages(Admin admin)
     {
         List<Message> usersMessages = new();
@@ -61,7 +41,4 @@ public class AdminMessageDB : IAdminMessager
         }
         return usersMessages;
     }
-
-
-
 }

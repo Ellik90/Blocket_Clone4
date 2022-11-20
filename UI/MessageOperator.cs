@@ -39,7 +39,7 @@ class MessageOperator
             List<Message> messages = _messageService.ShowOneMessageConversation(messageId, participantId, user.Id);
             foreach (Message item in messages)
             {
-                Console.WriteLine($"{item.nameFromUser}\n\r{item.Rubric}\n\r{item.Content}\n\r");
+                Console.WriteLine(item.ConversationToString());
             }
         }
         catch (ArgumentNullException)

@@ -5,11 +5,11 @@ public class MessageService : IMessageService
 {
     IMessageSender _messageSender;
     IConversationHandler _conversationHandler;
-    IAdminMessager _adminMessager;
+    IAdminMessageHandler _adminMessager;
     List<Message> allMessages = new();
     List<Message> oneConversationMessages = new();
     Message message = new();
-    public MessageService(IMessageSender messageSender, IConversationHandler conversationHandler, IAdminMessager adminMessager)
+    public MessageService(IMessageSender messageSender, IConversationHandler conversationHandler, IAdminMessageHandler adminMessager)
     {
         _messageSender = messageSender;
         _conversationHandler = conversationHandler;

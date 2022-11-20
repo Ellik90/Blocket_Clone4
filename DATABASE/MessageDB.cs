@@ -66,7 +66,7 @@ public class MessageDB : IMessageSender, IConversationHandler
         List<Message> allMessages = new();
         using (MySqlConnection connection = new MySqlConnection("Server=localhost;Database=blocket_clone;Uid=root;Pwd=;"))
         {
-            string query = "SELECT p.id, p.rubric, u1.nick_name as 'namefromuser',u2.nick_name as 'touser',  COUNT(um.from_user_id) as 'countMessagesFromUser' " +
+            string query = "SELECT p.id, p.rubric, u1.nick_name as 'namefromuser',u2.nick_name as 'touser', um.date_sent as 'datesent',COUNT(um.from_user_id) as 'countMessagesFromUser' " +
             "FROM user_message um " +
             " INNER JOIN message p ON um.message_id = p.id " +
             " INNER JOIN conversation_thread ct ON (ct.user_message_id = um.id) " +
