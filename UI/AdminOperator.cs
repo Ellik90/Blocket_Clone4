@@ -17,7 +17,7 @@ public class AdminOperator
         _loginService = logInService;
         _adminService = adminService;
         _validator = validator;
-    }  
+    }
     public void DeleteAdmin(Admin admin)
     {
         try
@@ -48,32 +48,36 @@ public class AdminOperator
         bool exists = false;
         do
         {
-        admin.Email = ConsoleInput.GetString("Enter your mail-adress");
-        if (_adminService.CheckAdminEmailExists(admin.Email))
-        {
-            Console.WriteLine("Email allready exists");
-            exists = true;
-        }
-        else
-        {
-            exists = false;
-        }
-        }while (exists);
+            admin.Email = ConsoleInput.GetString("Enter your mail-adress");
+            if (_adminService.CheckAdminEmailExists(admin.Email))
+            {
+                Console.WriteLine("Email allready exists");
+                exists = true;
+            }
+            else
+            {
+                exists = false;
+            }
+        } while (exists);
 
         admin.Name = ConsoleInput.GetString("name: ");
 
         do
         {
-        admin.SocialSecurityNumber = ConsoleInput.GetString("social security number: ");
-        if (_validator.ValidateSocialSecurityNumber(admin.SocialSecurityNumber) == false)
-        {
-            Console.WriteLine("Social security number incorrect");
-            exists = true;
-        }
-        }while (exists);
+            admin.SocialSecurityNumber = ConsoleInput.GetString("social security number: ");
+            if (_validator.ValidateSocialSecurityNumber(admin.SocialSecurityNumber) == false)
+            {
+                Console.WriteLine("Social security number incorrect");
+                exists = true;
+            }
+            else
+            {
+                exists = false;
+            }
+        } while (exists);
+
         admin = _loginService.MakeNewLogIn(admin);
         _adminService.MakeAdmin(admin);
-
         return admin;
     }
     public int AdminLogin()

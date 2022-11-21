@@ -72,31 +72,25 @@ public class AdminService : IAdminService
         }
     }
 
-    public bool CheckAdminNameExists(string name)
-    {
-        int rows = 0;
-        _adminHandeler.AdminNameExists(name); //name admin
-        if (rows > 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
+    // public bool CheckAdminNameExists(string name)
+    // {
+    //     bool rows = true;
+    //     _adminHandeler.AdminNameExists(name); //name admin  // Används ej
+    //     if ( _adminHandeler.AdminNameExists(name) == true)
+    //     {
+    //         rows = true;
+    //     }
+    //    return rows;
+    // }
     public bool CheckAdminEmailExists(string Email)
     {
-        int rows = 0;
-        _adminHandeler.AdminEmailExists(Email);
-        if (rows > 0)
+        bool rows = false;
+
+        if (_adminHandeler.AdminEmailExists(Email) == true)
         {
             return true;
         }
-        else
-        {
-            return false;
-        }
+        return rows;
     }
 
     public List<Advertise> GetNonCheckAds()

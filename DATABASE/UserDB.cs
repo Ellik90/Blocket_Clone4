@@ -27,17 +27,29 @@ public class UserDB : IUserHandeler, IUserEditor, IUserExistsHandeler
             return id;
         }
     }
-    public int NicknameExists(string nickname)
+    // public int NicknameExists(string nickname)
+    // {
+    //     //EGEN DB KLASS
+    //     int rows = 0;
+    //     using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
+    //     {
+    //         string? query = "SELECT * FROM users WHERE nick_name = @name";
+    //         rows = connection.ExecuteScalar<int>(query, new { @name = nickname });
+    //     }
+    //     return rows;
+    // }
+    public bool NicknameExists(string nickname)
     {
         //EGEN DB KLASS
-        int rows = 0;
+        bool rows = true;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
             string? query = "SELECT * FROM users WHERE nick_name = @name";
-            rows = connection.ExecuteScalar<int>(query, new { @name = nickname });
+            rows = connection.ExecuteScalar<bool>(query, new { @name = nickname });
         }
         return rows;
     }
+
 
     public int CreateUser(User user)
     {
@@ -63,13 +75,24 @@ public class UserDB : IUserHandeler, IUserEditor, IUserExistsHandeler
         }
     }
 
-    public int UserEmailExists(string email)
+    // public int UserEmailExists(string email)
+    // {
+    //     int rows = 0;
+    //     using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
+    //     {
+    //         string? query = "SELECT * FROM users WHERE email = @email ";
+    //         rows = connection.ExecuteScalar<int>(query, new { @email = email });
+    //     }
+    //     return rows;
+    // }
+    
+    public bool UserEmailExists(string email)
     {
-        int rows = 0;
+        bool rows = true;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
             string? query = "SELECT * FROM users WHERE email = @email ";
-            rows = connection.ExecuteScalar<int>(query, new { @email = email });
+            rows = connection.ExecuteScalar<bool>(query, new { @email = email });
         }
         return rows;
     }

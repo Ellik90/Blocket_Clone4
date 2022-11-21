@@ -38,7 +38,7 @@ internal class Program
             System.Console.WriteLine("[3] Logga in som admin");
             loginOption = ConsoleInput.GetInt("Go to userpage");
             switch (loginOption)
-            {
+            {// felhanetringen funkar inte, exists är en ny interface, ska dela upp db också!
                 case 1:
                    userOperator.CreateUser(user, logInService);
                     break;

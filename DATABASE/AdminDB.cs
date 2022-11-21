@@ -27,28 +27,28 @@ public class AdminDB : IAdminHandeler, IAdminEditor
             return id;
         }
     }
-    public int AdminEmailExists(string Email)
+    public bool AdminEmailExists(string Email)
     {
         //EGEN DB KLASS?
-        int rows = 0;
+        bool rows = true;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
         {
             string? query = "SELECT * FROM admins WHERE email = @email";
-            rows = connection.ExecuteScalar<int>(query, new { @email = Email });
+            rows = connection.ExecuteScalar<bool>(query, new { @email = Email });
         }
         return rows;
     }
-    public int AdminNameExists(string name)
-    {
-        //EGEN DB KLASS
-        int rows = 0;
-        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
-        {
-            string? query = "SELECT * FROM admins WHERE admin_name = @name";
-            rows = connection.ExecuteScalar<int>(query, new { @name = name });
-        }
-        return rows;
-    }
+    // public bool AdminNameExists(string name)
+    // {
+    //     //EGEN DB KLASS
+    //     bool rows = true;
+    //     using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
+    //     {
+    //         string? query = "SELECT * FROM admins WHERE admin_name = @name";
+    //         rows = connection.ExecuteScalar<bool>(query, new { @name = name });   // denna används inte
+    //     }
+    //     return rows;
+    // }
     public int DeleteAdmin(Admin admin)
     {
         int rows = 0;

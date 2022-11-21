@@ -59,29 +59,23 @@ public class UserService : IUserService
     }
     public bool CheckNickNameExists(string nickName)
     {
-        int rows = 0;
+        bool rows = false;
         _userExistsHandeler.NicknameExists(nickName);
-        if (rows > 0)
+        if (_userExistsHandeler.NicknameExists(nickName) == true)
         {
-            return true;
+           rows = true;
         }
-        else
-        {
-            return false;
-        }
+       return rows;
     }
-     public bool CheckUserEmailExists(string email)
+         public bool CheckUserEmailExists(string email)
     {
-        int rows = 0;
-        _userExistsHandeler.UserEmailExists(email);
-        if (rows > 0)
+        bool rows = false;
+        
+        if (_userExistsHandeler.UserEmailExists(email) == true)
         {
-            return true;
+            rows = true;
         }
-        else
-        {
-            return false;
-        }
+     return rows;
     }
     public bool DeleteTheUser(User user)
     {

@@ -30,7 +30,7 @@ class UserOperator
         } while (exists);
         do
         {
-            user.Name = ConsoleInput.GetString("name: ");
+            user.Name = ConsoleInput.GetString("Nickname: ");
             if ((_userService.CheckNickNameExists(user.Name)))
             {
                 Console.WriteLine("name alredy exists");
@@ -44,12 +44,12 @@ class UserOperator
         do
         {
             user.SocialSecurityNumber = ConsoleInput.GetString("social security number: ");
-            if ((_validator.ValidateSocialSecurityNumber(user.SocialSecurityNumber)))
+            if ((_validator.ValidateSocialSecurityNumber(user.SocialSecurityNumber) == false))
             {
-                Console.WriteLine("social security number alredy exists");
+                Console.WriteLine("social security number incorrect");
                 exists = true;
             }
-           else
+            else
             {
                 exists = false;
             }
