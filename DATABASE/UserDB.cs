@@ -2,7 +2,7 @@ using Dapper;
 using MySqlConnector;
 using TYPES;
 namespace DATABASE;
-public class UserDB : IUserHandeler, IUserEditor
+public class UserDB : IUserHandeler
 {
     public List<User> GetUser()
     {
@@ -28,19 +28,6 @@ public class UserDB : IUserHandeler, IUserEditor
         }
     }
 
-    // public bool NicknameExists(string nickname)
-    // {
-    //     //EGEN DB KLASS
-    //     bool rows = true;
-    //     using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
-    //     {
-    //         string? query = "SELECT * FROM users WHERE nick_name = @name";
-    //         rows = connection.ExecuteScalar<bool>(query, new { @name = nickname });
-    //     }
-    //     return rows;
-    // }
-
-
     public int CreateUser(User user)
     {
         int rows = 0;
@@ -51,30 +38,6 @@ public class UserDB : IUserHandeler, IUserEditor
         }
         return rows;
     }
-    //hämta ut id från user
-    //testa alla querys i databasen
-    // public int UserLogInExists(User user)
-    // {
-    //     // EGEN DB KLASS
-    //     int id = 0;
-    //     using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
-    //     {
-    //         string? query = "SELECT * FROM users WHERE email = @email AND pass_word = @password; SELECT LAST_INSERT_ID() ";
-    //         id = connection.ExecuteScalar<int>(query, param: user);
-    //         return id;
-    //     }
-    // }
-    
-    // public bool UserEmailExists(string email)
-    // {
-    //     bool rows = true;
-    //     using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
-    //     {
-    //         string? query = "SELECT * FROM users WHERE email = @email ";
-    //         rows = connection.ExecuteScalar<bool>(query, new { @email = email });
-    //     }
-    //     return rows;
-    // }
 
     public int DeleteUser(User user)
     {
@@ -87,49 +50,49 @@ public class UserDB : IUserHandeler, IUserEditor
         return rows;
     }
 
-    public int UpdateEmail(User user, string userEmail)
-    {
-        int rows = 0;
-        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
-        {
-            string? query = "UPDATE users SET email = @userEmail WHERE id = @id";
-            rows = connection.ExecuteScalar<int>(query, param: new { @userEmail = userEmail, @id = user.Id });
-        }
-        return rows;
-    }
+    // public int UpdateEmail(User user, string userEmail)
+    // {
+    //     int rows = 0;
+    //     using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
+    //     {
+    //         string? query = "UPDATE users SET email = @userEmail WHERE id = @id";
+    //         rows = connection.ExecuteScalar<int>(query, param: new { @userEmail = userEmail, @id = user.Id });
+    //     }
+    //     return rows;
+    // }
 
-    public int UpdateNickName(User user, string nickName)
-    {
-        // git add .\LOGIK\UserDB.cs 
-        int rows = 0;
-        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
-        {
-            string? query = "UPDATE users SET nick_name = @nickname WHERE id = @id";
-            rows = connection.ExecuteScalar<int>(query, param: new { @nickname = nickName, @id = user.Id });
-        }
-        return rows;
-    }
-    public int UpDateDescription(User user, string updateDescription)
-    {
-        int rows = 0;
-        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
-        {
-            string? query = "UPDATE users SET description = @description WHERE id = @id";
-            rows = connection.ExecuteScalar<int>(query, param: new { @description = updateDescription, @id = user.Id });
-        }
-        return rows;
-    }
+    // public int UpdateNickName(User user, string nickName)
+    // {
+    //     // git add .\LOGIK\UserDB.cs 
+    //     int rows = 0;
+    //     using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
+    //     {
+    //         string? query = "UPDATE users SET nick_name = @nickname WHERE id = @id";
+    //         rows = connection.ExecuteScalar<int>(query, param: new { @nickname = nickName, @id = user.Id });
+    //     }
+    //     return rows;
+    // }
+    // public int UpDateDescription(User user, string updateDescription)
+    // {
+    //     int rows = 0;
+    //     using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
+    //     {
+    //         string? query = "UPDATE users SET description = @description WHERE id = @id";
+    //         rows = connection.ExecuteScalar<int>(query, param: new { @description = updateDescription, @id = user.Id });
+    //     }
+    //     return rows;
+    // }
 
-    public int UpDatePassword(User user, string passWord)
-    {
-        int rows = 0;
-        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
-        {
-            string? query = "UPDATE users SET pass_word = @password WHERE id = @id";
-            rows = connection.ExecuteScalar<int>(query, param: new { @password = passWord, @id = user.Id });
-        }
-        return rows;
-    }
+    // public int UpDatePassword(User user, string passWord)
+    // {
+    //     int rows = 0;
+    //     using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
+    //     {
+    //         string? query = "UPDATE users SET pass_word = @password WHERE id = @id";
+    //         rows = connection.ExecuteScalar<int>(query, param: new { @password = passWord, @id = user.Id });
+    //     }
+    //     return rows;
+    // }
 
 
 }

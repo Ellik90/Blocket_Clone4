@@ -16,14 +16,14 @@ internal class Program
         int adminOptions = 0;
         int choice = 0;
         MessageService messageService = new(new MessageDB(), new MessageDB(), new AdminMessageDB());
-        AdminService adminService = new(new UserDB(), new UserDB(), new AdminDB(), new AdminDB(), new AddvertiseDb(), new AdminExistsDB());
+        AdminService adminService = new(new UserDB(), new UserEditorDB(), new AdminDB(), new AdminEditorDB(), new AddvertiseDb(), new AdminExistsDB());
         LogInService logInService = new(new AdminDB(), new Validator(), new EmailSender(), new UserExistsDB(), new AdminExistsDB());
-        UserService userservise = new(new UserDB(), new UserDB(), new UserExistsDB());
+        UserService userservise = new(new UserDB(), new UserEditorDB(), new UserExistsDB());
         AdminMessageService adminMessageService = new(new AdminMessageDB(), new MessageDB());
         AdvertiseService advertiseService = new(new AddvertiseDb());
         advertiseoperator advertiseoperator = new(advertiseService);
         UserOperator userOperator = new(logInService, userservise, new Validator());
-        AdminOperator adminOperator = new(logInService, adminService, userservise, new AdminDB(), new Validator());
+        AdminOperator adminOperator = new(logInService, adminService, userservise, new AdminEditorDB(), new Validator());
         MessageOperator messageOperator = new(messageService);
         AdminMessageOperator adminMessageOperator = new(adminMessageService);
         User user = new();
@@ -38,7 +38,7 @@ internal class Program
             System.Console.WriteLine("[3] Logga in som admin");
             loginOption = ConsoleInput.GetInt("Go to userpage");
             switch (loginOption)
-            {// felhanetringen funkar inte, exists är en ny interface, ska dela upp db också!
+            {// felhantering funkar för det mesta, ska skapa 2 editor databasklasser och dela upp
                 case 1:
                     userOperator.CreateUser(user, logInService);
                     break;
