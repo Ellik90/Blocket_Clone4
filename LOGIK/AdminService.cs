@@ -8,14 +8,16 @@ public class AdminService : IAdminService
     IUserEditor _userEditor;
     IAdHandler _adHandeler;
     IAdminHandeler _adminHandeler;
+    IAdminExistsHandeler _adminExistsHandeler;
 
-    public AdminService(IUserHandeler userHandeler, IUserEditor userEditor, IAdminHandeler adminHandeler, IAdminEditor adminEditor, IAdHandler adHandler)
+    public AdminService(IUserHandeler userHandeler, IUserEditor userEditor, IAdminHandeler adminHandeler, IAdminEditor adminEditor, IAdHandler adHandler, IAdminExistsHandeler adminExistsHandeler)
     {
         _userHandeler = userHandeler;
         _userEditor = userEditor;
         _adminHandeler = adminHandeler;
         _adHandeler = adHandler;
         _adminEditor = adminEditor;
+        _adminExistsHandeler = adminExistsHandeler;
     }
 
     public bool UpdateEmail(Admin admin, string adminEmail)
@@ -86,7 +88,7 @@ public class AdminService : IAdminService
     {
         bool rows = false;
 
-        if (_adminHandeler.AdminEmailExists(Email) == true)
+        if (_adminExistsHandeler.AdminEmailExists(Email) == true)
         {
             return true;
         }

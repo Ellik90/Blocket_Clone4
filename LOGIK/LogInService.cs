@@ -8,13 +8,15 @@ public class LogInService : ILogInService
     IAdminHandeler _adminHandeler;
     IValidator _validator;
     IEmailSender _emailSender;
+    IAdminExistsHandeler _adminExistsHandeler;
 
-    public LogInService(IAdminHandeler adminhandeler, IValidator validator, IEmailSender emailSender, IUserExistsHandeler userExistsHandeler)
+    public LogInService(IAdminHandeler adminhandeler, IValidator validator, IEmailSender emailSender, IUserExistsHandeler userExistsHandeler, IAdminExistsHandeler adminExistsHandeler)
     {
         _userExistsHandeler = userExistsHandeler;
         _adminHandeler = adminhandeler;
         _validator = validator;
         _emailSender = emailSender;
+        _adminExistsHandeler = adminExistsHandeler;
     }
     User user = new();
     public User MakeNewLogIn(User user)
@@ -82,7 +84,7 @@ public class LogInService : ILogInService
     }
     public int AdminLogInIsValid(Admin admin)
     {
-        return _adminHandeler.AdminLogInExists(admin);
+        return _adminExistsHandeler.AdminLogInExists(admin);
     }
 
 }

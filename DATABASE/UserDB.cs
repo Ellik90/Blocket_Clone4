@@ -2,7 +2,7 @@ using Dapper;
 using MySqlConnector;
 using TYPES;
 namespace DATABASE;
-public class UserDB : IUserHandeler, IUserEditor, IUserExistsHandeler
+public class UserDB : IUserHandeler, IUserEditor
 {
     public List<User> GetUser()
     {
@@ -27,28 +27,18 @@ public class UserDB : IUserHandeler, IUserEditor, IUserExistsHandeler
             return id;
         }
     }
-    // public int NicknameExists(string nickname)
+
+    // public bool NicknameExists(string nickname)
     // {
     //     //EGEN DB KLASS
-    //     int rows = 0;
+    //     bool rows = true;
     //     using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
     //     {
     //         string? query = "SELECT * FROM users WHERE nick_name = @name";
-    //         rows = connection.ExecuteScalar<int>(query, new { @name = nickname });
+    //         rows = connection.ExecuteScalar<bool>(query, new { @name = nickname });
     //     }
     //     return rows;
     // }
-    public bool NicknameExists(string nickname)
-    {
-        //EGEN DB KLASS
-        bool rows = true;
-        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
-        {
-            string? query = "SELECT * FROM users WHERE nick_name = @name";
-            rows = connection.ExecuteScalar<bool>(query, new { @name = nickname });
-        }
-        return rows;
-    }
 
 
     public int CreateUser(User user)
@@ -63,39 +53,28 @@ public class UserDB : IUserHandeler, IUserEditor, IUserExistsHandeler
     }
     //hämta ut id från user
     //testa alla querys i databasen
-    public int UserLogInExists(User user)
-    {
-        // EGEN DB KLASS
-        int id = 0;
-        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
-        {
-            string? query = "SELECT * FROM users WHERE email = @email AND pass_word = @password; SELECT LAST_INSERT_ID() ";
-            id = connection.ExecuteScalar<int>(query, param: user);
-            return id;
-        }
-    }
-
-    // public int UserEmailExists(string email)
+    // public int UserLogInExists(User user)
     // {
-    //     int rows = 0;
+    //     // EGEN DB KLASS
+    //     int id = 0;
+    //     using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
+    //     {
+    //         string? query = "SELECT * FROM users WHERE email = @email AND pass_word = @password; SELECT LAST_INSERT_ID() ";
+    //         id = connection.ExecuteScalar<int>(query, param: user);
+    //         return id;
+    //     }
+    // }
+    
+    // public bool UserEmailExists(string email)
+    // {
+    //     bool rows = true;
     //     using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
     //     {
     //         string? query = "SELECT * FROM users WHERE email = @email ";
-    //         rows = connection.ExecuteScalar<int>(query, new { @email = email });
+    //         rows = connection.ExecuteScalar<bool>(query, new { @email = email });
     //     }
     //     return rows;
     // }
-    
-    public bool UserEmailExists(string email)
-    {
-        bool rows = true;
-        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
-        {
-            string? query = "SELECT * FROM users WHERE email = @email ";
-            rows = connection.ExecuteScalar<bool>(query, new { @email = email });
-        }
-        return rows;
-    }
 
     public int DeleteUser(User user)
     {
