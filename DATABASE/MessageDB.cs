@@ -5,7 +5,7 @@ namespace DATABASE;
 public class MessageDB : IMessageSender, IConversationHandler
 {
     public MessageDB() { }
-    public int CreateMessageTest(Message message)
+    public int CreateSendMessage(Message message)
     {
         int rows = 0;
         using (MySqlConnection connection = new MySqlConnection("Server=localhost;Database=blocket_clone;Uid=root;Pwd=;Allow User Variables=true;"))
@@ -61,7 +61,7 @@ public class MessageDB : IMessageSender, IConversationHandler
         }
         return rows;
     }
-    public List<Message> GetMessagesNew(User user)
+    public List<Message> GetMessages(User user)
     {
         List<Message> allMessages = new();
         using (MySqlConnection connection = new MySqlConnection("Server=localhost;Database=blocket_clone;Uid=root;Pwd=;"))
@@ -95,7 +95,7 @@ public class MessageDB : IMessageSender, IConversationHandler
         List<int> adminIds = new();
         using (MySqlConnection connection = new MySqlConnection("Server=localhost;Database=blocket_clone;Uid=root;Pwd=;"))
         {
-            string query = "SELECT id FROM admins";
+            string query = "SELECT id FROM admins"; // senare tex: where role is ....
             adminIds = connection.Query<int>(query).ToList();
         }
         return adminIds;

@@ -5,8 +5,6 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        //HITTADE FEL:
-        // ENTER MESSAGE TO READ, MAN SKA KUNNA VÄLJA RETURN
         int loginOption = 0;
         string answer = string.Empty;
         bool loggedInAsUser = false;
@@ -31,12 +29,12 @@ internal class Program
         Console.Clear();
         while (loginPage)
         {
-            System.Console.WriteLine("Välkommen till Scam_Blocket");
+            System.Console.WriteLine("Scam_Blocket");
             System.Console.WriteLine("");
-            System.Console.WriteLine("[1] Skapa konto");
-            System.Console.WriteLine("[2] Logga in");
-            System.Console.WriteLine("[3] Logga in som admin");
-            loginOption = ConsoleInput.GetInt("Go to userpage");
+            System.Console.WriteLine("[1] Create account");
+            System.Console.WriteLine("[2] Log in");
+            System.Console.WriteLine("[3] Log in as admin");
+            loginOption = ConsoleInput.GetInt("Go to page: ");
             switch (loginOption)
             {// felhantering funkar för det mesta, ska skapa 2 editor databasklasser och dela upp
                 case 1:
@@ -78,15 +76,10 @@ internal class Program
             user = userOperator.GetUser(user);
             System.Console.WriteLine(user.Name.ToUpper() + "'s Account");
             System.Console.WriteLine("-------------------------------");
-            System.Console.WriteLine("[1] Create Ad ");
-            System.Console.WriteLine("[2] Show My Ads");
-            System.Console.WriteLine("[3] Search For Ads");
-            System.Console.WriteLine("[4] My Messages");
+            System.Console.WriteLine("[1] Create Ad     [2] Show My Ads     [3] Search For Ads     [4] My Messages");
             System.Console.WriteLine("[5] Edit profile");
-            System.Console.WriteLine("[6] Contact us");
-            System.Console.WriteLine("[7] Log Out");
+            System.Console.WriteLine("[6] Contact us     [7] Log Out");
             LoggedInOptions = ConsoleInput.GetInt("Go to page: ");
-
             switch (LoggedInOptions)
             {
                 case 1:
@@ -122,9 +115,6 @@ internal class Program
                         {
                             advertiseID = ConsoleInput.GetInt("Advertise Number: ");
                             int adUserID = advertiseoperator.GetUserIdFromAdvertise(advertiseID);
-                            //     UserMakesMessage(toUserId, user, messageService); GAMLA STATISKA METODEN, TA BORT NÄR DEN NEDAN ÄR TESTAD
-                            //     HÄR GÖR OBJEKT AV KLASSEN MESSAGEOPERATION OCH ANROPAR WRITEMESSAGETOAD METODEN HÄR
-                            //    cd ui
                             messageOperator.SendMessage(adUserID, user, "user");
                         }
                         else if (choice == 2)
@@ -138,10 +128,16 @@ internal class Program
                     Console.WriteLine("Messages from Admin (will be shown here for 7 days): ");
                     Console.WriteLine("----------------------");
                     messageOperator.ShowMessagesFromAdmin(user);
+                    do
+                    {
+                        choice = ConsoleInput.GetInt("[1] Read Message  [2] Return");
+                    }while(1>choice || choice>2);
+                    if (choice == 2)
+                    {
+                        break;
+                    }
                     int messageId = ConsoleInput.GetInt("Enter message to read: ");
-                    // hämta det meddealndet via detta id!   så stoppar vi in touser och from user här under
                     int participantId = messageOperator.GetSender(messageId);
-                    // // VISA HELA KONVERSATIONEN PÅ VALT MESSAGE ID
                     messageOperator.ShowMessageConversation(messageId, participantId, user);
                     int chocie = ConsoleInput.GetInt("[1] Reply    [2] Delete conversation    [3] Return");
                     if (chocie == 1)
@@ -233,8 +229,6 @@ internal class Program
                 case 7:
                     Environment.Exit(0);
                     break;
-                    //kolla så alla exists och update fungerar, 
-                    //ska exists ha egen interface också?
             }
         }
     }

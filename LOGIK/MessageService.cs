@@ -17,7 +17,7 @@ public class MessageService : IMessageService
     }
     public bool MakeMessage(Message message)
     {
-        int rows = _messageSender.CreateMessageTest(message);
+        int rows = _messageSender.CreateSendMessage(message);
         if(rows > 0)
         {
             return true;
@@ -29,7 +29,7 @@ public class MessageService : IMessageService
     }
     public List<Message> ShowAllMessages(User user)
     {
-        List<Message> messages = _conversationHandler.GetMessagesNew(user); //_conversationHandler.GetAllMessagesOverlookTest(user);
+        List<Message> messages = _conversationHandler.GetMessages(user); //_conversationHandler.GetAllMessagesOverlookTest(user);
         return messages;
     }
     public List<Message> ShowOneMessageConversation(int messageId, int participantId, int myId)
