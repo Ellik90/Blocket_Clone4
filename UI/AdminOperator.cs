@@ -17,7 +17,7 @@ public class AdminOperator
         _loginService = logInService;
         _adminService = adminService;
         _validator = validator;
-    }  
+    }
     public void DeleteAdmin(Admin admin)
     {
         try
@@ -45,31 +45,41 @@ public class AdminOperator
     }
     public Admin CreateAdmin(Admin admin)
     {
-        admin.Email = ConsoleInput.GetString("Enter your mail-adress");
-        if (_adminService.CheckAdminEmailExists(admin.Email) == true)
+        bool exists = false;
+        do
         {
-            Console.WriteLine("Email allready exists");
-            Environment.Exit(0);
-        }
-        //<-här har user med sig email, lösenord|elina tar över user och gör resten
+            admin.Email = ConsoleInput.GetString("Enter your mail-adress");
+            if (_adminService.CheckAdminEmailExists(admin.Email))
+            {
+                Console.WriteLine("Email allready exists");
+                exists = true;
+            }
+            else
+            {
+                exists = false;
+            }
+        } while (exists);
+
         admin.Name = ConsoleInput.GetString("name: ");
-        if (_adminService.CheckAdminNameExists(admin.Name) == true)
+
+        do
         {
-            Console.WriteLine("Nickname allready exists");
-            Environment.Exit(0);
-        }
-        admin.SocialSecurityNumber = ConsoleInput.GetString("social security number: ");
-        if (_validator.ValidateSocialSecurityNumber(admin.SocialSecurityNumber) == false)
-        {
-            Console.WriteLine("Social security number incorrect");
-            Environment.Exit(0);
-        }
+            admin.SocialSecurityNumber = ConsoleInput.GetString("social security number: ");
+            if (_validator.ValidateSocialSecurityNumber(admin.SocialSecurityNumber) == false)
+            {
+                Console.WriteLine("Social security number incorrect");
+                exists = true;
+            }
+            else
+            {
+                exists = false;
+            }
+        } while (exists);
+
         admin = _loginService.MakeNewLogIn(admin);
         _adminService.MakeAdmin(admin);
-        
         return admin;
     }
-
     public int AdminLogin()
     {
         Admin admin = new();

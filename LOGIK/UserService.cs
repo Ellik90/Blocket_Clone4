@@ -7,10 +7,12 @@ public class UserService : IUserService
 
     IUserHandeler _userHandeler;
     IUserEditor _userEditor; 
-    public UserService(IUserHandeler userHandeler, IUserEditor userEditor)
+    IUserExistsHandeler _userExistsHandeler;
+    public UserService(IUserHandeler userHandeler, IUserEditor userEditor, IUserExistsHandeler userExistsHandeler)
     {
         _userHandeler = userHandeler;
         _userEditor = userEditor;
+        _userExistsHandeler = userExistsHandeler;
     }
     public User GetTheUser(User user)
     {
@@ -57,29 +59,23 @@ public class UserService : IUserService
     }
     public bool CheckNickNameExists(string nickName)
     {
-        int rows = 0;
-        _userHandeler.NicknameExists(nickName);
-        if (rows > 0)
+        bool rows = false;
+        _userExistsHandeler.NicknameExists(nickName);
+        if (_userExistsHandeler.NicknameExists(nickName) == true)
         {
-            return true;
+           rows = true;
         }
-        else
-        {
-            return false;
-        }
+       return rows;
     }
-     public bool CheckUserEmailExists(string Email)
+         public bool CheckUserEmailExists(string email)
     {
-        int rows = 0;
-        _userHandeler.UserEmailExists(Email);
-        if (rows > 0)
+        bool rows = false;
+        
+        if (_userExistsHandeler.UserEmailExists(email) == true)
         {
-            return true;
+            rows = true;
         }
-        else
-        {
-            return false;
-        }
+     return rows;
     }
     public bool DeleteTheUser(User user)
     {

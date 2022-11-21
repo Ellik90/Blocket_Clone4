@@ -6,6 +6,6 @@ public interface IIdentifier
     public bool ValidateSocialSecurityNumber(string socNo);
     public bool ValidateEmail(string email);
     public int SendCodeViaEmail(string email);
-    public bool CheckIfUserExists(IUserHandeler userHandeler, User user);  
+    public bool CheckIfUserExists(IUserExistsHandeler userExists, User user);  
     public int GenerateUniqueCode();
 }

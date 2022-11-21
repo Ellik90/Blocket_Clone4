@@ -16,9 +16,9 @@ internal class Program
         int adminOptions = 0;
         int choice = 0;
         MessageService messageService = new(new MessageDB(), new MessageDB(), new AdminMessageDB());
-        AdminService adminService = new(new UserDB(), new UserDB(), new AdminDB(), new AdminDB(), new AddvertiseDb());
-        LogInService logInService = new(new UserDB(), new AdminDB(), new Validator(), new EmailSender());
-        UserService userservise = new(new UserDB(), new UserDB());
+        AdminService adminService = new(new UserDB(), new UserDB(), new AdminDB(), new AdminDB(), new AddvertiseDb(), new AdminExistsDB());
+        LogInService logInService = new(new AdminDB(), new Validator(), new EmailSender(), new UserExistsDB(), new AdminExistsDB());
+        UserService userservise = new(new UserDB(), new UserDB(), new UserExistsDB());
         AdminMessageService adminMessageService = new(new AdminMessageDB(), new MessageDB());
         AdvertiseService advertiseService = new(new AddvertiseDb());
         advertiseoperator advertiseoperator = new(advertiseService);
@@ -38,9 +38,9 @@ internal class Program
             System.Console.WriteLine("[3] Logga in som admin");
             loginOption = ConsoleInput.GetInt("Go to page: ");
             switch (loginOption)
-            {
+            {// felhanetringen funkar inte, exists är en ny interface, ska dela upp db också!
                 case 1:
-                  user = userOperator.CreateUser(user, logInService);
+                    userOperator.CreateUser(user, logInService);
                     break;
                 case 2:
                     int id = userOperator.UserLogIn();
@@ -182,7 +182,7 @@ internal class Program
                     choice = ConsoleInput.GetInt("[1] Write Message to Admin  [2] Return");
                     if (choice == 1)
                     {
-                        messageOperator.SendMessage(0,user, "admin");
+                        messageOperator.SendMessage(0, user, "admin");
                         Console.WriteLine("You will recieve a reply in your inbox here at blocket-scam.");
                     }
                     break;
@@ -195,11 +195,11 @@ internal class Program
         while (loggedInAsAdmin)
         {
             admin = adminService.GetTheAdmin(admin);
-            adminOptions = ConsoleInput.GetInt("[1] Add new admin-account   [2] Check advertises   [3] User-handeler   [4] Advertise-handeler [5] Update email [6] Delete admin account");
+            adminOptions = ConsoleInput.GetInt("[1] Add new admin-account   [2] Check advertises   [3] User-handeler   [4] Advertise-handeler [5] Update email [6] Delete admin account  [7] Log out");
             switch (adminOptions)
             {
                 case 1:
-                     admin = adminOperator.CreateAdmin(admin);
+                    admin = adminOperator.CreateAdmin(admin);
                     break;
                 case 2:
                     adminOperator.GetNonCheckedAds();
@@ -218,7 +218,7 @@ internal class Program
                     // För vidare utveckling
                     break;
                 case 4:
-                    // För vidare utveckling
+                    // Advertise Handeler för vidare utveckling
                     break;
                 case 5:
                     adminOperator.UpdateEmail(admin);
@@ -229,6 +229,9 @@ internal class Program
                     {
                         adminOperator.DeleteAdmin(admin);
                     }
+                    break;
+                case 7:
+                    Environment.Exit(0);
                     break;
                     //kolla så alla exists och update fungerar, 
                     //ska exists ha egen interface också?

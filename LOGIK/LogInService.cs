@@ -3,16 +3,20 @@ using DATABASE;
 namespace LOGIK;
 public class LogInService : ILogInService
 {
-    IUserHandeler _userHandeler;
+
+    IUserExistsHandeler _userExistsHandeler;
     IAdminHandeler _adminHandeler;
     IValidator _validator;
     IEmailSender _emailSender;
-    public LogInService(IUserHandeler userHandeler, IAdminHandeler adminhandeler, IValidator validator, IEmailSender emailSender)
+    IAdminExistsHandeler _adminExistsHandeler;
+
+    public LogInService(IAdminHandeler adminhandeler, IValidator validator, IEmailSender emailSender, IUserExistsHandeler userExistsHandeler, IAdminExistsHandeler adminExistsHandeler)
     {
-        _userHandeler = userHandeler;
+        _userExistsHandeler = userExistsHandeler;
         _adminHandeler = adminhandeler;
         _validator = validator;
         _emailSender = emailSender;
+        _adminExistsHandeler = adminExistsHandeler;
     }
     User user = new();
     public User MakeNewLogIn(User user)
@@ -76,11 +80,11 @@ public class LogInService : ILogInService
     }
     public int UserLogInIsValid(User user)
     {
-        return _userHandeler.UserLogInExists(user);
+        return _userExistsHandeler.UserLogInExists(user);
     }
     public int AdminLogInIsValid(Admin admin)
     {
-        return _adminHandeler.AdminLogInExists(admin);
+        return _adminExistsHandeler.AdminLogInExists(admin);
     }
 
 }
