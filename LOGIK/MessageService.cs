@@ -29,19 +29,19 @@ public class MessageService : IMessageService
     }
     public List<Message> ShowAllMessages(User user)
     {
-        List<Message> messages = _conversationHandler.GetMessages(user); //_conversationHandler.GetAllMessagesOverlookTest(user);
+        List<Message> messages = _conversationHandler.GetMessagesOverview(user); //_conversationHandler.GetAllMessagesOverlookTest(user);
         return messages;
     }
     public List<Message> ShowOneMessageConversation(int messageId, int participantId, int myId)
     {
         // den hittar meddelande med specifikt id
-        List<Message> messages = _conversationHandler.GetMessageConversationTEST(messageId, participantId, myId);//_conversationHandler.GetMessageConversationTEST(messageId, fromUserId, thisUserId);
+        List<Message> messages = _conversationHandler.GetMessageConversation(messageId, participantId, myId);//_conversationHandler.GetMessageConversationTEST(messageId, fromUserId, thisUserId);
         return messages;
     }
     public List<Message> ShowStructuredConversation(int messageId, int fromUserId, int thisUserId)
     {
         // DENNA SKA INNEHÅLLA FUNKTION, TAR IN ALLA MEDDELANDEN OCH STRUKTURERAR KONVERSATION HÄR I?
-        List<Message> messages = _conversationHandler.GetMessageConversationTEST(messageId, fromUserId, thisUserId);
+        List<Message> messages = _conversationHandler.GetMessageConversation(messageId, fromUserId, thisUserId);
         return messages;
     }
     public void DeleteConversation(int myid, int participantId)

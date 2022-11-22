@@ -22,6 +22,7 @@ public class MessageDB : IMessageSender, IConversationHandler
         }
         return rows;
     }
+
     public int GetSenderId(int messageId)
     {
         int fromUserId = 0;
@@ -32,7 +33,7 @@ public class MessageDB : IMessageSender, IConversationHandler
         }
         return fromUserId;
     }
-    public List<Message> GetMessageConversationTEST(int messageId, int otherUserId, int myId)
+    public List<Message> GetMessageConversation(int messageId, int otherUserId, int myId)
     {
         List<Message> messages = new();
         using (MySqlConnection connection = new MySqlConnection("Server=localhost;Database=blocket_clone;Uid=root;Pwd=;"))
@@ -61,7 +62,7 @@ public class MessageDB : IMessageSender, IConversationHandler
         }
         return rows;
     }
-    public List<Message> GetMessages(User user)
+    public List<Message> GetMessagesOverview(User user)
     {
         List<Message> allMessages = new();
         using (MySqlConnection connection = new MySqlConnection("Server=localhost;Database=blocket_clone;Uid=root;Pwd=;"))
