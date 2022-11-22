@@ -4,7 +4,7 @@ using TYPES;
 namespace DATABASE;
 public class AdminEditorDB : IAdminEditor
 {
-    public int UpdateAdminEmail(Admin admin, string adminEmail)
+          public int UpdateAdminEmail(Admin admin, string adminEmail)
     {
         int rows = 0;
         using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
@@ -15,14 +15,14 @@ public class AdminEditorDB : IAdminEditor
         return rows;
     }
 
-    // public int UpdateAdminName(Admin admin, string name)
-    // {
-    //     int rows = 0;
-    //     using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
-    //     {
-    //         string? query = "UPDATE admins SET admin_name = @name WHERE id = @id";
-    //         rows = connection.ExecuteScalar<int>(query, param: new { @admin_name = name, @id = admin });
-    //     }
-    //     return rows;
-    // }
+        public int UpdateAdminName(Admin admin, string name)
+    {
+        int rows = 0;
+        using (MySqlConnection connection = new MySqlConnection($"Server=localhost;Database=Blocket_clone;Uid=root;Pwd=;"))
+        {
+            string? query = "UPDATE admins SET admin_name = @name WHERE id = @id";
+            rows = connection.ExecuteScalar<int>(query, param: new { @admin_name = name, @id = admin });
+        }
+        return rows;
+    }
 }
