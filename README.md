@@ -16,3 +16,4 @@ de som hanterar andra admins tex lägga till ny admin i systemet osv
 - Sökfunktion söka både efter produkt samt län? 
 - Betalningsmetod som blocket har, att de håller i pengarna mellan köpare och säljare till produkt levererad?
 - Man ska kunna radera en användare med relationer till andra users, admins, messages.
+- public profilsida
