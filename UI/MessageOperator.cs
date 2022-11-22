@@ -37,6 +37,7 @@ class MessageOperator
         try
         {
             List<Message> messages = _messageService.ShowOneMessageConversation(messageId, participantId, user.Id);
+            Console.WriteLine();
             foreach (Message item in messages)
             {
                 Console.WriteLine(item.ConversationToString());

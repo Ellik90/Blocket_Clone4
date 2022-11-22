@@ -71,8 +71,8 @@ public class MessageDB : IMessageSender, IConversationHandler
             "FROM user_message um " +
             " INNER JOIN message p ON um.message_id = p.id " +
             " INNER JOIN conversation_thread ct ON (ct.user_message_id = um.id) " +
-            "LEFT JOIN users u1 ON um.from_user_id = u1.id " +
-            "LEFT JOIN users u2 ON um.to_user_id = u2.id " +
+            "INNER JOIN users u1 ON um.from_user_id = u1.id " +
+            "INNER JOIN users u2 ON um.to_user_id = u2.id " +
             "WHERE u2.id = @id AND ct.user_id = @id " +
             "GROUP BY um.from_user_id " +
             "HAVING COUNT(from_user_id) >= 1 " +
