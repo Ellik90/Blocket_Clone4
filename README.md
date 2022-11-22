@@ -1,7 +1,7 @@
 # Blocket_Clone4
 
 Vilka olika delar vi haft hand om:
-Elina --> Admin, User (samt DB, service, operator)
+Elina --> Admin, User (samt DB, service, operator)x2
 Angelina --> Message, AdminMessage (DB, service, operator) LoginService
 Daniel --> Advertise (DB, service, operator) samt menyn i main
 

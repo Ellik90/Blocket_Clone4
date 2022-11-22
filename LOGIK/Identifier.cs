@@ -1,4 +1,3 @@
-using System.Net;
 using System.Net.Mail; //för att använda mailadress klassen och validera mailadressser samt använda klassen smtpclient och skicka mail
 //using Outlook = Microsoft.Office.Interop.Outlook;
 using TYPES;

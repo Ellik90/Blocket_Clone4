@@ -1,5 +1,6 @@
 using TYPES;
 using DATABASE;
+using System.Net.Mail;
 namespace LOGIK;
 public class LogInService : ILogInService
 {
@@ -25,8 +26,16 @@ public class LogInService : ILogInService
         if (_validator.ValidateEmail(user.Email) == true)
         {
             Console.WriteLine("Valid email");
-            user.Password = _emailSender.SendCodeViaEmail(user.Email);
-            Console.WriteLine("Code sent to your mail. Please check junkmail if mail not found.");
+            try
+            {
+                user.Password = _emailSender.SendCodeViaEmail(user.Email);
+                Console.WriteLine("Code sent to your mail. Please check junkmail if mail not found.");
+            }
+            catch(SmtpFailedRecipientException)
+            {
+                Console.WriteLine("Something went wrong. Please contact mail-service.");
+            }
+
         }
         else
         {
